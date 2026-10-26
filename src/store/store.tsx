@@ -13,6 +13,7 @@ import { readStore, userKey, writeStore } from "../platform/storage";
 import { idbDel, idbGet, idbSet } from "../platform/idb";
 import type { User } from "../platform/users";
 import type { ChatMode, RagDataset, RagSource } from "../ai/rag";
+import type { Topic } from "../ai/topic";
 
 export type ChatMessage =
   | { id: string; role: "user"; text: string; at: string; mode?: ChatMode }
@@ -64,6 +65,7 @@ export interface State {
   view: { resultId: string | null; template: TemplateId | null };
   lastResultId: string | null;
   pending: PendingClarify | null;
+  topic: Topic | null; // 마지막 질문의 오른쪽 분석 주제(시세·임금 그래프 또는 추가 선택 안내). 결과를 보이면 비운다
   busy: boolean;
   progress: number;
   aiMode: "rule" | "llm";
@@ -100,6 +102,7 @@ export type Action =
   | { type: "pinResult"; id: string; pinned: boolean }
   | { type: "deleteResult"; id: string }
   | { type: "pending"; pending: PendingClarify | null }
+  | { type: "topic"; topic: Topic | null }
   | { type: "busy"; busy: boolean; progress?: number }
   | { type: "aiMode"; mode: "rule" | "llm" }
   | { type: "panel"; panel: Panel }
@@ -125,13 +128,6 @@ export type Action =
 
 const now = () => new Date().toISOString();
 
-export const SUGGESTED = [
-  "해당 품목의 과거 거래 협력사를 비교해 줘.",
-  "납기 준수율이 낮은 협력사를 찾아줘.",
-  "최근 단가가 상승한 품목을 보여줘.",
-  "A등급 협력사의 품질 실적을 정리해 줘.",
-];
-
 export const WELCOME: ChatMessage = {
   id: "welcome",
   role: "assistant",
@@ -139,7 +135,7 @@ export const WELCOME: ChatMessage = {
   engine: "system",
   text: [
     "안녕하세요. 구매·협력사 데이터 분석 도우미입니다. 협력사 평가, 과거 거래 이력, 단가 비교, 납기 실적 등을 질문해 주세요.",
-    "입력창 위의 추천 질문을 누르거나, 왼쪽 데이터 관리에서 품목·협력사를 고른 뒤 질문하면 그 대상을 기준으로 분석합니다.",
+    "입력창 위의 키워드를 누르거나 자유롭게 질문하세요. 질문에서 찾은 대상으로 오른쪽 분석 결과창도 바뀝니다.",
   ],
 };
 
@@ -212,7 +208,7 @@ function compactSession(s: State, maxResults = MAX_RESULTS, maxMessages = MAX_ME
   };
 }
 
-const EMPTY_TABS = <T,>(v: () => T): Record<TabKey, T> => ({ suppliers: v(), purchaseOrders: v(), contracts: v(), inventory: v() });
+const EMPTY_TABS = <T,>(v: () => T): Record<TabKey, T> => ({ suppliers: v(), purchaseOrders: v(), materials: v(), wages: v(), inventory: v() });
 
 function initial(user: User): State {
   const { data, meta } = loadSample();
@@ -238,6 +234,7 @@ function initial(user: User): State {
     view: saved?.view ?? { resultId: null, template: null },
     lastResultId: saved?.lastResultId ?? null,
     pending: saved?.pending ?? null,
+    topic: null,
     busy: false,
     progress: 0,
     aiMode: "rule",
@@ -317,7 +314,9 @@ function reducer(s: State, a: Action): State {
       };
     }
     case "show":
-      return { ...s, view: { resultId: a.resultId, template: a.template } };
+      return { ...s, view: { resultId: a.resultId, template: a.template }, topic: null };
+    case "topic":
+      return { ...s, topic: a.topic };
     case "renameResult":
       return { ...s, resultMeta: { ...s.resultMeta, [a.id]: { ...s.resultMeta[a.id], name: a.name.trim() || undefined } } };
     case "pinResult":
@@ -437,7 +436,8 @@ interface Store {
 
 const Ctx = createContext<Store | null>(null);
 
-export function StoreProvider({ user, children }: { user: User; children: ReactNode }) {
+/** readOnly: 협력사 상세 새 창용. 저장하지 않아 원래 창의 대화·설정·업로드 저장본을 덮어쓰지 않는다. */
+export function StoreProvider({ user, children, readOnly = false }: { user: User; children: ReactNode; readOnly?: boolean }) {
   const [state, dispatch] = useReducer(reducer, user, initial);
   const derived = useMemo(() => derive(state.data, state.meta.asOf), [state.data, state.meta.asOf]);
   const value = useMemo(() => ({ state, dispatch, derived }), [state, derived]);
@@ -462,7 +462,7 @@ export function StoreProvider({ user, children }: { user: User; children: ReactN
 
   // 업로드 데이터가 바뀌면 저장, 샘플로 돌아가면 저장본 삭제
   useEffect(() => {
-    if (!state.dataReady) return;
+    if (!state.dataReady || readOnly) return;
     if (state.meta.isSample) {
       if (lastSavedId.current !== "sample") {
         lastSavedId.current = "sample";
@@ -495,12 +495,12 @@ export function StoreProvider({ user, children }: { user: User; children: ReactN
     }
   };
   useEffect(() => {
-    if (!state.dataReady) return;
+    if (!state.dataReady || readOnly) return;
     const t = setTimeout(() => saveSession(state), 150);
     return () => clearTimeout(t);
   }, [state.messages, state.results, state.resultMeta, state.view, state.lastResultId, state.pending]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
-    const flush = () => latest.current.dataReady && saveSession(latest.current);
+    const flush = () => !readOnly && latest.current.dataReady && saveSession(latest.current);
     window.addEventListener("pagehide", flush);
     window.addEventListener("beforeunload", flush);
     return () => {
@@ -510,9 +510,11 @@ export function StoreProvider({ user, children }: { user: User; children: ReactN
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
+    if (readOnly) return;
     writeStore(userKey(uid, SETTINGS), { settings: state.settings, userPresets: state.userPresets });
-  }, [uid, state.settings, state.userPresets]);
+  }, [uid, state.settings, state.userPresets]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
+    if (readOnly) return;
     writeStore(userKey(uid, PREFS), { favorites: state.favorites, pinFav: state.pinFav, payChecked: state.payChecked } satisfies SavedPrefs);
   }, [uid, state.favorites, state.pinFav, state.payChecked]);
 

@@ -69,7 +69,7 @@ class BackendTest(unittest.TestCase):
             self.assertEqual(api.post('/search',json={'question':'  '}).status_code,422)
             self.assertEqual(api.post('/search',json={'question':'민원','top_k':0}).status_code,422)
             first=api.post('/index');self.assertEqual(first.status_code,200,first.text)
-            self.assertEqual(first.json()['count'],47)
+            self.assertEqual(first.json()['count'],73)
             active=svc.active()
             self.assertEqual(api.post('/index').json()['action'],'unchanged')
             self.assertEqual(svc.active(),active)
@@ -81,7 +81,7 @@ class BackendTest(unittest.TestCase):
             self.assertEqual(api.post('/search',json={'question':'없는발주','order_id':999999}).json()['count'],0)
             # 같은 디스크 경로에서 새 서비스 객체로 재개해도 벡터가 남습니다.
             reopened=RagService(db,folder/'vectors',fake_encoder)
-            self.assertEqual(reopened.status()['count'],47)
+            self.assertEqual(reopened.status()['count'],73)
             with sqlite3.connect(db) as c:
                 c.execute('delete from complaint where complaint_id=3008')
             self.assertTrue(svc.status()['source_changed'])
@@ -89,10 +89,10 @@ class BackendTest(unittest.TestCase):
             with patch('backend.service.atomic_write',side_effect=OSError('simulated write failure')):
                 with self.assertRaises(OSError):svc.index()
             self.assertEqual(svc.active(),active)
-            self.assertEqual(svc.status()['count'],47)
+            self.assertEqual(svc.status()['count'],73)
             self.assertEqual(len(svc.client.list_collections()),1)
             updated=svc.index()
-            self.assertEqual(updated['count'],46)
+            self.assertEqual(updated['count'],72)
             self.assertFalse(updated['source_changed'])
             self.assertNotIn('complaint-3008:langchain:800:0',svc.collection(svc.active()).get()['ids'])
 

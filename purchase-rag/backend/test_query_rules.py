@@ -92,4 +92,21 @@ class QueryRulesTest(unittest.TestCase):
             with self.subTest(question=question, filters=filters):
                 self.assertEqual(self.route(question, filters)['reason'], expected_reason)
 
+    def test_material_and_wage_series(self):
+        r=self.route('국제 니켈 시세 추이 알려줘')
+        self.assertEqual(r['mode'],'structured')
+        self.assertEqual(r['conditions'],{'material':'니켈','market':'국제'})
+        self.assertEqual([d['metadata']['market'] for d in r['documents']],['국제'])
+        self.assertEqual(len(self.route('최근 6개월 구리 가격')['documents']),2)  # 국내·국제
+        r=self.route('주조원 인건비')
+        self.assertEqual((r['mode'],r['conditions']),('structured',{'occupation':'주조원'}))
+        self.assertEqual(self.route('품질 검사원 임금')['conditions'],{'occupation':'품질 검사원'})
+        for text,reason in [('원자재 시세 알려줘','missing_material'),('인건비 동향','missing_occupation'),
+                            ('니켈과 구리 시세','multiple_materials'),('주조원 임금과 니켈 시세','multiple_market_topics'),
+                            ('니켈 시세 평균','aggregate_not_supported'),('주석 시세 2030년','no_matching_records')]:
+            with self.subTest(text=text):
+                self.assertEqual(self.route(text)['reason'],reason)
+        # 기존 협력사·발주 질문의 해석은 바뀌지 않습니다.
+        self.assertEqual([d['id'] for d in self.route('발주 1104 수량')['documents']],['order-1104'])
+
 if __name__=='__main__':unittest.main()

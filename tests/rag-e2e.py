@@ -101,8 +101,8 @@ def login(page, url):
     if page.locator("#ob-skip").count():
         page.locator("#ob-skip").click()
     page.locator(".chat-launcher").click()
-    page.locator("#chat-answer-mode").select_option("rag")
-    expect(page.locator("#rag-model")).to_be_enabled()
+    # v0.6.0: 질문 방식(구매 DB RAG)·모델(qwen3:8b) 고정, 선택 UI 없음
+    expect(page.locator(".rag-connection")).to_contain_text("구매 DB 기준 답변")
 
 
 def ask(page, question):
@@ -142,11 +142,10 @@ with tempfile.TemporaryFile() as log:
             errors = []
             page.on("pageerror", lambda error: errors.append(str(error)))
             login(page, url)
-            page.locator("#chat-input").fill("발주 1101 수량은?")
-            check("모델을 명시적으로 선택하기 전에는 질문을 보내지 않음", page.locator(".send-btn").is_disabled() and not posts)
-            page.locator("#rag-model").select_option("gemma3:4b")
+            check("질문 방식·모델 선택 UI 없음", page.locator("#chat-answer-mode").count() == 0 and page.locator("#rag-model").count() == 0)
             check("RAG 모드에 웹 데이터 선택 필터를 표시하지 않음", page.locator(".ctx-chips").count() == 0)
             ask(page, "발주 1101 수량은?")
+            check("답변 모델은 qwen3:8b로 고정", posts[0]["payload"]["model"] == "qwen3:8b")
             expect(page.locator(".engine-rag")).to_have_count(1)
             expect(page.locator(".chat-list")).to_contain_text("40개")
             page.locator(".rag-sources summary").click()
@@ -166,7 +165,10 @@ with tempfile.TemporaryFile() as log:
             ask(page, "연결 오류 확인")
             check("내부 토큰이 화면/HTML에 노출되지 않음", TOKEN not in page.content())
             check("에러가 나도 대기 상태 해제", page.locator(".progress").count() == 0)
-            check("RAG 응답으로 기존 분석 결과를 지어내지 않음", page.locator(".msg-result").count() == 0)
+            # v0.6.0: 오른쪽 분석은 RAG 답변이 아니라 질문 단어로 웹 데이터 규칙을 적용한다.
+            # 위 질문 중 '근거 부족 확인'만 기존 규칙('부족' = 재고 부족)에 걸려 재고 위험 분석 1건이 생긴다.
+            check("RAG 답변 문장은 바꾸지 않고, 오른쪽 분석은 질문 단어 규칙으로만",
+                  page.locator(".msg-result").count() == 1 and "근거 부족: 현재 DB에서 확인할 수 없습니다." in page.locator(".chat-list").inner_text())
             before = len(posts)
             page.locator("#chat-input").fill("발주 1101 수량은?")
             page.locator("#chat-input").press("Enter")
@@ -177,8 +179,8 @@ with tempfile.TemporaryFile() as log:
                 page.set_viewport_size({"width": width, "height": height})
                 page.wait_for_timeout(150)
                 check(f"{width}px: 페이지 가로 넘침 없음", page.evaluate("document.documentElement.scrollWidth <= innerWidth"))
-                check(f"{width}px: 모드·모델·질문 입력 사용 가능", all(page.locator(s).is_visible() for s in
-                       ["#chat-answer-mode", "#rag-model", "#chat-input"]))
+                check(f"{width}px: 키워드·질문 입력 사용 가능", all(page.locator(s).first.is_visible() for s in
+                       [".keyword-chip", "#chat-input"]))
                 too_small = page.locator("#chat-window").evaluate("""root => [...root.querySelectorAll('*')].filter(e => {
                     const r=e.getBoundingClientRect(); return r.width && r.height &&
                     [...e.childNodes].some(n=>n.nodeType===3&&n.textContent.trim()) && parseFloat(getComputedStyle(e).fontSize)<12;
@@ -189,25 +191,31 @@ with tempfile.TemporaryFile() as log:
             other = browser.new_context()
             other_page = other.new_page()
             login(other_page, url)
-            other_page.locator("#rag-model").select_option("gemma3:4b")
             ask(other_page, "발주 1101 수량은?")
             check("다른 브라우저의 방문자 구분", posts[-1]["visitor"] != visitor)
             page.set_viewport_size({"width": 1366, "height": 768})
-            page.locator("#chat-answer-mode").select_option("analysis")
+            before = len(posts)
             ask(page, "업체 A랑 업체 C 비교해줘")
-            expect(page.locator(".msg-result")).to_have_count(1)
-            check("기존 웹 데이터 분석으로 전환 가능", page.locator(".ctx-chips").count() == 1)
-            page.locator("#chat-answer-mode").select_option("rag")
+            check("질문 하나로 구매 DB RAG 답변 + 오른쪽 웹 데이터 분석 결과", len(posts) == before + 1 and page.locator(".msg-ai").last.locator(".engine-rag").count() == 1
+                  and page.locator(".msg-ai").last.locator(".msg-result").count() == 1 and "업체 A" in page.locator(".result-titles h3").inner_text())
+            check("RAG 요청에는 웹 샘플 ID를 넣지 않음", set(posts[-1]["payload"]) == {"question", "model", "top_k"})
+            ask(page, "몰리브덴 국내 시세 최근 6개월")
+            check("원자재 질문: RAG 답변과 함께 오른쪽에 같은 원자재·시장·기간 그래프",
+                  "몰리브덴 국내 시세 추이" in page.locator(".panel-c .topic .chart-title").inner_text() and "최근 6개월" in page.locator(".panel-c .topic .chart-title").inner_text()
+                  and posts[-1]["payload"]["question"] == "몰리브덴 국내 시세 최근 6개월")
+            page.screenshot(path=str(SHOTS / "rag_topic_1366.png"))
             before = len(posts)
             page.locator(".eval-head .eval-basis-btn").click()
             page.locator("#basis-popover .pop-foot button").click()
-            expect(page.locator("#chat-answer-mode")).to_have_value("analysis")
             page.locator(".progress").wait_for(state="detached", timeout=15000)
-            check("기존 평가 카드 버튼은 RAG 모드에서도 웹 데이터 분석 사용", len(posts) == before)
-            page.locator("#chat-answer-mode").select_option("rag")
+            check("기존 평가 카드 버튼은 웹 데이터 분석 사용 (RAG 호출 없음)", len(posts) == before and page.locator(".result-titles h3").count() == 1)
             page.locator("#chat-input").fill("취소 확인")
             page.locator(".send-btn").click()
             page.locator(".progress").wait_for()
+            for _ in range(100):  # 오른쪽 분석 화면을 먼저 바꾼 뒤 RAG 작업을 만든다 — 작업이 생긴 다음 로그아웃
+                if any(job["payload"]["question"] == "취소 확인" for job in jobs.values()):
+                    break
+                page.wait_for_timeout(50)
             page.locator(".user-btn").click()
             page.locator(".user-pop [role='menuitem']", has_text="로그아웃").click()
             page.locator(".modal-backdrop button", has_text="로그아웃").click()

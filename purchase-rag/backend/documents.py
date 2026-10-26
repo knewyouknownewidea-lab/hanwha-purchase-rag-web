@@ -1,6 +1,6 @@
 """구매관리 DB를 읽어서 검색용 문서를 만듭니다.
 
-1. DB의 6개 테이블을 읽습니다. DB는 읽기 전용으로 엽니다.
+1. DB의 8개 테이블을 읽습니다. DB는 읽기 전용으로 엽니다.
 2. 숫자 ID로 협력사, 부품, 발주, 납품, 민원을 연결합니다.
 3. 일정한 양식의 텍스트와 원본 ID를 담아 검색문서.jsonl에 저장합니다.
 
@@ -28,10 +28,13 @@ TABLE_KEYS = {
     'orders': 'order_id',
     'delivery': 'delivery_id',
     'complaint': 'complaint_id',
+    'material_price': 'material_price_id',
+    'labor_wage': 'labor_wage_id',
 }
 TYPE_LABELS = {
     'supplier': '협력사', 'part': '부품', 'supplier_part': '공급 부품',
     'order': '발주와 연결 납품', 'complaint': '민원',
+    'material_price': '원자재 시세', 'labor_wage': '직종별 인건비',
 }
 
 
@@ -41,6 +44,8 @@ def display(value):
         return '미확인(null)'
     if value == '':
         return '빈 문자열("")'
+    if isinstance(value, float) and value.is_integer():
+        return str(int(value))
     return str(value)
 
 
@@ -203,6 +208,33 @@ def build_documents(records, c_values, database_name, digest):
             complaint_id=cid, delivery_id=delivery['delivery_id'], order_id=oid,
             supplier_id=sid, part_id=pid, delivery_date=delivery['delivery_date'],
             complaint_date=complaint['complaint_date'], defect_type=complaint['defect_type'])
+
+    # 시세·임금은 월별 행을 원자재·시장 또는 직종 하나의 추이 문서로 묶습니다.
+    series = defaultdict(list)
+    for row in records['material_price']:
+        series[(row['material'], row['market'])].append(row)
+    for number, ((material, market), rows) in enumerate(sorted(series.items()), 1):
+        rows.sort(key=lambda row: row['month'])
+        unit = f'{rows[0]["currency"]}/{rows[0]["unit"]}'
+        add('material_price', number, [
+            '[원자재 시세]', f'원자재: {material}', f'시장: {market}', f'단위: {unit}',
+            f'기간: {rows[0]["month"]} ~ {rows[-1]["month"]} (월별 {len(rows)}건)',
+            'SAMPLE 가상 값이며 실제 기관·거래소 자료가 아니다.', '[월별 시세]',
+        ] + [f'{row["month"]}: {display(row["price"])} {unit}' for row in rows],
+            [f'material_price:{row["material_price_id"]}' for row in rows],
+            material=material, market=market, months=[row['month'] for row in rows])
+    jobs = defaultdict(list)
+    for row in records['labor_wage']:
+        jobs[(row['major'], row['mid'], row['minor'])].append(row)
+    for number, ((major, mid, minor), rows) in enumerate(sorted(jobs.items()), 1):
+        rows.sort(key=lambda row: row['month'])
+        add('labor_wage', number, [
+            '[직종별 인건비]', f'직종: {minor}', f'직종 분류: {major} > {mid} > {minor}', '단위: KRW/월',
+            f'기간: {rows[0]["month"]} ~ {rows[-1]["month"]} (월별 {len(rows)}건)',
+            'SAMPLE 가상 값이며 실제 기관 자료가 아니다.', '[월별 임금]',
+        ] + [f'{row["month"]}: {display(row["wage"])} KRW' for row in rows],
+            [f'labor_wage:{row["labor_wage_id"]}' for row in rows],
+            occupation=minor, occupation_major=major, occupation_mid=mid, months=[row['month'] for row in rows])
 
     # 모든 원본 레코드가 최소 한 문서의 출처로 연결되었는지 확인합니다.
     expected_refs = {f'{table}:{row[key]}' for table, key in TABLE_KEYS.items() for row in records[table]}

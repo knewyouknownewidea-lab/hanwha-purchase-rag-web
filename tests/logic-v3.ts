@@ -11,6 +11,7 @@ import { buildXlsx, colName, crc32, excelDate } from "../src/lib/xlsx";
 import { resultSheets } from "../src/lib/exporters";
 import { runAnalysis } from "../src/lib/analysis";
 import { validateRows } from "../src/lib/validate";
+import { detectMarketTopic } from "../src/ai/topic";
 
 let pass = 0;
 let fail = 0;
@@ -104,6 +105,18 @@ const res = runAnalysis({ kind: "item_candidates", itemCode: "ITM-1001", priorit
 const bytes = buildXlsx(resultSheets(res, res.title), res.title);
 check("xlsx zip 서명", bytes[0] === 0x50 && bytes[1] === 0x4b && bytes.length > 4000, `${bytes.length} bytes`);
 if (process.argv[2]) writeFileSync(process.argv[2], bytes);
+
+// ── v0.6.0 질문 → 오른쪽 분석 주제 (purchase-rag/backend/query_rules.py와 같은 판정) ──
+const t1 = detectMarketTopic("국제 니켈 시세 최근 6개월", data, meta.asOf);
+check("시세 질문 → 원자재·시장·기간", t1?.kind === "material" && t1.material === "니켈" && t1.market === "국제" && t1.months === 6, JSON.stringify(t1));
+const t2 = detectMarketTopic("품질 검사원 임금 추이", data, meta.asOf);
+check("임금 질문 → 직종 경로", t2?.kind === "wage" && t2.path.at(-1) === "품질 검사원" && t2.path.length === 3 && t2.months === null, JSON.stringify(t2));
+check("대상 없는 시세 질문 → 추가 선택", detectMarketTopic("원자재 시세 알려줘", data, meta.asOf)?.kind === "unclear");
+const t3 = detectMarketTopic("니켈과 구리 시세", data, meta.asOf);
+check("원자재 여러 개 → 추가 선택", t3?.kind === "unclear" && t3.options.length === 2);
+check("시세와 임금 함께 → 추가 선택", detectMarketTopic("주조원 임금과 니켈 시세", data, meta.asOf)?.kind === "unclear");
+check("협력사·납기 질문은 시세 주제 아님", detectMarketTopic("업체 A 납기 준수율", data, meta.asOf) === null);
+check("시세 데이터가 없으면 그래프 대신 안내", detectMarketTopic("니켈 시세", { ...data, materialPrices: [] }, meta.asOf)?.kind === "unclear");
 
 console.log(`\n${pass}/${pass + fail} 통과`);
 process.exit(fail ? 1 : 0);

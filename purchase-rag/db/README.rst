@@ -8,9 +8,9 @@
 파일 구성
 ---------
 
-* 구매관리_테스트.db: 현재 사용하는 원본 SQLite DB (총 74건)
+* 구매관리_테스트.db: 현재 사용하는 원본 SQLite DB (총 698건 = 기존 74건 + 시세·임금 624건)
 * 구매관리_가상데이터.json: DB 생성에 사용한 가상 데이터
-* schema.sql: 6개 업무 테이블과 인덱스 정의
+* schema.sql: 8개 업무 테이블과 인덱스 정의
 * views.sql: 3개 조회용 뷰 정의
 * seed.sql: 기존 가상 데이터 INSERT 문
 * queries/: 읽기 전용 조회 예제
@@ -26,6 +26,11 @@
 * orders: 협력사·부품별 발주 (24건)
 * delivery: 발주별 납품 기록; 한 발주에 분할 납품 가능 (27건)
 * complaint: 납품에 연결된 민원·불량 (8건)
+* material_price: 원자재·시장(국제/국내)별 월별 시세 (336건, 7종 × 2시장 × 24개월)
+* labor_wage: 직종 대·중·소 분류별 월평균 임금 (288건, 12직종 × 24개월)
+
+material_price와 labor_wage는 웹 화면 SAMPLE과 같은 가상 값이며(실제 기관·거래소 자료 아님)
+다른 표와 외래키로 연결하지 않습니다. 검색 문서는 원자재·시장 또는 직종 하나의 월별 추이로 묶습니다.
 
 관계는 supplier/part -> orders -> delivery -> complaint이며,
 supplier_part가 supplier와 part의 공급 관계를 연결합니다.

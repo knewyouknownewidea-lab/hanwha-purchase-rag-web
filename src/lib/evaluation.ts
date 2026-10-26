@@ -115,7 +115,7 @@ export function evaluateSupplier(supplierId: string, d: Derived): SupplierEvalua
         const pct = (c.unitPrice / min - 1) * 100;
         parts.push({ name: c.itemName, pct, score: clamp(100 - pct * EVAL_CONFIG.costPenaltyPerPct, 0, 100) });
       }
-      source = `원가-계약 ${contracts.length}건`;
+      source = `계약 단가 ${contracts.length}건`;
       if (!parts.length) {
         basis = contracts.length ? "동일 조건으로 비교할 수 있는 다른 업체 단가가 없습니다" : "계약 단가 데이터가 없습니다";
       } else {
@@ -164,7 +164,7 @@ export function evaluateSupplier(supplierId: string, d: Derived): SupplierEvalua
     sources: [
       { label: "협력업체 시트", count: 1 },
       { label: "구매조달 발주", count: del?.poCount ?? 0 },
-      { label: "원가-계약", count: contracts.length },
+      { label: "계약 단가", count: contracts.length },
     ],
     steps,
     usedWeight,

@@ -2,7 +2,7 @@
 // 챗봇 결과가 새로 나오면 접히고, 결과창 머리의 '선택 정보' 아이콘으로 다시 열고 닫는다
 import { useMemo, type ReactNode } from "react";
 import { LuChevronUp, LuMessageSquareText, LuX } from "react-icons/lu";
-import { TAB_LABEL } from "../data/types";
+import { TAB_LABEL, type TabKey } from "../data/types";
 import { useStore } from "../store/store";
 import { useAgent } from "../store/agent";
 import { FavStar } from "./FavStar";
@@ -55,7 +55,6 @@ export function useSelectionTitle(): string | null {
   if (!rowTab || !rowKey) return null;
   if (rowTab === "suppliers") return derived.suppliersById.get(rowKey)?.name ?? null;
   if (rowTab === "purchaseOrders") return derived.poViews.find((p) => p.poNo === rowKey)?.poNo ?? null;
-  if (rowTab === "contracts") return derived.contractViews.find((c) => c.contractId === rowKey)?.contractId ?? null;
   return derived.itemsByCode.get(rowKey)?.name ?? null;
 }
 
@@ -69,7 +68,7 @@ export function SelectionDetail() {
   const askItem = (code: string) => ask(`${itemName(code)}의 과거 거래 업체를 등급, 납기 실적, 최근 단가와 함께 비교해 줘`);
   const askSupplier = (name: string) => ask(`${name}의 평가 근거를 정리해 줘`);
   const close = () => dispatch({ type: "detailOpen", open: false });
-  const goSub = (t: "contracts" | "inventory", view: string) => {
+  const goSub = (t: TabKey, view: string) => {
     dispatch({ type: "subView", tab: t, view });
     dispatch({ type: "focusData" });
   };
@@ -100,7 +99,7 @@ export function SelectionDetail() {
                     {jobs.map((j) => {
                       const n = wageTree.byMinor.get(j);
                       return (
-                        <span key={j} className="mat-tag" title="가공비·인건비 인상 요청 검토 참고 (원가-계약 › 인건비 동향)">
+                        <span key={j} className="mat-tag" title="가공비·인건비 인상 요청 검토 참고 (인건비 동향 탭)">
                           {j} {n?.yoy !== null && n?.yoy !== undefined ? <span className={n.yoy > 0 ? "delta-up" : "delta-down"}>{fmtSignedPct(n.yoy)}</span> : <span className="muted">자료 없음</span>}
                         </span>
                       );
@@ -157,33 +156,6 @@ export function SelectionDetail() {
               <button type="button" className="btn btn-quiet" onClick={() => askItem(p.itemCode)} disabled={state.busy}>
                 <LuMessageSquareText aria-hidden /> 이 품목 후보 업체 비교
               </button>
-            }
-          />
-        );
-    } else if (tab === "contracts") {
-      const c = derived.contractViews.find((x) => x.contractId === selectedKey);
-      if (c)
-        detail = (
-          <Detail
-            title={`${c.contractId} · ${c.itemName}`}
-            onClose={close}
-            fields={[
-              ["거래 협력사", `${c.supplierName} (${c.supplierId})`],
-              ["규격", c.spec ?? "–"],
-              ["단가", `${fmtMoney(c.prevUnitPrice ?? null, c.currency)} → ${fmtMoney(c.unitPrice, c.currency)} (${fmtSignedPct(c.changeRate)})`],
-              ["계약 기간", `${c.startDate ?? "–"} ~ ${c.endDate ?? "–"}${c.expiresInDays !== null ? ` · 종료까지 ${c.expiresInDays}일` : ""}`],
-              ["인도 · 결제 조건", `${c.deliveryTerms ?? "–"} · ${c.paymentTerms ?? "–"}`],
-              ["주요 소재", derived.itemsByCode.get(c.itemCode)?.materials?.join(", ") || "–"],
-            ]}
-            actions={
-              <>
-                <button type="button" className="btn btn-quiet" onClick={() => askItem(c.itemCode)} disabled={state.busy}>
-                  <LuMessageSquareText aria-hidden /> 이 품목 후보 업체 비교
-                </button>
-                <button type="button" className="btn btn-quiet" onClick={() => goSub("contracts", "materials")}>
-                  원자재 시세 보기
-                </button>
-              </>
             }
           />
         );

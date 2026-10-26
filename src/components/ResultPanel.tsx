@@ -21,6 +21,7 @@ import { AnalysisReport } from "./templates/AnalysisReport";
 import { SourceRecords } from "./templates/shared";
 import { EmptyState } from "./ui";
 import { SelectionDetail, useSelectionTitle } from "./SelectionDetail";
+import { TopicPanel } from "./TopicPanel";
 
 const RENDERERS: Record<Exclude<TemplateId, "report">, ComponentType<{ result: AnalysisResult; settings: ViewSettings }>> = {
   table: ComparisonTable,
@@ -108,7 +109,9 @@ export function ResultPanel() {
   const [showSettings, setShowSettings] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const reportRef = useRef<HTMLElement>(null);
-  const result = state.view.resultId ? state.results[state.view.resultId] : null;
+  const topic = state.topic;
+  // 질문 주제 화면(시세·임금·추가 선택)을 보일 때는 이전 분석 결과를 함께 띄우지 않는다
+  const result = !topic && state.view.resultId ? state.results[state.view.resultId] : null;
   const tpl = result ? state.view.template ?? result.recommended : null;
   const stale = result && result.dataId !== state.meta.dataId;
   const name = result ? resultName(state, result) : "";
@@ -196,7 +199,7 @@ export function ResultPanel() {
           </button>
         </div>
         <TemplateBar result={result} active={tpl} onChoose={(t) => result && choose(result.id, t)} />
-        {!result && <p className="tpl-hint">챗봇에 질문하면 결과 형식을 선택할 수 있습니다.</p>}
+        {!result && <p className="tpl-hint">{topic ? "이 화면은 질문 주제의 데이터 보기입니다. 협력사·품목 분석 결과일 때 형식을 바꿀 수 있습니다." : "챗봇에 질문하면 결과 형식을 선택할 수 있습니다."}</p>}
         {result && (
           <div className="result-titlebar">
             <div className="result-titles">
@@ -222,7 +225,9 @@ export function ResultPanel() {
       </div>
       <div className="panel-body result-body">
         {showDetail && <SelectionDetail />}
-        {!result || !tpl ? (
+        {topic ? (
+          <TopicPanel topic={topic} />
+        ) : !result || !tpl ? (
           <EmptyState title="분석 결과 대기 중" icon={<LuSparkles />}>
             <p>왼쪽 아래 ‘AI에게 질문하기’를 눌러 질문하면, 추천 형식으로 이곳에 결과가 바로 표시됩니다.</p>
             <ol className="how">

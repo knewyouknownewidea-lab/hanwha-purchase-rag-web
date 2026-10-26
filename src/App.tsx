@@ -13,6 +13,7 @@ import { ImportDialog } from "./components/ImportDialog";
 import { Topbar } from "./components/Topbar";
 import { Onboarding } from "./components/Onboarding";
 import { LoginScreen } from "./components/LoginScreen";
+import { SupplierDetailPage } from "./components/SupplierDetailPage";
 import { BRAND } from "./brand";
 
 const PANEL_TABS: { id: Panel; label: string; icon: ReactNode }[] = [
@@ -92,7 +93,7 @@ function Workspace() {
           <div className="panel-head">
             <div className="panel-title-row">
               <h2 className="panel-title">데이터 관리</h2>
-              <span className="panel-sub">협력사 평가 요약 · 협력업체·구매조달·원가-계약·자재-공급 데이터</span>
+              <span className="panel-sub">협력사 평가 요약 · 협력업체·구매조달·원자재 시세·인건비·자재-공급 데이터</span>
             </div>
           </div>
           <div className="panel-body panel-body-a">
@@ -137,6 +138,13 @@ export function App() {
     document.title = BRAND.docTitle;
   }, []);
   if (!user) return <LoginScreen onLogin={setUser} />;
+  const detailId = new URLSearchParams(window.location.search).get("supplier");
+  if (detailId)
+    return (
+      <StoreProvider key={user.id} user={user} readOnly>
+        <SupplierDetailPage supplierId={detailId} />
+      </StoreProvider>
+    );
   return (
     <StoreProvider key={user.id} user={user}>
       <AgentProvider>

@@ -33,6 +33,45 @@ UNAVAILABLE = {
     '품질 실적 수량': r'불량률|부적합률|불량\s*수량|검사\s*수량',
 }
 
+# 원자재 시세·직종별 인건비 질문을 알아보는 단어입니다. 원자재명·직종명은 DB 값과 대조합니다.
+MATERIAL_TERMS = r'원자재|시세'
+WAGE_TERMS = r'인건비|임금|급여|노임|직종'
+
+def compact(value):
+    return re.sub(r'\s+','',value)
+
+def market_plan(records,docs,text,digest):
+    """원자재·직종 하나를 DB 이름과 정확히 대조합니다. 대상이 없거나 여러 개면 추측하지 않습니다."""
+    materials=sorted({r['material'] for r in records['material_price']})
+    jobs=sorted({r['minor'] for r in records['labor_wage']})
+    mat_hits=[m for m in materials if m in compact(text)]
+    job_hits=[j for j in jobs if compact(j) in compact(text)]
+    wants_mat=bool(mat_hits or re.search(MATERIAL_TERMS,text))
+    wants_job=bool(job_hits or re.search(WAGE_TERMS,text))
+    if not (wants_mat or wants_job):return None
+    if wants_mat and wants_job:
+        return decision('clarify','multiple_market_topics','원자재 시세와 인건비 중 하나를 골라 질문해 주세요.')
+    kind,hits,names,label=('material_price',mat_hits,materials,'원자재') if wants_mat else ('labor_wage',job_hits,jobs,'직종')
+    if not hits:
+        return decision('clarify',f'missing_{"material" if wants_mat else "occupation"}',f'조회할 {label}을 지정해 주세요. DB에 있는 {label}: {", ".join(names)}')
+    if len(hits)>1:
+        return decision('clarify',f'multiple_{"materials" if wants_mat else "occupations"}',f'한 번에 {label} 하나를 지정해 주세요. 질문에서 찾은 {label}: {", ".join(hits)}')
+    if re.search(r'최저|가장\s*낮|평균|합계|총합|순위|비교',text):
+        return decision('clarify','aggregate_not_supported','비교·집계 질문은 아직 지원하지 않습니다. 원자재·직종 하나의 월별 값을 조회해 주세요.')
+    market=('국제' if re.search(r'국제|해외|LME',text,re.I) else '국내' if re.search(r'국내',text) else None) if wants_mat else None
+    key='material' if wants_mat else 'occupation'
+    candidates=[d for d in docs if d['metadata']['document_type']==kind and d['metadata'][key]==hits[0]
+                and (market is None or d['metadata']['market']==market)]
+    try:dates=period(text)
+    except ValueError:dates=None  # 월별 추이 문서 전체를 근거로 주므로 '최근' 같은 상대 기간은 거절하지 않습니다.
+    if dates:
+        candidates=[d for d in candidates if any(dates[0][:7]<=m<=dates[1][:7] for m in d['metadata']['months'])]
+        if not candidates:
+            return decision('reject','no_matching_records',f'근거 부족: 현재 DB에 {hits[0]}의 해당 기간 기록이 없습니다.',date_range=dates)
+    conditions={key:hits[0],**({'market':market} if market else {})}
+    return decision('structured','validated_conditions','원본 DB에서 조건과 항목을 확인했습니다.',documents=candidates,
+                    conditions=conditions,date_range=dates,date_field='month',source_sha256=digest)
+
 def decision(mode, reason, message, **extra):
     return {'mode':mode,'reason':reason,'message':message,**extra}
 
@@ -81,7 +120,8 @@ def plan(database,question,filters):
     # 금지어 목록 대신, 구매관리 키워드나 DB에 있는 협력사·부품 이름이 있는지로 범위를 판단합니다.
     # 명시적인 필터와 조회 항목이 함께 있으면 질문에 업무 대상 이름을 반복하지 않아도 됩니다.
     names=[r['name'] for r in records['supplier']]+[r['part_name'].replace('(가상)','') for r in records['part']]
-    in_domain=(re.search(DOMAIN_TERMS,text) or re.search(r'가상\s*[A-Za-z가-힣0-9]+사',text)
+    names+=[r['material'] for r in records['material_price']]+[r['minor'] for r in records['labor_wage']]
+    in_domain=(re.search(DOMAIN_TERMS,text) or re.search(MATERIAL_TERMS+'|'+WAGE_TERMS,text) or re.search(r'가상\s*[A-Za-z가-힣0-9]+사',text)
                or any(re.sub(r'\s+','',n) in re.sub(r'\s+','',text) for n in names)
                or (has_domain_filter and (price or score or short_order_question)))
     if not in_domain:
@@ -90,6 +130,8 @@ def plan(database,question,filters):
         if re.search(pattern,text,re.I):
             return decision('reject','unsupported_field',f'근거 부족: 현재 스키마에서 {label} 항목의 값을 제공할 수 없습니다. 실제 정보가 존재하지 않는다는 의미는 아닙니다.')
     docs=build_documents(records,c_values,database.name,digest)
+    routed=market_plan(records,docs,text,digest)
+    if routed:return routed
     conditions={k:v for k,v in filters.items() if k!='document_type' and v is not None}
     # 숫자를 문자 포함 검색하지 않고 완전한 정수 ID로 대조합니다.
     for label,key,table in [('발주','order_id','orders'),('민원','complaint_id','complaint'),('납품','delivery_id','delivery')]:
