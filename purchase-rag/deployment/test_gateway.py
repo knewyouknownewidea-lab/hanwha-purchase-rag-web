@@ -159,6 +159,20 @@ class GatewayTest(unittest.TestCase):
         self.backend.request.assert_called_once_with('POST', '/answer', {**PAYLOAD,
             'supplier_id': 1, 'part_id': 2, 'document_type': 'order', 'top_k': 5})
 
+    def test_negotiation_job_goes_to_negotiate_with_only_its_fields(self):
+        facts = {'supplier': '업체 A', 'item': '실린더 라이너', 'currency': 'KRW', 'unit': 'EA', 'source': 'contract',
+                 'prev_price': 1210000, 'requested_price': 1250000, 'period': '2025-09 → 2026-09',
+                 'materials': [{'name': '니켈', 'change_pct': 15.2}], 'threshold_pp': 2, 'sample': True}
+        body = {'question': '업체 A 인상 검토', 'model': 'qwen3:8b', 'negotiation': facts}
+        r = self.client.post('/jobs', json=body, headers=AUTH)
+        self.assertEqual(r.status_code, 202)
+        completed(self.app.state.jobs, r.json()['job_id'])
+        self.backend.request.assert_called_once_with('POST', '/negotiate', body)
+        for bad in ({**body, 'order_id': 1101}, {**body, 'negotiation': {**facts, 'verdict': 'within'}},
+                    {**body, 'negotiation': {**facts, 'prev_price': '1210000'}}):
+            with self.subTest(bad=bad):
+                self.assertEqual(self.client.post('/jobs', json=bad, headers=AUTH).status_code, 422)
+
     def test_finished_ttl_capacity_and_running_job_never_expires(self):
         now = [10.0]
         entered, release = threading.Event(), threading.Event()

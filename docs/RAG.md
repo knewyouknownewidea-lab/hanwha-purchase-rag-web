@@ -1,5 +1,12 @@
 # 웹 업로드·구매 DB RAG (v0.5.0, v0.6.0 변경 포함)
 
+## v0.7.0 변경 — 협상 보고서
+
+- 게이트웨이 `POST /jobs`에 `negotiation`(협력사·품목·통화·단위·출처·기존 단가·요구 단가·비교 기간·소재별 인상률·판정 기준·SAMPLE 여부)을 넣으면 백엔드 `POST /negotiate`로 보냅니다. 검색 조건(`order_id` 등)·`dataset`과 함께 쓸 수 없습니다. 파생 값(인상률·차이·판정)은 받지 않고 서버가 다시 계산합니다.
+- `/negotiate`는 `backend/negotiation.py`의 LangChain 체인(`ChatPromptTemplate | ChatOllama`)으로 보고서·이메일을 만들고, 응답 모델·완료·입력 한도를 기존 생성기와 같이 검사합니다. 결과 상태는 `drafted`·`needs_review`(사실에 없는 퍼센트·날짜, 이메일의 내부 판정 표현)·`invalid_generation`·`context_limit_exceeded`입니다.
+- 실제 Windows PC의 qwen3:8b로 체인 실행을 확인했습니다(약 1~2분).
+- 설치: `langchain-core==1.7.0`, `langchain-ollama==1.1.0`. 런타임 재시작 전에 RAG Python 환경에 설치해야 합니다.
+
 ## v0.6.0 변경
 
 - 챗봇 질문은 **구매 DB RAG + `qwen3:8b`로 고정**합니다. 질문 방식·모델 선택 UI가 없어 아래 표의 '웹 데이터 분석'·'웹 데이터 RAG'는 챗봇에서 고를 수 없습니다(평가 카드의 분석 버튼은 계속 웹 데이터 분석 사용, 웹 RAG 코드·API 유지).

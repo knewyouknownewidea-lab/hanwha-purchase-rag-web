@@ -475,6 +475,21 @@ with sync_playwright() as p:
     check("선택하면 그 원자재로 다시 질문 → 그래프", "구리 시세 추이" in page.locator(".panel-c .topic .chart-title").inner_text() and "구리 시세" in page.locator(".msg-user").last.inner_text())
     page.screenshot(path=f"{SHOTS}/02b_1920_topic.png")
 
+    # 17-2. 단가 인상 협상 (v0.7.0): 숫자는 코드 계산, 문장은 RAG 서버의 LangChain 체인
+    ask(page, "업체 A 실린더 라이너 견적 10% 인상 요구 검토해줘")
+    ng = page.locator(".panel-c .nego")
+    vals = [ng.locator(f"[data-k='{k}']").inner_text() for k in ("requested", "material", "gap")] if ng.count() else []
+    check("협상 질문 → 오른쪽 협상 화면 (견적 +10.0% · 소재 평균 +3.5% · 차이 +6.5%p · 과도)", vals == ["+10.0%", "+3.5%", "+6.5%p"] and "과도한 인상 요구 가능성" in ng.locator("[data-k='verdict']").inner_text(), " | ".join(vals))
+    check("RAG 서버가 없으면 보고서 작성 버튼 비활성·안내 (계산 결과는 표시)", ng.locator("#nego-write").is_disabled() and "RAG 서버에 연결되지 않아" in ng.inner_text() and ng.locator(".nego-draft").count() == 0)
+    ng.locator(".seg-ctl button", has_text="계약 데이터").click()
+    check("계약 데이터 기준으로 바꾸면 직전 → 최근 계약 단가 (+3.3%)", ng.locator("[data-k='requested']").inner_text() == "+3.3%")
+    ng.locator(".seg-ctl button", has_text="견적서 입력").click()
+    page.fill("#nego-prev", "0")
+    check("기존 단가가 0이면 계산하지 않고 안내", ng.locator("[data-k='requested']").count() == 0 and "계산하지 않습니다" in ng.inner_text())
+    check("협상 화면 가로 스크롤 없음·글자 12px 이상", no_hscroll(page) and not small_fonts(page), ", ".join(small_fonts(page)))
+    ask(page, "업체 A 단가 인상 요구 검토")
+    check("협력사만 말하면 계약 품목 고르기 (2건)", page.locator(".panel-c .topic-unclear .opt-chip").count() == 2)
+
     # 18. 키워드 검색 → 데이터 관리 선택 (다른 쪽에 있어도 그 쪽으로)
     page.fill("#keyword-search", "PO-2024-0003")
     page.wait_for_selector(".kw-hit")
@@ -891,6 +906,14 @@ with sync_playwright() as p:
     ph.wait_for_function("() => !document.querySelector('.progress')")
     ph.locator(".chat-tools button[aria-label='닫기']").click()
     check("휴대폰: 임금 질문 → 분석 결과 탭에 그 직종 그래프", "품질 검사원 월평균 임금 추이" in ph.locator(".panel-c .topic .chart-title").inner_text())
+    ph.click(".chat-launcher")
+    ph.wait_for_selector("#chat-input")
+    ph.fill("#chat-input", "업체 B 실린더 라이너 견적 8% 인상")
+    ph.press("#chat-input", "Enter")
+    ph.wait_for_function("() => !document.querySelector('.progress')")
+    ph.locator(".chat-tools button[aria-label='닫기']").click()
+    check("휴대폰: 협상 화면 표시·가로 스크롤 없음·글자 12px 이상", ph.locator(".panel-c .nego [data-k='requested']").inner_text() == "+8.0%" and no_hscroll(ph) and not small_fonts(ph), ", ".join(small_fonts(ph)))
+    ph.screenshot(path=f"{SHOTS}/11d_phone_negotiation.png", full_page=True)
     check("휴대폰: 질문 주제 화면 가로 스크롤 없음·글자 12px 이상", no_hscroll(ph) and not small_fonts(ph), ", ".join(small_fonts(ph)))
     ph.screenshot(path=f"{SHOTS}/11b_phone_topic.png", full_page=True)
     with ph.context.expect_page() as pinfo:

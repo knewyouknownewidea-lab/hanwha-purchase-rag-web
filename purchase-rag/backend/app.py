@@ -5,10 +5,11 @@ import json
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import JSONResponse
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
-from pydantic import BaseModel, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 from .service import RagService
 from .prompting import build_prompt
 from .generation import OllamaGenerator, GenerationError
+from .negotiation import NegotiationFacts, NegotiationWriter
 from .web_corpus import (WebCorpusRegistry, WebCorpusError, MAX_UPLOAD_BYTES,
                          dataset_handle, owner_value, invalid)
 
@@ -161,3 +162,20 @@ def answer(request: AnswerRequest):
     filters = request.model_dump(exclude={'question','top_k','model'}, exclude_none=True)
     return execute(lambda: generator().answer(
         service().search(request.question, request.top_k, filters), request.model))
+
+
+@lru_cache
+def negotiation_writer():
+    return NegotiationWriter()
+
+
+class NegotiationRequest(BaseModel):
+    model_config = ConfigDict(extra='forbid')
+    question: str = Field(min_length=1, max_length=1000)
+    model: Literal['qwen3:8b', 'gemma3:4b', 'llama3.1:8b']
+    negotiation: NegotiationFacts
+
+
+@app.post('/negotiate', summary='단가 인상 협상: 계산한 사실로 LangChain 체인이 협상 보고서·공문 이메일 초안 작성')
+def negotiate(request: NegotiationRequest):
+    return execute(lambda: negotiation_writer().write(request.question.strip(), request.negotiation, request.model))

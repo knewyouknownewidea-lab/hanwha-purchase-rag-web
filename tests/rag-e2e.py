@@ -69,6 +69,19 @@ class Gateway(BaseHTTPRequestHandler):
         if job["polls"] == 1 or job["payload"]["question"] == "취소 확인":
             return self.reply(200, {"job_id": ident, "status": "running"})
         question = job["payload"]["question"]
+        if "negotiation" in job["payload"]:
+            f = job["payload"]["negotiation"]
+            req = round((f["requested_price"] / f["prev_price"] - 1) * 100, 1)
+            known = [m["change_pct"] for m in f["materials"] if m["change_pct"] is not None]
+            mat = round(sum(known) / len(known), 1) if known else None
+            gap = round(req - mat, 1) if mat is not None else None
+            return self.reply(200, {"job_id": ident, "status": "succeeded", "result": {
+                "question": question, "generation_model": job["payload"]["model"], "status": "drafted", "model_called": True,
+                "answer": f'{f["supplier"]} {f["item"]}: 협상 보고서와 이메일 초안을 작성했습니다.', "sources": [],
+                "report": f"[모의] 요구 인상률 {req}% · 소재 평균 {mat}% · 차이 {gap}%p", "email": "제목: [모의] 원가 근거 자료 요청\n[회신 기한]까지 회신 부탁드립니다.",
+                "facts": {"requested_change_pct": req, "material_change_pct": mat, "gap_pp": gap,
+                          "verdict": "insufficient_data" if gap is None else "excessive" if gap > f["threshold_pp"] else "within"},
+                "note": "퍼센트 수치가 계산값과 일치함을 확인했습니다."}})
         if question == "실패 상태 확인":
             return self.reply(200, {"job_id": ident, "status": "failed", "message": TOKEN,
                                     "error_status": 503})
@@ -204,6 +217,22 @@ with tempfile.TemporaryFile() as log:
                   "몰리브덴 국내 시세 추이" in page.locator(".panel-c .topic .chart-title").inner_text() and "최근 6개월" in page.locator(".panel-c .topic .chart-title").inner_text()
                   and posts[-1]["payload"]["question"] == "몰리브덴 국내 시세 최근 6개월")
             page.screenshot(path=str(SHOTS / "rag_topic_1366.png"))
+            before = len(posts)
+            ask(page, "업체 A 실린더 라이너 견적 10% 인상 요구 검토해줘")
+            nego = posts[-1]["payload"].get("negotiation") if len(posts) == before + 1 else None
+            check("협상 질문은 일반 RAG 대신 계산 전 원래 값으로 협상 작업 전송", nego is not None and nego["prev_price"] == 1250000 and nego["requested_price"] == 1375000
+                  and nego["source"] == "quote" and not {"verdict", "gap_pp", "requested_change_pct"} & set(nego) and posts[-1]["payload"]["model"] == "qwen3:8b")
+            panel = page.locator(".panel-c .nego")
+            expect(panel.locator(".nego-draft[data-state='done'] [data-k='report']")).to_contain_text("요구 인상률 10.0%")
+            check("오른쪽: 대조표·판정 + LangChain 보고서·이메일 초안", panel.locator("[data-k='requested']").inner_text() == "+10.0%" and panel.locator("[data-k='email']").count() == 1
+                  and "협상 보고서" in page.locator(".msg-ai").last.inner_text())
+            page.locator("#nego-req").fill("1300000")
+            check("견적서 값을 바꾸면 바로 다시 계산하고 이전 초안은 다시 작성하라고 안내", panel.locator("[data-k='requested']").inner_text() == "+4.0%" and "입력이 바뀌었습니다" in panel.inner_text())
+            before = len(posts)
+            page.locator("#nego-write").click()
+            page.wait_for_function("() => !document.querySelector('.progress')", timeout=15000)
+            check("바꾼 견적서 조건으로 다시 작성", len(posts) == before + 1 and posts[-1]["payload"]["negotiation"]["requested_price"] == 1300000 and "입력이 바뀌었습니다" not in panel.inner_text())
+            page.screenshot(path=str(SHOTS / "rag_negotiation_1366.png"), full_page=True)
             before = len(posts)
             page.locator(".eval-head .eval-basis-btn").click()
             page.locator("#basis-popover .pop-foot button").click()

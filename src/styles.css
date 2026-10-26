@@ -1081,3 +1081,28 @@ fieldset.import-mode label { display: flex; gap: 6px; align-items: center; }
 .detail-table tbody tr { cursor: default; }
 .detail-table td.wrap { white-space: normal; min-width: 160px; }
 .detail-note { margin: 0; font-size: var(--fs-13); color: var(--muted); }
+
+/* ── 단가 인상 협상 화면 (오른쪽 분석 결과창) ── */
+.nego { display: flex; flex-direction: column; gap: 14px; min-width: 0; font-size: var(--fs-14); }
+.nego-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.nego-head h3 { margin: 0; font-size: var(--fs-16); }
+.nego-form { border: 1px solid var(--line); border-radius: var(--r-sm); padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; min-width: 0; margin: 0; }
+.nego-form legend { font-weight: 700; padding: 0 4px; }
+.nego-inputs { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 10px; }
+.nego-form label { display: flex; flex-direction: column; gap: 4px; font-size: var(--fs-13); color: var(--ink-2); min-width: 0; }
+.nego-form input { height: 36px; border: 1px solid var(--line-2); border-radius: var(--r-sm); padding: 0 10px; font-size: var(--fs-14); min-width: 0; font-variant-numeric: tabular-nums; }
+.nego-th input { max-width: 120px; }
+.nego-hint { margin: 0; font-size: var(--fs-13); color: var(--ink-2); overflow-wrap: anywhere; }
+.nego-table th { text-align: left; white-space: normal; font-weight: 600; background: var(--surface-2); }
+.nego-table td { white-space: normal; }
+.nego-table tbody tr { cursor: default; }
+.nego-verdict { margin: 0; padding: 10px 12px; border-radius: var(--r-sm); background: var(--surface-2); line-height: 1.5; }
+.nego-verdict.is-excessive { background: #fff1ec; border: 1px solid var(--accent-line); }
+.nego-verdict.is-within { background: var(--good-soft); }
+.nego-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.nego-draft { display: flex; flex-direction: column; gap: 12px; }
+.nego-doc { border: 1px solid var(--line); border-radius: var(--r-sm); overflow: hidden; }
+.nego-doc-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 8px 12px; background: var(--surface-2); border-bottom: 1px solid var(--line); }
+.nego-doc-head h4 { margin: 0; display: flex; align-items: center; gap: 6px; font-size: var(--fs-14); }
+.nego-doc-head small { font-weight: 400; color: var(--muted); font-size: var(--fs-12); }
+.nego-text { margin: 0; padding: 12px; white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--font); font-size: var(--fs-14); line-height: 1.6; max-height: 420px; overflow-y: auto; }

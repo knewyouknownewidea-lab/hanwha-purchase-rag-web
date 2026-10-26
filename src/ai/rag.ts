@@ -1,4 +1,5 @@
 // 구매 DB RAG 전용 클라이언트. 인증 토큰과 게이트웨이 주소는 웹 서버에서만 관리한다.
+import type { NegotiationFacts, NegotiationResult } from "../lib/negotiation";
 export const RAG_MODELS = ["qwen3:8b", "gemma3:4b", "llama3.1:8b"] as const;
 export type RagModel = (typeof RAG_MODELS)[number];
 export type ChatMode = "analysis" | "rag" | "web-rag";
@@ -19,6 +20,10 @@ export interface RagAnswer {
   sources: RagSource[];
   note?: string;
   dataset?: RagDataset;
+  /** 협상 작업(negotiation)일 때만: LangChain 체인이 쓴 보고서·이메일과 서버가 다시 계산한 값 */
+  report?: string;
+  email?: string;
+  facts?: NegotiationResult;
 }
 export interface RagQuestion {
   question: string;
@@ -29,6 +34,7 @@ export interface RagQuestion {
   part_id?: number;
   document_type?: "supplier" | "part" | "supplier_part" | "order" | "complaint";
   dataset?: RagDataset;
+  negotiation?: NegotiationFacts;
 }
 export type Fetcher = typeof fetch;
 export const record = (v: unknown): v is Record<string, unknown> => !!v && typeof v === "object" && !Array.isArray(v);
@@ -62,6 +68,25 @@ export async function getRagConfig(signal?: AbortSignal, fetcher: Fetcher = fetc
   if (typeof body.enabled !== "boolean" || !Array.isArray(body.models) || !body.models.every(isModel)) throw invalid();
   if (body.enabled && !body.models.length) throw invalid();
   return { enabled: body.enabled, models: [...new Set(body.models)] };
+}
+
+const VERDICTS = ["excessive", "within", "insufficient_data"];
+const num = (v: unknown) => typeof v === "number" && Number.isFinite(v);
+function parseNegotiation(raw: unknown, model: RagModel): RagAnswer {
+  if (!record(raw) || raw.generation_model !== model || typeof raw.model_called !== "boolean" || typeof raw.status !== "string" || !Array.isArray(raw.sources) || raw.sources.length) throw invalid();
+  const f = raw.facts;
+  if (!record(f) || !num(f.requested_change_pct) || !(num(f.material_change_pct) || f.material_change_pct === null) || !(num(f.gap_pp) || f.gap_pp === null) || !VERDICTS.includes(f.verdict as string)) throw invalid();
+  const facts = { requested_change_pct: f.requested_change_pct, material_change_pct: f.material_change_pct, gap_pp: f.gap_pp, verdict: f.verdict } as NegotiationResult;
+  const drafted = raw.status === "drafted" || raw.status === "needs_review";
+  if (!drafted && !["invalid_generation", "context_limit_exceeded"].includes(raw.status)) throw invalid();
+  if (drafted && (typeof raw.report !== "string" || !raw.report.trim() || typeof raw.email !== "string" || !raw.email.trim())) throw invalid();
+  const text = typeof raw.answer === "string" && raw.answer.trim() ? raw.answer : raw.message;
+  if (typeof text !== "string" || !text.trim()) throw invalid();
+  return {
+    answer: text, status: raw.status, model, modelCalled: raw.model_called, sources: [], facts,
+    ...(drafted ? { report: raw.report as string, email: raw.email as string } : {}),
+    ...(typeof raw.note === "string" ? { note: raw.note } : {}),
+  };
 }
 
 function parseAnswer(raw: unknown, model: RagModel, dataset?: RagDataset): RagAnswer {
@@ -120,7 +145,7 @@ export async function askRag(input: RagQuestion, options: { signal?: AbortSignal
     for (;;) {
       if (job.job_id !== id) throw invalid();
       if (input.dataset ? !sameDataset(job.dataset, input.dataset) : job.dataset !== undefined) throw invalid();
-      if (job.status === "succeeded") return parseAnswer(job.result, input.model, input.dataset);
+      if (job.status === "succeeded") return input.negotiation ? parseNegotiation(job.result, input.model) : parseAnswer(job.result, input.model, input.dataset);
       if (job.status === "failed") {
         const message = typeof job.message === "string" && job.message.trim() ? job.message : "RAG 답변 생성에 실패했습니다. 서버 상태를 확인해 주세요.";
         if (typeof job.error_status === "number" && Number.isInteger(job.error_status) && job.error_status >= 400 && job.error_status <= 599) throw new RagHttpError(job.error_status, message);

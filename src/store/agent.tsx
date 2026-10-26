@@ -7,7 +7,8 @@ import type { AnalysisResult, TemplateId } from "../lib/analysisTypes";
 import { uid, useStore } from "./store";
 import { askRag, getRagConfig, RagHttpError, type ChatMode, type RagConfig, type RagModel } from "../ai/rag";
 import { createRagSession, WebRagSession, type WebRagPhase } from "../ai/webRag";
-import { detectMarketTopic } from "../ai/topic";
+import { detectMarketTopic, detectNegotiationTopic, type NegotiationDraft } from "../ai/topic";
+import { buildFacts, type NegotiationFacts } from "../lib/negotiation";
 
 /** v0.6.0: 챗봇 질문은 구매 DB RAG + qwen3:8b로 고정한다 (선택 UI 없음) */
 export const RAG_MODE: ChatMode = "rag";
@@ -17,7 +18,7 @@ export const RAG_MODEL: RagModel = "qwen3:8b";
 interface PanelInfo { resultId?: string; shownAs?: TemplateId; followup?: boolean; note: string }
 
 interface AgentApi {
-  ask: (question: string, opts?: { answeringId?: string; mode?: ChatMode }) => Promise<void>;
+  ask: (question: string, opts?: { answeringId?: string; mode?: ChatMode; negotiation?: NegotiationFacts }) => Promise<void>;
   /** 질문에서 찾은 대상으로 오른쪽 분석 결과창만 바꾼다 (웹 화면 데이터 기준) */
   explore: (question: string, pending?: PendingClarify | null) => Promise<PanelInfo>;
   choose: (resultId: string, template: TemplateId) => void;
@@ -148,11 +149,17 @@ export function AgentProvider({ children }: { children: ReactNode }) {
   const explore = useCallback(async (question: string, pending?: PendingClarify | null): Promise<PanelInfo> => {
     const { state, dispatch, derived } = ref.current;
     const q = question.trim();
-    const topic = pending ? null : detectMarketTopic(q, state.data, state.meta.asOf);
+    // 단가 인상 협상 질문이 시세 질문보다 먼저다 ('원자재 대비 인상' 같은 질문)
+    const topic = pending ? null : detectNegotiationTopic(q, derived) ?? detectMarketTopic(q, state.data, state.meta.asOf);
     let info: PanelInfo;
     if (topic) {
       dispatch({ type: "topic", topic });
-      info = { note: topic.kind === "material" ? `오른쪽 분석 결과창: ${topic.material} 시세 추이 (웹 화면 데이터)` : topic.kind === "wage" ? `오른쪽 분석 결과창: ${topic.path.at(-1)} 임금 추이 (웹 화면 데이터)` : "오른쪽 분석 결과창: 추가 선택 필요" };
+      info = {
+        note: topic.kind === "material" ? `오른쪽 분석 결과창: ${topic.material} 시세 추이 (웹 화면 데이터)`
+          : topic.kind === "wage" ? `오른쪽 분석 결과창: ${topic.path.at(-1)} 임금 추이 (웹 화면 데이터)`
+          : topic.kind === "negotiation" ? `오른쪽 분석 결과창: ${derived.suppliersById.get(topic.supplierId)?.name} ${derived.itemsByCode.get(topic.itemCode)?.name} 단가 인상 협상 분석`
+          : "오른쪽 분석 결과창: 추가 선택 필요",
+      };
     } else {
       // 시세·임금이 아니면 기존 웹 데이터 분석 규칙으로 대상을 찾는다. 질문에 적은 대상만 쓰도록 왼쪽 행 선택은 넘기지 않는다.
       const reply = await answer(q, { data: state.data, derived, meta: state.meta, selection: {}, lastResult: state.lastResultId ? state.results[state.lastResultId] : null, pending: pending ?? null }, null);
@@ -176,7 +183,7 @@ export function AgentProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const ask = useCallback(
-    async (question: string, opts?: { answeringId?: string; mode?: ChatMode }) => {
+    async (question: string, opts?: { answeringId?: string; mode?: ChatMode; negotiation?: NegotiationFacts }) => {
       const { state, dispatch, derived } = ref.current;
       const q = question.trim();
       // 기존 평가 카드·선택 정보의 분석 버튼은 계속 웹 데이터 분석을 사용한다.
@@ -195,13 +202,22 @@ export function AgentProvider({ children }: { children: ReactNode }) {
       dispatch({ type: "busy", busy: true, progress: 0 });
       try {
         // 질문 → 오른쪽 분석 화면을 먼저 바꾸고(웹 화면 데이터), 그다음 구매 DB RAG 답변을 기다린다
-        const panel = mode === "rag"
+        const panel = mode === "rag" && !opts?.negotiation
           ? await explore(q).catch((): PanelInfo => {
               dispatch({ type: "topic", topic: { kind: "unclear", question: q, message: "질문에서 분석 대상을 찾지 못했습니다.", options: [] } });
               return { note: "오른쪽 분석 결과창: 추가 선택 필요" };
             })
           : null;
         const panelLink = panel?.resultId ? { resultId: panel.resultId, shownAs: panel.shownAs, followup: panel.followup } : {};
+        // 협상 주제면 일반 RAG 질문 대신 계산한 사실로 협상 보고서 작업(LangChain 체인)을 보낸다
+        const shown = ref.current.state.topic;
+        const negotiation = opts?.negotiation ?? (mode === "rag" && shown?.kind === "negotiation" && shown.question === q
+          ? buildFacts(state.data, derived, state.meta.isSample, shown.supplierId, shown.itemCode, { pct: shown.quotePct })
+          : null);
+        const setDraft = (draft: NegotiationDraft) => {
+          const t = ref.current.state.topic;
+          if (t?.kind === "negotiation") dispatch({ type: "topic", topic: { ...t, draft } });
+        };
         if (mode === "rag" && !ragReady) {
           // RAG를 쓸 수 없어도 답변을 지어내지 않고, 오른쪽 분석 화면만 보여 준다 (RAG 연결 없는 공개 페이지 포함)
           dispatch({ type: "addMessage", message: {
@@ -209,6 +225,24 @@ export function AgentProvider({ children }: { children: ReactNode }) {
             text: [`RAG 서버에 연결되지 않아 구매 DB 답변을 만들지 않았습니다 (${ragChecking ? "연결 확인 중" : !ragConfig?.enabled ? "연결 설정 필요" : `${RAG_MODEL} 사용 불가`}). 오른쪽 분석 결과창은 웹 화면 데이터로 표시합니다.`],
             engineNote: panel?.note,
           } });
+          return;
+        }
+        if (negotiation) {
+          setDraft({ state: "drafting", facts: negotiation });
+          let reply;
+          try {
+            reply = await askRag({ question: q, model: RAG_MODEL, negotiation }, { signal: request.controller.signal, session: webSession.session });
+          } catch (e) {
+            if (current()) setDraft({ state: "failed", facts: negotiation, message: (e as Error).message });
+            throw e;
+          }
+          if (!current()) return;
+          setDraft({ state: "done", facts: negotiation, status: reply.status, result: reply.facts, report: reply.report, email: reply.email, note: reply.note, message: reply.answer });
+          dispatch({ type: "addMessage", message: {
+            id: uid(), role: "assistant", at: new Date().toISOString(), engine: "rag", text: [reply.answer], ragModel: reply.model, ragStatus: reply.status,
+            engineNote: ["협상 보고서·공문 이메일 초안은 오른쪽 분석 결과창 · 숫자는 코드 계산 · 최종 판단은 담당자", reply.note].filter(Boolean).join(" · "),
+          } });
+          if (!ref.current.state.chatOpen) dispatch({ type: "chat", open: true });
           return;
         }
         if (mode !== "analysis") {

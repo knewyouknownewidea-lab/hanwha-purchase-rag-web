@@ -4,7 +4,7 @@
 
 **로그인 → 데이터 관리(왼쪽)에서 찾기 → 행을 누르면 오른쪽에 상세 → 왼쪽 아래 'AI에게 질문하기' → 분석 결과(오른쪽)에서 형식·보기 설정 변경 → 엑셀로 내보내기**
 
-현재 버전: v0.6.0 (변경 내용은 `CHANGELOG.md`)
+현재 버전: v0.7.0 (변경 내용은 `CHANGELOG.md`)
 
 현재 저장소: **[knewyouknownewidea-lab/hanwha-purchase-rag-web](https://github.com/knewyouknownewidea-lab/hanwha-purchase-rag-web)**. 검증·배포된 원본 [v0.5.1 소스](https://github.com/knewyouknownewidea-lab/Hanwha_DX_Claude/commit/407356f84bc5d84ec676ce2eb19053e17a25c2c2)에서 웹사이트와 RAG 코드를 분리해 공개했습니다.
 
@@ -128,6 +128,10 @@ npm run build      # dist/index.html(한화엔진 표기), dist/artifact.html(�
 **인건비 동향:** 소분류 월평균 임금의 전년 같은 달 대비 상승률, 상위 분류 평균과 비교. 협력사 공정(주조·단조·가공·배관 등)을 관련 직종 소분류와 연결해 협력사 상세에 표시
 
 ## AI API 연결 방법
+
+### 단가 인상 협상 보고서 (v0.7.0)
+
+챗봇에 "업체 A 실린더 라이너 견적 10% 인상 요구 검토"처럼 물으면 오른쪽에 협상 화면이 열립니다. 요구 인상률과 품목 주요 소재의 시세 인상률(국내, 전년 같은 달 대비, 단순 평균)·차이·판정은 **코드가 계산**하고, RAG 서버의 **LangChain 체인(qwen3:8b)**은 그 사실만 받아 협상 논리 보고서와 공문 이메일 초안을 씁니다. 견적서 값은 화면에서 바꿀 수 있고, 계약 데이터(직전 → 최근 단가)로도 볼 수 있습니다. 원자재가 단가에서 차지하는 비중은 데이터에 없어 반영하지 않습니다. 사실에 없는 수치·날짜가 나오면 '검토 필요'로 표시합니다. RAG를 쓰는 PC에는 `pip install -r purchase-rag/backend/requirements.txt`로 LangChain을 설치하고 런타임을 다시 시작해야 합니다.
 
 ### 구매 DB RAG 고정 (v0.6.0)
 

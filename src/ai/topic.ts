@@ -1,13 +1,57 @@
 // 질문 → 오른쪽 분석 화면 주제. 원자재·직종은 화면 데이터의 이름과 정확히 대조하며(구매 DB RAG의 query_rules.py와 같은 규칙),
 // 대상이 없거나 여러 개면 그래프를 그리지 않고 추가 선택을 요청한다.
 import type { DataSet } from "../data/types";
-import { findPeriod } from "./intent";
+import type { Derived } from "../lib/metrics";
+import type { NegotiationFacts, NegotiationResult } from "../lib/negotiation";
+import { findItem, findPeriod, findSuppliers } from "./intent";
 
 export type Market = "국제" | "국내";
 export type Topic =
   | { kind: "material"; question: string; material: string; market: Market | null; months: number | null }
   | { kind: "wage"; question: string; path: string[]; months: number | null }
-  | { kind: "unclear"; question: string; message: string; options: { label: string; ask?: string }[]; pending?: unknown };
+  | { kind: "unclear"; question: string; message: string; options: { label: string; ask?: string }[]; pending?: unknown }
+  | { kind: "negotiation"; question: string; supplierId: string; itemCode: string; quotePct: number | null; draft?: NegotiationDraft };
+
+/** 서버(LangChain 체인)가 작성한 협상 보고서·이메일 초안과, 서버가 다시 계산한 값 */
+export interface NegotiationDraft {
+  state: "drafting" | "done" | "failed";
+  facts?: NegotiationFacts;
+  status?: string;
+  result?: NegotiationResult;
+  report?: string;
+  email?: string;
+  note?: string;
+  message?: string;
+}
+
+const NEGOTIATION_TERMS = /인상|견적|협상|올려|올리|올린|단가\s*조정/;
+
+/** 단가 인상 협상 질문: 협력사·품목을 계약 데이터에서 하나로 정한다. 여러 개면 추측하지 않고 고르게 한다 */
+export function detectNegotiationTopic(question: string, derived: Derived): Topic | null {
+  if (!NEGOTIATION_TERMS.test(question)) return null;
+  const sups = findSuppliers(question, [...derived.suppliersById.values()]);
+  const itemCode = findItem(question, [...derived.itemsByCode.values()]);
+  if (!sups.length && !itemCode) return null;
+  const pct = question.match(/(\d+(?:\.\d+)?)\s*%/);
+  const quotePct = pct ? Number(pct[1]) : null;
+  const name = (id: string) => derived.suppliersById.get(id)?.name ?? id;
+  const itemName = (code: string) => derived.itemsByCode.get(code)?.name ?? code;
+  const contracts = derived.contractViews.filter((c) => (!sups.length || sups.includes(c.supplierId)) && (!itemCode || c.itemCode === itemCode));
+  if (sups.length > 1)
+    return { kind: "unclear", question, message: `협력사가 여러 곳입니다 (${sups.map(name).join(", ")}). 한 곳을 골라 주세요.`, options: sups.map((id) => ({ label: name(id), ask: `${name(id)} ${itemCode ? itemName(itemCode) + " " : ""}단가 인상 검토` })) };
+  if (contracts.length === 1) return { kind: "negotiation", question, supplierId: contracts[0].supplierId, itemCode: contracts[0].itemCode, quotePct };
+  if (!contracts.length)
+    return { kind: "unclear", question, message: "질문한 협력사·품목의 계약 단가가 데이터에 없습니다. 협력사와 품목을 확인해 주세요.", options: [] };
+  return {
+    kind: "unclear",
+    question,
+    message: `계약이 여러 건입니다. 협상할 ${sups.length ? "품목" : "협력사"}을 골라 주세요.`,
+    options: contracts.map((c) => {
+      const label = sups.length ? c.itemName : c.supplierName;
+      return { label, ask: `${c.supplierName} ${c.itemName} 단가 인상 검토${quotePct != null ? ` ${quotePct}%` : ""}` };
+    }),
+  };
+}
 
 const compact = (s: string) => s.replace(/\s+/g, "");
 const MATERIAL_TERMS = /원자재|시세/;

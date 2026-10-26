@@ -2,7 +2,7 @@
 
 export const RAG_MODELS = Object.freeze(["qwen3:8b", "gemma3:4b", "llama3.1:8b"]);
 const DOCUMENT_TYPES = new Set(["supplier", "part", "supplier_part", "order", "complaint"]);
-const INPUT_FIELDS = new Set(["question", "model", "top_k", "order_id", "supplier_id", "part_id", "document_type", "dataset"]);
+const INPUT_FIELDS = new Set(["question", "model", "top_k", "order_id", "supplier_id", "part_id", "document_type", "dataset", "negotiation"]);
 const TABLES = new Set(["suppliers", "items", "purchaseOrders", "contracts", "inventory", "bom", "materialPrices", "fxRates", "laborWages", "competitorSupply", "industryNews"]);
 const SNAPSHOT_FIELDS = new Set(["schema_version", "client_revision", "meta", "data"]);
 const META_FIELDS = new Set(["asOf", "isSample", "label", "sources", "uploaded"]);
@@ -105,6 +105,11 @@ function validateInput(value) {
   if (!value || typeof value !== "object" || Array.isArray(value) || Object.keys(value).some((key) => !INPUT_FIELDS.has(key))) throw new RagError(422, BAD_INPUT);
   if (typeof value.question !== "string" || !value.question.trim() || value.question.length > 1000 || !RAG_MODELS.includes(value.model)) throw new RagError(422, BAD_INPUT);
   const payload = { question: value.question.trim(), model: value.model };
+  if (value.negotiation !== undefined) {
+    // 협상 사실은 게이트웨이가 필드·타입·범위를 엄격히 검사한다. 여기서는 모양과 혼용만 막는다.
+    if (!record(value.negotiation) || ["dataset", "order_id", "supplier_id", "part_id", "document_type"].some((key) => Object.hasOwn(value, key))) throw new RagError(422, BAD_INPUT);
+    payload.negotiation = value.negotiation;
+  }
   if (value.dataset !== undefined) {
     if (!validDatasetRef(value.dataset) || ["order_id", "supplier_id", "part_id", "document_type"].some((key) => Object.hasOwn(value, key))) throw new RagError(422, BAD_INPUT);
     payload.dataset = { id: value.dataset.id, revision: value.dataset.revision };
@@ -215,7 +220,7 @@ function publicJob(data, jobId, submit, expectedDataset, hasSession) {
     if (!result || typeof result !== "object" || Array.isArray(result) || typeof result.status !== "string" || (typeof result.answer !== "string" && result.answer !== null) || !Array.isArray(result.sources)) throw new RagError(502, UNAVAILABLE);
     // 게이트웨이 작업 메타데이터는 넘기지 않고, 공개 답변 계약만 전달합니다.
     job.result = {};
-    for (const key of ["question", "status", "answer", "message", "generation_model", "model_called", "retrieval_method", "sources", "citation_check", "note"]) {
+    for (const key of ["question", "status", "answer", "message", "generation_model", "model_called", "retrieval_method", "sources", "citation_check", "note", "report", "email", "facts"]) {
       if (Object.hasOwn(result, key)) job.result[key] = result[key];
     }
     if (job.dataset) {

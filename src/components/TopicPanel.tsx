@@ -6,6 +6,7 @@ import { topicConditions, type Topic } from "../ai/topic";
 import type { PendingClarify } from "../ai/agent";
 import { MaterialPrices } from "./subviews/MaterialPrices";
 import { LaborWages } from "./subviews/LaborWages";
+import { NegotiationPanel } from "./NegotiationPanel";
 
 export function TopicPanel({ topic }: { topic: Topic }) {
   const { state } = useStore();
@@ -34,6 +35,8 @@ export function TopicPanel({ topic }: { topic: Topic }) {
         <MaterialPrices key={`${topic.question}-${topic.material}`} focus={topic} />
       ) : topic.kind === "wage" ? (
         <LaborWages key={`${topic.question}-${topic.path.join("›")}`} focus={topic} />
+      ) : topic.kind === "negotiation" ? (
+        <NegotiationPanel key={`${topic.question}-${topic.supplierId}-${topic.itemCode}`} topic={topic} />
       ) : (
         <div className="topic-unclear" data-unclear>
           <p>

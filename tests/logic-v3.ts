@@ -11,7 +11,8 @@ import { buildXlsx, colName, crc32, excelDate } from "../src/lib/xlsx";
 import { resultSheets } from "../src/lib/exporters";
 import { runAnalysis } from "../src/lib/analysis";
 import { validateRows } from "../src/lib/validate";
-import { detectMarketTopic } from "../src/ai/topic";
+import { detectMarketTopic, detectNegotiationTopic } from "../src/ai/topic";
+import { analyze, buildFacts } from "../src/lib/negotiation";
 
 let pass = 0;
 let fail = 0;
@@ -116,6 +117,22 @@ const t3 = detectMarketTopic("니켈과 구리 시세", data, meta.asOf);
 check("원자재 여러 개 → 추가 선택", t3?.kind === "unclear" && t3.options.length === 2);
 check("시세와 임금 함께 → 추가 선택", detectMarketTopic("주조원 임금과 니켈 시세", data, meta.asOf)?.kind === "unclear");
 check("협력사·납기 질문은 시세 주제 아님", detectMarketTopic("업체 A 납기 준수율", data, meta.asOf) === null);
+// ── 단가 인상 협상 (purchase-rag/backend/test_negotiation.py와 같은 예) ──
+const nb = analyze({ prev_price: 1250000, requested_price: 1400000, threshold_pp: 2, materials: [{ name: "선철", change_pct: -5.8 }, { name: "니켈", change_pct: 15.2 }] });
+check("협상 계산: 요구 12.0% · 소재 평균 4.7% · 차이 7.3%p · 과도 (백엔드와 같음)", nb.requested_change_pct === 12 && nb.material_change_pct === 4.7 && nb.gap_pp === 7.3 && nb.verdict === "excessive", JSON.stringify(nb));
+check("협상 계산: 소재 자료 없으면 판정 보류", analyze({ prev_price: 100, requested_price: 110, threshold_pp: 2, materials: [{ name: "니켈", change_pct: null }] }).verdict === "insufficient_data");
+const nt = detectNegotiationTopic("업체 A 실린더 라이너 단가 인상 요구 검토해줘", d);
+check("협상 질문 → 협력사·품목 하나", nt?.kind === "negotiation" && nt.supplierId === "SUP-001" && nt.itemCode === "ITM-1001" && nt.quotePct === null, JSON.stringify(nt));
+const nt2 = detectNegotiationTopic("업체 A 단가 인상 요구 검토", d);
+check("협력사 계약이 여러 건 → 품목 선택", nt2?.kind === "unclear" && nt2.options.length === 2, JSON.stringify(nt2));
+const nt3 = detectNegotiationTopic("업체 A 실린더 라이너 견적 10% 인상", d);
+check("견적 인상률(%) 읽기", nt3?.kind === "negotiation" && nt3.quotePct === 10);
+check("협력사·품목 없는 인상 질문은 협상 주제 아님", detectNegotiationTopic("원자재 시세 인상 추이", d) === null);
+const fc = buildFacts(data, d, true, "SUP-001", "ITM-1001");
+check("계약 데이터 기준: 직전 → 최근 단가", fc?.source === "contract" && fc.prev_price === 1210000 && fc.requested_price === 1250000 && fc.materials.length === 3, JSON.stringify(fc));
+const fq = buildFacts(data, d, true, "SUP-001", "ITM-1001", { pct: 10 });
+check("견적 10%: 현재 계약 단가 기준 요구 단가", fq?.source === "quote" && fq.prev_price === 1250000 && fq.requested_price === 1375000);
+check("기존 단가가 0이면 계산하지 않음", buildFacts(data, d, true, "SUP-001", "ITM-1001", { prevPrice: 0, requestedPrice: 100 }) === null);
 check("시세 데이터가 없으면 그래프 대신 안내", detectMarketTopic("니켈 시세", { ...data, materialPrices: [] }, meta.asOf)?.kind === "unclear");
 
 console.log(`\n${pass}/${pass + fail} 통과`);

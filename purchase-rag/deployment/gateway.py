@@ -19,6 +19,8 @@ from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, ValidationError, field_validator, model_validator
 
+from backend.negotiation import NegotiationFacts
+
 BACKEND_URL = 'http://127.0.0.1:8000'
 MAX_BODY_BYTES = 8192
 MAX_DATASET_BYTES = 2 * 1024 * 1024
@@ -55,11 +57,15 @@ class AnswerInput(BaseModel):
     part_id: StrictInt | None = Field(default=None, gt=0)
     document_type: Literal['supplier', 'part', 'supplier_part', 'order', 'complaint'] | None = None
     dataset: DatasetHandle | None = None
+    # 단가 인상 협상 보고서: 브라우저가 계산 전 원래 값만 보냅니다. 검색 조건·웹 데이터와 섞지 않습니다.
+    negotiation: NegotiationFacts | None = None
 
     @model_validator(mode='after')
     def separate_sources(self):
         if self.dataset is not None and any(getattr(self, key) is not None for key in ('order_id', 'supplier_id', 'part_id', 'document_type')):
             raise ValueError('web and DB filters cannot be mixed')
+        if self.negotiation is not None and any(getattr(self, key) is not None for key in ('order_id', 'supplier_id', 'part_id', 'document_type', 'dataset')):
+            raise ValueError('negotiation cannot be mixed with search filters')
         return self
 
     @field_validator('question')
@@ -80,14 +86,14 @@ class BackendUnavailable(Exception):
 class LocalBackend:
     """고정된 로컬 주소/경로만 호출합니다. 사용자 URL/경로는 받지 않습니다."""
     def request(self, method, path, payload=None):
-        allowed = {('GET', '/health'), ('GET', '/models'), ('POST', '/answer'),
+        allowed = {('GET', '/health'), ('GET', '/models'), ('POST', '/answer'), ('POST', '/negotiate'),
                    ('POST', '/web/datasets'), ('POST', '/web/datasets/status'),
                    ('POST', '/web/datasets/delete'), ('POST', '/web/answer')}
         if (method, path) not in allowed:
             raise BackendUnavailable(502, '지원하지 않는 작업입니다.')
         try:
             with httpx.Client(base_url=BACKEND_URL, trust_env=False, follow_redirects=False,
-                              timeout=httpx.Timeout(630 if path in ('/answer', '/web/answer') else 10, connect=3)) as client:
+                              timeout=httpx.Timeout(630 if path in ('/answer', '/web/answer', '/negotiate') else 10, connect=3)) as client:
                 response = client.request(method, path, json=payload)
             if not 200 <= response.status_code < 300:
                 if path.startswith('/web/'):
@@ -230,8 +236,11 @@ class Jobs:
         try:
             with self.lock:
                 owner = self.items[job_id].owner_hash
-            result = self.backend.request('POST', '/web/answer' if payload.get('dataset') else '/answer',
-                                          {**payload, 'owner': owner} if payload.get('dataset') else payload)
+            if payload.get('negotiation'):
+                result = self.backend.request('POST', '/negotiate', {k: payload[k] for k in ('question', 'model', 'negotiation')})
+            else:
+                result = self.backend.request('POST', '/web/answer' if payload.get('dataset') else '/answer',
+                                              {**payload, 'owner': owner} if payload.get('dataset') else payload)
             if payload.get('dataset') and result.get('dataset') != payload['dataset']:
                 raise BackendUnavailable(502, '웹 데이터 답변의 버전 확인에 실패했습니다.')
             state, message, status = 'succeeded', None, None
