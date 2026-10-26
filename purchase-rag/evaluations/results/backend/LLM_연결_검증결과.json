@@ -1,0 +1,247 @@
+[
+  {
+    "case": "정확 조회 및 답변 생성",
+    "response": {
+      "question": "발주 1101의 납품 수량과 남은 수량은?",
+      "status": "answered",
+      "answer": "발주 1101의 납품 수량은 40이며, 남은 수량은 60입니다. [E1]",
+      "message": "검색 근거로 답변을 생성했습니다.",
+      "generation_model": "qwen3:8b",
+      "model_called": true,
+      "retrieval_method": "structured_db",
+      "sources": [
+        {
+          "evidence_id": "E1",
+          "chunk_id": "order-1101:db",
+          "parent_document_id": "order-1101",
+          "source": {
+            "document_type": "order",
+            "source_db": "구매관리_테스트.db",
+            "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+            "source_tables": [
+              "orders",
+              "supplier",
+              "part",
+              "delivery"
+            ],
+            "source_refs": [
+              "orders:1101",
+              "supplier:1",
+              "part:1",
+              "delivery:2024"
+            ],
+            "order_id": 1101,
+            "supplier_id": 1,
+            "part_id": 1,
+            "order_date": "2026-10-05",
+            "expected_date": "2026-10-20",
+            "delivery_ids": [
+              2024
+            ],
+            "delivery_dates": [
+              "2026-10-18"
+            ],
+            "recorded_delivered_quantity": 40,
+            "recorded_quantity_difference": 60
+          },
+          "similarity": null
+        }
+      ],
+      "citation_check": "valid_ids_only",
+      "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+      "prompt_eval_count": 570,
+      "eval_count": 34,
+      "note": "출처 번호의 존재를 확인했습니다. 문장별 사실 정확성을 자동 검증한 것은 아닙니다."
+    }
+  },
+  {
+    "case": "정확 조회 및 답변 생성",
+    "response": {
+      "question": "발주 1101의 납품 수량과 남은 수량은?",
+      "status": "answered",
+      "answer": "발주 1101의 납품 수량은 40이고, 남은 수량은 60입니다. [E1]",
+      "message": "검색 근거로 답변을 생성했습니다.",
+      "generation_model": "gemma3:4b",
+      "model_called": true,
+      "retrieval_method": "structured_db",
+      "sources": [
+        {
+          "evidence_id": "E1",
+          "chunk_id": "order-1101:db",
+          "parent_document_id": "order-1101",
+          "source": {
+            "document_type": "order",
+            "source_db": "구매관리_테스트.db",
+            "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+            "source_tables": [
+              "orders",
+              "supplier",
+              "part",
+              "delivery"
+            ],
+            "source_refs": [
+              "orders:1101",
+              "supplier:1",
+              "part:1",
+              "delivery:2024"
+            ],
+            "order_id": 1101,
+            "supplier_id": 1,
+            "part_id": 1,
+            "order_date": "2026-10-05",
+            "expected_date": "2026-10-20",
+            "delivery_ids": [
+              2024
+            ],
+            "delivery_dates": [
+              "2026-10-18"
+            ],
+            "recorded_delivered_quantity": 40,
+            "recorded_quantity_difference": 60
+          },
+          "similarity": null
+        }
+      ],
+      "citation_check": "valid_ids_only",
+      "model_digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+      "prompt_eval_count": 548,
+      "eval_count": 33,
+      "note": "출처 번호의 존재를 확인했습니다. 문장별 사실 정확성을 자동 검증한 것은 아닙니다."
+    }
+  },
+  {
+    "case": "정확 조회 및 답변 생성",
+    "response": {
+      "question": "발주 1101의 납품 수량과 남은 수량은?",
+      "status": "answered",
+      "answer": "납품 ID: 2024의 납품 수량은 40입니다. [E1] \n발주 수량과 기록상 납품 수량의 차이는 60입니다. [E1]",
+      "message": "검색 근거로 답변을 생성했습니다.",
+      "generation_model": "llama3.1:8b",
+      "model_called": true,
+      "retrieval_method": "structured_db",
+      "sources": [
+        {
+          "evidence_id": "E1",
+          "chunk_id": "order-1101:db",
+          "parent_document_id": "order-1101",
+          "source": {
+            "document_type": "order",
+            "source_db": "구매관리_테스트.db",
+            "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+            "source_tables": [
+              "orders",
+              "supplier",
+              "part",
+              "delivery"
+            ],
+            "source_refs": [
+              "orders:1101",
+              "supplier:1",
+              "part:1",
+              "delivery:2024"
+            ],
+            "order_id": 1101,
+            "supplier_id": 1,
+            "part_id": 1,
+            "order_date": "2026-10-05",
+            "expected_date": "2026-10-20",
+            "delivery_ids": [
+              2024
+            ],
+            "delivery_dates": [
+              "2026-10-18"
+            ],
+            "recorded_delivered_quantity": 40,
+            "recorded_quantity_difference": 60
+          },
+          "similarity": null
+        }
+      ],
+      "citation_check": "valid_ids_only",
+      "model_digest": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+      "prompt_eval_count": 519,
+      "eval_count": 48,
+      "note": "출처 번호의 존재를 확인했습니다. 문장별 사실 정확성을 자동 검증한 것은 아닙니다."
+    }
+  },
+  {
+    "case": "모델 호출 전 차단",
+    "response": {
+      "question": "발주 9999의 납품 수량은?",
+      "status": "insufficient_evidence",
+      "answer": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "generation_model": "gemma3:4b",
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "sources": [],
+      "citation_check": "not_applicable"
+    }
+  },
+  {
+    "case": "모델 호출 전 차단",
+    "response": {
+      "question": "최근 납품 수량은?",
+      "status": "clarification_required",
+      "answer": "상대 날짜는 자동 추정하지 않습니다. 조회 연도·월·일을 지정해 주세요.",
+      "message": "상대 날짜는 자동 추정하지 않습니다. 조회 연도·월·일을 지정해 주세요.",
+      "generation_model": "gemma3:4b",
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "sources": [],
+      "citation_check": "not_applicable"
+    }
+  },
+  {
+    "case": "벡터 검색 및 답변 생성",
+    "response": {
+      "question": "베어링 완충 포장이 부족하다는 민원을 찾아줘",
+      "status": "answered",
+      "answer": "베어링 완충 포장이 부족하다는 민원 ID: 3006이 있습니다. [E1]",
+      "message": "검색 근거로 답변을 생성했습니다.",
+      "generation_model": "gemma3:4b",
+      "model_called": true,
+      "retrieval_method": "vector_with_validated_conditions",
+      "sources": [
+        {
+          "evidence_id": "E1",
+          "chunk_id": "complaint-3006:langchain:800:0",
+          "parent_document_id": "complaint-3006",
+          "source": {
+            "document_type": "complaint",
+            "source_db": "구매관리_테스트.db",
+            "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+            "source_tables": [
+              "complaint",
+              "delivery",
+              "orders",
+              "supplier",
+              "part"
+            ],
+            "source_refs": [
+              "complaint:3006",
+              "delivery:2023",
+              "orders:1018",
+              "supplier:3",
+              "part:3"
+            ],
+            "complaint_id": 3006,
+            "delivery_id": 2023,
+            "order_id": 1018,
+            "supplier_id": 3,
+            "part_id": 3,
+            "delivery_date": "2026-09-22",
+            "complaint_date": "2026-09-24",
+            "defect_type": "PACKAGING_DAMAGE"
+          },
+          "similarity": 0.72789
+        }
+      ],
+      "citation_check": "valid_ids_only",
+      "model_digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+      "prompt_eval_count": 441,
+      "eval_count": 27,
+      "note": "출처 번호의 존재를 확인했습니다. 문장별 사실 정확성을 자동 검증한 것은 아닙니다."
+    }
+  }
+]

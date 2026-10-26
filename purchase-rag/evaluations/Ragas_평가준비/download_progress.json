@@ -1,0 +1,9 @@
+{
+  "status": "complete",
+  "completed_models": [
+    "qwen3:8b",
+    "gemma3:4b",
+    "llama3.1:8b",
+    "qwen3:14b"
+  ]
+}

@@ -1,0 +1,2288 @@
+{
+  "status": "사용자 검토 전 초안 - 성능 합격 기준 아님",
+  "version": "review-0.1",
+  "source": "기존 사용 질문 60개를 재분류하고 신규 검토 질문 4개 추가. 재평가 미실행.",
+  "split_policy": "기존 60개는 개발/분석용으로만 사용. 사용자 승인 및 신규 업무 질문 확보 후 최종 평가셋 별도 고정.",
+  "snapshot": {
+    "database_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+    "table_counts": {
+      "supplier": 3,
+      "part": 3,
+      "supplier_part": 9,
+      "orders": 24,
+      "delivery": 27,
+      "complaint": 8
+    },
+    "order_date_range": [
+      {
+        "first": "2026-04-05",
+        "last": "2026-10-15"
+      }
+    ],
+    "delivery_date_range": [
+      {
+        "first": "2026-04-18",
+        "last": "2026-10-23"
+      }
+    ],
+    "schema": {
+      "supplier": [
+        {
+          "cid": 0,
+          "name": "supplier_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "info",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "q_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "d_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "t_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "e_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "part": [
+        {
+          "cid": 0,
+          "name": "part_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "part_name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "supplier_part": [
+        {
+          "cid": 0,
+          "name": "supplier_part_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "supplier_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "part_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "unit_price",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "orders": [
+        {
+          "cid": 0,
+          "name": "order_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "supplier_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "part_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "quantity",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "cost",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "order_date",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "expected_date",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "delivery": [
+        {
+          "cid": 0,
+          "name": "delivery_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "order_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "delivery_date",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "delivery_quantity",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "delivery_status",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "complaint": [
+        {
+          "cid": 0,
+          "name": "complaint_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "part_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "delivery_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "complaint_date",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "defect_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "complaint_message",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ]
+    }
+  },
+  "items": [
+    {
+      "id": "Q01",
+      "category": "협력사 점수",
+      "track": "정확 조건 조회",
+      "question": "가상 A사의 저장된 Q 점수는 얼마야?",
+      "expected": "가상 A사의 저장된 Q 점수는 88입니다. 산출 근거나 평가기간은 확인할 수 없습니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier-1"
+      ],
+      "evidence": "Q 저장 점수: 88",
+      "sql": "select supplier_id,name,q_score from supplier where supplier_id=?",
+      "params": [
+        1
+      ],
+      "db_result": [
+        {
+          "supplier_id": 1,
+          "name": "가상 A사",
+          "q_score": 88
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q02",
+      "category": "협력사 점수",
+      "track": "정확 조건 조회",
+      "question": "가상 B사의 저장된 Q 점수는 얼마야?",
+      "expected": "가상 B사의 저장된 Q 점수는 94입니다. 산출 근거나 평가기간은 확인할 수 없습니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier-2"
+      ],
+      "evidence": "Q 저장 점수: 94",
+      "sql": "select supplier_id,name,q_score from supplier where supplier_id=?",
+      "params": [
+        2
+      ],
+      "db_result": [
+        {
+          "supplier_id": 2,
+          "name": "가상 B사",
+          "q_score": 94
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q03",
+      "category": "협력사 점수",
+      "track": "정확 조건 조회",
+      "question": "가상 C사의 저장된 Q 점수는 얼마야?",
+      "expected": "가상 C사의 저장된 Q 점수는 78입니다. 산출 근거나 평가기간은 확인할 수 없습니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier-3"
+      ],
+      "evidence": "Q 저장 점수: 78",
+      "sql": "select supplier_id,name,q_score from supplier where supplier_id=?",
+      "params": [
+        3
+      ],
+      "db_result": [
+        {
+          "supplier_id": 3,
+          "name": "가상 C사",
+          "q_score": 78
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q04",
+      "category": "등록 단가",
+      "track": "정확 조건 조회",
+      "question": "가상 A사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+      "expected": "해당 협력사·부품의 등록 단가는 10,000입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier_part-1"
+      ],
+      "evidence": "등록 단가(unit_price): 10000",
+      "sql": "select * from supplier_part where supplier_part_id=?",
+      "params": [
+        1
+      ],
+      "db_result": [
+        {
+          "supplier_part_id": 1,
+          "supplier_id": 1,
+          "part_id": 1,
+          "unit_price": 10000
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q05",
+      "category": "등록 단가",
+      "track": "정확 조건 조회",
+      "question": "가상 A사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+      "expected": "해당 협력사·부품의 등록 단가는 15,000입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier_part-2"
+      ],
+      "evidence": "등록 단가(unit_price): 15000",
+      "sql": "select * from supplier_part where supplier_part_id=?",
+      "params": [
+        2
+      ],
+      "db_result": [
+        {
+          "supplier_part_id": 2,
+          "supplier_id": 1,
+          "part_id": 2,
+          "unit_price": 15000
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q06",
+      "category": "등록 단가",
+      "track": "정확 조건 조회",
+      "question": "가상 A사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+      "expected": "해당 협력사·부품의 등록 단가는 20,000입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier_part-3"
+      ],
+      "evidence": "등록 단가(unit_price): 20000",
+      "sql": "select * from supplier_part where supplier_part_id=?",
+      "params": [
+        3
+      ],
+      "db_result": [
+        {
+          "supplier_part_id": 3,
+          "supplier_id": 1,
+          "part_id": 3,
+          "unit_price": 20000
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q07",
+      "category": "등록 단가",
+      "track": "정확 조건 조회",
+      "question": "가상 B사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+      "expected": "해당 협력사·부품의 등록 단가는 10,500입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier_part-4"
+      ],
+      "evidence": "등록 단가(unit_price): 10500",
+      "sql": "select * from supplier_part where supplier_part_id=?",
+      "params": [
+        4
+      ],
+      "db_result": [
+        {
+          "supplier_part_id": 4,
+          "supplier_id": 2,
+          "part_id": 1,
+          "unit_price": 10500
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q08",
+      "category": "등록 단가",
+      "track": "정확 조건 조회",
+      "question": "가상 B사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+      "expected": "해당 협력사·부품의 등록 단가는 15,500입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier_part-5"
+      ],
+      "evidence": "등록 단가(unit_price): 15500",
+      "sql": "select * from supplier_part where supplier_part_id=?",
+      "params": [
+        5
+      ],
+      "db_result": [
+        {
+          "supplier_part_id": 5,
+          "supplier_id": 2,
+          "part_id": 2,
+          "unit_price": 15500
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q09",
+      "category": "등록 단가",
+      "track": "정확 조건 조회",
+      "question": "가상 B사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+      "expected": "해당 협력사·부품의 등록 단가는 20,500입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier_part-6"
+      ],
+      "evidence": "등록 단가(unit_price): 20500",
+      "sql": "select * from supplier_part where supplier_part_id=?",
+      "params": [
+        6
+      ],
+      "db_result": [
+        {
+          "supplier_part_id": 6,
+          "supplier_id": 2,
+          "part_id": 3,
+          "unit_price": 20500
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q10",
+      "category": "등록 단가",
+      "track": "정확 조건 조회",
+      "question": "가상 C사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+      "expected": "해당 협력사·부품의 등록 단가는 9,500입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier_part-7"
+      ],
+      "evidence": "등록 단가(unit_price): 9500",
+      "sql": "select * from supplier_part where supplier_part_id=?",
+      "params": [
+        7
+      ],
+      "db_result": [
+        {
+          "supplier_part_id": 7,
+          "supplier_id": 3,
+          "part_id": 1,
+          "unit_price": 9500
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q11",
+      "category": "등록 단가",
+      "track": "정확 조건 조회",
+      "question": "가상 C사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+      "expected": "해당 협력사·부품의 등록 단가는 14,500입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier_part-8"
+      ],
+      "evidence": "등록 단가(unit_price): 14500",
+      "sql": "select * from supplier_part where supplier_part_id=?",
+      "params": [
+        8
+      ],
+      "db_result": [
+        {
+          "supplier_part_id": 8,
+          "supplier_id": 3,
+          "part_id": 2,
+          "unit_price": 14500
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q12",
+      "category": "등록 단가",
+      "track": "정확 조건 조회",
+      "question": "가상 C사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+      "expected": "해당 협력사·부품의 등록 단가는 19,500입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier_part-9"
+      ],
+      "evidence": "등록 단가(unit_price): 19500",
+      "sql": "select * from supplier_part where supplier_part_id=?",
+      "params": [
+        9
+      ],
+      "db_result": [
+        {
+          "supplier_part_id": 9,
+          "supplier_id": 3,
+          "part_id": 3,
+          "unit_price": 19500
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q13",
+      "category": "발주 ID와 수량",
+      "track": "정확 조건 조회",
+      "question": "1101번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "expected": "발주 1101: 주문 100개, 기록상 누적 납품 40개, 차이 60개. 저장된 납품 기록 기준이며 미래 납품 여부는 판단하지 않습니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "order-1101"
+      ],
+      "evidence": "발주 수량과 기록상 납품 수량의 차이: 60",
+      "sql": "select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?",
+      "params": [
+        1101
+      ],
+      "db_result": [
+        {
+          "order_id": 1101,
+          "quantity": 100,
+          "delivered_quantity": 40,
+          "remaining_quantity": 60
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q14",
+      "category": "발주 ID와 수량",
+      "track": "정확 조건 조회",
+      "question": "1102번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "expected": "발주 1102: 주문 100개, 기록상 누적 납품 100개, 차이 0개. 저장된 납품 기록 기준이며 미래 납품 여부는 판단하지 않습니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "order-1102"
+      ],
+      "evidence": "발주 수량과 기록상 납품 수량의 차이: 0",
+      "sql": "select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?",
+      "params": [
+        1102
+      ],
+      "db_result": [
+        {
+          "order_id": 1102,
+          "quantity": 100,
+          "delivered_quantity": 100,
+          "remaining_quantity": 0
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q15",
+      "category": "발주 ID와 수량",
+      "track": "정확 조건 조회",
+      "question": "1103번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "expected": "발주 1103: 주문 100개, 기록상 누적 납품 0개, 차이 100개. 저장된 납품 기록 기준이며 미래 납품 여부는 판단하지 않습니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "order-1103"
+      ],
+      "evidence": "발주 수량과 기록상 납품 수량의 차이: 100",
+      "sql": "select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?",
+      "params": [
+        1103
+      ],
+      "db_result": [
+        {
+          "order_id": 1103,
+          "quantity": 100,
+          "delivered_quantity": 0,
+          "remaining_quantity": 100
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q16",
+      "category": "발주 ID와 수량",
+      "track": "정확 조건 조회",
+      "question": "1104번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "expected": "발주 1104: 주문 60개, 기록상 누적 납품 20개, 차이 40개. 저장된 납품 기록 기준이며 미래 납품 여부는 판단하지 않습니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "order-1104"
+      ],
+      "evidence": "발주 수량과 기록상 납품 수량의 차이: 40",
+      "sql": "select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?",
+      "params": [
+        1104
+      ],
+      "db_result": [
+        {
+          "order_id": 1104,
+          "quantity": 60,
+          "delivered_quantity": 20,
+          "remaining_quantity": 40
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q17",
+      "category": "발주 ID와 수량",
+      "track": "정확 조건 조회",
+      "question": "1105번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "expected": "발주 1105: 주문 60개, 기록상 누적 납품 0개, 차이 60개. 저장된 납품 기록 기준이며 미래 납품 여부는 판단하지 않습니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "order-1105"
+      ],
+      "evidence": "발주 수량과 기록상 납품 수량의 차이: 60",
+      "sql": "select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?",
+      "params": [
+        1105
+      ],
+      "db_result": [
+        {
+          "order_id": 1105,
+          "quantity": 60,
+          "delivered_quantity": 0,
+          "remaining_quantity": 60
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q18",
+      "category": "발주 ID와 수량",
+      "track": "정확 조건 조회",
+      "question": "1106번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "expected": "발주 1106: 주문 60개, 기록상 누적 납품 60개, 차이 0개. 저장된 납품 기록 기준이며 미래 납품 여부는 판단하지 않습니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "order-1106"
+      ],
+      "evidence": "발주 수량과 기록상 납품 수량의 차이: 0",
+      "sql": "select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?",
+      "params": [
+        1106
+      ],
+      "db_result": [
+        {
+          "order_id": 1106,
+          "quantity": 60,
+          "delivered_quantity": 60,
+          "remaining_quantity": 0
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q19",
+      "category": "민원 의미 검색",
+      "track": "의미 검색",
+      "question": "실린더 라이너 겉면에 스크래치가 나서 원인과 조치 의견을 요청한 민원을 찾아줘.",
+      "expected": "민원 3001: 실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함. (접수일 2026-04-22)",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "complaint-3001"
+      ],
+      "evidence": "실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함.",
+      "sql": "select * from complaint where complaint_id=?",
+      "params": [
+        3001
+      ],
+      "db_result": [
+        {
+          "complaint_id": 3001,
+          "part_id": 1,
+          "delivery_id": 2002,
+          "complaint_date": "2026-04-22",
+          "defect_type": "SURFACE_DAMAGE",
+          "complaint_message": "실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함."
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q20",
+      "category": "민원 의미 검색",
+      "track": "의미 검색",
+      "question": "연료 분사 밸브를 싸고 있는 바깥 포장이 망가져 개선을 요구한 건은?",
+      "expected": "민원 3002: 연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함. (접수일 2026-05-20)",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "complaint-3002"
+      ],
+      "evidence": "연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함.",
+      "sql": "select * from complaint where complaint_id=?",
+      "params": [
+        3002
+      ],
+      "db_result": [
+        {
+          "complaint_id": 3002,
+          "part_id": 2,
+          "delivery_id": 2007,
+          "complaint_date": "2026-05-20",
+          "defect_type": "PACKAGING_DAMAGE",
+          "complaint_message": "연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함."
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q21",
+      "category": "민원 의미 검색",
+      "track": "의미 검색",
+      "question": "가상 C사의 실린더 라이너 포장에 부품을 식별하는 라벨이 빠졌다는 민원은?",
+      "expected": "민원 3003: 실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청함. (접수일 2026-04-25)",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "complaint-3003"
+      ],
+      "evidence": "실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청함.",
+      "sql": "select * from complaint where complaint_id=?",
+      "params": [
+        3003
+      ],
+      "db_result": [
+        {
+          "complaint_id": 3003,
+          "part_id": 1,
+          "delivery_id": 2005,
+          "complaint_date": "2026-04-25",
+          "defect_type": "MISSING_LABEL",
+          "complaint_message": "실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청함."
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q22",
+      "category": "민원 의미 검색",
+      "track": "의미 검색",
+      "question": "베어링 표면이 찍혀 납품 상태를 확인해 달라는 민원을 찾아줘.",
+      "expected": "민원 3004: 베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함. (접수일 2026-06-24)",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "complaint-3004"
+      ],
+      "evidence": "베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함.",
+      "sql": "select * from complaint where complaint_id=?",
+      "params": [
+        3004
+      ],
+      "db_result": [
+        {
+          "complaint_id": 3004,
+          "part_id": 3,
+          "delivery_id": 2012,
+          "complaint_date": "2026-06-24",
+          "defect_type": "SURFACE_DAMAGE",
+          "complaint_message": "베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함."
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q23",
+      "category": "민원 의미 검색",
+      "track": "의미 검색",
+      "question": "실린더 라이너 크기가 맞는지 추가 검토를 요청한 민원은?",
+      "expected": "민원 3005: 실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함. (접수일 2026-07-25)",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "complaint-3005"
+      ],
+      "evidence": "실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함.",
+      "sql": "select * from complaint where complaint_id=?",
+      "params": [
+        3005
+      ],
+      "db_result": [
+        {
+          "complaint_id": 3005,
+          "part_id": 1,
+          "delivery_id": 2016,
+          "complaint_date": "2026-07-25",
+          "defect_type": "DIMENSION_CHECK",
+          "complaint_message": "실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함."
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q24",
+      "category": "민원 의미 검색",
+      "track": "의미 검색",
+      "question": "베어링을 보호하는 완충재가 부족해서 포장을 보강해 달라는 요청은?",
+      "expected": "민원 3006: 베어링 완충 포장이 부족해 포장 보강을 요청함. (접수일 2026-09-24)",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "complaint-3006"
+      ],
+      "evidence": "베어링 완충 포장이 부족해 포장 보강을 요청함.",
+      "sql": "select * from complaint where complaint_id=?",
+      "params": [
+        3006
+      ],
+      "db_result": [
+        {
+          "complaint_id": 3006,
+          "part_id": 3,
+          "delivery_id": 2023,
+          "complaint_date": "2026-09-24",
+          "defect_type": "PACKAGING_DAMAGE",
+          "complaint_message": "베어링 완충 포장이 부족해 포장 보강을 요청함."
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q25",
+      "category": "민원 의미 검색",
+      "track": "의미 검색",
+      "question": "가상 A사에서 나눠 받은 실린더 라이너 일부의 식별 라벨을 확인해 달라는 민원은?",
+      "expected": "민원 3007: 분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함. (접수일 2026-10-20)",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "complaint-3007"
+      ],
+      "evidence": "분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함.",
+      "sql": "select * from complaint where complaint_id=?",
+      "params": [
+        3007
+      ],
+      "db_result": [
+        {
+          "complaint_id": 3007,
+          "part_id": 1,
+          "delivery_id": 2024,
+          "complaint_date": "2026-10-20",
+          "defect_type": "MISSING_LABEL",
+          "complaint_message": "분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함."
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q26",
+      "category": "민원 의미 검색",
+      "track": "의미 검색",
+      "question": "입고된 연료 분사 밸브가 제대로 작동하는지 확인해 달라는 민원은?",
+      "expected": "민원 3008: 입고된 연료 분사 밸브에 대한 작동 확인 요청이 접수됨. (접수일 2026-10-23)",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "complaint-3008"
+      ],
+      "evidence": "입고된 연료 분사 밸브에 대한 작동 확인 요청이 접수됨.",
+      "sql": "select * from complaint where complaint_id=?",
+      "params": [
+        3008
+      ],
+      "db_result": [
+        {
+          "complaint_id": 3008,
+          "part_id": 2,
+          "delivery_id": 2027,
+          "complaint_date": "2026-10-23",
+          "defect_type": "OPERATION_CHECK",
+          "complaint_message": "입고된 연료 분사 밸브에 대한 작동 확인 요청이 접수됨."
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q27",
+      "category": "날짜·협력사·부품",
+      "track": "정확 조건 조회",
+      "question": "2026년 5월에 가상 A사에 발주한 연료 분사 밸브의 발주 수량은?",
+      "expected": "질문의 월·협력사·부품에 해당하는 발주 1004의 주문 수량은 60개입니다. 납품 수량과 구분합니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "order-1004"
+      ],
+      "evidence": "발주 수량(quantity): 60",
+      "sql": "select * from orders where order_id=?",
+      "params": [
+        1004
+      ],
+      "db_result": [
+        {
+          "order_id": 1004,
+          "supplier_id": 1,
+          "part_id": 2,
+          "quantity": 60,
+          "cost": 15100,
+          "order_date": "2026-05-05",
+          "expected_date": "2026-05-20"
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q28",
+      "category": "날짜·협력사·부품",
+      "track": "정확 조건 조회",
+      "question": "2026년 6월 가상 B사의 베어링 주문 수량을 알려줘.",
+      "expected": "질문의 월·협력사·부품에 해당하는 발주 1008의 주문 수량은 40개입니다. 납품 수량과 구분합니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "order-1008"
+      ],
+      "evidence": "발주 수량(quantity): 40",
+      "sql": "select * from orders where order_id=?",
+      "params": [
+        1008
+      ],
+      "db_result": [
+        {
+          "order_id": 1008,
+          "supplier_id": 2,
+          "part_id": 3,
+          "quantity": 40,
+          "cost": 20500,
+          "order_date": "2026-06-05",
+          "expected_date": "2026-06-20"
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q29",
+      "category": "날짜·협력사·부품",
+      "track": "정확 조건 조회",
+      "question": "2026년 7월에 가상 A사에 주문한 실린더 라이너의 수량은?",
+      "expected": "질문의 월·협력사·부품에 해당하는 발주 1010의 주문 수량은 200개입니다. 납품 수량과 구분합니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "order-1010"
+      ],
+      "evidence": "발주 수량(quantity): 200",
+      "sql": "select * from orders where order_id=?",
+      "params": [
+        1010
+      ],
+      "db_result": [
+        {
+          "order_id": 1010,
+          "supplier_id": 1,
+          "part_id": 1,
+          "quantity": 200,
+          "cost": 9900,
+          "order_date": "2026-07-05",
+          "expected_date": "2026-07-20"
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "Q30",
+      "category": "날짜·협력사·부품",
+      "track": "정확 조건 조회",
+      "question": "2026년 8월 가상 C사에 발주한 연료 분사 밸브는 몇 개야?",
+      "expected": "질문의 월·협력사·부품에 해당하는 발주 1015의 주문 수량은 120개입니다. 납품 수량과 구분합니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "order-1015"
+      ],
+      "evidence": "발주 수량(quantity): 120",
+      "sql": "select * from orders where order_id=?",
+      "params": [
+        1015
+      ],
+      "db_result": [
+        {
+          "order_id": 1015,
+          "supplier_id": 3,
+          "part_id": 2,
+          "quantity": 120,
+          "cost": 14300,
+          "order_date": "2026-08-05",
+          "expected_date": "2026-08-20"
+        }
+      ],
+      "pass_rule": "요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.",
+      "alternative_evidence": "지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N01",
+      "category": "범위 밖",
+      "track": "서비스 범위 정책",
+      "question": "내일 서울 날씨는 어때?",
+      "expected": "현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.",
+      "sql": "",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N02",
+      "category": "범위 밖",
+      "track": "서비스 범위 정책",
+      "question": "김치찌개 만드는 방법을 알려줘.",
+      "expected": "현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.",
+      "sql": "",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N03",
+      "category": "범위 밖",
+      "track": "서비스 범위 정책",
+      "question": "대한민국의 수도는 어디야?",
+      "expected": "현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.",
+      "sql": "",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N04",
+      "category": "범위 밖",
+      "track": "서비스 범위 정책",
+      "question": "파이썬 리스트 정렬 코드를 작성해줘.",
+      "expected": "현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.",
+      "sql": "",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N05",
+      "category": "범위 밖",
+      "track": "서비스 범위 정책",
+      "question": "이번 주 축구 경기 결과를 알려줘.",
+      "expected": "현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.",
+      "sql": "",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N06",
+      "category": "범위 밖",
+      "track": "서비스 범위 정책",
+      "question": "제주도 여행 숙소 추천해줘.",
+      "expected": "현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.",
+      "sql": "",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N07",
+      "category": "범위 밖",
+      "track": "서비스 범위 정책",
+      "question": "미분과 적분의 차이는 뭐야?",
+      "expected": "현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.",
+      "sql": "",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N08",
+      "category": "범위 밖",
+      "track": "서비스 범위 정책",
+      "question": "노트북 배터리를 오래 쓰는 방법은?",
+      "expected": "현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.",
+      "sql": "",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N09",
+      "category": "범위 밖",
+      "track": "서비스 범위 정책",
+      "question": "오늘 달러 환율은 얼마야?",
+      "expected": "현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.",
+      "sql": "",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N10",
+      "category": "범위 밖",
+      "track": "서비스 범위 정책",
+      "question": "회사 휴가 신청 절차를 알려줘.",
+      "expected": "현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.",
+      "sql": "",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N11",
+      "category": "없는 속성",
+      "track": "없는 속성 거절",
+      "question": "가상 A사 담당자의 이메일 주소를 알려줘.",
+      "expected": "현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "supplier에 이메일 컬럼 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.",
+      "sql": "pragma table_info(supplier)",
+      "params": [],
+      "db_result": [
+        {
+          "cid": 0,
+          "name": "supplier_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "info",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "q_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "d_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "t_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "e_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N12",
+      "category": "없는 속성",
+      "track": "없는 속성 거절",
+      "question": "가상 B사의 담당자 전화번호는?",
+      "expected": "현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "supplier에 전화번호 컬럼 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.",
+      "sql": "pragma table_info(supplier)",
+      "params": [],
+      "db_result": [
+        {
+          "cid": 0,
+          "name": "supplier_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "info",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "q_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "d_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "t_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "e_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N13",
+      "category": "없는 속성",
+      "track": "없는 속성 거절",
+      "question": "가상 C사의 공장 주소는 어디야?",
+      "expected": "현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "supplier에 주소 컬럼 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.",
+      "sql": "pragma table_info(supplier)",
+      "params": [],
+      "db_result": [
+        {
+          "cid": 0,
+          "name": "supplier_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "info",
+          "type": "TEXT",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "q_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "d_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "t_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "e_score",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N14",
+      "category": "없는 속성",
+      "track": "없는 속성 거절",
+      "question": "실린더 라이너의 재질과 무게는?",
+      "expected": "현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "part에 재질/무게 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.",
+      "sql": "pragma table_info(part)",
+      "params": [],
+      "db_result": [
+        {
+          "cid": 0,
+          "name": "part_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "part_name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N15",
+      "category": "없는 속성",
+      "track": "없는 속성 거절",
+      "question": "베어링의 허용 회전수는 얼마야?",
+      "expected": "현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "part에 허용 회전수 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.",
+      "sql": "pragma table_info(part)",
+      "params": [],
+      "db_result": [
+        {
+          "cid": 0,
+          "name": "part_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "part_name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N16",
+      "category": "없는 속성",
+      "track": "없는 속성 거절",
+      "question": "연료 분사 밸브의 제조사 보증 기간은?",
+      "expected": "현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "보증 기간 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.",
+      "sql": "pragma table_info(part)",
+      "params": [],
+      "db_result": [
+        {
+          "cid": 0,
+          "name": "part_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "part_name",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N17",
+      "category": "없는 속성",
+      "track": "없는 속성 거절",
+      "question": "1101번 발주의 결제 완료일은 언제야?",
+      "expected": "현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "orders에 결제 완료일 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.",
+      "sql": "pragma table_info(orders)",
+      "params": [],
+      "db_result": [
+        {
+          "cid": 0,
+          "name": "order_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "supplier_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "part_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "quantity",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "cost",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "order_date",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 6,
+          "name": "expected_date",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N18",
+      "category": "없는 속성",
+      "track": "없는 속성 거절",
+      "question": "1102번 발주의 운송장 번호를 알려줘.",
+      "expected": "현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "운송장 번호 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.",
+      "sql": "pragma table_info(delivery)",
+      "params": [],
+      "db_result": [
+        {
+          "cid": 0,
+          "name": "delivery_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "order_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "delivery_date",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "delivery_quantity",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "delivery_status",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N19",
+      "category": "없는 속성",
+      "track": "없는 속성 거절",
+      "question": "3001번 민원의 최종 해결일은 언제야?",
+      "expected": "현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "complaint에 해결일 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.",
+      "sql": "pragma table_info(complaint)",
+      "params": [],
+      "db_result": [
+        {
+          "cid": 0,
+          "name": "complaint_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "part_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "delivery_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "complaint_date",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "defect_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "complaint_message",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N20",
+      "category": "없는 속성",
+      "track": "없는 속성 거절",
+      "question": "3008번 민원의 담당 처리자는 누구야?",
+      "expected": "현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "complaint에 처리자 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.",
+      "sql": "pragma table_info(complaint)",
+      "params": [],
+      "db_result": [
+        {
+          "cid": 0,
+          "name": "complaint_id",
+          "type": "INTEGER",
+          "notnull": 0,
+          "dflt_value": null,
+          "pk": 1
+        },
+        {
+          "cid": 1,
+          "name": "part_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 2,
+          "name": "delivery_id",
+          "type": "INTEGER",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 3,
+          "name": "complaint_date",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 4,
+          "name": "defect_type",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        },
+        {
+          "cid": 5,
+          "name": "complaint_message",
+          "type": "TEXT",
+          "notnull": 1,
+          "dflt_value": null,
+          "pk": 0
+        }
+      ],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N21",
+      "category": "없는 기록",
+      "track": "없는 기록 거절",
+      "question": "9999번 발주의 납품 수량은 얼마야?",
+      "expected": "현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "orders에 order_id=9999 없음",
+      "sql": "select * from orders where order_id=?",
+      "params": [
+        9999
+      ],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N22",
+      "category": "없는 기록",
+      "track": "없는 기록 거절",
+      "question": "8888번 발주의 납기 예정일은 언제야?",
+      "expected": "현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "orders에 order_id=8888 없음",
+      "sql": "select * from orders where order_id=?",
+      "params": [
+        8888
+      ],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N23",
+      "category": "없는 기록",
+      "track": "없는 기록 거절",
+      "question": "가상 D사의 등록된 Q 점수는 얼마야?",
+      "expected": "현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "supplier에 가상 D사 없음",
+      "sql": "select * from supplier where name=?",
+      "params": [
+        "가상 D사"
+      ],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N24",
+      "category": "없는 기록",
+      "track": "없는 기록 거절",
+      "question": "가상 E사의 베어링 등록 단가를 알려줘.",
+      "expected": "현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "supplier에 가상 E사 없음",
+      "sql": "select * from supplier where name=?",
+      "params": [
+        "가상 E사"
+      ],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N25",
+      "category": "없는 기록",
+      "track": "없는 기록 거절",
+      "question": "2027년 1월 가상 A사의 실린더 라이너 발주 수량은?",
+      "expected": "현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "2027년 발주 없음",
+      "sql": "select * from orders where order_date >= '2027-01-01' and order_date < '2027-02-01'",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N26",
+      "category": "없는 기록",
+      "track": "없는 기록 거절",
+      "question": "2025년 12월 가상 B사의 베어링 납품 수량은?",
+      "expected": "현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "2025년 납품 없음",
+      "sql": "select * from delivery where delivery_date >= '2025-12-01' and delivery_date < '2026-01-01'",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N27",
+      "category": "없는 기록",
+      "track": "없는 기록 거절",
+      "question": "9999번 민원에 적힌 불량 유형은?",
+      "expected": "현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "complaint에 complaint_id=9999 없음",
+      "sql": "select * from complaint where complaint_id=?",
+      "params": [
+        9999
+      ],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N28",
+      "category": "없는 기록",
+      "track": "없는 기록 거절",
+      "question": "8888번 민원의 접수 날짜는 언제야?",
+      "expected": "현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "complaint에 complaint_id=8888 없음",
+      "sql": "select * from complaint where complaint_id=?",
+      "params": [
+        8888
+      ],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N29",
+      "category": "없는 기록",
+      "track": "없는 기록 거절",
+      "question": "가상 A사가 공급하는 터보차저의 등록 단가는?",
+      "expected": "현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "part에 터보차저 없음",
+      "sql": "select * from part where part_name like '%터보차저%'",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "N30",
+      "category": "없는 기록",
+      "track": "없는 기록 거절",
+      "question": "가상 B사가 공급하는 프로펠러의 단가는?",
+      "expected": "현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.",
+      "answerability": "현재 데이터로 답변 불가",
+      "gold_documents_draft": [],
+      "evidence": "part에 프로펠러 없음",
+      "sql": "select * from part where part_name like '%프로펠러%'",
+      "params": [],
+      "db_result": [],
+      "pass_rule": "거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.",
+      "alternative_evidence": "관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.",
+      "review_status": "미검토",
+      "previously_used": true,
+      "split": "미배정"
+    },
+    {
+      "id": "R01",
+      "category": "복수 근거",
+      "track": "복수 근거",
+      "question": "표면에 긁힘이나 찍힘이 있다는 민원을 모두 찾아줘.",
+      "expected": "민원 3001(실린더 라이너 긁힘)과 3004(베어링 찍힘)를 모두 제시합니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "complaint-3001",
+        "complaint-3004"
+      ],
+      "evidence": "아래 SQL 조회 결과를 기준으로 검토합니다.",
+      "sql": "select complaint_id,complaint_message from complaint where defect_type='SURFACE_DAMAGE' order by complaint_id",
+      "params": [],
+      "db_result": [
+        {
+          "complaint_id": 3001,
+          "complaint_message": "실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함."
+        },
+        {
+          "complaint_id": 3004,
+          "complaint_message": "베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함."
+        }
+      ],
+      "pass_rule": "두 민원 모두 검색해야 완전 성공. 하나만 찾으면 부분 성공이며 Hit@k 하나로 만점 처리하지 않습니다.",
+      "alternative_evidence": "문서 조합 또는 동등한 SQL 근거를 허용하는 방식은 검토 후 확정합니다.",
+      "review_status": "미검토",
+      "previously_used": false,
+      "split": "미배정"
+    },
+    {
+      "id": "R02",
+      "category": "복수 근거",
+      "track": "복수 근거",
+      "question": "포장 손상이나 완충 포장 부족으로 접수된 민원은?",
+      "expected": "민원 3002(밸브 외부 포장 손상)와 3006(베어링 완충 포장 부족)를 제시합니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "complaint-3002",
+        "complaint-3006"
+      ],
+      "evidence": "아래 SQL 조회 결과를 기준으로 검토합니다.",
+      "sql": "select complaint_id,complaint_message from complaint where defect_type='PACKAGING_DAMAGE' order by complaint_id",
+      "params": [],
+      "db_result": [
+        {
+          "complaint_id": 3002,
+          "complaint_message": "연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함."
+        },
+        {
+          "complaint_id": 3006,
+          "complaint_message": "베어링 완충 포장이 부족해 포장 보강을 요청함."
+        }
+      ],
+      "pass_rule": "두 민원을 모두 포함. 라벨 누락과 포장 파손의 범위를 사용자가 확인해야 합니다.",
+      "alternative_evidence": "문서 조합 또는 동등한 SQL 근거를 허용하는 방식은 검토 후 확정합니다.",
+      "review_status": "미검토",
+      "previously_used": false,
+      "split": "미배정"
+    },
+    {
+      "id": "R03",
+      "category": "비교·계산",
+      "track": "비교·계산",
+      "question": "실린더 라이너의 등록 단가가 가장 낮은 협력사와 가격은?",
+      "expected": "가상 C사, 9,500. 비교 대상은 A사 10,000 / B사 10,500 / C사 9,500입니다.",
+      "answerability": "답변 가능",
+      "gold_documents_draft": [
+        "supplier_part-1",
+        "supplier_part-4",
+        "supplier_part-7"
+      ],
+      "evidence": "아래 SQL 조회 결과를 기준으로 검토합니다.",
+      "sql": "select s.name,sp.unit_price from supplier_part sp join supplier s using(supplier_id) where sp.part_id=1 order by sp.unit_price",
+      "params": [],
+      "db_result": [
+        {
+          "name": "가상 C사",
+          "unit_price": 9500
+        },
+        {
+          "name": "가상 A사",
+          "unit_price": 10000
+        },
+        {
+          "name": "가상 B사",
+          "unit_price": 10500
+        }
+      ],
+      "pass_rule": "가격 세 개를 비교하거나 전체 대상에 대한 SQL 최솟값 근거가 필요. 9,500 문서 하나만 찾은 것으로 전체 최저가를 입증했다고 판정하지 않습니다.",
+      "alternative_evidence": "문서 조합 또는 동등한 SQL 근거를 허용하는 방식은 검토 후 확정합니다.",
+      "review_status": "미검토",
+      "previously_used": false,
+      "split": "미배정"
+    },
+    {
+      "id": "R04",
+      "category": "질문 명확화",
+      "track": "질문 명확화",
+      "question": "실린더 라이너 단가 알려줘.",
+      "expected": "협력사를 되묻거나, 현재 등록 단가 기준임을 명시하고 A사 10,000 / B사 10,500 / C사 9,500을 구분해 제시합니다.",
+      "answerability": "질문 명확화 또는 조건부 답변",
+      "gold_documents_draft": [
+        "supplier_part-1",
+        "supplier_part-4",
+        "supplier_part-7"
+      ],
+      "evidence": "아래 SQL 조회 결과를 기준으로 검토합니다.",
+      "sql": "select s.name,sp.unit_price from supplier_part sp join supplier s using(supplier_id) where sp.part_id=1 order by s.supplier_id",
+      "params": [],
+      "db_result": [
+        {
+          "name": "가상 A사",
+          "unit_price": 10000
+        },
+        {
+          "name": "가상 B사",
+          "unit_price": 10500
+        },
+        {
+          "name": "가상 C사",
+          "unit_price": 9500
+        }
+      ],
+      "pass_rule": "협력사를 확인하지 않고 특정 가격 하나를 전체 단가처럼 답하면 실패. 과거 거래 가격과 현재 등록 단가의 의미도 구분합니다.",
+      "alternative_evidence": "문서 조합 또는 동등한 SQL 근거를 허용하는 방식은 검토 후 확정합니다.",
+      "review_status": "미검토",
+      "previously_used": false,
+      "split": "미배정"
+    }
+  ]
+}

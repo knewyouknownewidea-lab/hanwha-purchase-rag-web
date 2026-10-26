@@ -1,0 +1,1856 @@
+{
+  "library": "scikit-learn",
+  "version": "1.9.1",
+  "threshold": 0.619865,
+  "model": "BAAI/bge-m3",
+  "model_revision": "5617a9f61b028005a4858fdac845db406aefb181",
+  "method": "동일한 60문항을 실제 API에 다시 요청. sklearn 공식 지표로 통과/거절 성능 계산. 임계값 재조정 없음.",
+  "positive_label": "1=현재 DB에 정답 근거가 있는 질문",
+  "prediction_label": "1=유사도 필터 통과 결과가 하나 이상 있음; 0=근거 부족",
+  "confusion_matrix_axes": "행=실제 [정답 없음,정답 있음], 열=예측 [거절,통과]",
+  "metrics_scope": "질문 통과/거절의 이진 분류 지표. 정답 문서 검색 여부는 별도 확인. 생성 답변 정확도 아님.",
+  "limitations": [
+    "소규모 합성 질문 평가. 기존 정답 질문은 모델 선택에도 사용되었으므로 완전한 신규 벤치마크가 아님.",
+    "독립 문서 단위 분할이 아닌 질문 단위 분할. 실제 업무 질문으로 추가 검증 필요.",
+    "유사도는 답변 가능성이나 사실 정확성을 보장하지 않음. 없는 속성/ID도 비슷한 문서를 찾을 수 있음.",
+    "전체60 결과에는 기준 선정용30문항이 포함되므로 독립 성능으로 해석하지 않음.",
+    "기준 선정에 사용하지 않은 holdout30문항도 가상 데이터 기반이며 기존 정답 질문은 모델 선택에 이미 사용됨.",
+    "라이브러리 교체에 따른 재현성 확인이며 새 업무 평가셋 검증이 아님."
+  ],
+  "input_sha256": {
+    "backend\\유사도_검증결과.json": "13c5d7cd8f74a3b1b1adb308391225e4f6c2305b908190dccbb26855f7b78cee",
+    "backend\\similarity_policy.json": "f540c1a17b41299badeaad65d0921dee5612ea53d07d6e0d72c16fd4d9d928f6",
+    "벡터DB\\active.json": "063393b1d196f0743f8a5b9c4702d5f3d7d18273f8908c5fb982141c6855323f",
+    "구매관리_테스트.db": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df"
+  },
+  "inputs_unchanged": true,
+  "runtime_api_requests": 60,
+  "groups": {
+    "calibration": {
+      "n": 30,
+      "TN": 14,
+      "FP": 1,
+      "FN": 4,
+      "TP": 11,
+      "confusion_matrix": [
+        [
+          14,
+          1
+        ],
+        [
+          4,
+          11
+        ]
+      ],
+      "accuracy": 0.8333333333333334,
+      "balanced_accuracy": 0.8333333333333333,
+      "precision": 0.9166666666666666,
+      "recall": 0.7333333333333333,
+      "f1": 0.8148148148148148,
+      "specificity": 0.9333333333333333,
+      "positive_wrong_document_only": 0,
+      "correct_gold_retained": 11,
+      "same_counts_as_previous": true
+    },
+    "holdout": {
+      "n": 30,
+      "TN": 12,
+      "FP": 3,
+      "FN": 4,
+      "TP": 11,
+      "confusion_matrix": [
+        [
+          12,
+          3
+        ],
+        [
+          4,
+          11
+        ]
+      ],
+      "accuracy": 0.7666666666666667,
+      "balanced_accuracy": 0.7666666666666666,
+      "precision": 0.7857142857142857,
+      "recall": 0.7333333333333333,
+      "f1": 0.7586206896551724,
+      "specificity": 0.8,
+      "positive_wrong_document_only": 0,
+      "correct_gold_retained": 11,
+      "same_counts_as_previous": true
+    },
+    "all": {
+      "n": 60,
+      "TN": 26,
+      "FP": 4,
+      "FN": 8,
+      "TP": 22,
+      "confusion_matrix": [
+        [
+          26,
+          4
+        ],
+        [
+          8,
+          22
+        ]
+      ],
+      "accuracy": 0.8,
+      "balanced_accuracy": 0.8,
+      "precision": 0.8461538461538461,
+      "recall": 0.7333333333333333,
+      "f1": 0.7857142857142857,
+      "specificity": 0.8666666666666667,
+      "positive_wrong_document_only": 0,
+      "correct_gold_retained": 22
+    }
+  },
+  "rows": [
+    {
+      "id": "Q01",
+      "question": "가상 A사의 저장된 Q 점수는 얼마야?",
+      "category": "협력사 점수",
+      "answerable": true,
+      "gold": [
+        "supplier-1"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "supplier-1",
+          "similarity": 0.549844
+        },
+        {
+          "parent_document_id": "supplier-2",
+          "similarity": 0.539264
+        },
+        {
+          "parent_document_id": "supplier-3",
+          "similarity": 0.530519
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": "false_reject"
+    },
+    {
+      "id": "Q02",
+      "question": "가상 B사의 저장된 Q 점수는 얼마야?",
+      "category": "협력사 점수",
+      "answerable": true,
+      "gold": [
+        "supplier-2"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "supplier-2",
+          "similarity": 0.556033
+        },
+        {
+          "parent_document_id": "supplier-3",
+          "similarity": 0.511879
+        },
+        {
+          "parent_document_id": "supplier-1",
+          "similarity": 0.508315
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": "false_reject"
+    },
+    {
+      "id": "Q03",
+      "question": "가상 C사의 저장된 Q 점수는 얼마야?",
+      "category": "협력사 점수",
+      "answerable": true,
+      "gold": [
+        "supplier-3"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "supplier-3",
+          "similarity": 0.561525
+        },
+        {
+          "parent_document_id": "supplier-2",
+          "similarity": 0.52842
+        },
+        {
+          "parent_document_id": "supplier-1",
+          "similarity": 0.519458
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": "false_reject"
+    },
+    {
+      "id": "Q04",
+      "question": "가상 A사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+      "category": "등록 단가",
+      "answerable": true,
+      "gold": [
+        "supplier_part-1"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-1",
+          "similarity": 0.717817
+        },
+        {
+          "parent_document_id": "supplier_part-4",
+          "similarity": 0.703901
+        },
+        {
+          "parent_document_id": "supplier_part-7",
+          "similarity": 0.699509
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "supplier_part-1",
+        "supplier_part-4",
+        "supplier_part-7"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q05",
+      "question": "가상 A사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+      "category": "등록 단가",
+      "answerable": true,
+      "gold": [
+        "supplier_part-2"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-2",
+          "similarity": 0.735577
+        },
+        {
+          "parent_document_id": "supplier_part-5",
+          "similarity": 0.70799
+        },
+        {
+          "parent_document_id": "supplier_part-8",
+          "similarity": 0.704729
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "supplier_part-2",
+        "supplier_part-5",
+        "supplier_part-8"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q06",
+      "question": "가상 A사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+      "category": "등록 단가",
+      "answerable": true,
+      "gold": [
+        "supplier_part-3"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-3",
+          "similarity": 0.697789
+        },
+        {
+          "parent_document_id": "order-1016",
+          "similarity": 0.681409
+        },
+        {
+          "parent_document_id": "supplier_part-9",
+          "similarity": 0.678
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "supplier_part-3",
+        "order-1016",
+        "supplier_part-9"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q07",
+      "question": "가상 B사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+      "category": "등록 단가",
+      "answerable": true,
+      "gold": [
+        "supplier_part-4"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-4",
+          "similarity": 0.735428
+        },
+        {
+          "parent_document_id": "supplier_part-7",
+          "similarity": 0.706451
+        },
+        {
+          "parent_document_id": "supplier_part-1",
+          "similarity": 0.701874
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "supplier_part-4",
+        "supplier_part-7",
+        "supplier_part-1"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q08",
+      "question": "가상 B사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+      "category": "등록 단가",
+      "answerable": true,
+      "gold": [
+        "supplier_part-5"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-5",
+          "similarity": 0.739098
+        },
+        {
+          "parent_document_id": "supplier_part-8",
+          "similarity": 0.719238
+        },
+        {
+          "parent_document_id": "supplier_part-2",
+          "similarity": 0.713168
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "supplier_part-5",
+        "supplier_part-8",
+        "supplier_part-2"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q09",
+      "question": "가상 B사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+      "category": "등록 단가",
+      "answerable": true,
+      "gold": [
+        "supplier_part-6"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-6",
+          "similarity": 0.700492
+        },
+        {
+          "parent_document_id": "supplier_part-9",
+          "similarity": 0.699291
+        },
+        {
+          "parent_document_id": "supplier_part-3",
+          "similarity": 0.685913
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "supplier_part-6",
+        "supplier_part-9",
+        "supplier_part-3"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q10",
+      "question": "가상 C사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+      "category": "등록 단가",
+      "answerable": true,
+      "gold": [
+        "supplier_part-7"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-7",
+          "similarity": 0.737452
+        },
+        {
+          "parent_document_id": "supplier_part-4",
+          "similarity": 0.72137
+        },
+        {
+          "parent_document_id": "order-1103",
+          "similarity": 0.70839
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "supplier_part-7",
+        "supplier_part-4",
+        "order-1103"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q11",
+      "question": "가상 C사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+      "category": "등록 단가",
+      "answerable": true,
+      "gold": [
+        "supplier_part-8"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-8",
+          "similarity": 0.742286
+        },
+        {
+          "parent_document_id": "supplier_part-5",
+          "similarity": 0.725604
+        },
+        {
+          "parent_document_id": "supplier_part-2",
+          "similarity": 0.714397
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "supplier_part-8",
+        "supplier_part-5",
+        "supplier_part-2"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q12",
+      "question": "가상 C사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+      "category": "등록 단가",
+      "answerable": true,
+      "gold": [
+        "supplier_part-9"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-9",
+          "similarity": 0.724928
+        },
+        {
+          "parent_document_id": "order-1018",
+          "similarity": 0.69768
+        },
+        {
+          "parent_document_id": "order-1009",
+          "similarity": 0.694826
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "supplier_part-9",
+        "order-1018",
+        "order-1009"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q13",
+      "question": "1101번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "category": "발주 ID와 수량",
+      "answerable": true,
+      "gold": [
+        "order-1101"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "order-1101",
+          "similarity": 0.624887
+        },
+        {
+          "parent_document_id": "order-1001",
+          "similarity": 0.614624
+        },
+        {
+          "parent_document_id": "order-1007",
+          "similarity": 0.607986
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "order-1101"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q14",
+      "question": "1102번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "category": "발주 ID와 수량",
+      "answerable": true,
+      "gold": [
+        "order-1102"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "order-1102",
+          "similarity": 0.606977
+        },
+        {
+          "parent_document_id": "order-1002",
+          "similarity": 0.598036
+        },
+        {
+          "parent_document_id": "order-1101",
+          "similarity": 0.594308
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": "false_reject"
+    },
+    {
+      "id": "Q15",
+      "question": "1103번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "category": "발주 ID와 수량",
+      "answerable": true,
+      "gold": [
+        "order-1103"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "order-1003",
+          "similarity": 0.606845
+        },
+        {
+          "parent_document_id": "order-1007",
+          "similarity": 0.604841
+        },
+        {
+          "parent_document_id": "order-1101",
+          "similarity": 0.600051
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": "false_reject"
+    },
+    {
+      "id": "Q16",
+      "question": "1104번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "category": "발주 ID와 수량",
+      "answerable": true,
+      "gold": [
+        "order-1104"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "order-1104",
+          "similarity": 0.615689
+        },
+        {
+          "parent_document_id": "order-1101",
+          "similarity": 0.610316
+        },
+        {
+          "parent_document_id": "order-1007",
+          "similarity": 0.608757
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": "false_reject"
+    },
+    {
+      "id": "Q17",
+      "question": "1105번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "category": "발주 ID와 수량",
+      "answerable": true,
+      "gold": [
+        "order-1105"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "order-1005",
+          "similarity": 0.614843
+        },
+        {
+          "parent_document_id": "order-1104",
+          "similarity": 0.612028
+        },
+        {
+          "parent_document_id": "order-1101",
+          "similarity": 0.610318
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": "false_reject"
+    },
+    {
+      "id": "Q18",
+      "question": "1106번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "category": "발주 ID와 수량",
+      "answerable": true,
+      "gold": [
+        "order-1106"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "order-1007",
+          "similarity": 0.614877
+        },
+        {
+          "parent_document_id": "order-1106",
+          "similarity": 0.614823
+        },
+        {
+          "parent_document_id": "order-1104",
+          "similarity": 0.611829
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": "false_reject"
+    },
+    {
+      "id": "Q19",
+      "question": "실린더 라이너 겉면에 스크래치가 나서 원인과 조치 의견을 요청한 민원을 찾아줘.",
+      "category": "민원 의미 검색",
+      "answerable": true,
+      "gold": [
+        "complaint-3001"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3001",
+          "similarity": 0.709499
+        },
+        {
+          "parent_document_id": "complaint-3005",
+          "similarity": 0.640854
+        },
+        {
+          "parent_document_id": "complaint-3007",
+          "similarity": 0.627789
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "complaint-3001",
+        "complaint-3005",
+        "complaint-3007"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q20",
+      "question": "연료 분사 밸브를 싸고 있는 바깥 포장이 망가져 개선을 요구한 건은?",
+      "category": "민원 의미 검색",
+      "answerable": true,
+      "gold": [
+        "complaint-3002"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3002",
+          "similarity": 0.713059
+        },
+        {
+          "parent_document_id": "complaint-3008",
+          "similarity": 0.594832
+        },
+        {
+          "parent_document_id": "complaint-3006",
+          "similarity": 0.565754
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "complaint-3002"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q21",
+      "question": "가상 C사의 실린더 라이너 포장에 부품을 식별하는 라벨이 빠졌다는 민원은?",
+      "category": "민원 의미 검색",
+      "answerable": true,
+      "gold": [
+        "complaint-3003"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3003",
+          "similarity": 0.81967
+        },
+        {
+          "parent_document_id": "complaint-3007",
+          "similarity": 0.783711
+        },
+        {
+          "parent_document_id": "complaint-3005",
+          "similarity": 0.705323
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "complaint-3003",
+        "complaint-3007",
+        "complaint-3005"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q22",
+      "question": "베어링 표면이 찍혀 납품 상태를 확인해 달라는 민원을 찾아줘.",
+      "category": "민원 의미 검색",
+      "answerable": true,
+      "gold": [
+        "complaint-3004"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3004",
+          "similarity": 0.754129
+        },
+        {
+          "parent_document_id": "complaint-3006",
+          "similarity": 0.644815
+        },
+        {
+          "parent_document_id": "complaint-3001",
+          "similarity": 0.63752
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "complaint-3004",
+        "complaint-3006",
+        "complaint-3001"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q23",
+      "question": "실린더 라이너 크기가 맞는지 추가 검토를 요청한 민원은?",
+      "category": "민원 의미 검색",
+      "answerable": true,
+      "gold": [
+        "complaint-3005"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3005",
+          "similarity": 0.732148
+        },
+        {
+          "parent_document_id": "complaint-3001",
+          "similarity": 0.677395
+        },
+        {
+          "parent_document_id": "complaint-3007",
+          "similarity": 0.658059
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "complaint-3005",
+        "complaint-3001",
+        "complaint-3007"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q24",
+      "question": "베어링을 보호하는 완충재가 부족해서 포장을 보강해 달라는 요청은?",
+      "category": "민원 의미 검색",
+      "answerable": true,
+      "gold": [
+        "complaint-3006"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3006",
+          "similarity": 0.702875
+        },
+        {
+          "parent_document_id": "complaint-3004",
+          "similarity": 0.54794
+        },
+        {
+          "parent_document_id": "order-1016",
+          "similarity": 0.527835
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "complaint-3006"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q25",
+      "question": "가상 A사에서 나눠 받은 실린더 라이너 일부의 식별 라벨을 확인해 달라는 민원은?",
+      "category": "민원 의미 검색",
+      "answerable": true,
+      "gold": [
+        "complaint-3007"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3007",
+          "similarity": 0.816437
+        },
+        {
+          "parent_document_id": "complaint-3003",
+          "similarity": 0.77491
+        },
+        {
+          "parent_document_id": "complaint-3001",
+          "similarity": 0.745226
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "complaint-3007",
+        "complaint-3003",
+        "complaint-3001"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q26",
+      "question": "입고된 연료 분사 밸브가 제대로 작동하는지 확인해 달라는 민원은?",
+      "category": "민원 의미 검색",
+      "answerable": true,
+      "gold": [
+        "complaint-3008"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3008",
+          "similarity": 0.779943
+        },
+        {
+          "parent_document_id": "complaint-3002",
+          "similarity": 0.741603
+        },
+        {
+          "parent_document_id": "order-1005",
+          "similarity": 0.628674
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "complaint-3008",
+        "complaint-3002",
+        "order-1005"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q27",
+      "question": "2026년 5월에 가상 A사에 발주한 연료 분사 밸브의 발주 수량은?",
+      "category": "날짜·협력사·부품",
+      "answerable": true,
+      "gold": [
+        "order-1004"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "order-1013",
+          "similarity": 0.740287
+        },
+        {
+          "parent_document_id": "order-1104",
+          "similarity": 0.739185
+        },
+        {
+          "parent_document_id": "order-1004",
+          "similarity": 0.734163
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "order-1013",
+        "order-1104",
+        "order-1004"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q28",
+      "question": "2026년 6월 가상 B사의 베어링 주문 수량을 알려줘.",
+      "category": "날짜·협력사·부품",
+      "answerable": true,
+      "gold": [
+        "order-1008"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "order-1008",
+          "similarity": 0.720921
+        },
+        {
+          "parent_document_id": "order-1017",
+          "similarity": 0.71637
+        },
+        {
+          "parent_document_id": "order-1016",
+          "similarity": 0.712534
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "order-1008",
+        "order-1017",
+        "order-1016"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q29",
+      "question": "2026년 7월에 가상 A사에 주문한 실린더 라이너의 수량은?",
+      "category": "날짜·협력사·부품",
+      "answerable": true,
+      "gold": [
+        "order-1010"
+      ],
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "order-1101",
+          "similarity": 0.689458
+        },
+        {
+          "parent_document_id": "order-1001",
+          "similarity": 0.683837
+        },
+        {
+          "parent_document_id": "order-1010",
+          "similarity": 0.681991
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "order-1101",
+        "order-1001",
+        "order-1010"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "Q30",
+      "question": "2026년 8월 가상 C사에 발주한 연료 분사 밸브는 몇 개야?",
+      "category": "날짜·협력사·부품",
+      "answerable": true,
+      "gold": [
+        "order-1015"
+      ],
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "order-1106",
+          "similarity": 0.698945
+        },
+        {
+          "parent_document_id": "order-1015",
+          "similarity": 0.694603
+        },
+        {
+          "parent_document_id": "order-1006",
+          "similarity": 0.694047
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "order-1106",
+        "order-1015",
+        "order-1006"
+      ],
+      "correct_gold_retained": true,
+      "error": null
+    },
+    {
+      "id": "N01",
+      "question": "내일 서울 날씨는 어때?",
+      "category": "범위 밖",
+      "answerable": false,
+      "gold": [],
+      "reason": "날씨 데이터 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3004",
+          "similarity": 0.35523
+        },
+        {
+          "parent_document_id": "complaint-3006",
+          "similarity": 0.348586
+        },
+        {
+          "parent_document_id": "complaint-3007",
+          "similarity": 0.325917
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N02",
+      "question": "김치찌개 만드는 방법을 알려줘.",
+      "category": "범위 밖",
+      "answerable": false,
+      "gold": [],
+      "reason": "요리 정보 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "supplier-1",
+          "similarity": 0.35508
+        },
+        {
+          "parent_document_id": "supplier-2",
+          "similarity": 0.352582
+        },
+        {
+          "parent_document_id": "supplier-3",
+          "similarity": 0.348056
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N03",
+      "question": "대한민국의 수도는 어디야?",
+      "category": "범위 밖",
+      "answerable": false,
+      "gold": [],
+      "reason": "국가 정보 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "order-1013",
+          "similarity": 0.247585
+        },
+        {
+          "parent_document_id": "order-1005",
+          "similarity": 0.24743
+        },
+        {
+          "parent_document_id": "order-1014",
+          "similarity": 0.246168
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N04",
+      "question": "파이썬 리스트 정렬 코드를 작성해줘.",
+      "category": "범위 밖",
+      "answerable": false,
+      "gold": [],
+      "reason": "프로그래밍 자료 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "order-1012",
+          "similarity": 0.412555
+        },
+        {
+          "parent_document_id": "order-1003",
+          "similarity": 0.41182
+        },
+        {
+          "parent_document_id": "complaint-3007",
+          "similarity": 0.410466
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N05",
+      "question": "이번 주 축구 경기 결과를 알려줘.",
+      "category": "범위 밖",
+      "answerable": false,
+      "gold": [],
+      "reason": "스포츠 자료 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3004",
+          "similarity": 0.424438
+        },
+        {
+          "parent_document_id": "order-1007",
+          "similarity": 0.421183
+        },
+        {
+          "parent_document_id": "order-1017",
+          "similarity": 0.415251
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N06",
+      "question": "제주도 여행 숙소 추천해줘.",
+      "category": "범위 밖",
+      "answerable": false,
+      "gold": [],
+      "reason": "여행 자료 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "supplier-3",
+          "similarity": 0.354781
+        },
+        {
+          "parent_document_id": "supplier-1",
+          "similarity": 0.350854
+        },
+        {
+          "parent_document_id": "supplier-2",
+          "similarity": 0.343849
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N07",
+      "question": "미분과 적분의 차이는 뭐야?",
+      "category": "범위 밖",
+      "answerable": false,
+      "gold": [],
+      "reason": "수학 자료 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "supplier-1",
+          "similarity": 0.343876
+        },
+        {
+          "parent_document_id": "supplier-2",
+          "similarity": 0.343044
+        },
+        {
+          "parent_document_id": "order-1013",
+          "similarity": 0.340989
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N08",
+      "question": "노트북 배터리를 오래 쓰는 방법은?",
+      "category": "범위 밖",
+      "answerable": false,
+      "gold": [],
+      "reason": "기기 사용 자료 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "order-1008",
+          "similarity": 0.341668
+        },
+        {
+          "parent_document_id": "order-1007",
+          "similarity": 0.341167
+        },
+        {
+          "parent_document_id": "complaint-3006",
+          "similarity": 0.338725
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N09",
+      "question": "오늘 달러 환율은 얼마야?",
+      "category": "범위 밖",
+      "answerable": false,
+      "gold": [],
+      "reason": "환율 데이터 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "supplier-1",
+          "similarity": 0.420846
+        },
+        {
+          "parent_document_id": "supplier-2",
+          "similarity": 0.416189
+        },
+        {
+          "parent_document_id": "supplier-3",
+          "similarity": 0.409971
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N10",
+      "question": "회사 휴가 신청 절차를 알려줘.",
+      "category": "범위 밖",
+      "answerable": false,
+      "gold": [],
+      "reason": "인사 규정 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "order-1007",
+          "similarity": 0.482926
+        },
+        {
+          "parent_document_id": "order-1008",
+          "similarity": 0.478806
+        },
+        {
+          "parent_document_id": "order-1009",
+          "similarity": 0.478139
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N11",
+      "question": "가상 A사 담당자의 이메일 주소를 알려줘.",
+      "category": "없는 속성",
+      "answerable": false,
+      "gold": [],
+      "reason": "supplier에 이메일 컬럼 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3006",
+          "similarity": 0.550756
+        },
+        {
+          "parent_document_id": "order-1007",
+          "similarity": 0.542963
+        },
+        {
+          "parent_document_id": "order-1013",
+          "similarity": 0.541889
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N12",
+      "question": "가상 B사의 담당자 전화번호는?",
+      "category": "없는 속성",
+      "answerable": false,
+      "gold": [],
+      "reason": "supplier에 전화번호 컬럼 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3006",
+          "similarity": 0.573197
+        },
+        {
+          "parent_document_id": "complaint-3002",
+          "similarity": 0.562138
+        },
+        {
+          "parent_document_id": "complaint-3004",
+          "similarity": 0.561569
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N13",
+      "question": "가상 C사의 공장 주소는 어디야?",
+      "category": "없는 속성",
+      "answerable": false,
+      "gold": [],
+      "reason": "supplier에 주소 컬럼 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3004",
+          "similarity": 0.486808
+        },
+        {
+          "parent_document_id": "complaint-3006",
+          "similarity": 0.485552
+        },
+        {
+          "parent_document_id": "supplier-3",
+          "similarity": 0.481891
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N14",
+      "question": "실린더 라이너의 재질과 무게는?",
+      "category": "없는 속성",
+      "answerable": false,
+      "gold": [],
+      "reason": "part에 재질/무게 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-4",
+          "similarity": 0.606581
+        },
+        {
+          "parent_document_id": "supplier_part-7",
+          "similarity": 0.600555
+        },
+        {
+          "parent_document_id": "supplier_part-1",
+          "similarity": 0.596277
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N15",
+      "question": "베어링의 허용 회전수는 얼마야?",
+      "category": "없는 속성",
+      "answerable": false,
+      "gold": [],
+      "reason": "part에 허용 회전수 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "order-1017",
+          "similarity": 0.540881
+        },
+        {
+          "parent_document_id": "order-1008",
+          "similarity": 0.535838
+        },
+        {
+          "parent_document_id": "order-1016",
+          "similarity": 0.535751
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N16",
+      "question": "연료 분사 밸브의 제조사 보증 기간은?",
+      "category": "없는 속성",
+      "answerable": false,
+      "gold": [],
+      "reason": "보증 기간 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3008",
+          "similarity": 0.646616
+        },
+        {
+          "parent_document_id": "complaint-3002",
+          "similarity": 0.643344
+        },
+        {
+          "parent_document_id": "order-1005",
+          "similarity": 0.619192
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "complaint-3008",
+        "complaint-3002"
+      ],
+      "correct_gold_retained": false,
+      "error": "false_accept"
+    },
+    {
+      "id": "N17",
+      "question": "1101번 발주의 결제 완료일은 언제야?",
+      "category": "없는 속성",
+      "answerable": false,
+      "gold": [],
+      "reason": "orders에 결제 완료일 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "order-1001",
+          "similarity": 0.56635
+        },
+        {
+          "parent_document_id": "order-1101",
+          "similarity": 0.565818
+        },
+        {
+          "parent_document_id": "order-1104",
+          "similarity": 0.561495
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N18",
+      "question": "1102번 발주의 운송장 번호를 알려줘.",
+      "category": "없는 속성",
+      "answerable": false,
+      "gold": [],
+      "reason": "운송장 번호 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "order-1102",
+          "similarity": 0.523786
+        },
+        {
+          "parent_document_id": "order-1002",
+          "similarity": 0.51225
+        },
+        {
+          "parent_document_id": "order-1011",
+          "similarity": 0.499702
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N19",
+      "question": "3001번 민원의 최종 해결일은 언제야?",
+      "category": "없는 속성",
+      "answerable": false,
+      "gold": [],
+      "reason": "complaint에 해결일 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3001",
+          "similarity": 0.49866
+        },
+        {
+          "parent_document_id": "complaint-3005",
+          "similarity": 0.486045
+        },
+        {
+          "parent_document_id": "complaint-3004",
+          "similarity": 0.482007
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N20",
+      "question": "3008번 민원의 담당 처리자는 누구야?",
+      "category": "없는 속성",
+      "answerable": false,
+      "gold": [],
+      "reason": "complaint에 처리자 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3006",
+          "similarity": 0.429301
+        },
+        {
+          "parent_document_id": "complaint-3004",
+          "similarity": 0.428803
+        },
+        {
+          "parent_document_id": "complaint-3001",
+          "similarity": 0.424714
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N21",
+      "question": "9999번 발주의 납품 수량은 얼마야?",
+      "category": "없는 기록",
+      "answerable": false,
+      "gold": [],
+      "reason": "orders에 order_id=9999 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "order-1007",
+          "similarity": 0.529956
+        },
+        {
+          "parent_document_id": "order-1017",
+          "similarity": 0.528405
+        },
+        {
+          "parent_document_id": "order-1008",
+          "similarity": 0.527611
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N22",
+      "question": "8888번 발주의 납기 예정일은 언제야?",
+      "category": "없는 기록",
+      "answerable": false,
+      "gold": [],
+      "reason": "orders에 order_id=8888 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "order-1008",
+          "similarity": 0.523592
+        },
+        {
+          "parent_document_id": "order-1017",
+          "similarity": 0.521548
+        },
+        {
+          "parent_document_id": "order-1016",
+          "similarity": 0.517099
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N23",
+      "question": "가상 D사의 등록된 Q 점수는 얼마야?",
+      "category": "없는 기록",
+      "answerable": false,
+      "gold": [],
+      "reason": "supplier에 가상 D사 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "supplier-2",
+          "similarity": 0.508467
+        },
+        {
+          "parent_document_id": "supplier-1",
+          "similarity": 0.507634
+        },
+        {
+          "parent_document_id": "supplier-3",
+          "similarity": 0.503177
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N24",
+      "question": "가상 E사의 베어링 등록 단가를 알려줘.",
+      "category": "없는 기록",
+      "answerable": false,
+      "gold": [],
+      "reason": "supplier에 가상 E사 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-3",
+          "similarity": 0.722087
+        },
+        {
+          "parent_document_id": "supplier_part-9",
+          "similarity": 0.718322
+        },
+        {
+          "parent_document_id": "supplier_part-6",
+          "similarity": 0.712159
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "supplier_part-3",
+        "supplier_part-9",
+        "supplier_part-6"
+      ],
+      "correct_gold_retained": false,
+      "error": "false_accept"
+    },
+    {
+      "id": "N25",
+      "question": "2027년 1월 가상 A사의 실린더 라이너 발주 수량은?",
+      "category": "없는 기록",
+      "answerable": false,
+      "gold": [],
+      "reason": "2027년 발주 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "order-1101",
+          "similarity": 0.685983
+        },
+        {
+          "parent_document_id": "order-1001",
+          "similarity": 0.679233
+        },
+        {
+          "parent_document_id": "order-1010",
+          "similarity": 0.675886
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "order-1101",
+        "order-1001",
+        "order-1010"
+      ],
+      "correct_gold_retained": false,
+      "error": "false_accept"
+    },
+    {
+      "id": "N26",
+      "question": "2025년 12월 가상 B사의 베어링 납품 수량은?",
+      "category": "없는 기록",
+      "answerable": false,
+      "gold": [],
+      "reason": "2025년 납품 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "order-1017",
+          "similarity": 0.633115
+        },
+        {
+          "parent_document_id": "order-1008",
+          "similarity": 0.63272
+        },
+        {
+          "parent_document_id": "order-1016",
+          "similarity": 0.620174
+        }
+      ],
+      "prediction": 1,
+      "returned_document_ids": [
+        "order-1017",
+        "order-1008",
+        "order-1016"
+      ],
+      "correct_gold_retained": false,
+      "error": "false_accept"
+    },
+    {
+      "id": "N27",
+      "question": "9999번 민원에 적힌 불량 유형은?",
+      "category": "없는 기록",
+      "answerable": false,
+      "gold": [],
+      "reason": "complaint에 complaint_id=9999 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3001",
+          "similarity": 0.530271
+        },
+        {
+          "parent_document_id": "complaint-3004",
+          "similarity": 0.529747
+        },
+        {
+          "parent_document_id": "complaint-3007",
+          "similarity": 0.521942
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N28",
+      "question": "8888번 민원의 접수 날짜는 언제야?",
+      "category": "없는 기록",
+      "answerable": false,
+      "gold": [],
+      "reason": "complaint에 complaint_id=8888 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "complaint-3004",
+          "similarity": 0.449545
+        },
+        {
+          "parent_document_id": "complaint-3008",
+          "similarity": 0.442782
+        },
+        {
+          "parent_document_id": "complaint-3001",
+          "similarity": 0.436343
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N29",
+      "question": "가상 A사가 공급하는 터보차저의 등록 단가는?",
+      "category": "없는 기록",
+      "answerable": false,
+      "gold": [],
+      "reason": "part에 터보차저 없음",
+      "split": "calibration",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-2",
+          "similarity": 0.568606
+        },
+        {
+          "parent_document_id": "order-1013",
+          "similarity": 0.563989
+        },
+        {
+          "parent_document_id": "order-1004",
+          "similarity": 0.552727
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    },
+    {
+      "id": "N30",
+      "question": "가상 B사가 공급하는 프로펠러의 단가는?",
+      "category": "없는 기록",
+      "answerable": false,
+      "gold": [],
+      "reason": "part에 프로펠러 없음",
+      "split": "holdout",
+      "candidates": [
+        {
+          "parent_document_id": "supplier_part-5",
+          "similarity": 0.582832
+        },
+        {
+          "parent_document_id": "supplier_part-4",
+          "similarity": 0.580215
+        },
+        {
+          "parent_document_id": "supplier_part-6",
+          "similarity": 0.572567
+        }
+      ],
+      "prediction": 0,
+      "returned_document_ids": [],
+      "correct_gold_retained": false,
+      "error": null
+    }
+  ]
+}

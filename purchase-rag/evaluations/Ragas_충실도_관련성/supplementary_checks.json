@@ -1,0 +1,1128 @@
+[
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q01",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q01",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q02",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q02",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q03",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q03",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q04",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q04",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q05",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q05",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q06",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q06",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q07",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q07",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q08",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q08",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q09",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q09",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q10",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q10",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q11",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q11",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q12",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q12",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q13",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q13",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q14",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q14",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q15",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q15",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q16",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q16",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q17",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q17",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q18",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q18",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q19",
+    "flags": [
+      "출처 표기 없음",
+      "답변 가능한 문항에 정보 없음 응답"
+    ]
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q19",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q20",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q20",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q21",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q21",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q22",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q22",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q23",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q23",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q24",
+    "flags": [
+      "출처 표기 없음",
+      "답변 가능한 문항에 정보 없음 응답"
+    ]
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q24",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q25",
+    "flags": [
+      "출처 표기 없음",
+      "답변 가능한 문항에 정보 없음 응답"
+    ]
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q25",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q26",
+    "flags": [
+      "출처 표기 없음",
+      "답변 가능한 문항에 정보 없음 응답"
+    ]
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q26",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q27",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q27",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q28",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q28",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q29",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q29",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "qwen3:8b",
+    "id": "Q30",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "qwen3:8b",
+    "id": "Q30",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q01",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q01",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q02",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q02",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q03",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q03",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q04",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q04",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q05",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q05",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q06",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q06",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q07",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q07",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q08",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q08",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q09",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q09",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q10",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q10",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q11",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q11",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q12",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q12",
+    "flags": [
+      "근거에 없는 통화 단위 추가"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q13",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q13",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q14",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q14",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q15",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q15",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q16",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q16",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q17",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q17",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q18",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q18",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q19",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q19",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q20",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q20",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q21",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q21",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q22",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q22",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q23",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q23",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q24",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q24",
+    "flags": [
+      "출처 표기 없음"
+    ]
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q25",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q25",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q26",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q26",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q27",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q27",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q28",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q28",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q29",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q29",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "gemma3:4b",
+    "id": "Q30",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "gemma3:4b",
+    "id": "Q30",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q01",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q01",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q02",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q02",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q03",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q03",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q04",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q04",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q05",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q05",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q06",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q06",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q07",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q07",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q08",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q08",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q09",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q09",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q10",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q10",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q11",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q11",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q12",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q12",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q13",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q13",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q14",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q14",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q15",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q15",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q16",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q16",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q17",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q17",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q18",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q18",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q19",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q19",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q20",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q20",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q21",
+    "flags": [
+      "출처 표기 없음"
+    ]
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q21",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q22",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q22",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q23",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q23",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q24",
+    "flags": [
+      "답변 가능한 문항에 정보 없음 응답"
+    ]
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q24",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q25",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q25",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q26",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q26",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q27",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q27",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q28",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q28",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q29",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q29",
+    "flags": []
+  },
+  {
+    "stage": "baseline",
+    "model": "llama3.1:8b",
+    "id": "Q30",
+    "flags": []
+  },
+  {
+    "stage": "tuned",
+    "model": "llama3.1:8b",
+    "id": "Q30",
+    "flags": []
+  }
+]

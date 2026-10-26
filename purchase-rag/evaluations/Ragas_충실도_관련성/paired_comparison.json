@@ -1,0 +1,56 @@
+{
+  "models": [
+    {
+      "model": "qwen3:8b",
+      "metrics": {
+        "faithfulness": {
+          "baseline_mean": 0.8444444444444444,
+          "tuned_mean": 0.9888888888888889,
+          "delta": 0.1444444444444445,
+          "n": 30
+        },
+        "answer_relevancy": {
+          "baseline_mean": 0.6702453752609112,
+          "tuned_mean": 0.7496347487082544,
+          "delta": 0.0793893734473432,
+          "n": 30
+        }
+      }
+    },
+    {
+      "model": "gemma3:4b",
+      "metrics": {
+        "faithfulness": {
+          "baseline_mean": 0.9638888888888889,
+          "tuned_mean": 0.9583333333333334,
+          "delta": -0.005555555555555536,
+          "n": 30
+        },
+        "answer_relevancy": {
+          "baseline_mean": 0.6225265141233761,
+          "tuned_mean": 0.8099630216187508,
+          "delta": 0.18743650749537466,
+          "n": 30
+        }
+      }
+    },
+    {
+      "model": "llama3.1:8b",
+      "metrics": {
+        "faithfulness": {
+          "baseline_mean": 0.923015873015873,
+          "tuned_mean": 0.9833333333333333,
+          "delta": 0.060317460317460325,
+          "n": 30
+        },
+        "answer_relevancy": {
+          "baseline_mean": 0.5363525914256939,
+          "tuned_mean": 0.7866487360352273,
+          "delta": 0.2502961446095334,
+          "n": 30
+        }
+      }
+    }
+  ],
+  "note": "P0와 P1 양쪽 모두 점수가 있는 같은 문항만 비교. 독립 평가가 아님."
+}

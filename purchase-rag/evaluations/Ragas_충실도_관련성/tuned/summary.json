@@ -1,0 +1,54 @@
+{
+  "stage": "tuned",
+  "models": [
+    {
+      "model": "qwen3:8b",
+      "metrics": {
+        "faithfulness": {
+          "mean": 0.9888888888888889,
+          "valid_count": 30,
+          "total": 30
+        },
+        "answer_relevancy": {
+          "mean": 0.7496347487082544,
+          "valid_count": 30,
+          "total": 30
+        }
+      },
+      "error_count": 0
+    },
+    {
+      "model": "gemma3:4b",
+      "metrics": {
+        "faithfulness": {
+          "mean": 0.9583333333333334,
+          "valid_count": 30,
+          "total": 30
+        },
+        "answer_relevancy": {
+          "mean": 0.8099630216187508,
+          "valid_count": 30,
+          "total": 30
+        }
+      },
+      "error_count": 0
+    },
+    {
+      "model": "llama3.1:8b",
+      "metrics": {
+        "faithfulness": {
+          "mean": 0.9833333333333333,
+          "valid_count": 30,
+          "total": 30
+        },
+        "answer_relevancy": {
+          "mean": 0.7866487360352273,
+          "valid_count": 30,
+          "total": 30
+        }
+      },
+      "error_count": 0
+    }
+  ],
+  "independent_test": false
+}

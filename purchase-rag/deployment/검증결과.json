@@ -1,0 +1,15 @@
+{
+  "checked_date": "2026-10-26",
+  "hosted_page": {"status": 200, "question_form": true, "model_selector": true, "verification": "existing service credential; no new bypass token created"},
+  "deployment_status": "succeeded",
+  "browser_login": "owner ChatGPT login required; interactive sign-in not completed",
+  "question_answer_smoke": {"via": "local Sites preview -> external HTTPS tunnel -> authenticated gateway -> existing backend -> Ollama", "question": "발주 1101의 누적 납품 수량과 남은 수량은?", "model": "gemma3:4b", "status": "answered", "delivered": 40, "remaining": 60, "citation": "E1", "source": "order-1101"},
+  "missing_record_smoke": {"via": "local Sites preview -> external HTTPS tunnel -> authenticated gateway -> existing backend", "question": "발주 9999의 납품 수량은?", "status": "insufficient_evidence", "model_called": false},
+  "external_boundary_checks": {"unauthenticated_health": 401, "authenticated_index": 404, "authenticated_docs": 404},
+  "gateway_and_lifecycle_unit_tests": {"passed": 19, "backend": "mocked"},
+  "site_typecheck": "passed",
+  "site_build": "passed",
+  "source_commit": "f8b1cbe0c04d6482d202f4583a6dfe7ae6e809a1",
+  "production_prompt": "P0 unchanged",
+  "runtime_requirement": "Current PC, Ollama, backend, gateway and tunnel must remain running. Quick Tunnel is temporary demo connectivity."
+}

@@ -1,0 +1,660 @@
+{
+  "note": "모델 실행 전에 고정한 가상 데이터용 30문항. 정답 문서 검색 평가이며 답변 생성 평가는 아님.",
+  "questions": [
+    {
+      "id": "Q01",
+      "category": "협력사 점수",
+      "question": "가상 A사의 저장된 Q 점수는 얼마야?",
+      "relevant_document_ids": [
+        "supplier-1"
+      ],
+      "answer_from_db": [
+        {
+          "supplier_id": 1,
+          "name": "가상 A사",
+          "q_score": 88
+        }
+      ],
+      "verification_sql": "select supplier_id,name,q_score from supplier where supplier_id=?",
+      "verification_params": [
+        1
+      ],
+      "evidence_text": "Q 저장 점수: 88"
+    },
+    {
+      "id": "Q02",
+      "category": "협력사 점수",
+      "question": "가상 B사의 저장된 Q 점수는 얼마야?",
+      "relevant_document_ids": [
+        "supplier-2"
+      ],
+      "answer_from_db": [
+        {
+          "supplier_id": 2,
+          "name": "가상 B사",
+          "q_score": 94
+        }
+      ],
+      "verification_sql": "select supplier_id,name,q_score from supplier where supplier_id=?",
+      "verification_params": [
+        2
+      ],
+      "evidence_text": "Q 저장 점수: 94"
+    },
+    {
+      "id": "Q03",
+      "category": "협력사 점수",
+      "question": "가상 C사의 저장된 Q 점수는 얼마야?",
+      "relevant_document_ids": [
+        "supplier-3"
+      ],
+      "answer_from_db": [
+        {
+          "supplier_id": 3,
+          "name": "가상 C사",
+          "q_score": 78
+        }
+      ],
+      "verification_sql": "select supplier_id,name,q_score from supplier where supplier_id=?",
+      "verification_params": [
+        3
+      ],
+      "evidence_text": "Q 저장 점수: 78"
+    },
+    {
+      "id": "Q04",
+      "category": "등록 단가",
+      "question": "가상 A사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+      "relevant_document_ids": [
+        "supplier_part-1"
+      ],
+      "answer_from_db": [
+        {
+          "supplier_part_id": 1,
+          "supplier_id": 1,
+          "part_id": 1,
+          "unit_price": 10000
+        }
+      ],
+      "verification_sql": "select * from supplier_part where supplier_part_id=?",
+      "verification_params": [
+        1
+      ],
+      "evidence_text": "등록 단가(unit_price): 10000"
+    },
+    {
+      "id": "Q05",
+      "category": "등록 단가",
+      "question": "가상 A사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+      "relevant_document_ids": [
+        "supplier_part-2"
+      ],
+      "answer_from_db": [
+        {
+          "supplier_part_id": 2,
+          "supplier_id": 1,
+          "part_id": 2,
+          "unit_price": 15000
+        }
+      ],
+      "verification_sql": "select * from supplier_part where supplier_part_id=?",
+      "verification_params": [
+        2
+      ],
+      "evidence_text": "등록 단가(unit_price): 15000"
+    },
+    {
+      "id": "Q06",
+      "category": "등록 단가",
+      "question": "가상 A사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+      "relevant_document_ids": [
+        "supplier_part-3"
+      ],
+      "answer_from_db": [
+        {
+          "supplier_part_id": 3,
+          "supplier_id": 1,
+          "part_id": 3,
+          "unit_price": 20000
+        }
+      ],
+      "verification_sql": "select * from supplier_part where supplier_part_id=?",
+      "verification_params": [
+        3
+      ],
+      "evidence_text": "등록 단가(unit_price): 20000"
+    },
+    {
+      "id": "Q07",
+      "category": "등록 단가",
+      "question": "가상 B사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+      "relevant_document_ids": [
+        "supplier_part-4"
+      ],
+      "answer_from_db": [
+        {
+          "supplier_part_id": 4,
+          "supplier_id": 2,
+          "part_id": 1,
+          "unit_price": 10500
+        }
+      ],
+      "verification_sql": "select * from supplier_part where supplier_part_id=?",
+      "verification_params": [
+        4
+      ],
+      "evidence_text": "등록 단가(unit_price): 10500"
+    },
+    {
+      "id": "Q08",
+      "category": "등록 단가",
+      "question": "가상 B사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+      "relevant_document_ids": [
+        "supplier_part-5"
+      ],
+      "answer_from_db": [
+        {
+          "supplier_part_id": 5,
+          "supplier_id": 2,
+          "part_id": 2,
+          "unit_price": 15500
+        }
+      ],
+      "verification_sql": "select * from supplier_part where supplier_part_id=?",
+      "verification_params": [
+        5
+      ],
+      "evidence_text": "등록 단가(unit_price): 15500"
+    },
+    {
+      "id": "Q09",
+      "category": "등록 단가",
+      "question": "가상 B사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+      "relevant_document_ids": [
+        "supplier_part-6"
+      ],
+      "answer_from_db": [
+        {
+          "supplier_part_id": 6,
+          "supplier_id": 2,
+          "part_id": 3,
+          "unit_price": 20500
+        }
+      ],
+      "verification_sql": "select * from supplier_part where supplier_part_id=?",
+      "verification_params": [
+        6
+      ],
+      "evidence_text": "등록 단가(unit_price): 20500"
+    },
+    {
+      "id": "Q10",
+      "category": "등록 단가",
+      "question": "가상 C사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+      "relevant_document_ids": [
+        "supplier_part-7"
+      ],
+      "answer_from_db": [
+        {
+          "supplier_part_id": 7,
+          "supplier_id": 3,
+          "part_id": 1,
+          "unit_price": 9500
+        }
+      ],
+      "verification_sql": "select * from supplier_part where supplier_part_id=?",
+      "verification_params": [
+        7
+      ],
+      "evidence_text": "등록 단가(unit_price): 9500"
+    },
+    {
+      "id": "Q11",
+      "category": "등록 단가",
+      "question": "가상 C사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+      "relevant_document_ids": [
+        "supplier_part-8"
+      ],
+      "answer_from_db": [
+        {
+          "supplier_part_id": 8,
+          "supplier_id": 3,
+          "part_id": 2,
+          "unit_price": 14500
+        }
+      ],
+      "verification_sql": "select * from supplier_part where supplier_part_id=?",
+      "verification_params": [
+        8
+      ],
+      "evidence_text": "등록 단가(unit_price): 14500"
+    },
+    {
+      "id": "Q12",
+      "category": "등록 단가",
+      "question": "가상 C사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+      "relevant_document_ids": [
+        "supplier_part-9"
+      ],
+      "answer_from_db": [
+        {
+          "supplier_part_id": 9,
+          "supplier_id": 3,
+          "part_id": 3,
+          "unit_price": 19500
+        }
+      ],
+      "verification_sql": "select * from supplier_part where supplier_part_id=?",
+      "verification_params": [
+        9
+      ],
+      "evidence_text": "등록 단가(unit_price): 19500"
+    },
+    {
+      "id": "Q13",
+      "category": "발주 ID와 수량",
+      "question": "1101번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "relevant_document_ids": [
+        "order-1101"
+      ],
+      "answer_from_db": [
+        {
+          "order_id": 1101,
+          "quantity": 100,
+          "delivered_quantity": 40,
+          "remaining_quantity": 60
+        }
+      ],
+      "verification_sql": "select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?",
+      "verification_params": [
+        1101
+      ],
+      "evidence_text": "발주 수량과 기록상 납품 수량의 차이: 60"
+    },
+    {
+      "id": "Q14",
+      "category": "발주 ID와 수량",
+      "question": "1102번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "relevant_document_ids": [
+        "order-1102"
+      ],
+      "answer_from_db": [
+        {
+          "order_id": 1102,
+          "quantity": 100,
+          "delivered_quantity": 100,
+          "remaining_quantity": 0
+        }
+      ],
+      "verification_sql": "select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?",
+      "verification_params": [
+        1102
+      ],
+      "evidence_text": "발주 수량과 기록상 납품 수량의 차이: 0"
+    },
+    {
+      "id": "Q15",
+      "category": "발주 ID와 수량",
+      "question": "1103번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "relevant_document_ids": [
+        "order-1103"
+      ],
+      "answer_from_db": [
+        {
+          "order_id": 1103,
+          "quantity": 100,
+          "delivered_quantity": 0,
+          "remaining_quantity": 100
+        }
+      ],
+      "verification_sql": "select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?",
+      "verification_params": [
+        1103
+      ],
+      "evidence_text": "발주 수량과 기록상 납품 수량의 차이: 100"
+    },
+    {
+      "id": "Q16",
+      "category": "발주 ID와 수량",
+      "question": "1104번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "relevant_document_ids": [
+        "order-1104"
+      ],
+      "answer_from_db": [
+        {
+          "order_id": 1104,
+          "quantity": 60,
+          "delivered_quantity": 20,
+          "remaining_quantity": 40
+        }
+      ],
+      "verification_sql": "select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?",
+      "verification_params": [
+        1104
+      ],
+      "evidence_text": "발주 수량과 기록상 납품 수량의 차이: 40"
+    },
+    {
+      "id": "Q17",
+      "category": "발주 ID와 수량",
+      "question": "1105번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "relevant_document_ids": [
+        "order-1105"
+      ],
+      "answer_from_db": [
+        {
+          "order_id": 1105,
+          "quantity": 60,
+          "delivered_quantity": 0,
+          "remaining_quantity": 60
+        }
+      ],
+      "verification_sql": "select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?",
+      "verification_params": [
+        1105
+      ],
+      "evidence_text": "발주 수량과 기록상 납품 수량의 차이: 60"
+    },
+    {
+      "id": "Q18",
+      "category": "발주 ID와 수량",
+      "question": "1106번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "relevant_document_ids": [
+        "order-1106"
+      ],
+      "answer_from_db": [
+        {
+          "order_id": 1106,
+          "quantity": 60,
+          "delivered_quantity": 60,
+          "remaining_quantity": 0
+        }
+      ],
+      "verification_sql": "select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?",
+      "verification_params": [
+        1106
+      ],
+      "evidence_text": "발주 수량과 기록상 납품 수량의 차이: 0"
+    },
+    {
+      "id": "Q19",
+      "category": "민원 의미 검색",
+      "question": "실린더 라이너 겉면에 스크래치가 나서 원인과 조치 의견을 요청한 민원을 찾아줘.",
+      "relevant_document_ids": [
+        "complaint-3001"
+      ],
+      "answer_from_db": [
+        {
+          "complaint_id": 3001,
+          "part_id": 1,
+          "delivery_id": 2002,
+          "complaint_date": "2026-04-22",
+          "defect_type": "SURFACE_DAMAGE",
+          "complaint_message": "실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함."
+        }
+      ],
+      "verification_sql": "select * from complaint where complaint_id=?",
+      "verification_params": [
+        3001
+      ],
+      "evidence_text": "실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함."
+    },
+    {
+      "id": "Q20",
+      "category": "민원 의미 검색",
+      "question": "연료 분사 밸브를 싸고 있는 바깥 포장이 망가져 개선을 요구한 건은?",
+      "relevant_document_ids": [
+        "complaint-3002"
+      ],
+      "answer_from_db": [
+        {
+          "complaint_id": 3002,
+          "part_id": 2,
+          "delivery_id": 2007,
+          "complaint_date": "2026-05-20",
+          "defect_type": "PACKAGING_DAMAGE",
+          "complaint_message": "연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함."
+        }
+      ],
+      "verification_sql": "select * from complaint where complaint_id=?",
+      "verification_params": [
+        3002
+      ],
+      "evidence_text": "연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함."
+    },
+    {
+      "id": "Q21",
+      "category": "민원 의미 검색",
+      "question": "가상 C사의 실린더 라이너 포장에 부품을 식별하는 라벨이 빠졌다는 민원은?",
+      "relevant_document_ids": [
+        "complaint-3003"
+      ],
+      "answer_from_db": [
+        {
+          "complaint_id": 3003,
+          "part_id": 1,
+          "delivery_id": 2005,
+          "complaint_date": "2026-04-25",
+          "defect_type": "MISSING_LABEL",
+          "complaint_message": "실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청함."
+        }
+      ],
+      "verification_sql": "select * from complaint where complaint_id=?",
+      "verification_params": [
+        3003
+      ],
+      "evidence_text": "실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청함."
+    },
+    {
+      "id": "Q22",
+      "category": "민원 의미 검색",
+      "question": "베어링 표면이 찍혀 납품 상태를 확인해 달라는 민원을 찾아줘.",
+      "relevant_document_ids": [
+        "complaint-3004"
+      ],
+      "answer_from_db": [
+        {
+          "complaint_id": 3004,
+          "part_id": 3,
+          "delivery_id": 2012,
+          "complaint_date": "2026-06-24",
+          "defect_type": "SURFACE_DAMAGE",
+          "complaint_message": "베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함."
+        }
+      ],
+      "verification_sql": "select * from complaint where complaint_id=?",
+      "verification_params": [
+        3004
+      ],
+      "evidence_text": "베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함."
+    },
+    {
+      "id": "Q23",
+      "category": "민원 의미 검색",
+      "question": "실린더 라이너 크기가 맞는지 추가 검토를 요청한 민원은?",
+      "relevant_document_ids": [
+        "complaint-3005"
+      ],
+      "answer_from_db": [
+        {
+          "complaint_id": 3005,
+          "part_id": 1,
+          "delivery_id": 2016,
+          "complaint_date": "2026-07-25",
+          "defect_type": "DIMENSION_CHECK",
+          "complaint_message": "실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함."
+        }
+      ],
+      "verification_sql": "select * from complaint where complaint_id=?",
+      "verification_params": [
+        3005
+      ],
+      "evidence_text": "실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함."
+    },
+    {
+      "id": "Q24",
+      "category": "민원 의미 검색",
+      "question": "베어링을 보호하는 완충재가 부족해서 포장을 보강해 달라는 요청은?",
+      "relevant_document_ids": [
+        "complaint-3006"
+      ],
+      "answer_from_db": [
+        {
+          "complaint_id": 3006,
+          "part_id": 3,
+          "delivery_id": 2023,
+          "complaint_date": "2026-09-24",
+          "defect_type": "PACKAGING_DAMAGE",
+          "complaint_message": "베어링 완충 포장이 부족해 포장 보강을 요청함."
+        }
+      ],
+      "verification_sql": "select * from complaint where complaint_id=?",
+      "verification_params": [
+        3006
+      ],
+      "evidence_text": "베어링 완충 포장이 부족해 포장 보강을 요청함."
+    },
+    {
+      "id": "Q25",
+      "category": "민원 의미 검색",
+      "question": "가상 A사에서 나눠 받은 실린더 라이너 일부의 식별 라벨을 확인해 달라는 민원은?",
+      "relevant_document_ids": [
+        "complaint-3007"
+      ],
+      "answer_from_db": [
+        {
+          "complaint_id": 3007,
+          "part_id": 1,
+          "delivery_id": 2024,
+          "complaint_date": "2026-10-20",
+          "defect_type": "MISSING_LABEL",
+          "complaint_message": "분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함."
+        }
+      ],
+      "verification_sql": "select * from complaint where complaint_id=?",
+      "verification_params": [
+        3007
+      ],
+      "evidence_text": "분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함."
+    },
+    {
+      "id": "Q26",
+      "category": "민원 의미 검색",
+      "question": "입고된 연료 분사 밸브가 제대로 작동하는지 확인해 달라는 민원은?",
+      "relevant_document_ids": [
+        "complaint-3008"
+      ],
+      "answer_from_db": [
+        {
+          "complaint_id": 3008,
+          "part_id": 2,
+          "delivery_id": 2027,
+          "complaint_date": "2026-10-23",
+          "defect_type": "OPERATION_CHECK",
+          "complaint_message": "입고된 연료 분사 밸브에 대한 작동 확인 요청이 접수됨."
+        }
+      ],
+      "verification_sql": "select * from complaint where complaint_id=?",
+      "verification_params": [
+        3008
+      ],
+      "evidence_text": "입고된 연료 분사 밸브에 대한 작동 확인 요청이 접수됨."
+    },
+    {
+      "id": "Q27",
+      "category": "날짜·협력사·부품",
+      "question": "2026년 5월에 가상 A사에 발주한 연료 분사 밸브의 발주 수량은?",
+      "relevant_document_ids": [
+        "order-1004"
+      ],
+      "answer_from_db": [
+        {
+          "order_id": 1004,
+          "supplier_id": 1,
+          "part_id": 2,
+          "quantity": 60,
+          "cost": 15100,
+          "order_date": "2026-05-05",
+          "expected_date": "2026-05-20"
+        }
+      ],
+      "verification_sql": "select * from orders where order_id=?",
+      "verification_params": [
+        1004
+      ],
+      "evidence_text": "발주 수량(quantity): 60"
+    },
+    {
+      "id": "Q28",
+      "category": "날짜·협력사·부품",
+      "question": "2026년 6월 가상 B사의 베어링 주문 수량을 알려줘.",
+      "relevant_document_ids": [
+        "order-1008"
+      ],
+      "answer_from_db": [
+        {
+          "order_id": 1008,
+          "supplier_id": 2,
+          "part_id": 3,
+          "quantity": 40,
+          "cost": 20500,
+          "order_date": "2026-06-05",
+          "expected_date": "2026-06-20"
+        }
+      ],
+      "verification_sql": "select * from orders where order_id=?",
+      "verification_params": [
+        1008
+      ],
+      "evidence_text": "발주 수량(quantity): 40"
+    },
+    {
+      "id": "Q29",
+      "category": "날짜·협력사·부품",
+      "question": "2026년 7월에 가상 A사에 주문한 실린더 라이너의 수량은?",
+      "relevant_document_ids": [
+        "order-1010"
+      ],
+      "answer_from_db": [
+        {
+          "order_id": 1010,
+          "supplier_id": 1,
+          "part_id": 1,
+          "quantity": 200,
+          "cost": 9900,
+          "order_date": "2026-07-05",
+          "expected_date": "2026-07-20"
+        }
+      ],
+      "verification_sql": "select * from orders where order_id=?",
+      "verification_params": [
+        1010
+      ],
+      "evidence_text": "발주 수량(quantity): 200"
+    },
+    {
+      "id": "Q30",
+      "category": "날짜·협력사·부품",
+      "question": "2026년 8월 가상 C사에 발주한 연료 분사 밸브는 몇 개야?",
+      "relevant_document_ids": [
+        "order-1015"
+      ],
+      "answer_from_db": [
+        {
+          "order_id": 1015,
+          "supplier_id": 3,
+          "part_id": 2,
+          "quantity": 120,
+          "cost": 14300,
+          "order_date": "2026-08-05",
+          "expected_date": "2026-08-20"
+        }
+      ],
+      "verification_sql": "select * from orders where order_id=?",
+      "verification_params": [
+        1015
+      ],
+      "evidence_text": "발주 수량(quantity): 120"
+    }
+  ]
+}

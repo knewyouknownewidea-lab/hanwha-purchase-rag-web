@@ -1,0 +1,110 @@
+{
+  "stage": "generation",
+  "model": "gemma3:4b",
+  "id": "Q22",
+  "question": "베어링 표면이 찍혀 납품 상태를 확인해 달라는 민원을 찾아줘.",
+  "response": "민원 ID: 3004를 가진 민원 정보를 제공합니다 [E1]. 베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함.",
+  "reference": "해당 민원은 3004번입니다. 베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함.",
+  "retrieved_contexts": [
+    "[민원 정보]\n민원 ID: 3004\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 3\n부품명: 베어링(가상)\n연결 발주 ID: 1009\n연결 납품 ID: 2012\n연결 납품일(delivery_date): 2026-06-22\n민원일(complaint_date): 2026-06-24\n불량 유형(defect_type): SURFACE_DAMAGE\n민원 내용: 베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함.",
+    "[민원 정보]\n민원 ID: 3006\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 3\n부품명: 베어링(가상)\n연결 발주 ID: 1018\n연결 납품 ID: 2023\n연결 납품일(delivery_date): 2026-09-22\n민원일(complaint_date): 2026-09-24\n불량 유형(defect_type): PACKAGING_DAMAGE\n민원 내용: 베어링 완충 포장이 부족해 포장 보강을 요청함."
+  ],
+  "sources": [
+    {
+      "evidence_id": "E1",
+      "chunk_id": "complaint-3004:langchain:800:0",
+      "parent_document_id": "complaint-3004",
+      "source": {
+        "document_type": "complaint",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "complaint",
+          "delivery",
+          "orders",
+          "supplier",
+          "part"
+        ],
+        "source_refs": [
+          "complaint:3004",
+          "delivery:2012",
+          "orders:1009",
+          "supplier:3",
+          "part:3"
+        ],
+        "complaint_id": 3004,
+        "delivery_id": 2012,
+        "order_id": 1009,
+        "supplier_id": 3,
+        "part_id": 3,
+        "delivery_date": "2026-06-22",
+        "complaint_date": "2026-06-24",
+        "defect_type": "SURFACE_DAMAGE"
+      },
+      "similarity": 0.754129
+    },
+    {
+      "evidence_id": "E2",
+      "chunk_id": "complaint-3006:langchain:800:0",
+      "parent_document_id": "complaint-3006",
+      "source": {
+        "document_type": "complaint",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "complaint",
+          "delivery",
+          "orders",
+          "supplier",
+          "part"
+        ],
+        "source_refs": [
+          "complaint:3006",
+          "delivery:2023",
+          "orders:1018",
+          "supplier:3",
+          "part:3"
+        ],
+        "complaint_id": 3006,
+        "delivery_id": 2023,
+        "order_id": 1018,
+        "supplier_id": 3,
+        "part_id": 3,
+        "delivery_date": "2026-09-22",
+        "complaint_date": "2026-09-24",
+        "defect_type": "PACKAGING_DAMAGE"
+      },
+      "similarity": 0.644815
+    }
+  ],
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 8192,
+    "num_predict": 1024,
+    "num_gpu": 0,
+    "num_thread": 4
+  },
+  "prompt_sha256": "49897edf0823e7b8f08e97ac0a9bee2b182b8385f2d76e12aa1963ea07352bbd",
+  "model_digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+  "elapsed_seconds": 11.18800000000192,
+  "truncated": false,
+  "input_budget_warning": false,
+  "raw_response": {
+    "model": "gemma3:4b",
+    "created_at": "2026-10-25T13:38:37.8209076Z",
+    "message": {
+      "role": "assistant",
+      "content": "민원 ID: 3004를 가진 민원 정보를 제공합니다 [E1]. 베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함."
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 11180635000,
+    "load_duration": 13068800,
+    "prompt_eval_count": 643,
+    "prompt_eval_cached_count": 0,
+    "prompt_eval_duration": 7508135000,
+    "eval_count": 42,
+    "eval_duration": 3603867000
+  }
+}

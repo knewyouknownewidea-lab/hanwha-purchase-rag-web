@@ -1,0 +1,6 @@
+{
+  "label": "SAMPLE · 시연용 가상 데이터",
+  "asOf": "2026-10-15",
+  "note": "업체명·품목·수치는 모두 가상이며 실제 회사 데이터가 아닙니다.",
+  "generatedBy": "scripts/generate-sample.mjs"
+}

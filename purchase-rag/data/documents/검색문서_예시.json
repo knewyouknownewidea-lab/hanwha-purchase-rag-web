@@ -1,0 +1,34 @@
+{
+  "id": "order-1101",
+  "text": "[발주 정보]\n발주 ID: 1101\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n발주 수량(quantity): 100\n발주 비용값(cost): 10000\n발주일(order_date): 2026-10-05\n등록 납기 예상일(expected_date): 2026-10-20\n[연결된 납품 기록]\n납품 ID: 2024\n연결 발주 ID: 1101\n납품일(delivery_date): 2026-10-18\n납품 수량(delivery_quantity): 40\n납품 상태(delivery_status): PARTIAL\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 40\n발주 수량과 기록상 납품 수량의 차이: 60\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+  "metadata": {
+    "document_type": "order",
+    "source_db": "구매관리_테스트.db",
+    "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+    "source_tables": [
+      "orders",
+      "supplier",
+      "part",
+      "delivery"
+    ],
+    "source_refs": [
+      "orders:1101",
+      "supplier:1",
+      "part:1",
+      "delivery:2024"
+    ],
+    "order_id": 1101,
+    "supplier_id": 1,
+    "part_id": 1,
+    "order_date": "2026-10-05",
+    "expected_date": "2026-10-20",
+    "delivery_ids": [
+      2024
+    ],
+    "delivery_dates": [
+      "2026-10-18"
+    ],
+    "recorded_delivered_quantity": 40,
+    "recorded_quantity_difference": 60
+  }
+}

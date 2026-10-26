@@ -1,0 +1,144 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>공식 평가 모듈 재검증</title>
+    <style>body{max-width:1100px;margin:40px auto;padding:0 24px;font:16px/1.7 system-ui;color:#203047}table{border-collapse:collapse;width:100%;margin:18px 0}th,td{border:1px solid #cbd5df;padding:10px;text-align:left}th{background:#edf3f9}pre{white-space:pre-wrap;background:#f3f6f9;padding:16px}details{padding:14px 0}</style>
+    <h1>공식 InformationRetrievalEvaluator로 재검증</h1>
+    <p>동일 문서 47개 · 동일 질문 30개 · 동일 모델 revision · CPU/배치8 · 유사도 필터 미적용</p>
+    <p>공식 모듈이 새로 임베딩하고 검색 지표를 계산했습니다. 모델 학습이나 운영 Chroma 재구축은 하지 않았습니다.</p>
+    <table><tr><th>모델</th><th>Hit@1 (기존 → 공식)</th><th>Hit@3</th><th>Hit@5</th><th>MRR@10</th><th>정답 순위 변화</th></tr><tr><td>e5-base</td><td>76.67% → 76.67%</td><td>90.00% → 90.00%</td><td>96.67% → 96.67%</td><td>0.8500 → 0.8500</td><td>0문항</td></tr><tr><td>ko-sroberta</td><td>70.00% → 70.00%</td><td>90.00% → 90.00%</td><td>93.33% → 93.33%</td><td>0.8117 → 0.8117</td><td>0문항</td></tr><tr><td>bge-m3</td><td>80.00% → 80.00%</td><td>93.33% → 93.33%</td><td>93.33% → 93.33%</td><td>0.8556 → 0.8556</td><td>0문항</td></tr></table><p>공식 모듈의 accuracy@k는 이 실험에서 기존 Hit@k와 같은 정의입니다. 기존 점수는 소수 넷째 자리까지 저장했으므로 미세한 수치 차이는 반올림 때문인지 확인해야 합니다.</p>
+    <h2>이번에 바뀐 것과 바뀌지 않은 것</h2><p>직접 작성했던 Hit/MRR 계산을 공식 평가 모듈로 교체했습니다. 질문과 정답표는 이전 그대로이므로 이 결과는 계산 재현성 확인입니다. 질문의 업무 대표성이나 정답표의 품질을 새롭게 검증한 것은 아닙니다. 새로운 최종 시험이나 공식 인증으로 해석하지 마세요.</p>
+    <h2>다른 도구를 별도로 추가하지 않은 이유</h2><ul>
+    <li>MTEB: 표준 데이터셋/여러 평가 과제를 확장할 때 유용하지만, 동일한 우리 데이터 검색 평가를 재현하는 이번 작업에는 공식 IR 평가기로 충분합니다.</li>
+    <li>NumPy: 필요 없는 라이브러리가 아닙니다. 공식 모듈 내부에서도 사용합니다. 다만 직접 NumPy로 순위와 지표를 구현할 필요가 없어졌습니다.</li>
+    <li>pandas: 결과표 정리 도구입니다. 점수 계산에 필수적이지 않아 JSON/HTML로 정리했습니다.</li>
+    <li>ir_measures: 실제 Chroma 결과를 채점할 때 유용합니다. 이번 작업은 모델 자체의 전체 문서 검색 비교여서 별도 추가하지 않았습니다.</li>
+    <li>scikit-learn: 거절 필터 검증에서 별도로 활용할 수 있습니다. 이번 실험은 정답 있는 질문의 검색 성능만 재현합니다.</li>
+    <li>Ragas: 생성 답변의 근거 일치 등을 평가할 때 검토합니다. 이번에는 답변 생성이 없습니다.</li></ul>
+    <p>E5 query:/passage: 접두어와 SRoBERTa 최대 길이512도 이전과 동일합니다. 토큰 잘림이 없음을 확인했습니다. 시간은 기존 시험과 측정 구간이 달라 속도 우열의 직접 비교에 사용하지 않습니다.</p><details><summary>e5-base 공식 원본 지표와 차이</summary><pre>{
+  &quot;model&quot;: &quot;intfloat/multilingual-e5-base&quot;,
+  &quot;alias&quot;: &quot;e5-base&quot;,
+  &quot;revision&quot;: &quot;d128750597153bb5987e10b1c3493a34e5a4502a&quot;,
+  &quot;max_input_tokens&quot;: 270,
+  &quot;used_max_tokens&quot;: 512,
+  &quot;official_metrics&quot;: {
+    &quot;e5-base_cosine_accuracy@1&quot;: 0.7666666666666667,
+    &quot;e5-base_cosine_accuracy@3&quot;: 0.9,
+    &quot;e5-base_cosine_accuracy@5&quot;: 0.9666666666666667,
+    &quot;e5-base_cosine_precision@1&quot;: 0.7666666666666667,
+    &quot;e5-base_cosine_precision@3&quot;: 0.3,
+    &quot;e5-base_cosine_precision@5&quot;: 0.19333333333333338,
+    &quot;e5-base_cosine_recall@1&quot;: 0.7666666666666667,
+    &quot;e5-base_cosine_recall@3&quot;: 0.9,
+    &quot;e5-base_cosine_recall@5&quot;: 0.9666666666666667,
+    &quot;e5-base_cosine_ndcg@10&quot;: 0.879502404347754,
+    &quot;e5-base_cosine_mrr@10&quot;: 0.85,
+    &quot;e5-base_cosine_map@47&quot;: 0.853030303030303
+  },
+  &quot;comparable_metrics&quot;: {
+    &quot;hit_at_1&quot;: 0.7666666666666667,
+    &quot;hit_at_3&quot;: 0.9,
+    &quot;hit_at_5&quot;: 0.9666666666666667,
+    &quot;mrr_at_10&quot;: 0.85
+  },
+  &quot;previous_metrics&quot;: {
+    &quot;questions&quot;: 30,
+    &quot;hit_at_1&quot;: 0.7667,
+    &quot;hit_at_3&quot;: 0.9,
+    &quot;hit_at_5&quot;: 0.9667,
+    &quot;mrr_at_10&quot;: 0.85
+  },
+  &quot;delta_against_rounded_previous&quot;: {
+    &quot;hit_at_1&quot;: -3.33333e-05,
+    &quot;hit_at_3&quot;: 0.0,
+    &quot;hit_at_5&quot;: -3.33333e-05,
+    &quot;mrr_at_10&quot;: 0.0
+  },
+  &quot;same_at_previous_4_decimal_precision&quot;: true,
+  &quot;gold_rank_changes&quot;: [],
+  &quot;top5_order_changes&quot;: [],
+  &quot;evaluation_seconds_excluding_load&quot;: 8.193
+}</pre></details><details><summary>ko-sroberta 공식 원본 지표와 차이</summary><pre>{
+  &quot;model&quot;: &quot;jhgan/ko-sroberta-multitask&quot;,
+  &quot;alias&quot;: &quot;ko-sroberta&quot;,
+  &quot;revision&quot;: &quot;8fca7c9c98c26599be0e14b9916b11a756a26f19&quot;,
+  &quot;max_input_tokens&quot;: 253,
+  &quot;used_max_tokens&quot;: 512,
+  &quot;official_metrics&quot;: {
+    &quot;ko-sroberta_cosine_accuracy@1&quot;: 0.7,
+    &quot;ko-sroberta_cosine_accuracy@3&quot;: 0.9,
+    &quot;ko-sroberta_cosine_accuracy@5&quot;: 0.9333333333333333,
+    &quot;ko-sroberta_cosine_precision@1&quot;: 0.7,
+    &quot;ko-sroberta_cosine_precision@3&quot;: 0.3,
+    &quot;ko-sroberta_cosine_precision@5&quot;: 0.1866666666666667,
+    &quot;ko-sroberta_cosine_recall@1&quot;: 0.7,
+    &quot;ko-sroberta_cosine_recall@3&quot;: 0.9,
+    &quot;ko-sroberta_cosine_recall@5&quot;: 0.9333333333333333,
+    &quot;ko-sroberta_cosine_ndcg@10&quot;: 0.8578041178683248,
+    &quot;ko-sroberta_cosine_mrr@10&quot;: 0.8117063492063493,
+    &quot;ko-sroberta_cosine_map@47&quot;: 0.8117063492063491
+  },
+  &quot;comparable_metrics&quot;: {
+    &quot;hit_at_1&quot;: 0.7,
+    &quot;hit_at_3&quot;: 0.9,
+    &quot;hit_at_5&quot;: 0.9333333333333333,
+    &quot;mrr_at_10&quot;: 0.8117063492063493
+  },
+  &quot;previous_metrics&quot;: {
+    &quot;questions&quot;: 30,
+    &quot;hit_at_1&quot;: 0.7,
+    &quot;hit_at_3&quot;: 0.9,
+    &quot;hit_at_5&quot;: 0.9333,
+    &quot;mrr_at_10&quot;: 0.8117
+  },
+  &quot;delta_against_rounded_previous&quot;: {
+    &quot;hit_at_1&quot;: 0.0,
+    &quot;hit_at_3&quot;: 0.0,
+    &quot;hit_at_5&quot;: 3.33333e-05,
+    &quot;mrr_at_10&quot;: 6.3492e-06
+  },
+  &quot;same_at_previous_4_decimal_precision&quot;: true,
+  &quot;gold_rank_changes&quot;: [],
+  &quot;top5_order_changes&quot;: [],
+  &quot;evaluation_seconds_excluding_load&quot;: 7.324
+}</pre></details><details><summary>bge-m3 공식 원본 지표와 차이</summary><pre>{
+  &quot;model&quot;: &quot;BAAI/bge-m3&quot;,
+  &quot;alias&quot;: &quot;bge-m3&quot;,
+  &quot;revision&quot;: &quot;5617a9f61b028005a4858fdac845db406aefb181&quot;,
+  &quot;max_input_tokens&quot;: 268,
+  &quot;used_max_tokens&quot;: 8192,
+  &quot;official_metrics&quot;: {
+    &quot;bge-m3_cosine_accuracy@1&quot;: 0.8,
+    &quot;bge-m3_cosine_accuracy@3&quot;: 0.9333333333333333,
+    &quot;bge-m3_cosine_accuracy@5&quot;: 0.9333333333333333,
+    &quot;bge-m3_cosine_precision@1&quot;: 0.8,
+    &quot;bge-m3_cosine_precision@3&quot;: 0.3111111111111111,
+    &quot;bge-m3_cosine_precision@5&quot;: 0.1866666666666667,
+    &quot;bge-m3_cosine_recall@1&quot;: 0.8,
+    &quot;bge-m3_cosine_recall@3&quot;: 0.9333333333333333,
+    &quot;bge-m3_cosine_recall@5&quot;: 0.9333333333333333,
+    &quot;bge-m3_cosine_ndcg@10&quot;: 0.8753953169047638,
+    &quot;bge-m3_cosine_mrr@10&quot;: 0.8555555555555555,
+    &quot;bge-m3_cosine_map@47&quot;: 0.85906432748538
+  },
+  &quot;comparable_metrics&quot;: {
+    &quot;hit_at_1&quot;: 0.8,
+    &quot;hit_at_3&quot;: 0.9333333333333333,
+    &quot;hit_at_5&quot;: 0.9333333333333333,
+    &quot;mrr_at_10&quot;: 0.8555555555555555
+  },
+  &quot;previous_metrics&quot;: {
+    &quot;questions&quot;: 30,
+    &quot;hit_at_1&quot;: 0.8,
+    &quot;hit_at_3&quot;: 0.9333,
+    &quot;hit_at_5&quot;: 0.9333,
+    &quot;mrr_at_10&quot;: 0.8556
+  },
+  &quot;delta_against_rounded_previous&quot;: {
+    &quot;hit_at_1&quot;: 0.0,
+    &quot;hit_at_3&quot;: 3.33333e-05,
+    &quot;hit_at_5&quot;: 3.33333e-05,
+    &quot;mrr_at_10&quot;: -4.44444e-05
+  },
+  &quot;same_at_previous_4_decimal_precision&quot;: true,
+  &quot;gold_rank_changes&quot;: [],
+  &quot;top5_order_changes&quot;: [],
+  &quot;evaluation_seconds_excluding_load&quot;: 27.344
+}</pre></details><p><a href="https://www.sbert.net/docs/package_reference/sentence_transformer/evaluation.html">Sentence Transformers 공식 평가 문서</a></p></html>

@@ -1,0 +1,578 @@
+[
+  {
+    "id": "N01",
+    "question": "내일 서울 날씨는 어때?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "내일 서울 날씨는 어때?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N02",
+    "question": "김치찌개 만드는 방법을 알려줘.",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "김치찌개 만드는 방법을 알려줘.",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N03",
+    "question": "대한민국의 수도는 어디야?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "대한민국의 수도는 어디야?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N04",
+    "question": "파이썬 리스트 정렬 코드를 작성해줘.",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "파이썬 리스트 정렬 코드를 작성해줘.",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N05",
+    "question": "이번 주 축구 경기 결과를 알려줘.",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "이번 주 축구 경기 결과를 알려줘.",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N06",
+    "question": "제주도 여행 숙소 추천해줘.",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "제주도 여행 숙소 추천해줘.",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N07",
+    "question": "미분과 적분의 차이는 뭐야?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "미분과 적분의 차이는 뭐야?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N08",
+    "question": "노트북 배터리를 오래 쓰는 방법은?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "노트북 배터리를 오래 쓰는 방법은?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N09",
+    "question": "오늘 달러 환율은 얼마야?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "오늘 달러 환율은 얼마야?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N10",
+    "question": "회사 휴가 신청 절차를 알려줘.",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "회사 휴가 신청 절차를 알려줘.",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N11",
+    "question": "가상 A사 담당자의 이메일 주소를 알려줘.",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "가상 A사 담당자의 이메일 주소를 알려줘.",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N12",
+    "question": "가상 B사의 담당자 전화번호는?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "가상 B사의 담당자 전화번호는?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N13",
+    "question": "가상 C사의 공장 주소는 어디야?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "가상 C사의 공장 주소는 어디야?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N14",
+    "question": "실린더 라이너의 재질과 무게는?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "실린더 라이너의 재질과 무게는?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N15",
+    "question": "베어링의 허용 회전수는 얼마야?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "베어링의 허용 회전수는 얼마야?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N16",
+    "question": "연료 분사 밸브의 제조사 보증 기간은?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "연료 분사 밸브의 제조사 보증 기간은?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N17",
+    "question": "1101번 발주의 결제 완료일은 언제야?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "1101번 발주의 결제 완료일은 언제야?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N18",
+    "question": "1102번 발주의 운송장 번호를 알려줘.",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "1102번 발주의 운송장 번호를 알려줘.",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N19",
+    "question": "3001번 민원의 최종 해결일은 언제야?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "3001번 민원의 최종 해결일은 언제야?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N20",
+    "question": "3008번 민원의 담당 처리자는 누구야?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "3008번 민원의 담당 처리자는 누구야?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N21",
+    "question": "9999번 발주의 납품 수량은 얼마야?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "9999번 발주의 납품 수량은 얼마야?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N22",
+    "question": "8888번 발주의 납기 예정일은 언제야?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "8888번 발주의 납기 예정일은 언제야?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N23",
+    "question": "가상 D사의 등록된 Q 점수는 얼마야?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "가상 D사의 등록된 Q 점수는 얼마야?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N24",
+    "question": "가상 E사의 베어링 등록 단가를 알려줘.",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "가상 E사의 베어링 등록 단가를 알려줘.",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N25",
+    "question": "2027년 1월 가상 A사의 실린더 라이너 발주 수량은?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "2027년 1월 가상 A사의 실린더 라이너 발주 수량은?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N26",
+    "question": "2025년 12월 가상 B사의 베어링 납품 수량은?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "2025년 12월 가상 B사의 베어링 납품 수량은?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N27",
+    "question": "9999번 민원에 적힌 불량 유형은?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "9999번 민원에 적힌 불량 유형은?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N28",
+    "question": "8888번 민원의 접수 날짜는 언제야?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "8888번 민원의 접수 날짜는 언제야?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N29",
+    "question": "가상 A사가 공급하는 터보차저의 등록 단가는?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "가상 A사가 공급하는 터보차저의 등록 단가는?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "N30",
+    "question": "가상 B사가 공급하는 프로펠러의 단가는?",
+    "expected_status": "insufficient_evidence",
+    "response": {
+      "question": "가상 B사가 공급하는 프로펠러의 단가는?",
+      "status": "insufficient_evidence",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "제공된 문서에서 관련 정보를 찾을 수 없습니다.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "C01",
+    "question": "최근 납품 수량은?",
+    "expected_status": "clarification_required",
+    "response": {
+      "question": "최근 납품 수량은?",
+      "status": "clarification_required",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "상대 날짜는 자동 추정하지 않습니다. 조회 연도·월·일을 지정해 주세요.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  },
+  {
+    "id": "C02",
+    "question": "발주 1101과 발주 1102의 납품 수량은?",
+    "expected_status": "clarification_required",
+    "response": {
+      "question": "발주 1101과 발주 1102의 납품 수량은?",
+      "status": "clarification_required",
+      "ready_for_generation": false,
+      "generation_model": null,
+      "model_called": false,
+      "retrieval_method": "rule_check",
+      "message": "한 번에 조회할 ID 하나를 지정해 주세요.",
+      "context": null,
+      "prompt": null,
+      "sources": []
+    },
+    "pass": true
+  }
+]

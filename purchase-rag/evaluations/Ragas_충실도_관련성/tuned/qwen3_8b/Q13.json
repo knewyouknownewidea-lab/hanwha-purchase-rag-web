@@ -1,0 +1,10 @@
+{
+  "model": "qwen3:8b",
+  "id": "Q13",
+  "input_hash": "224df348d932d40d1c20f537e7f0368fa1c615681963be99d712c0e526d581ea",
+  "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8467480093400384
+  },
+  "errors": {}
+}

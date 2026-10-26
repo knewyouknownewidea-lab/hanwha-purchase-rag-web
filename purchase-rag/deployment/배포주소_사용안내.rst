@@ -1,0 +1,50 @@
+배포 주소 사용하기
+==================
+
+접속 주소
+---------
+https://purchase-rag-assistant-1026.knewyouknownewidea.chatgpt.site
+
+현재는 소유자 전용입니다. 배포한 본인의 ChatGPT 계정으로 로그인합니다.
+현재 PC가 켜져 있고 절전 상태가 아니어야 답변할 수 있습니다.
+가상 DB와 기존 생성 프롬프트를 그대로 사용합니다.
+
+다시 켜기
+---------
+Ollama를 먼저 실행한 뒤 VS Code 터미널에서 프로젝트 폴더 기준으로 실행합니다.
+이미 실행 중인 이 프로젝트의 백엔드·게이트웨이·터널은 재사용합니다.
+
+::
+
+    & '.\outputs\deployment\start-deployment.ps1'
+
+연결 주소가 새로 나오면 아래처럼 Codex에 요청해야 합니다.
+스크립트만으로는 Sites 서버의 비밀 설정을 변경하거나 재배포할 수 없습니다.
+
+  방금 나온 https://....trycloudflare.com 주소로 RAG_ORIGIN을 갱신하고 재배포해줘.
+  배포 성공을 확인한 뒤 outputs/deployment/deployment.json의 published_origin도 갱신해줘.
+
+시작 스크립트는 마지막 성공 배포에 기록된 published_origin과 현재 주소를 비교합니다.
+주소를 여러 번 관측해도 경고는 지워지지 않습니다. 위 기록은 Codex가 배포 성공 후에만 갱신합니다.
+
+화면의 접속 주소는 유지되지만 무료 Quick Tunnel의 내부 연결 주소는 재실행 시 바뀔 수 있습니다.
+현재 구성은 시연용입니다. PC를 꺼도 작동하는 24시간 상시 서버 배포는 아닙니다.
+
+배포 연결만 끄기
+----------------
+::
+
+    & '.\outputs\deployment\stop-deployment.ps1'
+
+현재 프로젝트의 게이트웨이와 터널만 종료합니다. 기존 백엔드와 Ollama는 종료하지 않습니다.
+작업 중인 질문은 중단될 수 있습니다.
+
+문제 확인
+---------
+work/deployment-runtime/runtime-status.json: 실행 상태·프로세스 번호·비밀이 아닌 연결 주소
+work/deployment-runtime/gateway.err.log: 게이트웨이 실행 로그
+work/deployment-runtime/tunnel.err.log: 터널 연결 로그
+
+gateway-token.dat는 같은 Windows 사용자의 DPAPI로 암호화된 비밀 값입니다.
+토큰을 복사해 웹 화면이나 Git에 넣지 마세요. 다른 PC/Windows 계정에서는 복호화할 수 없습니다.
+기술 설정과 API 설명은 같은 폴더의 사용안내.rst를 참고하세요.

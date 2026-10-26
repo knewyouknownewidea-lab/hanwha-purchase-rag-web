@@ -1,0 +1,8 @@
+{
+  "model": "qwen3:8b",
+  "id": "Q05",
+  "scores": {
+    "faithfulness": 1.0
+  },
+  "errors": {}
+}

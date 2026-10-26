@@ -1,0 +1,64 @@
+{
+  "model": "llama3.1:8b",
+  "id": "Q11",
+  "question": "가상 C사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+  "response": "가상 C사에서 공급하는 연료 분사 밸브의 현재 등록 단가는 14500입니다. [E1]",
+  "retrieved_contexts": [
+    "[협력사별 공급 부품]\n공급 관계 ID: 8\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n등록 단가(unit_price): 14500"
+  ],
+  "sources": [
+    {
+      "evidence_id": "E1",
+      "chunk_id": "supplier_part-8:db",
+      "parent_document_id": "supplier_part-8",
+      "source": {
+        "document_type": "supplier_part",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "supplier_part",
+          "supplier",
+          "part"
+        ],
+        "source_refs": [
+          "supplier_part:8",
+          "supplier:3",
+          "part:2"
+        ],
+        "supplier_part_id": 8,
+        "supplier_id": 3,
+        "part_id": 2
+      },
+      "similarity": null
+    }
+  ],
+  "model_digest": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 8192,
+    "num_predict": 1024,
+    "num_gpu": 0,
+    "num_thread": 4
+  },
+  "truncated": false,
+  "input_budget_warning": false,
+  "prompt_sha256": "81073e0020138004bf284922d2d2cd5efdee962386f620b21e211614df7b30c1",
+  "raw_response": {
+    "model": "llama3.1:8b",
+    "created_at": "2026-10-25T17:06:09.6844764Z",
+    "message": {
+      "role": "assistant",
+      "content": "가상 C사에서 공급하는 연료 분사 밸브의 현재 등록 단가는 14500입니다. [E1]"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 6989791800,
+    "load_duration": 10715600,
+    "prompt_eval_count": 581,
+    "prompt_eval_cached_count": 476,
+    "prompt_eval_duration": 2561615000,
+    "eval_count": 30,
+    "eval_duration": 4413085000
+  }
+}

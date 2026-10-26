@@ -1,0 +1,17 @@
+{
+  "id": "Q09",
+  "input_hash": "8f1c45942e97f6a2c65452fa9f2cb7a703a7443eef4d5cefb99334902fe50419",
+  "score": 1.0,
+  "error": null,
+  "ratings": [
+    {
+      "prompt_sha256": "3ae26db789cdf77dc833a292e261faf886cc5eef2230a7cbe010cb9d65ef4846",
+      "rating": 2
+    },
+    {
+      "prompt_sha256": "599a08ce5fec293da77db3f42f23f06e3cb27f47395365f598ebfae217f799d9",
+      "rating": 2
+    }
+  ],
+  "valid_judge_prompts": 2
+}

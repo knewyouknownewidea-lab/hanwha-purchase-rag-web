@@ -1,0 +1,50 @@
+{
+  "pdf": "C:\\Users\\User\\Documents\\Codex\\2026-10-25\\new-chat-3\\outputs\\Ragas_충실도_관련성\\RAG_Triad_평가_튜닝보고서.pdf",
+  "pages": 6,
+  "page_checks": [
+    {
+      "page": 1,
+      "characters": 967,
+      "outside_page_text": [],
+      "replacement_character_count": 0
+    },
+    {
+      "page": 2,
+      "characters": 1073,
+      "outside_page_text": [],
+      "replacement_character_count": 0
+    },
+    {
+      "page": 3,
+      "characters": 812,
+      "outside_page_text": [],
+      "replacement_character_count": 0
+    },
+    {
+      "page": 4,
+      "characters": 1363,
+      "outside_page_text": [],
+      "replacement_character_count": 0
+    },
+    {
+      "page": 5,
+      "characters": 952,
+      "outside_page_text": [],
+      "replacement_character_count": 0
+    },
+    {
+      "page": 6,
+      "characters": 1310,
+      "outside_page_text": [],
+      "replacement_character_count": 0
+    }
+  ],
+  "rendered_pages": [
+    "C:\\Users\\User\\Documents\\Codex\\2026-10-25\\new-chat-3\\tmp\\pdfs\\rag_triad\\page-1.png",
+    "C:\\Users\\User\\Documents\\Codex\\2026-10-25\\new-chat-3\\tmp\\pdfs\\rag_triad\\page-2.png",
+    "C:\\Users\\User\\Documents\\Codex\\2026-10-25\\new-chat-3\\tmp\\pdfs\\rag_triad\\page-3.png",
+    "C:\\Users\\User\\Documents\\Codex\\2026-10-25\\new-chat-3\\tmp\\pdfs\\rag_triad\\page-4.png",
+    "C:\\Users\\User\\Documents\\Codex\\2026-10-25\\new-chat-3\\tmp\\pdfs\\rag_triad\\page-5.png",
+    "C:\\Users\\User\\Documents\\Codex\\2026-10-25\\new-chat-3\\tmp\\pdfs\\rag_triad\\page-6.png"
+  ]
+}

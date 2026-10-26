@@ -1,0 +1,77 @@
+{
+  "model": "llama3.1:8b",
+  "id": "Q03",
+  "question": "가상 C사의 저장된 Q 점수는 얼마야?",
+  "response": "가상 C사의 저장된 Q 점수는 78점입니다. [E1]",
+  "retrieved_contexts": [
+    "[협력사 정보]\n협력사 ID: 3\n협력사명: 가상 C사\n협력사 설명: RAG 테스트용 가상 협력사 C. 세 종류의 부품을 공급한다.\nQ 저장 점수: 78\nD 저장 점수: 75\nT 저장 점수: 84\nE 저장 점수: 80\nC 계산값: 13875.0\nC 계산식: 해당 협력사의 AVG(orders.cost). NULL cost는 평균에서 제외하고 대상 값이 없으면 0을 표시한다.\nQ/D/T/E 점수의 산출 근거와 평가기간은 현재 DB에 포함되어 있지 않다.\nC 계산에 연결된 발주별 비용값:\n발주 ID 1003: cost=9700\n발주 ID 1006: cost=14600\n발주 ID 1009: cost=19500\n발주 ID 1012: cost=9400\n발주 ID 1015: cost=14300\n발주 ID 1018: cost=19500\n발주 ID 1103: cost=9500\n발주 ID 1106: cost=14500"
+  ],
+  "sources": [
+    {
+      "evidence_id": "E1",
+      "chunk_id": "supplier-3:db",
+      "parent_document_id": "supplier-3",
+      "source": {
+        "document_type": "supplier",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "supplier",
+          "orders"
+        ],
+        "source_refs": [
+          "supplier:3",
+          "orders:1003",
+          "orders:1006",
+          "orders:1009",
+          "orders:1012",
+          "orders:1015",
+          "orders:1018",
+          "orders:1103",
+          "orders:1106"
+        ],
+        "supplier_id": 3,
+        "calculation_order_ids": [
+          1003,
+          1006,
+          1009,
+          1012,
+          1015,
+          1018,
+          1103,
+          1106
+        ]
+      },
+      "similarity": null
+    }
+  ],
+  "model_digest": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 8192,
+    "num_predict": 1024,
+    "num_gpu": 0,
+    "num_thread": 4
+  },
+  "truncated": false,
+  "input_budget_warning": false,
+  "prompt_sha256": "7eff3d8dceda7d2b3ed1517f943d3e303caac63356e8631b2a71259601f54b29",
+  "raw_response": {
+    "model": "llama3.1:8b",
+    "created_at": "2026-10-25T17:05:15.1262403Z",
+    "message": {
+      "role": "assistant",
+      "content": "가상 C사의 저장된 Q 점수는 78점입니다. [E1]"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 10858133300,
+    "load_duration": 11019300,
+    "prompt_eval_count": 794,
+    "prompt_eval_cached_count": 472,
+    "prompt_eval_duration": 7869419000,
+    "eval_count": 20,
+    "eval_duration": 2971899000
+  }
+}

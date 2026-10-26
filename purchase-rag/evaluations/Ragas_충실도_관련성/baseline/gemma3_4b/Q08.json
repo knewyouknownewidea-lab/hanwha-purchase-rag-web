@@ -1,0 +1,10 @@
+{
+  "model": "gemma3:4b",
+  "id": "Q08",
+  "input_hash": "947cc96909ddec0077278542cc5a1f1f6c0b2ffe8c63af75c8516461935bf789",
+  "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.403677652889087
+  },
+  "errors": {}
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "itemCode": "ITM-1001",
+    "stockQty": 18,
+    "safetyStock": 12,
+    "mainSupplierId": "SUP-001",
+    "location": "자재창고 A동"
+  },
+  {
+    "itemCode": "ITM-1002",
+    "stockQty": 64,
+    "safetyStock": 40,
+    "mainSupplierId": "SUP-005",
+    "location": "자재창고 B동"
+  },
+  {
+    "itemCode": "ITM-1003",
+    "stockQty": 9,
+    "safetyStock": 10,
+    "mainSupplierId": "SUP-007",
+    "location": "자재창고 A동"
+  },
+  {
+    "itemCode": "ITM-1004",
+    "stockQty": 85,
+    "safetyStock": 120,
+    "mainSupplierId": "SUP-006",
+    "location": "정밀부품 보관실"
+  },
+  {
+    "itemCode": "ITM-1005",
+    "stockQty": 22,
+    "safetyStock": 16,
+    "mainSupplierId": "SUP-003",
+    "location": "자재창고 B동"
+  },
+  {
+    "itemCode": "ITM-1006",
+    "stockQty": 340,
+    "safetyStock": 200,
+    "mainSupplierId": "SUP-005",
+    "location": "자재창고 C동"
+  },
+  {
+    "itemCode": "ITM-1007",
+    "stockQty": 520,
+    "safetyStock": 400,
+    "mainSupplierId": "SUP-009",
+    "location": "자재창고 C동"
+  },
+  {
+    "itemCode": "ITM-1008",
+    "stockQty": 14,
+    "safetyStock": 10,
+    "mainSupplierId": "SUP-001",
+    "location": "자재창고 A동"
+  },
+  {
+    "itemCode": "ITM-1009",
+    "stockQty": 21,
+    "safetyStock": 30,
+    "mainSupplierId": "SUP-010",
+    "location": "배관자재 야적장"
+  },
+  {
+    "itemCode": "ITM-1010",
+    "stockQty": 7,
+    "safetyStock": 6,
+    "mainSupplierId": "SUP-011",
+    "location": "정밀부품 보관실"
+  }
+]

@@ -1,0 +1,565 @@
+[
+  {
+    "supplierId": "SUP-001",
+    "name": "업체 A",
+    "process": "주조",
+    "region": "경남 창원",
+    "auditGrade": "A",
+    "qualityScore": 92,
+    "defectRate": 0.6,
+    "techScore": 85,
+    "esgScore": 80,
+    "lastAuditDate": "2024-05-21",
+    "evalHistory": [
+      {
+        "year": 2023,
+        "half": 2,
+        "grade": "A",
+        "score": 86
+      },
+      {
+        "year": 2024,
+        "half": 1,
+        "grade": "A",
+        "score": 87
+      },
+      {
+        "year": 2024,
+        "half": 2,
+        "grade": "A",
+        "score": 88
+      },
+      {
+        "year": 2025,
+        "half": 1,
+        "grade": "A",
+        "score": 88
+      },
+      {
+        "year": 2025,
+        "half": 2,
+        "grade": "A",
+        "score": 89
+      }
+    ],
+    "items": [
+      "ITM-1001",
+      "ITM-1008"
+    ]
+  },
+  {
+    "supplierId": "SUP-002",
+    "name": "업체 B",
+    "process": "주조",
+    "region": "경남 김해",
+    "auditGrade": "B",
+    "qualityScore": 80,
+    "defectRate": 1.5,
+    "techScore": 70,
+    "esgScore": 65,
+    "lastAuditDate": "2025-04-10",
+    "evalHistory": [
+      {
+        "year": 2023,
+        "half": 2,
+        "grade": "B",
+        "score": 80
+      },
+      {
+        "year": 2024,
+        "half": 1,
+        "grade": "B",
+        "score": 81
+      },
+      {
+        "year": 2024,
+        "half": 2,
+        "grade": "B",
+        "score": 82
+      },
+      {
+        "year": 2025,
+        "half": 1,
+        "grade": "B",
+        "score": 82
+      },
+      {
+        "year": 2025,
+        "half": 2,
+        "grade": "B",
+        "score": 83
+      }
+    ],
+    "items": [
+      "ITM-1001",
+      "ITM-1008"
+    ]
+  },
+  {
+    "supplierId": "SUP-003",
+    "name": "업체 C",
+    "process": "주조·가공",
+    "region": "부산",
+    "auditGrade": "A",
+    "qualityScore": 90,
+    "defectRate": 0.7,
+    "techScore": 88,
+    "esgScore": 84,
+    "lastAuditDate": "2024-09-03",
+    "evalHistory": [
+      {
+        "year": 2023,
+        "half": 2,
+        "grade": "B",
+        "score": 84
+      },
+      {
+        "year": 2024,
+        "half": 1,
+        "grade": "A",
+        "score": 87,
+        "reason": "가공 라인 안정화 후 불량률 개선"
+      },
+      {
+        "year": 2024,
+        "half": 2,
+        "grade": "A",
+        "score": 89
+      },
+      {
+        "year": 2025,
+        "half": 1,
+        "grade": "A",
+        "score": 89
+      },
+      {
+        "year": 2025,
+        "half": 2,
+        "grade": "A",
+        "score": 90
+      }
+    ],
+    "items": [
+      "ITM-1001",
+      "ITM-1005"
+    ]
+  },
+  {
+    "supplierId": "SUP-004",
+    "name": "업체 D",
+    "process": "주조(해외)",
+    "region": "해외",
+    "auditGrade": "C",
+    "qualityScore": 80,
+    "defectRate": 1.6,
+    "techScore": 62,
+    "esgScore": null,
+    "lastAuditDate": "2026-02-17",
+    "evalHistory": [
+      {
+        "year": 2025,
+        "half": 1,
+        "grade": "C",
+        "score": 70,
+        "reason": "신규 등록 · 초도 평가"
+      },
+      {
+        "year": 2025,
+        "half": 2,
+        "grade": "C",
+        "score": 71
+      }
+    ],
+    "items": [
+      "ITM-1001"
+    ]
+  },
+  {
+    "supplierId": "SUP-005",
+    "name": "업체 E",
+    "process": "정밀가공",
+    "region": "경남 창원",
+    "auditGrade": "A",
+    "qualityScore": 91,
+    "defectRate": 0.5,
+    "techScore": 86,
+    "esgScore": 82,
+    "lastAuditDate": "2023-11-14",
+    "evalHistory": [
+      {
+        "year": 2023,
+        "half": 2,
+        "grade": "A",
+        "score": 90
+      },
+      {
+        "year": 2024,
+        "half": 1,
+        "grade": "A",
+        "score": 90
+      },
+      {
+        "year": 2024,
+        "half": 2,
+        "grade": "A",
+        "score": 91
+      },
+      {
+        "year": 2025,
+        "half": 1,
+        "grade": "A",
+        "score": 92
+      },
+      {
+        "year": 2025,
+        "half": 2,
+        "grade": "A",
+        "score": 92
+      }
+    ],
+    "items": [
+      "ITM-1002",
+      "ITM-1006"
+    ]
+  },
+  {
+    "supplierId": "SUP-006",
+    "name": "업체 F",
+    "process": "정밀가공",
+    "region": "경북 구미",
+    "auditGrade": "B",
+    "qualityScore": 82,
+    "defectRate": 1.4,
+    "techScore": 80,
+    "esgScore": 70,
+    "lastAuditDate": "2025-06-02",
+    "evalHistory": [
+      {
+        "year": 2023,
+        "half": 2,
+        "grade": "A",
+        "score": 87
+      },
+      {
+        "year": 2024,
+        "half": 1,
+        "grade": "A",
+        "score": 86
+      },
+      {
+        "year": 2024,
+        "half": 2,
+        "grade": "A",
+        "score": 86
+      },
+      {
+        "year": 2025,
+        "half": 1,
+        "grade": "B",
+        "score": 84,
+        "reason": "납기 지연 증가 (반기 준수율 80%대)"
+      },
+      {
+        "year": 2025,
+        "half": 2,
+        "grade": "B",
+        "score": 84
+      }
+    ],
+    "items": [
+      "ITM-1004",
+      "ITM-1010"
+    ]
+  },
+  {
+    "supplierId": "SUP-007",
+    "name": "업체 G",
+    "process": "단조·가공",
+    "region": "경남 창원",
+    "auditGrade": "A",
+    "qualityScore": 89,
+    "defectRate": 0.8,
+    "techScore": 84,
+    "esgScore": 78,
+    "lastAuditDate": "2024-03-28",
+    "evalHistory": [
+      {
+        "year": 2023,
+        "half": 2,
+        "grade": "A",
+        "score": 87
+      },
+      {
+        "year": 2024,
+        "half": 1,
+        "grade": "A",
+        "score": 88
+      },
+      {
+        "year": 2024,
+        "half": 2,
+        "grade": "A",
+        "score": 88
+      },
+      {
+        "year": 2025,
+        "half": 1,
+        "grade": "A",
+        "score": 88
+      },
+      {
+        "year": 2025,
+        "half": 2,
+        "grade": "A",
+        "score": 89
+      }
+    ],
+    "items": [
+      "ITM-1006",
+      "ITM-1003"
+    ]
+  },
+  {
+    "supplierId": "SUP-008",
+    "name": "업체 H",
+    "process": "정밀가공",
+    "region": "울산",
+    "auditGrade": "B",
+    "qualityScore": 81,
+    "defectRate": 1.4,
+    "techScore": 72,
+    "esgScore": 66,
+    "lastAuditDate": "2025-08-19",
+    "evalHistory": [
+      {
+        "year": 2023,
+        "half": 2,
+        "grade": "A",
+        "score": 85
+      },
+      {
+        "year": 2024,
+        "half": 1,
+        "grade": "B",
+        "score": 84,
+        "reason": "입고검사 불량률 상승"
+      },
+      {
+        "year": 2024,
+        "half": 2,
+        "grade": "B",
+        "score": 84
+      },
+      {
+        "year": 2025,
+        "half": 1,
+        "grade": "B",
+        "score": 83
+      },
+      {
+        "year": 2025,
+        "half": 2,
+        "grade": "B",
+        "score": 83
+      }
+    ],
+    "items": [
+      "ITM-1005",
+      "ITM-1002",
+      "ITM-1004"
+    ]
+  },
+  {
+    "supplierId": "SUP-009",
+    "name": "업체 I",
+    "process": "소모품",
+    "region": "부산",
+    "auditGrade": "B",
+    "qualityScore": 80,
+    "defectRate": 1,
+    "techScore": 70,
+    "esgScore": 68,
+    "lastAuditDate": "2025-10-07",
+    "evalHistory": [
+      {
+        "year": 2023,
+        "half": 2,
+        "grade": "B",
+        "score": 81
+      },
+      {
+        "year": 2024,
+        "half": 1,
+        "grade": "B",
+        "score": 82
+      },
+      {
+        "year": 2024,
+        "half": 2,
+        "grade": "B",
+        "score": 82
+      },
+      {
+        "year": 2025,
+        "half": 1,
+        "grade": "B",
+        "score": 83
+      },
+      {
+        "year": 2025,
+        "half": 2,
+        "grade": "B",
+        "score": 83
+      }
+    ],
+    "items": [
+      "ITM-1007"
+    ]
+  },
+  {
+    "supplierId": "SUP-010",
+    "name": "업체 J",
+    "process": "배관",
+    "region": "울산",
+    "auditGrade": "C",
+    "qualityScore": 70,
+    "defectRate": 2.8,
+    "techScore": 62,
+    "esgScore": 55,
+    "lastAuditDate": "2026-03-11",
+    "evalHistory": [
+      {
+        "year": 2023,
+        "half": 2,
+        "grade": "B",
+        "score": 79
+      },
+      {
+        "year": 2024,
+        "half": 1,
+        "grade": "B",
+        "score": 78
+      },
+      {
+        "year": 2024,
+        "half": 2,
+        "grade": "B",
+        "score": 77
+      },
+      {
+        "year": 2025,
+        "half": 1,
+        "grade": "C",
+        "score": 74,
+        "reason": "고압 연료관 납기 지연 반복 · 불량률 2%대"
+      },
+      {
+        "year": 2025,
+        "half": 2,
+        "grade": "C",
+        "score": 73
+      }
+    ],
+    "items": [
+      "ITM-1007",
+      "ITM-1009"
+    ]
+  },
+  {
+    "supplierId": "SUP-011",
+    "name": "업체 K",
+    "process": "정밀가공",
+    "region": "경남 함안",
+    "auditGrade": "A",
+    "qualityScore": 88,
+    "defectRate": 0.7,
+    "techScore": 87,
+    "esgScore": 81,
+    "lastAuditDate": "2024-07-30",
+    "evalHistory": [
+      {
+        "year": 2023,
+        "half": 2,
+        "grade": "A",
+        "score": 89
+      },
+      {
+        "year": 2024,
+        "half": 1,
+        "grade": "A",
+        "score": 90
+      },
+      {
+        "year": 2024,
+        "half": 2,
+        "grade": "A",
+        "score": 90
+      },
+      {
+        "year": 2025,
+        "half": 1,
+        "grade": "A",
+        "score": 91
+      },
+      {
+        "year": 2025,
+        "half": 2,
+        "grade": "A",
+        "score": 92
+      }
+    ],
+    "items": [
+      "ITM-1004",
+      "ITM-1010"
+    ]
+  },
+  {
+    "supplierId": "SUP-012",
+    "name": "업체 L",
+    "process": "단조",
+    "region": "경남 창원",
+    "auditGrade": "B",
+    "qualityScore": 85,
+    "defectRate": 0.9,
+    "techScore": 79,
+    "esgScore": 76,
+    "lastAuditDate": "2025-01-22",
+    "evalHistory": [
+      {
+        "year": 2023,
+        "half": 2,
+        "grade": "B",
+        "score": 82
+      },
+      {
+        "year": 2024,
+        "half": 1,
+        "grade": "B",
+        "score": 83
+      },
+      {
+        "year": 2024,
+        "half": 2,
+        "grade": "B",
+        "score": 84
+      },
+      {
+        "year": 2025,
+        "half": 1,
+        "grade": "B",
+        "score": 84
+      },
+      {
+        "year": 2025,
+        "half": 2,
+        "grade": "A",
+        "score": 86,
+        "reason": "단조 설비 교체 후 품질 점수 개선"
+      }
+    ],
+    "items": [
+      "ITM-1003",
+      "ITM-1009"
+    ]
+  }
+]

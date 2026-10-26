@@ -1,0 +1,67 @@
+{
+  "stage": "generation",
+  "model": "llama3.1:8b",
+  "id": "Q07",
+  "question": "가상 B사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+  "response": "10500 [E1]",
+  "reference": "요청한 협력사·부품의 현재 등록 단가는 10500입니다.",
+  "retrieved_contexts": [
+    "[협력사별 공급 부품]\n공급 관계 ID: 4\n협력사 ID: 2\n협력사명: 가상 B사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n등록 단가(unit_price): 10500"
+  ],
+  "sources": [
+    {
+      "evidence_id": "E1",
+      "chunk_id": "supplier_part-4:db",
+      "parent_document_id": "supplier_part-4",
+      "source": {
+        "document_type": "supplier_part",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "supplier_part",
+          "supplier",
+          "part"
+        ],
+        "source_refs": [
+          "supplier_part:4",
+          "supplier:2",
+          "part:1"
+        ],
+        "supplier_part_id": 4,
+        "supplier_id": 2,
+        "part_id": 1
+      },
+      "similarity": null
+    }
+  ],
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 8192,
+    "num_predict": 1024,
+    "num_gpu": 0,
+    "num_thread": 4
+  },
+  "prompt_sha256": "56667ad9a50fa0960d6d670c00c7d6aafbf831a4f8dbe00ee25663f4b724db98",
+  "model_digest": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+  "elapsed_seconds": 3.452999999994063,
+  "truncated": false,
+  "input_budget_warning": false,
+  "raw_response": {
+    "model": "llama3.1:8b",
+    "created_at": "2026-10-25T13:40:58.4877356Z",
+    "message": {
+      "role": "assistant",
+      "content": "10500 [E1]"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 3452995400,
+    "load_duration": 11342700,
+    "prompt_eval_count": 347,
+    "prompt_eval_cached_count": 246,
+    "prompt_eval_duration": 2555212000,
+    "eval_count": 7,
+    "eval_duration": 883218000
+  }
+}

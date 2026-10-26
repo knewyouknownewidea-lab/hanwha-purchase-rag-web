@@ -1,0 +1,136 @@
+[
+  {
+    "itemCode": "ITM-1001",
+    "name": "실린더 라이너",
+    "spec": "Ø500 × 2,100mm, 특수주철",
+    "category": "주조품",
+    "unit": "EA",
+    "criticality": "상",
+    "leadTimeDays": 75,
+    "materials": [
+      "선철",
+      "철스크랩",
+      "몰리브덴"
+    ]
+  },
+  {
+    "itemCode": "ITM-1002",
+    "name": "피스톤 링 세트",
+    "spec": "Ø500, 4본 1조",
+    "category": "정밀가공품",
+    "unit": "SET",
+    "criticality": "상",
+    "leadTimeDays": 60,
+    "materials": [
+      "선철",
+      "크롬"
+    ]
+  },
+  {
+    "itemCode": "ITM-1003",
+    "name": "배기밸브 스핀들",
+    "spec": "L=1,450mm, 내열합금 페이스",
+    "category": "단조·가공품",
+    "unit": "EA",
+    "criticality": "상",
+    "leadTimeDays": 90,
+    "materials": [
+      "니켈",
+      "크롬"
+    ]
+  },
+  {
+    "itemCode": "ITM-1004",
+    "name": "연료분사밸브 노즐",
+    "spec": "9홀, Ø0.85",
+    "category": "정밀가공품",
+    "unit": "EA",
+    "criticality": "상",
+    "leadTimeDays": 45,
+    "materials": [
+      "크롬",
+      "몰리브덴",
+      "철스크랩"
+    ]
+  },
+  {
+    "itemCode": "ITM-1005",
+    "name": "메인 베어링 쉘",
+    "spec": "Ø560, 상하 1조",
+    "category": "정밀가공품",
+    "unit": "SET",
+    "criticality": "중",
+    "leadTimeDays": 60,
+    "materials": [
+      "주석",
+      "구리",
+      "철스크랩"
+    ]
+  },
+  {
+    "itemCode": "ITM-1006",
+    "name": "커넥팅로드 볼트",
+    "spec": "M64 × 520mm",
+    "category": "체결부품",
+    "unit": "EA",
+    "criticality": "중",
+    "leadTimeDays": 30,
+    "materials": [
+      "철스크랩",
+      "크롬",
+      "몰리브덴"
+    ]
+  },
+  {
+    "itemCode": "ITM-1007",
+    "name": "실린더 커버 가스켓",
+    "spec": "Ø720, 연철",
+    "category": "소모성 부품",
+    "unit": "EA",
+    "criticality": "하",
+    "leadTimeDays": 20,
+    "materials": [
+      "철스크랩"
+    ]
+  },
+  {
+    "itemCode": "ITM-1008",
+    "name": "냉각수 펌프 임펠러",
+    "spec": "Ø310, 청동 주물",
+    "category": "주조품",
+    "unit": "EA",
+    "criticality": "중",
+    "leadTimeDays": 45,
+    "materials": [
+      "구리",
+      "주석"
+    ]
+  },
+  {
+    "itemCode": "ITM-1009",
+    "name": "고압 연료관",
+    "spec": "이중관, 2.4m",
+    "category": "배관 부품",
+    "unit": "EA",
+    "criticality": "중",
+    "leadTimeDays": 40,
+    "materials": [
+      "철스크랩",
+      "니켈",
+      "크롬"
+    ]
+  },
+  {
+    "itemCode": "ITM-1010",
+    "name": "터보차저 노즐링",
+    "spec": "축류형, 33베인",
+    "category": "정밀가공품",
+    "unit": "EA",
+    "criticality": "상",
+    "leadTimeDays": 90,
+    "materials": [
+      "크롬",
+      "니켈"
+    ]
+  }
+]

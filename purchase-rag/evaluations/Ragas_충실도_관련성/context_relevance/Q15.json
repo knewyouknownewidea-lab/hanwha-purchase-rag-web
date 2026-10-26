@@ -1,0 +1,17 @@
+{
+  "id": "Q15",
+  "input_hash": "33b4fb503a894de25de9dc68185e4537e5f8aa6d94eb698599f3203b88471af0",
+  "score": 1.0,
+  "error": null,
+  "ratings": [
+    {
+      "prompt_sha256": "0d292d116caf88f3d6739fdcec1dcadb90d85e42fedcce2b390e5615174aeb8a",
+      "rating": 2
+    },
+    {
+      "prompt_sha256": "37061a82be5c975e6c5e3bee94dc0abe8f40c0a4e9aa36d19c113d8d944c3273",
+      "rating": 2
+    }
+  ],
+  "valid_judge_prompts": 2
+}

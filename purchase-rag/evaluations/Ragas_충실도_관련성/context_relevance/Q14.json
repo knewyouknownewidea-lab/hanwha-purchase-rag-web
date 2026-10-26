@@ -1,0 +1,17 @@
+{
+  "id": "Q14",
+  "input_hash": "acd3ac89f0cbf3e45052464a0e548c850227e1755116e078e0280884a9ca4ed7",
+  "score": 1.0,
+  "error": null,
+  "ratings": [
+    {
+      "prompt_sha256": "6f7282e525bf13222d106e87aeaa4ab65497d915224b1c4aeacc23e5f242f4d5",
+      "rating": 2
+    },
+    {
+      "prompt_sha256": "add6092ed68508b5965a5fea2cf81aab4a001e5ca102024408ab6f3d1dfeed38",
+      "rating": 2
+    }
+  ],
+  "valid_judge_prompts": 2
+}

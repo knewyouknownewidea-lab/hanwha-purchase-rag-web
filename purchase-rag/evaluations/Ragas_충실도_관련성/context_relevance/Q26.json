@@ -1,0 +1,17 @@
+{
+  "id": "Q26",
+  "input_hash": "9e68b59dd12c16511a1b212d6ded5d8738e4fbb57dcf07fd7600dcb64f301fc6",
+  "score": 1.0,
+  "error": null,
+  "ratings": [
+    {
+      "prompt_sha256": "9a246c282caf8d5d49276688066a51b1a4fddf67551370b4c2a793654800973f",
+      "rating": 2
+    },
+    {
+      "prompt_sha256": "6b38c63b92b926bc806c9ac2b1952555960f6dbc0eb20e1b83462776c3415187",
+      "rating": 2
+    }
+  ],
+  "valid_judge_prompts": 2
+}

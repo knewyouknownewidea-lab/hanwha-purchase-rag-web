@@ -1,0 +1,3026 @@
+[
+  {
+    "month": "2024-10",
+    "material": "선철",
+    "market": "국제",
+    "price": 425,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "선철",
+    "market": "국내",
+    "price": 622,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "선철",
+    "market": "국제",
+    "price": 431,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "선철",
+    "market": "국내",
+    "price": 630,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "선철",
+    "market": "국제",
+    "price": 426,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "선철",
+    "market": "국내",
+    "price": 622,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "선철",
+    "market": "국제",
+    "price": 432,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "선철",
+    "market": "국내",
+    "price": 625,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "선철",
+    "market": "국제",
+    "price": 432,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "선철",
+    "market": "국내",
+    "price": 641,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "선철",
+    "market": "국제",
+    "price": 439,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "선철",
+    "market": "국내",
+    "price": 645,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "선철",
+    "market": "국제",
+    "price": 440,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "선철",
+    "market": "국내",
+    "price": 653,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "선철",
+    "market": "국제",
+    "price": 448,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "선철",
+    "market": "국내",
+    "price": 677,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "선철",
+    "market": "국제",
+    "price": 450,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "선철",
+    "market": "국내",
+    "price": 672,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "선철",
+    "market": "국제",
+    "price": 458,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "선철",
+    "market": "국내",
+    "price": 681,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "선철",
+    "market": "국제",
+    "price": 458,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "선철",
+    "market": "국내",
+    "price": 675,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "선철",
+    "market": "국제",
+    "price": 455,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "선철",
+    "market": "국내",
+    "price": 668,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "선철",
+    "market": "국제",
+    "price": 448,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "선철",
+    "market": "국내",
+    "price": 685,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "선철",
+    "market": "국제",
+    "price": 445,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "선철",
+    "market": "국내",
+    "price": 664,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "선철",
+    "market": "국제",
+    "price": 440,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "선철",
+    "market": "국내",
+    "price": 662,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "선철",
+    "market": "국제",
+    "price": 437,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "선철",
+    "market": "국내",
+    "price": 669,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "선철",
+    "market": "국제",
+    "price": 442,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "선철",
+    "market": "국내",
+    "price": 673,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "선철",
+    "market": "국제",
+    "price": 441,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "선철",
+    "market": "국내",
+    "price": 678,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "선철",
+    "market": "국제",
+    "price": 434,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "선철",
+    "market": "국내",
+    "price": 658,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "선철",
+    "market": "국제",
+    "price": 436,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "선철",
+    "market": "국내",
+    "price": 657,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "선철",
+    "market": "국제",
+    "price": 430,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "선철",
+    "market": "국내",
+    "price": 647,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "선철",
+    "market": "국제",
+    "price": 422,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "선철",
+    "market": "국내",
+    "price": 634,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "선철",
+    "market": "국제",
+    "price": 421,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "선철",
+    "market": "국내",
+    "price": 633,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "선철",
+    "market": "국제",
+    "price": 415,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "선철",
+    "market": "국내",
+    "price": 629,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 367,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 550,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 361,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 552,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 369,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 554,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 371,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 560,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 375,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 575,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 382,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 585,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 383,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 581,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 377,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 588,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 382,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 588,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 374,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 587,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 368,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 578,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 367,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 575,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 360,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 562,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 366,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 575,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 371,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 584,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 368,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 573,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 373,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 578,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 374,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 588,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 372,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 582,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 372,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 579,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 365,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 572,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 360,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 578,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 351,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 558,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "철스크랩",
+    "market": "국제",
+    "price": 346,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "철스크랩",
+    "market": "국내",
+    "price": 550,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "니켈",
+    "market": "국제",
+    "price": 16110,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "니켈",
+    "market": "국내",
+    "price": 22650,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "니켈",
+    "market": "국제",
+    "price": 15710,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "니켈",
+    "market": "국내",
+    "price": 22200,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "니켈",
+    "market": "국제",
+    "price": 15550,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "니켈",
+    "market": "국내",
+    "price": 22400,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "니켈",
+    "market": "국제",
+    "price": 15710,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "니켈",
+    "market": "국내",
+    "price": 22900,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "니켈",
+    "market": "국제",
+    "price": 15670,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "니켈",
+    "market": "국내",
+    "price": 22450,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "니켈",
+    "market": "국제",
+    "price": 15890,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "니켈",
+    "market": "국내",
+    "price": 22900,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "니켈",
+    "market": "국제",
+    "price": 16090,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "니켈",
+    "market": "국내",
+    "price": 23600,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "니켈",
+    "market": "국제",
+    "price": 16420,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "니켈",
+    "market": "국내",
+    "price": 23750,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "니켈",
+    "market": "국제",
+    "price": 15900,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "니켈",
+    "market": "국내",
+    "price": 23200,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "니켈",
+    "market": "국제",
+    "price": 16060,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "니켈",
+    "market": "국내",
+    "price": 23300,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "니켈",
+    "market": "국제",
+    "price": 16080,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "니켈",
+    "market": "국내",
+    "price": 23850,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "니켈",
+    "market": "국제",
+    "price": 15830,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "니켈",
+    "market": "국내",
+    "price": 23100,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "니켈",
+    "market": "국제",
+    "price": 16550,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "니켈",
+    "market": "국내",
+    "price": 24200,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "니켈",
+    "market": "국제",
+    "price": 17250,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "니켈",
+    "market": "국내",
+    "price": 25150,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "니켈",
+    "market": "국제",
+    "price": 17250,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "니켈",
+    "market": "국내",
+    "price": 25100,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "니켈",
+    "market": "국제",
+    "price": 17860,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "니켈",
+    "market": "국내",
+    "price": 25950,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "니켈",
+    "market": "국제",
+    "price": 17720,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "니켈",
+    "market": "국내",
+    "price": 25650,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "니켈",
+    "market": "국제",
+    "price": 17540,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "니켈",
+    "market": "국내",
+    "price": 26000,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "니켈",
+    "market": "국제",
+    "price": 17580,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "니켈",
+    "market": "국내",
+    "price": 25800,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "니켈",
+    "market": "국제",
+    "price": 18050,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "니켈",
+    "market": "국내",
+    "price": 26500,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "니켈",
+    "market": "국제",
+    "price": 18040,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "니켈",
+    "market": "국내",
+    "price": 26850,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "니켈",
+    "market": "국제",
+    "price": 18100,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "니켈",
+    "market": "국내",
+    "price": 26450,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "니켈",
+    "market": "국제",
+    "price": 18120,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "니켈",
+    "market": "국내",
+    "price": 26650,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "니켈",
+    "market": "국제",
+    "price": 18100,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "니켈",
+    "market": "국내",
+    "price": 26600,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2304,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3390,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2299,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3380,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2307,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3380,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2302,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3400,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2278,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3290,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2292,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3310,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2291,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3420,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2309,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3410,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2339,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3500,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2364,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3500,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2351,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3520,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2337,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3480,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2332,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3530,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2337,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3540,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2359,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3560,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2342,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3520,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2323,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3510,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2351,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3570,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2335,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3580,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2349,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3540,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2358,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3590,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2387,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3620,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2365,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3620,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "크롬",
+    "market": "국제",
+    "price": 2360,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "크롬",
+    "market": "국내",
+    "price": 3550,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 45180,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 65950,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 46290,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 68050,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 47340,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 67050,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 46560,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 66400,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 47270,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 69400,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 46900,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 67400,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 48160,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 70900,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 49640,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 72300,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 50560,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 72600,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 50370,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 73050,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 51890,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 76800,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 51900,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 75450,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 51630,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 76200,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 51760,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 76950,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 53560,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 80900,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 53110,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 77900,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 55100,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 82250,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 56840,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 83450,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 55970,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 83200,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 57200,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 86550,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 58460,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 86250,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 60330,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 92000,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 60430,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 91650,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "몰리브덴",
+    "market": "국제",
+    "price": 61510,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "몰리브덴",
+    "market": "국내",
+    "price": 91100,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "구리",
+    "market": "국제",
+    "price": 9560,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "구리",
+    "market": "국내",
+    "price": 13550,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "구리",
+    "market": "국제",
+    "price": 9424,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "구리",
+    "market": "국내",
+    "price": 13350,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "구리",
+    "market": "국제",
+    "price": 9446,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "구리",
+    "market": "국내",
+    "price": 13200,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "구리",
+    "market": "국제",
+    "price": 9399,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "구리",
+    "market": "국내",
+    "price": 13250,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "구리",
+    "market": "국제",
+    "price": 9589,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "구리",
+    "market": "국내",
+    "price": 13650,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "구리",
+    "market": "국제",
+    "price": 9755,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "구리",
+    "market": "국내",
+    "price": 13750,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "구리",
+    "market": "국제",
+    "price": 9824,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "구리",
+    "market": "국내",
+    "price": 14050,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "구리",
+    "market": "국제",
+    "price": 9832,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "구리",
+    "market": "국내",
+    "price": 14350,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "구리",
+    "market": "국제",
+    "price": 9710,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "구리",
+    "market": "국내",
+    "price": 13700,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "구리",
+    "market": "국제",
+    "price": 9627,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "구리",
+    "market": "국내",
+    "price": 14100,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "구리",
+    "market": "국제",
+    "price": 9569,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "구리",
+    "market": "국내",
+    "price": 13650,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "구리",
+    "market": "국제",
+    "price": 9545,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "구리",
+    "market": "국내",
+    "price": 13600,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "구리",
+    "market": "국제",
+    "price": 9484,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "구리",
+    "market": "국내",
+    "price": 13800,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "구리",
+    "market": "국제",
+    "price": 9776,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "구리",
+    "market": "국내",
+    "price": 14000,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "구리",
+    "market": "국제",
+    "price": 9946,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "구리",
+    "market": "국내",
+    "price": 14500,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "구리",
+    "market": "국제",
+    "price": 9919,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "구리",
+    "market": "국내",
+    "price": 14200,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "구리",
+    "market": "국제",
+    "price": 9986,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "구리",
+    "market": "국내",
+    "price": 14550,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "구리",
+    "market": "국제",
+    "price": 9908,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "구리",
+    "market": "국내",
+    "price": 14300,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "구리",
+    "market": "국제",
+    "price": 9936,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "구리",
+    "market": "국내",
+    "price": 14750,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "구리",
+    "market": "국제",
+    "price": 10130,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "구리",
+    "market": "국내",
+    "price": 15000,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "구리",
+    "market": "국제",
+    "price": 10350,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "구리",
+    "market": "국내",
+    "price": 15150,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "구리",
+    "market": "국제",
+    "price": 10320,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "구리",
+    "market": "국내",
+    "price": 15450,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "구리",
+    "market": "국제",
+    "price": 10390,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "구리",
+    "market": "국내",
+    "price": 15350,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "구리",
+    "market": "국제",
+    "price": 10700,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "구리",
+    "market": "국내",
+    "price": 15950,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "주석",
+    "market": "국제",
+    "price": 30850,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-10",
+    "material": "주석",
+    "market": "국내",
+    "price": 43550,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "주석",
+    "market": "국제",
+    "price": 31230,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "material": "주석",
+    "market": "국내",
+    "price": 44000,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "주석",
+    "market": "국제",
+    "price": 31180,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "material": "주석",
+    "market": "국내",
+    "price": 45250,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "주석",
+    "market": "국제",
+    "price": 31250,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "material": "주석",
+    "market": "국내",
+    "price": 45400,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "주석",
+    "market": "국제",
+    "price": 30960,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "material": "주석",
+    "market": "국내",
+    "price": 44250,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "주석",
+    "market": "국제",
+    "price": 31980,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "material": "주석",
+    "market": "국내",
+    "price": 45250,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "주석",
+    "market": "국제",
+    "price": 32550,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "material": "주석",
+    "market": "국내",
+    "price": 46900,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "주석",
+    "market": "국제",
+    "price": 31680,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "material": "주석",
+    "market": "국내",
+    "price": 45150,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "주석",
+    "market": "국제",
+    "price": 32620,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "material": "주석",
+    "market": "국내",
+    "price": 46600,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "주석",
+    "market": "국제",
+    "price": 32000,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "material": "주석",
+    "market": "국내",
+    "price": 46050,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "주석",
+    "market": "국제",
+    "price": 31550,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "material": "주석",
+    "market": "국내",
+    "price": 46850,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "주석",
+    "market": "국제",
+    "price": 32090,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "material": "주석",
+    "market": "국내",
+    "price": 46650,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "주석",
+    "market": "국제",
+    "price": 32710,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "material": "주석",
+    "market": "국내",
+    "price": 47750,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "주석",
+    "market": "국제",
+    "price": 33290,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "material": "주석",
+    "market": "국내",
+    "price": 49400,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "주석",
+    "market": "국제",
+    "price": 33100,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "material": "주석",
+    "market": "국내",
+    "price": 48550,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "주석",
+    "market": "국제",
+    "price": 33320,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "material": "주석",
+    "market": "국내",
+    "price": 49700,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "주석",
+    "market": "국제",
+    "price": 34290,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "material": "주석",
+    "market": "국내",
+    "price": 49700,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "주석",
+    "market": "국제",
+    "price": 34030,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "material": "주석",
+    "market": "국내",
+    "price": 49400,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "주석",
+    "market": "국제",
+    "price": 33650,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "material": "주석",
+    "market": "국내",
+    "price": 49400,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "주석",
+    "market": "국제",
+    "price": 33140,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "material": "주석",
+    "market": "국내",
+    "price": 50000,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "주석",
+    "market": "국제",
+    "price": 33720,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "material": "주석",
+    "market": "국내",
+    "price": 50150,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "주석",
+    "market": "국제",
+    "price": 33550,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "material": "주석",
+    "market": "국내",
+    "price": 49250,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "주석",
+    "market": "국제",
+    "price": 34230,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "material": "주석",
+    "market": "국내",
+    "price": 50700,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "주석",
+    "market": "국제",
+    "price": 34320,
+    "unit": "톤",
+    "currency": "USD",
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "material": "주석",
+    "market": "국내",
+    "price": 51300,
+    "unit": "kg",
+    "currency": "KRW",
+    "source": "SAMPLE (가상 값)"
+  }
+]

@@ -1,0 +1,146 @@
+[
+  {
+    "month": "2024-10",
+    "currency": "USD",
+    "krw": 1357.6,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-11",
+    "currency": "USD",
+    "krw": 1364.8,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2024-12",
+    "currency": "USD",
+    "krw": 1360.3,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-01",
+    "currency": "USD",
+    "krw": 1364.9,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-02",
+    "currency": "USD",
+    "krw": 1368.4,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-03",
+    "currency": "USD",
+    "krw": 1372.3,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-04",
+    "currency": "USD",
+    "krw": 1376.6,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-05",
+    "currency": "USD",
+    "krw": 1382.7,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-06",
+    "currency": "USD",
+    "krw": 1379.6,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-07",
+    "currency": "USD",
+    "krw": 1385.4,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-08",
+    "currency": "USD",
+    "krw": 1390.2,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-09",
+    "currency": "USD",
+    "krw": 1382.3,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-10",
+    "currency": "USD",
+    "krw": 1392.3,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-11",
+    "currency": "USD",
+    "krw": 1393,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2025-12",
+    "currency": "USD",
+    "krw": 1400.3,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-01",
+    "currency": "USD",
+    "krw": 1397.1,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-02",
+    "currency": "USD",
+    "krw": 1396.3,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-03",
+    "currency": "USD",
+    "krw": 1398.9,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-04",
+    "currency": "USD",
+    "krw": 1411.2,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-05",
+    "currency": "USD",
+    "krw": 1411.7,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-06",
+    "currency": "USD",
+    "krw": 1405.5,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-07",
+    "currency": "USD",
+    "krw": 1416.1,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-08",
+    "currency": "USD",
+    "krw": 1411.2,
+    "source": "SAMPLE (가상 값)"
+  },
+  {
+    "month": "2026-09",
+    "currency": "USD",
+    "krw": 1413.7,
+    "source": "SAMPLE (가상 값)"
+  }
+]

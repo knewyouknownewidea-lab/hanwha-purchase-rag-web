@@ -1,0 +1,363 @@
+{
+  "folders": [
+    {
+      "name": "구매관리 RAG",
+      "path": "."
+    }
+  ],
+  "settings": {
+    "files.encoding": "utf8",
+    "files.exclude": {
+      "**/__pycache__": true,
+      "**/*.pyc": true
+    },
+    "search.exclude": {
+      "data/vector_store/**": true,
+      "data/embeddings/**": true,
+      "**/judge_cache/**": true
+    },
+    "python.defaultInterpreterPath": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+    "python.analysis.extraPaths": [
+      "${workspaceFolder}"
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "DB: 요약 보기",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "db.query"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "DB: 발주 현황 보기",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "db.query",
+          "--table",
+          "v_order_status"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "DB: 민원 보기",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "db.query",
+          "--table",
+          "v_complaint_details"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "DB: SQL 예제 실행",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "db.query",
+          "--sql",
+          "DB_조회예제.sql"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "문서: 파싱 및 검색 문서화",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "backend.documents"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "DB: 데이터 연결 확인",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "db.query",
+          "--sql",
+          "데이터_연결확인.sql"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "청킹: 세 라이브러리 비교",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "evaluations.청킹_비교"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "검색: 임베딩 모델 3개 비교",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "evaluations.임베딩_검색비교"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "clear": true
+        }
+      },
+      {
+        "label": "백엔드: 서버 시작",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "backend.manage",
+          "start"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated",
+          "clear": true
+        }
+      },
+      {
+        "label": "벡터DB: 구축 및 갱신",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "backend.client",
+          "index"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated",
+          "clear": true
+        }
+      },
+      {
+        "label": "벡터DB: 상태 확인",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "backend.client",
+          "status"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated",
+          "clear": true
+        }
+      },
+      {
+        "label": "벡터DB: 예제 검색",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "backend.client",
+          "search"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated",
+          "clear": true
+        }
+      },
+      {
+        "label": "백엔드: 서버 중지",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "backend.manage",
+          "stop"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "평가: 공식 모듈로 임베딩 3개 비교",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "evaluations.공식모듈_임베딩평가"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated",
+          "clear": true
+        }
+      },
+      {
+        "label": "평가: 조건 검증 전후 비교",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "evaluations.조건검증_전후평가"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": []
+      },
+      {
+        "label": "검증: 전체 단위 테스트",
+        "type": "process",
+        "command": "${workspaceFolder}/../work/chunking-venv/Scripts/python.exe",
+        "args": [
+          "-X",
+          "utf8",
+          "-m",
+          "unittest",
+          "backend.test_backend",
+          "backend.test_query_rules",
+          "backend.test_prompting",
+          "backend.test_generation",
+          "deployment.test_gateway",
+          "deployment.test_lifecycle",
+          "-v"
+        ],
+        "options": {
+          "cwd": "${workspaceFolder}"
+        },
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated",
+          "clear": true
+        }
+      }
+    ]
+  }
+}

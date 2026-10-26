@@ -1,0 +1,110 @@
+{
+  "stage": "generation",
+  "model": "llama3.1:8b",
+  "id": "Q21",
+  "question": "가상 C사의 실린더 라이너 포장에 부품을 식별하는 라벨이 빠졌다는 민원은?",
+  "response": "민원 ID 3003에 해당하는 민원 내용에서, 실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청한 민원이 있습니다.",
+  "reference": "해당 민원은 3003번입니다. 실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청함.",
+  "retrieved_contexts": [
+    "[민원 정보]\n민원 ID: 3003\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1003\n연결 납품 ID: 2005\n연결 납품일(delivery_date): 2026-04-23\n민원일(complaint_date): 2026-04-25\n불량 유형(defect_type): MISSING_LABEL\n민원 내용: 실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청함.",
+    "[민원 정보]\n민원 ID: 3005\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1012\n연결 납품 ID: 2016\n연결 납품일(delivery_date): 2026-07-23\n민원일(complaint_date): 2026-07-25\n불량 유형(defect_type): DIMENSION_CHECK\n민원 내용: 실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함."
+  ],
+  "sources": [
+    {
+      "evidence_id": "E1",
+      "chunk_id": "complaint-3003:langchain:800:0",
+      "parent_document_id": "complaint-3003",
+      "source": {
+        "document_type": "complaint",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "complaint",
+          "delivery",
+          "orders",
+          "supplier",
+          "part"
+        ],
+        "source_refs": [
+          "complaint:3003",
+          "delivery:2005",
+          "orders:1003",
+          "supplier:3",
+          "part:1"
+        ],
+        "complaint_id": 3003,
+        "delivery_id": 2005,
+        "order_id": 1003,
+        "supplier_id": 3,
+        "part_id": 1,
+        "delivery_date": "2026-04-23",
+        "complaint_date": "2026-04-25",
+        "defect_type": "MISSING_LABEL"
+      },
+      "similarity": 0.81967
+    },
+    {
+      "evidence_id": "E2",
+      "chunk_id": "complaint-3005:langchain:800:0",
+      "parent_document_id": "complaint-3005",
+      "source": {
+        "document_type": "complaint",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "complaint",
+          "delivery",
+          "orders",
+          "supplier",
+          "part"
+        ],
+        "source_refs": [
+          "complaint:3005",
+          "delivery:2016",
+          "orders:1012",
+          "supplier:3",
+          "part:1"
+        ],
+        "complaint_id": 3005,
+        "delivery_id": 2016,
+        "order_id": 1012,
+        "supplier_id": 3,
+        "part_id": 1,
+        "delivery_date": "2026-07-23",
+        "complaint_date": "2026-07-25",
+        "defect_type": "DIMENSION_CHECK"
+      },
+      "similarity": 0.705323
+    }
+  ],
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 8192,
+    "num_predict": 1024,
+    "num_gpu": 0,
+    "num_thread": 4
+  },
+  "prompt_sha256": "ffe68739a7bc508dd5b9f3fd66539557efcc28c62f11c4ff7e39c22a9ebe810a",
+  "model_digest": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+  "elapsed_seconds": 15.031000000002678,
+  "truncated": false,
+  "input_budget_warning": false,
+  "raw_response": {
+    "model": "llama3.1:8b",
+    "created_at": "2026-10-25T13:42:59.1450051Z",
+    "message": {
+      "role": "assistant",
+      "content": "민원 ID 3003에 해당하는 민원 내용에서, 실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청한 민원이 있습니다."
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 15034422900,
+    "load_duration": 11401800,
+    "prompt_eval_count": 615,
+    "prompt_eval_cached_count": 241,
+    "prompt_eval_duration": 8540397999,
+    "eval_count": 44,
+    "eval_duration": 6478632000
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "model": "qwen3:8b",
+  "id": "Q04",
+  "scores": {
+    "faithfulness": 1.0,
+    "factual_correctness": 0.0
+  },
+  "errors": {
+    "answer_relevancy": "embedding_pending"
+  }
+}

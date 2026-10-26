@@ -1,0 +1,257 @@
+{
+  "semantic_search": {
+    "question": "베어링 완충 포장이 부족하다는 민원을 찾아줘",
+    "model": "BAAI/bge-m3",
+    "filters": {},
+    "source_changed": false,
+    "count": 3,
+    "results": [
+      {
+        "chunk_id": "complaint-3006:langchain:800:0",
+        "parent_document_id": "complaint-3006",
+        "text": "[민원 정보]\n민원 ID: 3006\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 3\n부품명: 베어링(가상)\n연결 발주 ID: 1018\n연결 납품 ID: 2023\n연결 납품일(delivery_date): 2026-09-22\n민원일(complaint_date): 2026-09-24\n불량 유형(defect_type): PACKAGING_DAMAGE\n민원 내용: 베어링 완충 포장이 부족해 포장 보강을 요청함.",
+        "similarity": 0.72789,
+        "metadata_scope": "parent_document",
+        "source": {
+          "document_type": "complaint",
+          "source_db": "구매관리_테스트.db",
+          "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+          "source_tables": [
+            "complaint",
+            "delivery",
+            "orders",
+            "supplier",
+            "part"
+          ],
+          "source_refs": [
+            "complaint:3006",
+            "delivery:2023",
+            "orders:1018",
+            "supplier:3",
+            "part:3"
+          ],
+          "complaint_id": 3006,
+          "delivery_id": 2023,
+          "order_id": 1018,
+          "supplier_id": 3,
+          "part_id": 3,
+          "delivery_date": "2026-09-22",
+          "complaint_date": "2026-09-24",
+          "defect_type": "PACKAGING_DAMAGE"
+        }
+      },
+      {
+        "chunk_id": "complaint-3004:langchain:800:0",
+        "parent_document_id": "complaint-3004",
+        "text": "[민원 정보]\n민원 ID: 3004\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 3\n부품명: 베어링(가상)\n연결 발주 ID: 1009\n연결 납품 ID: 2012\n연결 납품일(delivery_date): 2026-06-22\n민원일(complaint_date): 2026-06-24\n불량 유형(defect_type): SURFACE_DAMAGE\n민원 내용: 베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함.",
+        "similarity": 0.610034,
+        "metadata_scope": "parent_document",
+        "source": {
+          "document_type": "complaint",
+          "source_db": "구매관리_테스트.db",
+          "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+          "source_tables": [
+            "complaint",
+            "delivery",
+            "orders",
+            "supplier",
+            "part"
+          ],
+          "source_refs": [
+            "complaint:3004",
+            "delivery:2012",
+            "orders:1009",
+            "supplier:3",
+            "part:3"
+          ],
+          "complaint_id": 3004,
+          "delivery_id": 2012,
+          "order_id": 1009,
+          "supplier_id": 3,
+          "part_id": 3,
+          "delivery_date": "2026-06-22",
+          "complaint_date": "2026-06-24",
+          "defect_type": "SURFACE_DAMAGE"
+        }
+      },
+      {
+        "chunk_id": "complaint-3002:langchain:800:0",
+        "parent_document_id": "complaint-3002",
+        "text": "[민원 정보]\n민원 ID: 3002\n협력사 ID: 2\n협력사명: 가상 B사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n연결 발주 ID: 1005\n연결 납품 ID: 2007\n연결 납품일(delivery_date): 2026-05-18\n민원일(complaint_date): 2026-05-20\n불량 유형(defect_type): PACKAGING_DAMAGE\n민원 내용: 연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함.",
+        "similarity": 0.554977,
+        "metadata_scope": "parent_document",
+        "source": {
+          "document_type": "complaint",
+          "source_db": "구매관리_테스트.db",
+          "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+          "source_tables": [
+            "complaint",
+            "delivery",
+            "orders",
+            "supplier",
+            "part"
+          ],
+          "source_refs": [
+            "complaint:3002",
+            "delivery:2007",
+            "orders:1005",
+            "supplier:2",
+            "part:2"
+          ],
+          "complaint_id": 3002,
+          "delivery_id": 2007,
+          "order_id": 1005,
+          "supplier_id": 2,
+          "part_id": 2,
+          "delivery_date": "2026-05-18",
+          "complaint_date": "2026-05-20",
+          "defect_type": "PACKAGING_DAMAGE"
+        }
+      }
+    ],
+    "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다."
+  },
+  "filtered_order_search": {
+    "question": "누적 납품 수량과 남은 수량은?",
+    "model": "BAAI/bge-m3",
+    "filters": {
+      "order_id": 1101,
+      "document_type": "order"
+    },
+    "source_changed": false,
+    "count": 1,
+    "results": [
+      {
+        "chunk_id": "order-1101:langchain:800:0",
+        "parent_document_id": "order-1101",
+        "text": "[발주 정보]\n발주 ID: 1101\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n발주 수량(quantity): 100\n발주 비용값(cost): 10000\n발주일(order_date): 2026-10-05\n등록 납기 예상일(expected_date): 2026-10-20\n[연결된 납품 기록]\n납품 ID: 2024\n연결 발주 ID: 1101\n납품일(delivery_date): 2026-10-18\n납품 수량(delivery_quantity): 40\n납품 상태(delivery_status): PARTIAL\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 40\n발주 수량과 기록상 납품 수량의 차이: 60\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+        "similarity": 0.572416,
+        "metadata_scope": "parent_document",
+        "source": {
+          "document_type": "order",
+          "source_db": "구매관리_테스트.db",
+          "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+          "source_tables": [
+            "orders",
+            "supplier",
+            "part",
+            "delivery"
+          ],
+          "source_refs": [
+            "orders:1101",
+            "supplier:1",
+            "part:1",
+            "delivery:2024"
+          ],
+          "order_id": 1101,
+          "supplier_id": 1,
+          "part_id": 1,
+          "order_date": "2026-10-05",
+          "expected_date": "2026-10-20",
+          "delivery_ids": [
+            2024
+          ],
+          "delivery_dates": [
+            "2026-10-18"
+          ],
+          "recorded_delivered_quantity": 40,
+          "recorded_quantity_difference": 60
+        }
+      }
+    ],
+    "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다."
+  },
+  "unknown_order": {
+    "question": "발주 조회",
+    "model": "BAAI/bge-m3",
+    "filters": {
+      "order_id": 999999
+    },
+    "source_changed": false,
+    "count": 0,
+    "results": [],
+    "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다."
+  },
+  "repeat_index": {
+    "action": "unchanged",
+    "message": "변경이 없어 기존 벡터를 사용합니다.",
+    "indexed": true,
+    "count": 47,
+    "model": "BAAI/bge-m3",
+    "source_changed": false,
+    "index": {
+      "collection": "purchase_bge_457880225f8340e2bb6ff5ca98575e73",
+      "pipeline": {
+        "model": "BAAI/bge-m3",
+        "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+        "dimension": 1024,
+        "splitter": "RecursiveCharacterTextSplitter",
+        "chunk_size": 800,
+        "overlap": 0,
+        "metric": "cosine",
+        "format_version": 1
+      },
+      "fingerprint": "af6bcd67441a6f861b22a400326e94a05ab5a7fc1e997ec25dc3363213e05c70",
+      "source_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+      "source_records": 74,
+      "documents": 47,
+      "chunks": 47,
+      "created_at": "2026-10-25T11:26:12.456905+00:00"
+    }
+  },
+  "restart_persistence": {
+    "passed": true,
+    "count": 47,
+    "result": {
+      "question": "누적 납품 수량은?",
+      "model": "BAAI/bge-m3",
+      "filters": {
+        "order_id": 1101,
+        "document_type": "order"
+      },
+      "source_changed": false,
+      "count": 1,
+      "results": [
+        {
+          "chunk_id": "order-1101:langchain:800:0",
+          "parent_document_id": "order-1101",
+          "text": "[발주 정보]\n발주 ID: 1101\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n발주 수량(quantity): 100\n발주 비용값(cost): 10000\n발주일(order_date): 2026-10-05\n등록 납기 예상일(expected_date): 2026-10-20\n[연결된 납품 기록]\n납품 ID: 2024\n연결 발주 ID: 1101\n납품일(delivery_date): 2026-10-18\n납품 수량(delivery_quantity): 40\n납품 상태(delivery_status): PARTIAL\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 40\n발주 수량과 기록상 납품 수량의 차이: 60\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+          "similarity": 0.574348,
+          "metadata_scope": "parent_document",
+          "source": {
+            "document_type": "order",
+            "source_db": "구매관리_테스트.db",
+            "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+            "source_tables": [
+              "orders",
+              "supplier",
+              "part",
+              "delivery"
+            ],
+            "source_refs": [
+              "orders:1101",
+              "supplier:1",
+              "part:1",
+              "delivery:2024"
+            ],
+            "order_id": 1101,
+            "supplier_id": 1,
+            "part_id": 1,
+            "order_date": "2026-10-05",
+            "expected_date": "2026-10-20",
+            "delivery_ids": [
+              2024
+            ],
+            "delivery_dates": [
+              "2026-10-18"
+            ],
+            "recorded_delivered_quantity": 40,
+            "recorded_quantity_difference": 60
+          }
+        }
+      ],
+      "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다."
+    }
+  },
+  "source_db_unchanged": true
+}

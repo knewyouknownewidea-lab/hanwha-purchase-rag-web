@@ -1,0 +1,44 @@
+{
+  "ragas": "0.4.3",
+  "scope": "기존 개발 30문항 × 3모델의 예비 평가",
+  "metrics": [
+    "Faithfulness",
+    "AnswerRelevancy"
+  ],
+  "reference_used": false,
+  "judge": {
+    "name": "qwen3:14b",
+    "model": "qwen3:14b",
+    "modified_at": "2026-10-25T22:29:26.8542313+09:00",
+    "size": 9276198565,
+    "digest": "bdbd181c33f2ed1b31c972991882db3cf4d192569092138a7d29e973cd9debe8",
+    "details": {
+      "parent_model": "",
+      "format": "gguf",
+      "family": "qwen3",
+      "families": [
+        "qwen3"
+      ],
+      "parameter_size": "14.8B",
+      "quantization_level": "Q4_K_M",
+      "context_length": 40960,
+      "embedding_length": 5120,
+      "runner": "ggml"
+    },
+    "capabilities": [
+      "completion",
+      "tools",
+      "thinking"
+    ]
+  },
+  "judge_options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 8192,
+    "num_predict": 4096,
+    "num_gpu": 20,
+    "num_thread": 4
+  },
+  "embedding_model": "BAAI/bge-m3@5617a9f61b028005a4858fdac845db406aefb181",
+  "cache_note": "동일 요청과 설정의 채점만 재사용. 관련성 질문은 temperature=0/seed=42이므로 중복 가능."
+}

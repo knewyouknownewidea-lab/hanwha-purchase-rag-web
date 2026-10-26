@@ -1,0 +1,14 @@
+{
+  "e5-base_cosine_accuracy@1": 0.7666666666666667,
+  "e5-base_cosine_accuracy@3": 0.9,
+  "e5-base_cosine_accuracy@5": 0.9666666666666667,
+  "e5-base_cosine_precision@1": 0.7666666666666667,
+  "e5-base_cosine_precision@3": 0.3,
+  "e5-base_cosine_precision@5": 0.19333333333333338,
+  "e5-base_cosine_recall@1": 0.7666666666666667,
+  "e5-base_cosine_recall@3": 0.9,
+  "e5-base_cosine_recall@5": 0.9666666666666667,
+  "e5-base_cosine_ndcg@10": 0.879502404347754,
+  "e5-base_cosine_mrr@10": 0.85,
+  "e5-base_cosine_map@47": 0.853030303030303
+}

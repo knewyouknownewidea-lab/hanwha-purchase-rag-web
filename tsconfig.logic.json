@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "target": "es2022",
+    "lib": [
+      "es2022",
+      "dom"
+    ],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "types": [],
+    "noUnusedLocals": true
+  },
+  "files": [
+    "src/ai/agent.ts",
+    "src/lib/search.ts",
+    "src/lib/validate.ts",
+    "src/lib/csv.ts",
+    "src/data/sampleData.ts",
+    "src/lib/payments.ts",
+    "src/lib/market.ts",
+    "src/lib/bom.ts",
+    "src/lib/kpi.ts",
+    "src/lib/xlsx.ts",
+    "src/lib/exporters.ts",
+    "src/lib/filters.ts",
+    "src/platform/users.ts",
+    "src/platform/idb.ts"
+  ]
+}

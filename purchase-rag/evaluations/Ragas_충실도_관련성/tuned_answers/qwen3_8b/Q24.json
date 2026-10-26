@@ -1,0 +1,73 @@
+{
+  "model": "qwen3:8b",
+  "id": "Q24",
+  "question": "베어링을 보호하는 완충재가 부족해서 포장을 보강해 달라는 요청은?",
+  "response": "민원 ID 3006에 따르면, 베어링(부품 ID 3)의 완충 포장이 부족해 포장 보강을 요청한 사항입니다. [E1]",
+  "retrieved_contexts": [
+    "[민원 정보]\n민원 ID: 3006\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 3\n부품명: 베어링(가상)\n연결 발주 ID: 1018\n연결 납품 ID: 2023\n연결 납품일(delivery_date): 2026-09-22\n민원일(complaint_date): 2026-09-24\n불량 유형(defect_type): PACKAGING_DAMAGE\n민원 내용: 베어링 완충 포장이 부족해 포장 보강을 요청함."
+  ],
+  "sources": [
+    {
+      "evidence_id": "E1",
+      "chunk_id": "complaint-3006:langchain:800:0",
+      "parent_document_id": "complaint-3006",
+      "source": {
+        "document_type": "complaint",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "complaint",
+          "delivery",
+          "orders",
+          "supplier",
+          "part"
+        ],
+        "source_refs": [
+          "complaint:3006",
+          "delivery:2023",
+          "orders:1018",
+          "supplier:3",
+          "part:3"
+        ],
+        "complaint_id": 3006,
+        "delivery_id": 2023,
+        "order_id": 1018,
+        "supplier_id": 3,
+        "part_id": 3,
+        "delivery_date": "2026-09-22",
+        "complaint_date": "2026-09-24",
+        "defect_type": "PACKAGING_DAMAGE"
+      },
+      "similarity": 0.702875
+    }
+  ],
+  "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 8192,
+    "num_predict": 1024,
+    "num_gpu": 0,
+    "num_thread": 4
+  },
+  "truncated": false,
+  "input_budget_warning": false,
+  "prompt_sha256": "64c294655367848767ba637e7675d9b95c461a9a066339441693fd03b1073386",
+  "raw_response": {
+    "model": "qwen3:8b",
+    "created_at": "2026-10-25T16:56:42.485851Z",
+    "message": {
+      "role": "assistant",
+      "content": "민원 ID 3006에 따르면, 베어링(부품 ID 3)의 완충 포장이 부족해 포장 보강을 요청한 사항입니다. [E1]"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 13519255700,
+    "load_duration": 11366700,
+    "prompt_eval_count": 725,
+    "prompt_eval_cached_count": 504,
+    "prompt_eval_duration": 5580323000,
+    "eval_count": 50,
+    "eval_duration": 7880132000
+  }
+}

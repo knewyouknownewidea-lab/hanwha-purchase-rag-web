@@ -1,0 +1,76 @@
+{
+  "model": "qwen3:8b",
+  "id": "Q30",
+  "question": "2026년 8월 가상 C사에 발주한 연료 분사 밸브는 몇 개야?",
+  "response": "2026년 8월 가상 C사에 발주한 연료 분사 밸브는 120개입니다. [E1]",
+  "retrieved_contexts": [
+    "[발주 정보]\n발주 ID: 1015\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n발주 수량(quantity): 120\n발주 비용값(cost): 14300\n발주일(order_date): 2026-08-05\n등록 납기 예상일(expected_date): 2026-08-20\n[연결된 납품 기록]\n납품 ID: 2020\n연결 발주 ID: 1015\n납품일(delivery_date): 2026-08-22\n납품 수량(delivery_quantity): 120\n납품 상태(delivery_status): COMPLETED\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 120\n발주 수량과 기록상 납품 수량의 차이: 0\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다."
+  ],
+  "sources": [
+    {
+      "evidence_id": "E1",
+      "chunk_id": "order-1015:db",
+      "parent_document_id": "order-1015",
+      "source": {
+        "document_type": "order",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "orders",
+          "supplier",
+          "part",
+          "delivery"
+        ],
+        "source_refs": [
+          "orders:1015",
+          "supplier:3",
+          "part:2",
+          "delivery:2020"
+        ],
+        "order_id": 1015,
+        "supplier_id": 3,
+        "part_id": 2,
+        "order_date": "2026-08-05",
+        "expected_date": "2026-08-20",
+        "delivery_ids": [
+          2020
+        ],
+        "delivery_dates": [
+          "2026-08-22"
+        ],
+        "recorded_delivered_quantity": 120,
+        "recorded_quantity_difference": 0
+      },
+      "similarity": null
+    }
+  ],
+  "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 8192,
+    "num_predict": 1024,
+    "num_gpu": 0,
+    "num_thread": 4
+  },
+  "truncated": false,
+  "input_budget_warning": false,
+  "prompt_sha256": "83f18d96a798335f3995751795bb9050d3d26ffdb49efe39abab55e9918b91a0",
+  "raw_response": {
+    "model": "qwen3:8b",
+    "created_at": "2026-10-25T16:58:19.0905629Z",
+    "message": {
+      "role": "assistant",
+      "content": "2026년 8월 가상 C사에 발주한 연료 분사 밸브는 120개입니다. [E1]"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 14260941000,
+    "load_duration": 10858400,
+    "prompt_eval_count": 832,
+    "prompt_eval_cached_count": 504,
+    "prompt_eval_duration": 8313745000,
+    "eval_count": 36,
+    "eval_duration": 5932309000
+  }
+}

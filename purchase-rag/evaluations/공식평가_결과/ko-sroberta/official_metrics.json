@@ -1,0 +1,14 @@
+{
+  "ko-sroberta_cosine_accuracy@1": 0.7,
+  "ko-sroberta_cosine_accuracy@3": 0.9,
+  "ko-sroberta_cosine_accuracy@5": 0.9333333333333333,
+  "ko-sroberta_cosine_precision@1": 0.7,
+  "ko-sroberta_cosine_precision@3": 0.3,
+  "ko-sroberta_cosine_precision@5": 0.1866666666666667,
+  "ko-sroberta_cosine_recall@1": 0.7,
+  "ko-sroberta_cosine_recall@3": 0.9,
+  "ko-sroberta_cosine_recall@5": 0.9333333333333333,
+  "ko-sroberta_cosine_ndcg@10": 0.8578041178683248,
+  "ko-sroberta_cosine_mrr@10": 0.8117063492063493,
+  "ko-sroberta_cosine_map@47": 0.8117063492063491
+}

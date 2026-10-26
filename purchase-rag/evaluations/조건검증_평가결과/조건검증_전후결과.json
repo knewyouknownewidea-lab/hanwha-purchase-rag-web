@@ -1,0 +1,3589 @@
+{
+  "scope": "이미 확인한 60개 개발 문항의 개선 전후 회귀 평가. 이전 holdout 명칭은 추적용이며 이제 독립 검증셋이 아님.",
+  "threshold_unchanged": 0.619865,
+  "before": {
+    "calibration": {
+      "n": 30,
+      "TN": 14,
+      "FP": 1,
+      "FN": 4,
+      "TP": 11,
+      "confusion_matrix": [
+        [
+          14,
+          1
+        ],
+        [
+          4,
+          11
+        ]
+      ],
+      "accuracy": 0.8333333333333334,
+      "balanced_accuracy": 0.8333333333333333,
+      "precision": 0.9166666666666666,
+      "recall": 0.7333333333333333,
+      "f1": 0.8148148148148148,
+      "specificity": 0.9333333333333333,
+      "positive_wrong_document_only": 0,
+      "correct_gold_retained": 11,
+      "same_counts_as_previous": true
+    },
+    "holdout": {
+      "n": 30,
+      "TN": 12,
+      "FP": 3,
+      "FN": 4,
+      "TP": 11,
+      "confusion_matrix": [
+        [
+          12,
+          3
+        ],
+        [
+          4,
+          11
+        ]
+      ],
+      "accuracy": 0.7666666666666667,
+      "balanced_accuracy": 0.7666666666666666,
+      "precision": 0.7857142857142857,
+      "recall": 0.7333333333333333,
+      "f1": 0.7586206896551724,
+      "specificity": 0.8,
+      "positive_wrong_document_only": 0,
+      "correct_gold_retained": 11,
+      "same_counts_as_previous": true
+    },
+    "all": {
+      "n": 60,
+      "TN": 26,
+      "FP": 4,
+      "FN": 8,
+      "TP": 22,
+      "confusion_matrix": [
+        [
+          26,
+          4
+        ],
+        [
+          8,
+          22
+        ]
+      ],
+      "accuracy": 0.8,
+      "balanced_accuracy": 0.8,
+      "precision": 0.8461538461538461,
+      "recall": 0.7333333333333333,
+      "f1": 0.7857142857142857,
+      "specificity": 0.8666666666666667,
+      "positive_wrong_document_only": 0,
+      "correct_gold_retained": 22
+    }
+  },
+  "after": {
+    "calibration": {
+      "n": 30,
+      "TN": 15,
+      "FP": 0,
+      "FN": 0,
+      "TP": 15,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "correct_gold_retained": 15,
+      "wrong_document_only": 0,
+      "routes": {
+        "structured_db": 11,
+        "vector_with_validated_conditions": 4,
+        "rule_check": 15
+      },
+      "clarification_count": 0
+    },
+    "holdout": {
+      "n": 30,
+      "TN": 15,
+      "FP": 0,
+      "FN": 0,
+      "TP": 15,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "correct_gold_retained": 15,
+      "wrong_document_only": 0,
+      "routes": {
+        "structured_db": 11,
+        "vector_with_validated_conditions": 4,
+        "rule_check": 15
+      },
+      "clarification_count": 0
+    },
+    "all": {
+      "n": 60,
+      "TN": 30,
+      "FP": 0,
+      "FN": 0,
+      "TP": 30,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "correct_gold_retained": 30,
+      "wrong_document_only": 0,
+      "routes": {
+        "structured_db": 22,
+        "vector_with_validated_conditions": 8,
+        "rule_check": 30
+      },
+      "clarification_count": 0
+    }
+  },
+  "protected_files_unchanged": true,
+  "rows": [
+    {
+      "id": "Q01",
+      "question": "가상 A사의 저장된 Q 점수는 얼마야?",
+      "answerable": true,
+      "gold": [
+        "supplier-1"
+      ],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 A사의 저장된 Q 점수는 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 1
+        },
+        "date_range": null,
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "supplier-1:db",
+            "parent_document_id": "supplier-1",
+            "text": "[협력사 정보]\n협력사 ID: 1\n협력사명: 가상 A사\n협력사 설명: RAG 테스트용 가상 협력사 A. 세 종류의 부품을 공급한다.\nQ 저장 점수: 88\nD 저장 점수: 85\nT 저장 점수: 90\nE 저장 점수: 82\nC 계산값: 14375.0\nC 계산식: 해당 협력사의 AVG(orders.cost). NULL cost는 평균에서 제외하고 대상 값이 없으면 0을 표시한다.\nQ/D/T/E 점수의 산출 근거와 평가기간은 현재 DB에 포함되어 있지 않다.\nC 계산에 연결된 발주별 비용값:\n발주 ID 1001: cost=10200\n발주 ID 1004: cost=15100\n발주 ID 1007: cost=20000\n발주 ID 1010: cost=9900\n발주 ID 1013: cost=14800\n발주 ID 1016: cost=20000\n발주 ID 1101: cost=10000\n발주 ID 1104: cost=15000",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "supplier",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "supplier",
+                "orders"
+              ],
+              "source_refs": [
+                "supplier:1",
+                "orders:1001",
+                "orders:1004",
+                "orders:1007",
+                "orders:1010",
+                "orders:1013",
+                "orders:1016",
+                "orders:1101",
+                "orders:1104"
+              ],
+              "supplier_id": 1,
+              "calculation_order_ids": [
+                1001,
+                1004,
+                1007,
+                1010,
+                1013,
+                1016,
+                1101,
+                1104
+              ]
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q02",
+      "question": "가상 B사의 저장된 Q 점수는 얼마야?",
+      "answerable": true,
+      "gold": [
+        "supplier-2"
+      ],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 B사의 저장된 Q 점수는 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 2
+        },
+        "date_range": null,
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "supplier-2:db",
+            "parent_document_id": "supplier-2",
+            "text": "[협력사 정보]\n협력사 ID: 2\n협력사명: 가상 B사\n협력사 설명: RAG 테스트용 가상 협력사 B. 세 종류의 부품을 공급한다.\nQ 저장 점수: 94\nD 저장 점수: 95\nT 저장 점수: 92\nE 저장 점수: 90\nC 계산값: 14875.0\nC 계산식: 해당 협력사의 AVG(orders.cost). NULL cost는 평균에서 제외하고 대상 값이 없으면 0을 표시한다.\nQ/D/T/E 점수의 산출 근거와 평가기간은 현재 DB에 포함되어 있지 않다.\nC 계산에 연결된 발주별 비용값:\n발주 ID 1002: cost=10700\n발주 ID 1005: cost=15600\n발주 ID 1008: cost=20500\n발주 ID 1011: cost=10400\n발주 ID 1014: cost=15300\n발주 ID 1017: cost=20500\n발주 ID 1102: cost=10500\n발주 ID 1105: cost=15500",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "supplier",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "supplier",
+                "orders"
+              ],
+              "source_refs": [
+                "supplier:2",
+                "orders:1002",
+                "orders:1005",
+                "orders:1008",
+                "orders:1011",
+                "orders:1014",
+                "orders:1017",
+                "orders:1102",
+                "orders:1105"
+              ],
+              "supplier_id": 2,
+              "calculation_order_ids": [
+                1002,
+                1005,
+                1008,
+                1011,
+                1014,
+                1017,
+                1102,
+                1105
+              ]
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q03",
+      "question": "가상 C사의 저장된 Q 점수는 얼마야?",
+      "answerable": true,
+      "gold": [
+        "supplier-3"
+      ],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 C사의 저장된 Q 점수는 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 3
+        },
+        "date_range": null,
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "supplier-3:db",
+            "parent_document_id": "supplier-3",
+            "text": "[협력사 정보]\n협력사 ID: 3\n협력사명: 가상 C사\n협력사 설명: RAG 테스트용 가상 협력사 C. 세 종류의 부품을 공급한다.\nQ 저장 점수: 78\nD 저장 점수: 75\nT 저장 점수: 84\nE 저장 점수: 80\nC 계산값: 13875.0\nC 계산식: 해당 협력사의 AVG(orders.cost). NULL cost는 평균에서 제외하고 대상 값이 없으면 0을 표시한다.\nQ/D/T/E 점수의 산출 근거와 평가기간은 현재 DB에 포함되어 있지 않다.\nC 계산에 연결된 발주별 비용값:\n발주 ID 1003: cost=9700\n발주 ID 1006: cost=14600\n발주 ID 1009: cost=19500\n발주 ID 1012: cost=9400\n발주 ID 1015: cost=14300\n발주 ID 1018: cost=19500\n발주 ID 1103: cost=9500\n발주 ID 1106: cost=14500",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "supplier",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "supplier",
+                "orders"
+              ],
+              "source_refs": [
+                "supplier:3",
+                "orders:1003",
+                "orders:1006",
+                "orders:1009",
+                "orders:1012",
+                "orders:1015",
+                "orders:1018",
+                "orders:1103",
+                "orders:1106"
+              ],
+              "supplier_id": 3,
+              "calculation_order_ids": [
+                1003,
+                1006,
+                1009,
+                1012,
+                1015,
+                1018,
+                1103,
+                1106
+              ]
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q04",
+      "question": "가상 A사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+      "answerable": true,
+      "gold": [
+        "supplier_part-1"
+      ],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 A사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 1,
+          "part_id": 1
+        },
+        "date_range": null,
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "supplier_part-1:db",
+            "parent_document_id": "supplier_part-1",
+            "text": "[협력사별 공급 부품]\n공급 관계 ID: 1\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n등록 단가(unit_price): 10000",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "supplier_part",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "supplier_part",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "supplier_part:1",
+                "supplier:1",
+                "part:1"
+              ],
+              "supplier_part_id": 1,
+              "supplier_id": 1,
+              "part_id": 1
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q05",
+      "question": "가상 A사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+      "answerable": true,
+      "gold": [
+        "supplier_part-2"
+      ],
+      "split": "calibration",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 A사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 1,
+          "part_id": 2
+        },
+        "date_range": null,
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "supplier_part-2:db",
+            "parent_document_id": "supplier_part-2",
+            "text": "[협력사별 공급 부품]\n공급 관계 ID: 2\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n등록 단가(unit_price): 15000",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "supplier_part",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "supplier_part",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "supplier_part:2",
+                "supplier:1",
+                "part:2"
+              ],
+              "supplier_part_id": 2,
+              "supplier_id": 1,
+              "part_id": 2
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q06",
+      "question": "가상 A사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+      "answerable": true,
+      "gold": [
+        "supplier_part-3"
+      ],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 A사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 1,
+          "part_id": 3
+        },
+        "date_range": null,
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "supplier_part-3:db",
+            "parent_document_id": "supplier_part-3",
+            "text": "[협력사별 공급 부품]\n공급 관계 ID: 3\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 3\n부품명: 베어링(가상)\n등록 단가(unit_price): 20000",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "supplier_part",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "supplier_part",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "supplier_part:3",
+                "supplier:1",
+                "part:3"
+              ],
+              "supplier_part_id": 3,
+              "supplier_id": 1,
+              "part_id": 3
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q07",
+      "question": "가상 B사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+      "answerable": true,
+      "gold": [
+        "supplier_part-4"
+      ],
+      "split": "calibration",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 B사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 2,
+          "part_id": 1
+        },
+        "date_range": null,
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "supplier_part-4:db",
+            "parent_document_id": "supplier_part-4",
+            "text": "[협력사별 공급 부품]\n공급 관계 ID: 4\n협력사 ID: 2\n협력사명: 가상 B사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n등록 단가(unit_price): 10500",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "supplier_part",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "supplier_part",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "supplier_part:4",
+                "supplier:2",
+                "part:1"
+              ],
+              "supplier_part_id": 4,
+              "supplier_id": 2,
+              "part_id": 1
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q08",
+      "question": "가상 B사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+      "answerable": true,
+      "gold": [
+        "supplier_part-5"
+      ],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 B사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 2,
+          "part_id": 2
+        },
+        "date_range": null,
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "supplier_part-5:db",
+            "parent_document_id": "supplier_part-5",
+            "text": "[협력사별 공급 부품]\n공급 관계 ID: 5\n협력사 ID: 2\n협력사명: 가상 B사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n등록 단가(unit_price): 15500",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "supplier_part",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "supplier_part",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "supplier_part:5",
+                "supplier:2",
+                "part:2"
+              ],
+              "supplier_part_id": 5,
+              "supplier_id": 2,
+              "part_id": 2
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q09",
+      "question": "가상 B사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+      "answerable": true,
+      "gold": [
+        "supplier_part-6"
+      ],
+      "split": "calibration",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 B사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 2,
+          "part_id": 3
+        },
+        "date_range": null,
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "supplier_part-6:db",
+            "parent_document_id": "supplier_part-6",
+            "text": "[협력사별 공급 부품]\n공급 관계 ID: 6\n협력사 ID: 2\n협력사명: 가상 B사\n부품 ID: 3\n부품명: 베어링(가상)\n등록 단가(unit_price): 20500",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "supplier_part",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "supplier_part",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "supplier_part:6",
+                "supplier:2",
+                "part:3"
+              ],
+              "supplier_part_id": 6,
+              "supplier_id": 2,
+              "part_id": 3
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q10",
+      "question": "가상 C사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+      "answerable": true,
+      "gold": [
+        "supplier_part-7"
+      ],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 C사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 3,
+          "part_id": 1
+        },
+        "date_range": null,
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "supplier_part-7:db",
+            "parent_document_id": "supplier_part-7",
+            "text": "[협력사별 공급 부품]\n공급 관계 ID: 7\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n등록 단가(unit_price): 9500",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "supplier_part",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "supplier_part",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "supplier_part:7",
+                "supplier:3",
+                "part:1"
+              ],
+              "supplier_part_id": 7,
+              "supplier_id": 3,
+              "part_id": 1
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q11",
+      "question": "가상 C사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+      "answerable": true,
+      "gold": [
+        "supplier_part-8"
+      ],
+      "split": "calibration",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 C사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 3,
+          "part_id": 2
+        },
+        "date_range": null,
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "supplier_part-8:db",
+            "parent_document_id": "supplier_part-8",
+            "text": "[협력사별 공급 부품]\n공급 관계 ID: 8\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n등록 단가(unit_price): 14500",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "supplier_part",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "supplier_part",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "supplier_part:8",
+                "supplier:3",
+                "part:2"
+              ],
+              "supplier_part_id": 8,
+              "supplier_id": 3,
+              "part_id": 2
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q12",
+      "question": "가상 C사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+      "answerable": true,
+      "gold": [
+        "supplier_part-9"
+      ],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 C사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 3,
+          "part_id": 3
+        },
+        "date_range": null,
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "supplier_part-9:db",
+            "parent_document_id": "supplier_part-9",
+            "text": "[협력사별 공급 부품]\n공급 관계 ID: 9\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 3\n부품명: 베어링(가상)\n등록 단가(unit_price): 19500",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "supplier_part",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "supplier_part",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "supplier_part:9",
+                "supplier:3",
+                "part:3"
+              ],
+              "supplier_part_id": 9,
+              "supplier_id": 3,
+              "part_id": 3
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q13",
+      "question": "1101번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "answerable": true,
+      "gold": [
+        "order-1101"
+      ],
+      "split": "calibration",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "1101번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "order_id": 1101
+        },
+        "date_range": null,
+        "date_field": "delivery_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "order-1101:db",
+            "parent_document_id": "order-1101",
+            "text": "[발주 정보]\n발주 ID: 1101\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n발주 수량(quantity): 100\n발주 비용값(cost): 10000\n발주일(order_date): 2026-10-05\n등록 납기 예상일(expected_date): 2026-10-20\n[연결된 납품 기록]\n납품 ID: 2024\n연결 발주 ID: 1101\n납품일(delivery_date): 2026-10-18\n납품 수량(delivery_quantity): 40\n납품 상태(delivery_status): PARTIAL\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 40\n발주 수량과 기록상 납품 수량의 차이: 60\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "order",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "orders",
+                "supplier",
+                "part",
+                "delivery"
+              ],
+              "source_refs": [
+                "orders:1101",
+                "supplier:1",
+                "part:1",
+                "delivery:2024"
+              ],
+              "order_id": 1101,
+              "supplier_id": 1,
+              "part_id": 1,
+              "order_date": "2026-10-05",
+              "expected_date": "2026-10-20",
+              "delivery_ids": [
+                2024
+              ],
+              "delivery_dates": [
+                "2026-10-18"
+              ],
+              "recorded_delivered_quantity": 40,
+              "recorded_quantity_difference": 60
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q14",
+      "question": "1102번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "answerable": true,
+      "gold": [
+        "order-1102"
+      ],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "1102번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "order_id": 1102
+        },
+        "date_range": null,
+        "date_field": "delivery_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "order-1102:db",
+            "parent_document_id": "order-1102",
+            "text": "[발주 정보]\n발주 ID: 1102\n협력사 ID: 2\n협력사명: 가상 B사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n발주 수량(quantity): 100\n발주 비용값(cost): 10500\n발주일(order_date): 2026-10-05\n등록 납기 예상일(expected_date): 2026-10-22\n[연결된 납품 기록]\n납품 ID: 2025\n연결 발주 ID: 1102\n납품일(delivery_date): 2026-10-20\n납품 수량(delivery_quantity): 100\n납품 상태(delivery_status): COMPLETED\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 100\n발주 수량과 기록상 납품 수량의 차이: 0\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "order",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "orders",
+                "supplier",
+                "part",
+                "delivery"
+              ],
+              "source_refs": [
+                "orders:1102",
+                "supplier:2",
+                "part:1",
+                "delivery:2025"
+              ],
+              "order_id": 1102,
+              "supplier_id": 2,
+              "part_id": 1,
+              "order_date": "2026-10-05",
+              "expected_date": "2026-10-22",
+              "delivery_ids": [
+                2025
+              ],
+              "delivery_dates": [
+                "2026-10-20"
+              ],
+              "recorded_delivered_quantity": 100,
+              "recorded_quantity_difference": 0
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q15",
+      "question": "1103번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "answerable": true,
+      "gold": [
+        "order-1103"
+      ],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "1103번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "order_id": 1103
+        },
+        "date_range": null,
+        "date_field": "delivery_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "order-1103:db",
+            "parent_document_id": "order-1103",
+            "text": "[발주 정보]\n발주 ID: 1103\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n발주 수량(quantity): 100\n발주 비용값(cost): 9500\n발주일(order_date): 2026-10-05\n등록 납기 예상일(expected_date): 2026-10-21\n[연결된 납품 기록]\n연결된 납품 기록 없음\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 0\n발주 수량과 기록상 납품 수량의 차이: 100\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "order",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "orders:1103",
+                "supplier:3",
+                "part:1"
+              ],
+              "order_id": 1103,
+              "supplier_id": 3,
+              "part_id": 1,
+              "order_date": "2026-10-05",
+              "expected_date": "2026-10-21",
+              "delivery_ids": [],
+              "delivery_dates": [],
+              "recorded_delivered_quantity": 0,
+              "recorded_quantity_difference": 100
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q16",
+      "question": "1104번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "answerable": true,
+      "gold": [
+        "order-1104"
+      ],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "1104번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "order_id": 1104
+        },
+        "date_range": null,
+        "date_field": "delivery_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "order-1104:db",
+            "parent_document_id": "order-1104",
+            "text": "[발주 정보]\n발주 ID: 1104\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n발주 수량(quantity): 60\n발주 비용값(cost): 15000\n발주일(order_date): 2026-10-15\n등록 납기 예상일(expected_date): 2026-10-28\n[연결된 납품 기록]\n납품 ID: 2026\n연결 발주 ID: 1104\n납품일(delivery_date): 2026-10-22\n납품 수량(delivery_quantity): 20\n납품 상태(delivery_status): PARTIAL\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 20\n발주 수량과 기록상 납품 수량의 차이: 40\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "order",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "orders",
+                "supplier",
+                "part",
+                "delivery"
+              ],
+              "source_refs": [
+                "orders:1104",
+                "supplier:1",
+                "part:2",
+                "delivery:2026"
+              ],
+              "order_id": 1104,
+              "supplier_id": 1,
+              "part_id": 2,
+              "order_date": "2026-10-15",
+              "expected_date": "2026-10-28",
+              "delivery_ids": [
+                2026
+              ],
+              "delivery_dates": [
+                "2026-10-22"
+              ],
+              "recorded_delivered_quantity": 20,
+              "recorded_quantity_difference": 40
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q17",
+      "question": "1105번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "answerable": true,
+      "gold": [
+        "order-1105"
+      ],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "1105번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "order_id": 1105
+        },
+        "date_range": null,
+        "date_field": "delivery_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "order-1105:db",
+            "parent_document_id": "order-1105",
+            "text": "[발주 정보]\n발주 ID: 1105\n협력사 ID: 2\n협력사명: 가상 B사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n발주 수량(quantity): 60\n발주 비용값(cost): 15500\n발주일(order_date): 2026-10-15\n등록 납기 예상일(expected_date): 2026-10-29\n[연결된 납품 기록]\n연결된 납품 기록 없음\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 0\n발주 수량과 기록상 납품 수량의 차이: 60\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "order",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "orders:1105",
+                "supplier:2",
+                "part:2"
+              ],
+              "order_id": 1105,
+              "supplier_id": 2,
+              "part_id": 2,
+              "order_date": "2026-10-15",
+              "expected_date": "2026-10-29",
+              "delivery_ids": [],
+              "delivery_dates": [],
+              "recorded_delivered_quantity": 0,
+              "recorded_quantity_difference": 60
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q18",
+      "question": "1106번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+      "answerable": true,
+      "gold": [
+        "order-1106"
+      ],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "1106번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "order_id": 1106
+        },
+        "date_range": null,
+        "date_field": "delivery_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "order-1106:db",
+            "parent_document_id": "order-1106",
+            "text": "[발주 정보]\n발주 ID: 1106\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n발주 수량(quantity): 60\n발주 비용값(cost): 14500\n발주일(order_date): 2026-10-15\n등록 납기 예상일(expected_date): 2026-10-23\n[연결된 납품 기록]\n납품 ID: 2027\n연결 발주 ID: 1106\n납품일(delivery_date): 2026-10-23\n납품 수량(delivery_quantity): 60\n납품 상태(delivery_status): COMPLETED\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 60\n발주 수량과 기록상 납품 수량의 차이: 0\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "order",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "orders",
+                "supplier",
+                "part",
+                "delivery"
+              ],
+              "source_refs": [
+                "orders:1106",
+                "supplier:3",
+                "part:2",
+                "delivery:2027"
+              ],
+              "order_id": 1106,
+              "supplier_id": 3,
+              "part_id": 2,
+              "order_date": "2026-10-15",
+              "expected_date": "2026-10-23",
+              "delivery_ids": [
+                2027
+              ],
+              "delivery_dates": [
+                "2026-10-23"
+              ],
+              "recorded_delivered_quantity": 60,
+              "recorded_quantity_difference": 0
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q19",
+      "question": "실린더 라이너 겉면에 스크래치가 나서 원인과 조치 의견을 요청한 민원을 찾아줘.",
+      "answerable": true,
+      "gold": [
+        "complaint-3001"
+      ],
+      "split": "calibration",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "실린더 라이너 겉면에 스크래치가 나서 원인과 조치 의견을 요청한 민원을 찾아줘.",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "count": 3,
+        "results": [
+          {
+            "chunk_id": "complaint-3001:langchain:800:0",
+            "parent_document_id": "complaint-3001",
+            "text": "[민원 정보]\n민원 ID: 3001\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1001\n연결 납품 ID: 2002\n연결 납품일(delivery_date): 2026-04-20\n민원일(complaint_date): 2026-04-22\n불량 유형(defect_type): SURFACE_DAMAGE\n민원 내용: 실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함.",
+            "similarity": 0.709499,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3001",
+                "delivery:2002",
+                "orders:1001",
+                "supplier:1",
+                "part:1"
+              ],
+              "complaint_id": 3001,
+              "delivery_id": 2002,
+              "order_id": 1001,
+              "supplier_id": 1,
+              "part_id": 1,
+              "delivery_date": "2026-04-20",
+              "complaint_date": "2026-04-22",
+              "defect_type": "SURFACE_DAMAGE"
+            }
+          },
+          {
+            "chunk_id": "complaint-3005:langchain:800:0",
+            "parent_document_id": "complaint-3005",
+            "text": "[민원 정보]\n민원 ID: 3005\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1012\n연결 납품 ID: 2016\n연결 납품일(delivery_date): 2026-07-23\n민원일(complaint_date): 2026-07-25\n불량 유형(defect_type): DIMENSION_CHECK\n민원 내용: 실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함.",
+            "similarity": 0.640854,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3005",
+                "delivery:2016",
+                "orders:1012",
+                "supplier:3",
+                "part:1"
+              ],
+              "complaint_id": 3005,
+              "delivery_id": 2016,
+              "order_id": 1012,
+              "supplier_id": 3,
+              "part_id": 1,
+              "delivery_date": "2026-07-23",
+              "complaint_date": "2026-07-25",
+              "defect_type": "DIMENSION_CHECK"
+            }
+          },
+          {
+            "chunk_id": "complaint-3007:langchain:800:0",
+            "parent_document_id": "complaint-3007",
+            "text": "[민원 정보]\n민원 ID: 3007\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1101\n연결 납품 ID: 2024\n연결 납품일(delivery_date): 2026-10-18\n민원일(complaint_date): 2026-10-20\n불량 유형(defect_type): MISSING_LABEL\n민원 내용: 분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함.",
+            "similarity": 0.627789,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3007",
+                "delivery:2024",
+                "orders:1101",
+                "supplier:1",
+                "part:1"
+              ],
+              "complaint_id": 3007,
+              "delivery_id": 2024,
+              "order_id": 1101,
+              "supplier_id": 1,
+              "part_id": 1,
+              "delivery_date": "2026-10-18",
+              "complaint_date": "2026-10-20",
+              "defect_type": "MISSING_LABEL"
+            }
+          }
+        ],
+        "min_similarity": 0.619865,
+        "candidate_count": 3,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found",
+        "message": "유사도 기준을 통과한 검색 후보입니다.",
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "vector_with_validated_conditions",
+        "embedding_used": true,
+        "similarity_filter_applied": true,
+        "validated_conditions": {
+          "part_id": 1
+        },
+        "date_range": null,
+        "date_field": "complaint_date",
+        "reason": "semantic_search"
+      }
+    },
+    {
+      "id": "Q20",
+      "question": "연료 분사 밸브를 싸고 있는 바깥 포장이 망가져 개선을 요구한 건은?",
+      "answerable": true,
+      "gold": [
+        "complaint-3002"
+      ],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "연료 분사 밸브를 싸고 있는 바깥 포장이 망가져 개선을 요구한 건은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "complaint-3002:langchain:800:0",
+            "parent_document_id": "complaint-3002",
+            "text": "[민원 정보]\n민원 ID: 3002\n협력사 ID: 2\n협력사명: 가상 B사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n연결 발주 ID: 1005\n연결 납품 ID: 2007\n연결 납품일(delivery_date): 2026-05-18\n민원일(complaint_date): 2026-05-20\n불량 유형(defect_type): PACKAGING_DAMAGE\n민원 내용: 연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함.",
+            "similarity": 0.713059,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3002",
+                "delivery:2007",
+                "orders:1005",
+                "supplier:2",
+                "part:2"
+              ],
+              "complaint_id": 3002,
+              "delivery_id": 2007,
+              "order_id": 1005,
+              "supplier_id": 2,
+              "part_id": 2,
+              "delivery_date": "2026-05-18",
+              "complaint_date": "2026-05-20",
+              "defect_type": "PACKAGING_DAMAGE"
+            }
+          }
+        ],
+        "min_similarity": 0.619865,
+        "candidate_count": 2,
+        "discarded_count": 1,
+        "evidence_status": "candidates_found",
+        "message": "유사도 기준을 통과한 검색 후보입니다.",
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "vector_with_validated_conditions",
+        "embedding_used": true,
+        "similarity_filter_applied": true,
+        "validated_conditions": {
+          "part_id": 2
+        },
+        "date_range": null,
+        "date_field": "complaint_date",
+        "reason": "semantic_search"
+      }
+    },
+    {
+      "id": "Q21",
+      "question": "가상 C사의 실린더 라이너 포장에 부품을 식별하는 라벨이 빠졌다는 민원은?",
+      "answerable": true,
+      "gold": [
+        "complaint-3003"
+      ],
+      "split": "calibration",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 C사의 실린더 라이너 포장에 부품을 식별하는 라벨이 빠졌다는 민원은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "count": 2,
+        "results": [
+          {
+            "chunk_id": "complaint-3003:langchain:800:0",
+            "parent_document_id": "complaint-3003",
+            "text": "[민원 정보]\n민원 ID: 3003\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1003\n연결 납품 ID: 2005\n연결 납품일(delivery_date): 2026-04-23\n민원일(complaint_date): 2026-04-25\n불량 유형(defect_type): MISSING_LABEL\n민원 내용: 실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청함.",
+            "similarity": 0.81967,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3003",
+                "delivery:2005",
+                "orders:1003",
+                "supplier:3",
+                "part:1"
+              ],
+              "complaint_id": 3003,
+              "delivery_id": 2005,
+              "order_id": 1003,
+              "supplier_id": 3,
+              "part_id": 1,
+              "delivery_date": "2026-04-23",
+              "complaint_date": "2026-04-25",
+              "defect_type": "MISSING_LABEL"
+            }
+          },
+          {
+            "chunk_id": "complaint-3005:langchain:800:0",
+            "parent_document_id": "complaint-3005",
+            "text": "[민원 정보]\n민원 ID: 3005\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1012\n연결 납품 ID: 2016\n연결 납품일(delivery_date): 2026-07-23\n민원일(complaint_date): 2026-07-25\n불량 유형(defect_type): DIMENSION_CHECK\n민원 내용: 실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함.",
+            "similarity": 0.705323,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3005",
+                "delivery:2016",
+                "orders:1012",
+                "supplier:3",
+                "part:1"
+              ],
+              "complaint_id": 3005,
+              "delivery_id": 2016,
+              "order_id": 1012,
+              "supplier_id": 3,
+              "part_id": 1,
+              "delivery_date": "2026-07-23",
+              "complaint_date": "2026-07-25",
+              "defect_type": "DIMENSION_CHECK"
+            }
+          }
+        ],
+        "min_similarity": 0.619865,
+        "candidate_count": 2,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found",
+        "message": "유사도 기준을 통과한 검색 후보입니다.",
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "vector_with_validated_conditions",
+        "embedding_used": true,
+        "similarity_filter_applied": true,
+        "validated_conditions": {
+          "supplier_id": 3,
+          "part_id": 1
+        },
+        "date_range": null,
+        "date_field": "complaint_date",
+        "reason": "semantic_search"
+      }
+    },
+    {
+      "id": "Q22",
+      "question": "베어링 표면이 찍혀 납품 상태를 확인해 달라는 민원을 찾아줘.",
+      "answerable": true,
+      "gold": [
+        "complaint-3004"
+      ],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "베어링 표면이 찍혀 납품 상태를 확인해 달라는 민원을 찾아줘.",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "count": 2,
+        "results": [
+          {
+            "chunk_id": "complaint-3004:langchain:800:0",
+            "parent_document_id": "complaint-3004",
+            "text": "[민원 정보]\n민원 ID: 3004\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 3\n부품명: 베어링(가상)\n연결 발주 ID: 1009\n연결 납품 ID: 2012\n연결 납품일(delivery_date): 2026-06-22\n민원일(complaint_date): 2026-06-24\n불량 유형(defect_type): SURFACE_DAMAGE\n민원 내용: 베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함.",
+            "similarity": 0.754129,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3004",
+                "delivery:2012",
+                "orders:1009",
+                "supplier:3",
+                "part:3"
+              ],
+              "complaint_id": 3004,
+              "delivery_id": 2012,
+              "order_id": 1009,
+              "supplier_id": 3,
+              "part_id": 3,
+              "delivery_date": "2026-06-22",
+              "complaint_date": "2026-06-24",
+              "defect_type": "SURFACE_DAMAGE"
+            }
+          },
+          {
+            "chunk_id": "complaint-3006:langchain:800:0",
+            "parent_document_id": "complaint-3006",
+            "text": "[민원 정보]\n민원 ID: 3006\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 3\n부품명: 베어링(가상)\n연결 발주 ID: 1018\n연결 납품 ID: 2023\n연결 납품일(delivery_date): 2026-09-22\n민원일(complaint_date): 2026-09-24\n불량 유형(defect_type): PACKAGING_DAMAGE\n민원 내용: 베어링 완충 포장이 부족해 포장 보강을 요청함.",
+            "similarity": 0.644815,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3006",
+                "delivery:2023",
+                "orders:1018",
+                "supplier:3",
+                "part:3"
+              ],
+              "complaint_id": 3006,
+              "delivery_id": 2023,
+              "order_id": 1018,
+              "supplier_id": 3,
+              "part_id": 3,
+              "delivery_date": "2026-09-22",
+              "complaint_date": "2026-09-24",
+              "defect_type": "PACKAGING_DAMAGE"
+            }
+          }
+        ],
+        "min_similarity": 0.619865,
+        "candidate_count": 2,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found",
+        "message": "유사도 기준을 통과한 검색 후보입니다.",
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "vector_with_validated_conditions",
+        "embedding_used": true,
+        "similarity_filter_applied": true,
+        "validated_conditions": {
+          "part_id": 3
+        },
+        "date_range": null,
+        "date_field": "complaint_date",
+        "reason": "semantic_search"
+      }
+    },
+    {
+      "id": "Q23",
+      "question": "실린더 라이너 크기가 맞는지 추가 검토를 요청한 민원은?",
+      "answerable": true,
+      "gold": [
+        "complaint-3005"
+      ],
+      "split": "calibration",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "실린더 라이너 크기가 맞는지 추가 검토를 요청한 민원은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "count": 3,
+        "results": [
+          {
+            "chunk_id": "complaint-3005:langchain:800:0",
+            "parent_document_id": "complaint-3005",
+            "text": "[민원 정보]\n민원 ID: 3005\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1012\n연결 납품 ID: 2016\n연결 납품일(delivery_date): 2026-07-23\n민원일(complaint_date): 2026-07-25\n불량 유형(defect_type): DIMENSION_CHECK\n민원 내용: 실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함.",
+            "similarity": 0.732148,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3005",
+                "delivery:2016",
+                "orders:1012",
+                "supplier:3",
+                "part:1"
+              ],
+              "complaint_id": 3005,
+              "delivery_id": 2016,
+              "order_id": 1012,
+              "supplier_id": 3,
+              "part_id": 1,
+              "delivery_date": "2026-07-23",
+              "complaint_date": "2026-07-25",
+              "defect_type": "DIMENSION_CHECK"
+            }
+          },
+          {
+            "chunk_id": "complaint-3001:langchain:800:0",
+            "parent_document_id": "complaint-3001",
+            "text": "[민원 정보]\n민원 ID: 3001\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1001\n연결 납품 ID: 2002\n연결 납품일(delivery_date): 2026-04-20\n민원일(complaint_date): 2026-04-22\n불량 유형(defect_type): SURFACE_DAMAGE\n민원 내용: 실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함.",
+            "similarity": 0.677395,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3001",
+                "delivery:2002",
+                "orders:1001",
+                "supplier:1",
+                "part:1"
+              ],
+              "complaint_id": 3001,
+              "delivery_id": 2002,
+              "order_id": 1001,
+              "supplier_id": 1,
+              "part_id": 1,
+              "delivery_date": "2026-04-20",
+              "complaint_date": "2026-04-22",
+              "defect_type": "SURFACE_DAMAGE"
+            }
+          },
+          {
+            "chunk_id": "complaint-3007:langchain:800:0",
+            "parent_document_id": "complaint-3007",
+            "text": "[민원 정보]\n민원 ID: 3007\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1101\n연결 납품 ID: 2024\n연결 납품일(delivery_date): 2026-10-18\n민원일(complaint_date): 2026-10-20\n불량 유형(defect_type): MISSING_LABEL\n민원 내용: 분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함.",
+            "similarity": 0.658059,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3007",
+                "delivery:2024",
+                "orders:1101",
+                "supplier:1",
+                "part:1"
+              ],
+              "complaint_id": 3007,
+              "delivery_id": 2024,
+              "order_id": 1101,
+              "supplier_id": 1,
+              "part_id": 1,
+              "delivery_date": "2026-10-18",
+              "complaint_date": "2026-10-20",
+              "defect_type": "MISSING_LABEL"
+            }
+          }
+        ],
+        "min_similarity": 0.619865,
+        "candidate_count": 3,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found",
+        "message": "유사도 기준을 통과한 검색 후보입니다.",
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "vector_with_validated_conditions",
+        "embedding_used": true,
+        "similarity_filter_applied": true,
+        "validated_conditions": {
+          "part_id": 1
+        },
+        "date_range": null,
+        "date_field": "complaint_date",
+        "reason": "semantic_search"
+      }
+    },
+    {
+      "id": "Q24",
+      "question": "베어링을 보호하는 완충재가 부족해서 포장을 보강해 달라는 요청은?",
+      "answerable": true,
+      "gold": [
+        "complaint-3006"
+      ],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "베어링을 보호하는 완충재가 부족해서 포장을 보강해 달라는 요청은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "complaint-3006:langchain:800:0",
+            "parent_document_id": "complaint-3006",
+            "text": "[민원 정보]\n민원 ID: 3006\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 3\n부품명: 베어링(가상)\n연결 발주 ID: 1018\n연결 납품 ID: 2023\n연결 납품일(delivery_date): 2026-09-22\n민원일(complaint_date): 2026-09-24\n불량 유형(defect_type): PACKAGING_DAMAGE\n민원 내용: 베어링 완충 포장이 부족해 포장 보강을 요청함.",
+            "similarity": 0.702875,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3006",
+                "delivery:2023",
+                "orders:1018",
+                "supplier:3",
+                "part:3"
+              ],
+              "complaint_id": 3006,
+              "delivery_id": 2023,
+              "order_id": 1018,
+              "supplier_id": 3,
+              "part_id": 3,
+              "delivery_date": "2026-09-22",
+              "complaint_date": "2026-09-24",
+              "defect_type": "PACKAGING_DAMAGE"
+            }
+          }
+        ],
+        "min_similarity": 0.619865,
+        "candidate_count": 2,
+        "discarded_count": 1,
+        "evidence_status": "candidates_found",
+        "message": "유사도 기준을 통과한 검색 후보입니다.",
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "vector_with_validated_conditions",
+        "embedding_used": true,
+        "similarity_filter_applied": true,
+        "validated_conditions": {
+          "part_id": 3
+        },
+        "date_range": null,
+        "date_field": "complaint_date",
+        "reason": "semantic_search"
+      }
+    },
+    {
+      "id": "Q25",
+      "question": "가상 A사에서 나눠 받은 실린더 라이너 일부의 식별 라벨을 확인해 달라는 민원은?",
+      "answerable": true,
+      "gold": [
+        "complaint-3007"
+      ],
+      "split": "calibration",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "가상 A사에서 나눠 받은 실린더 라이너 일부의 식별 라벨을 확인해 달라는 민원은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "count": 2,
+        "results": [
+          {
+            "chunk_id": "complaint-3007:langchain:800:0",
+            "parent_document_id": "complaint-3007",
+            "text": "[민원 정보]\n민원 ID: 3007\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1101\n연결 납품 ID: 2024\n연결 납품일(delivery_date): 2026-10-18\n민원일(complaint_date): 2026-10-20\n불량 유형(defect_type): MISSING_LABEL\n민원 내용: 분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함.",
+            "similarity": 0.816437,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3007",
+                "delivery:2024",
+                "orders:1101",
+                "supplier:1",
+                "part:1"
+              ],
+              "complaint_id": 3007,
+              "delivery_id": 2024,
+              "order_id": 1101,
+              "supplier_id": 1,
+              "part_id": 1,
+              "delivery_date": "2026-10-18",
+              "complaint_date": "2026-10-20",
+              "defect_type": "MISSING_LABEL"
+            }
+          },
+          {
+            "chunk_id": "complaint-3001:langchain:800:0",
+            "parent_document_id": "complaint-3001",
+            "text": "[민원 정보]\n민원 ID: 3001\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1001\n연결 납품 ID: 2002\n연결 납품일(delivery_date): 2026-04-20\n민원일(complaint_date): 2026-04-22\n불량 유형(defect_type): SURFACE_DAMAGE\n민원 내용: 실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함.",
+            "similarity": 0.745226,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3001",
+                "delivery:2002",
+                "orders:1001",
+                "supplier:1",
+                "part:1"
+              ],
+              "complaint_id": 3001,
+              "delivery_id": 2002,
+              "order_id": 1001,
+              "supplier_id": 1,
+              "part_id": 1,
+              "delivery_date": "2026-04-20",
+              "complaint_date": "2026-04-22",
+              "defect_type": "SURFACE_DAMAGE"
+            }
+          }
+        ],
+        "min_similarity": 0.619865,
+        "candidate_count": 2,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found",
+        "message": "유사도 기준을 통과한 검색 후보입니다.",
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "vector_with_validated_conditions",
+        "embedding_used": true,
+        "similarity_filter_applied": true,
+        "validated_conditions": {
+          "supplier_id": 1,
+          "part_id": 1
+        },
+        "date_range": null,
+        "date_field": "complaint_date",
+        "reason": "semantic_search"
+      }
+    },
+    {
+      "id": "Q26",
+      "question": "입고된 연료 분사 밸브가 제대로 작동하는지 확인해 달라는 민원은?",
+      "answerable": true,
+      "gold": [
+        "complaint-3008"
+      ],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "입고된 연료 분사 밸브가 제대로 작동하는지 확인해 달라는 민원은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "count": 2,
+        "results": [
+          {
+            "chunk_id": "complaint-3008:langchain:800:0",
+            "parent_document_id": "complaint-3008",
+            "text": "[민원 정보]\n민원 ID: 3008\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n연결 발주 ID: 1106\n연결 납품 ID: 2027\n연결 납품일(delivery_date): 2026-10-23\n민원일(complaint_date): 2026-10-23\n불량 유형(defect_type): OPERATION_CHECK\n민원 내용: 입고된 연료 분사 밸브에 대한 작동 확인 요청이 접수됨.",
+            "similarity": 0.779943,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3008",
+                "delivery:2027",
+                "orders:1106",
+                "supplier:3",
+                "part:2"
+              ],
+              "complaint_id": 3008,
+              "delivery_id": 2027,
+              "order_id": 1106,
+              "supplier_id": 3,
+              "part_id": 2,
+              "delivery_date": "2026-10-23",
+              "complaint_date": "2026-10-23",
+              "defect_type": "OPERATION_CHECK"
+            }
+          },
+          {
+            "chunk_id": "complaint-3002:langchain:800:0",
+            "parent_document_id": "complaint-3002",
+            "text": "[민원 정보]\n민원 ID: 3002\n협력사 ID: 2\n협력사명: 가상 B사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n연결 발주 ID: 1005\n연결 납품 ID: 2007\n연결 납품일(delivery_date): 2026-05-18\n민원일(complaint_date): 2026-05-20\n불량 유형(defect_type): PACKAGING_DAMAGE\n민원 내용: 연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함.",
+            "similarity": 0.741603,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "complaint",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "complaint",
+                "delivery",
+                "orders",
+                "supplier",
+                "part"
+              ],
+              "source_refs": [
+                "complaint:3002",
+                "delivery:2007",
+                "orders:1005",
+                "supplier:2",
+                "part:2"
+              ],
+              "complaint_id": 3002,
+              "delivery_id": 2007,
+              "order_id": 1005,
+              "supplier_id": 2,
+              "part_id": 2,
+              "delivery_date": "2026-05-18",
+              "complaint_date": "2026-05-20",
+              "defect_type": "PACKAGING_DAMAGE"
+            }
+          }
+        ],
+        "min_similarity": 0.619865,
+        "candidate_count": 2,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found",
+        "message": "유사도 기준을 통과한 검색 후보입니다.",
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "vector_with_validated_conditions",
+        "embedding_used": true,
+        "similarity_filter_applied": true,
+        "validated_conditions": {
+          "part_id": 2
+        },
+        "date_range": null,
+        "date_field": "complaint_date",
+        "reason": "semantic_search"
+      }
+    },
+    {
+      "id": "Q27",
+      "question": "2026년 5월에 가상 A사에 발주한 연료 분사 밸브의 발주 수량은?",
+      "answerable": true,
+      "gold": [
+        "order-1004"
+      ],
+      "split": "calibration",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "2026년 5월에 가상 A사에 발주한 연료 분사 밸브의 발주 수량은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 1,
+          "part_id": 2
+        },
+        "date_range": [
+          "2026-05-01",
+          "2026-05-31"
+        ],
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "order-1004:db",
+            "parent_document_id": "order-1004",
+            "text": "[발주 정보]\n발주 ID: 1004\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n발주 수량(quantity): 60\n발주 비용값(cost): 15100\n발주일(order_date): 2026-05-05\n등록 납기 예상일(expected_date): 2026-05-20\n[연결된 납품 기록]\n납품 ID: 2006\n연결 발주 ID: 1004\n납품일(delivery_date): 2026-05-19\n납품 수량(delivery_quantity): 60\n납품 상태(delivery_status): COMPLETED\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 60\n발주 수량과 기록상 납품 수량의 차이: 0\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "order",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "orders",
+                "supplier",
+                "part",
+                "delivery"
+              ],
+              "source_refs": [
+                "orders:1004",
+                "supplier:1",
+                "part:2",
+                "delivery:2006"
+              ],
+              "order_id": 1004,
+              "supplier_id": 1,
+              "part_id": 2,
+              "order_date": "2026-05-05",
+              "expected_date": "2026-05-20",
+              "delivery_ids": [
+                2006
+              ],
+              "delivery_dates": [
+                "2026-05-19"
+              ],
+              "recorded_delivered_quantity": 60,
+              "recorded_quantity_difference": 0
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q28",
+      "question": "2026년 6월 가상 B사의 베어링 주문 수량을 알려줘.",
+      "answerable": true,
+      "gold": [
+        "order-1008"
+      ],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "2026년 6월 가상 B사의 베어링 주문 수량을 알려줘.",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 2,
+          "part_id": 3
+        },
+        "date_range": [
+          "2026-06-01",
+          "2026-06-30"
+        ],
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "order-1008:db",
+            "parent_document_id": "order-1008",
+            "text": "[발주 정보]\n발주 ID: 1008\n협력사 ID: 2\n협력사명: 가상 B사\n부품 ID: 3\n부품명: 베어링(가상)\n발주 수량(quantity): 40\n발주 비용값(cost): 20500\n발주일(order_date): 2026-06-05\n등록 납기 예상일(expected_date): 2026-06-20\n[연결된 납품 기록]\n납품 ID: 2011\n연결 발주 ID: 1008\n납품일(delivery_date): 2026-06-18\n납품 수량(delivery_quantity): 40\n납품 상태(delivery_status): COMPLETED\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 40\n발주 수량과 기록상 납품 수량의 차이: 0\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "order",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "orders",
+                "supplier",
+                "part",
+                "delivery"
+              ],
+              "source_refs": [
+                "orders:1008",
+                "supplier:2",
+                "part:3",
+                "delivery:2011"
+              ],
+              "order_id": 1008,
+              "supplier_id": 2,
+              "part_id": 3,
+              "order_date": "2026-06-05",
+              "expected_date": "2026-06-20",
+              "delivery_ids": [
+                2011
+              ],
+              "delivery_dates": [
+                "2026-06-18"
+              ],
+              "recorded_delivered_quantity": 40,
+              "recorded_quantity_difference": 0
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q29",
+      "question": "2026년 7월에 가상 A사에 주문한 실린더 라이너의 수량은?",
+      "answerable": true,
+      "gold": [
+        "order-1010"
+      ],
+      "split": "calibration",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "2026년 7월에 가상 A사에 주문한 실린더 라이너의 수량은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 1,
+          "part_id": 1
+        },
+        "date_range": [
+          "2026-07-01",
+          "2026-07-31"
+        ],
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "order-1010:db",
+            "parent_document_id": "order-1010",
+            "text": "[발주 정보]\n발주 ID: 1010\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n발주 수량(quantity): 200\n발주 비용값(cost): 9900\n발주일(order_date): 2026-07-05\n등록 납기 예상일(expected_date): 2026-07-20\n[연결된 납품 기록]\n납품 ID: 2013\n연결 발주 ID: 1010\n납품일(delivery_date): 2026-07-19\n납품 수량(delivery_quantity): 200\n납품 상태(delivery_status): COMPLETED\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 200\n발주 수량과 기록상 납품 수량의 차이: 0\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "order",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "orders",
+                "supplier",
+                "part",
+                "delivery"
+              ],
+              "source_refs": [
+                "orders:1010",
+                "supplier:1",
+                "part:1",
+                "delivery:2013"
+              ],
+              "order_id": 1010,
+              "supplier_id": 1,
+              "part_id": 1,
+              "order_date": "2026-07-05",
+              "expected_date": "2026-07-20",
+              "delivery_ids": [
+                2013
+              ],
+              "delivery_dates": [
+                "2026-07-19"
+              ],
+              "recorded_delivered_quantity": 200,
+              "recorded_quantity_difference": 0
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "Q30",
+      "question": "2026년 8월 가상 C사에 발주한 연료 분사 밸브는 몇 개야?",
+      "answerable": true,
+      "gold": [
+        "order-1015"
+      ],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": true,
+      "response": {
+        "question": "2026년 8월 가상 C사에 발주한 연료 분사 밸브는 몇 개야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 3,
+          "part_id": 2
+        },
+        "date_range": [
+          "2026-08-01",
+          "2026-08-31"
+        ],
+        "date_field": "order_date",
+        "reason": "validated_conditions",
+        "message": "원본 DB에서 조건과 항목을 확인했습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "structured_db",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 1,
+        "results": [
+          {
+            "chunk_id": "order-1015:db",
+            "parent_document_id": "order-1015",
+            "text": "[발주 정보]\n발주 ID: 1015\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n발주 수량(quantity): 120\n발주 비용값(cost): 14300\n발주일(order_date): 2026-08-05\n등록 납기 예상일(expected_date): 2026-08-20\n[연결된 납품 기록]\n납품 ID: 2020\n연결 발주 ID: 1015\n납품일(delivery_date): 2026-08-22\n납품 수량(delivery_quantity): 120\n납품 상태(delivery_status): COMPLETED\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 120\n발주 수량과 기록상 납품 수량의 차이: 0\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다.",
+            "similarity": null,
+            "metadata_scope": "parent_document",
+            "source": {
+              "document_type": "order",
+              "source_db": "구매관리_테스트.db",
+              "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+              "source_tables": [
+                "orders",
+                "supplier",
+                "part",
+                "delivery"
+              ],
+              "source_refs": [
+                "orders:1015",
+                "supplier:3",
+                "part:2",
+                "delivery:2020"
+              ],
+              "order_id": 1015,
+              "supplier_id": 3,
+              "part_id": 2,
+              "order_date": "2026-08-05",
+              "expected_date": "2026-08-20",
+              "delivery_ids": [
+                2020
+              ],
+              "delivery_dates": [
+                "2026-08-22"
+              ],
+              "recorded_delivered_quantity": 120,
+              "recorded_quantity_difference": 0
+            }
+          }
+        ],
+        "candidate_count": 1,
+        "discarded_count": 0,
+        "evidence_status": "candidates_found"
+      }
+    },
+    {
+      "id": "N01",
+      "question": "내일 서울 날씨는 어때?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "내일 서울 날씨는 어때?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "outside_scope",
+        "message": "근거 부족: 현재 구매관리 데이터의 지원 범위 밖 질문입니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N02",
+      "question": "김치찌개 만드는 방법을 알려줘.",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "김치찌개 만드는 방법을 알려줘.",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "outside_scope",
+        "message": "근거 부족: 현재 구매관리 데이터의 지원 범위 밖 질문입니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N03",
+      "question": "대한민국의 수도는 어디야?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "대한민국의 수도는 어디야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "outside_scope",
+        "message": "근거 부족: 현재 구매관리 데이터의 지원 범위 밖 질문입니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N04",
+      "question": "파이썬 리스트 정렬 코드를 작성해줘.",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "파이썬 리스트 정렬 코드를 작성해줘.",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "outside_scope",
+        "message": "근거 부족: 현재 구매관리 데이터의 지원 범위 밖 질문입니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N05",
+      "question": "이번 주 축구 경기 결과를 알려줘.",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "이번 주 축구 경기 결과를 알려줘.",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "outside_scope",
+        "message": "근거 부족: 현재 구매관리 데이터의 지원 범위 밖 질문입니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N06",
+      "question": "제주도 여행 숙소 추천해줘.",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "제주도 여행 숙소 추천해줘.",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "outside_scope",
+        "message": "근거 부족: 현재 구매관리 데이터의 지원 범위 밖 질문입니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N07",
+      "question": "미분과 적분의 차이는 뭐야?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "미분과 적분의 차이는 뭐야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "outside_scope",
+        "message": "근거 부족: 현재 구매관리 데이터의 지원 범위 밖 질문입니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N08",
+      "question": "노트북 배터리를 오래 쓰는 방법은?",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "노트북 배터리를 오래 쓰는 방법은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "outside_scope",
+        "message": "근거 부족: 현재 구매관리 데이터의 지원 범위 밖 질문입니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N09",
+      "question": "오늘 달러 환율은 얼마야?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "오늘 달러 환율은 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "outside_scope",
+        "message": "근거 부족: 현재 구매관리 데이터의 지원 범위 밖 질문입니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N10",
+      "question": "회사 휴가 신청 절차를 알려줘.",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "회사 휴가 신청 절차를 알려줘.",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "outside_scope",
+        "message": "근거 부족: 현재 구매관리 데이터의 지원 범위 밖 질문입니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N11",
+      "question": "가상 A사 담당자의 이메일 주소를 알려줘.",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "가상 A사 담당자의 이메일 주소를 알려줘.",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unsupported_field",
+        "message": "근거 부족: 현재 스키마에서 이메일 항목의 값을 제공할 수 없습니다. 실제 정보가 존재하지 않는다는 의미는 아닙니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N12",
+      "question": "가상 B사의 담당자 전화번호는?",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "가상 B사의 담당자 전화번호는?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unsupported_field",
+        "message": "근거 부족: 현재 스키마에서 전화번호 항목의 값을 제공할 수 없습니다. 실제 정보가 존재하지 않는다는 의미는 아닙니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N13",
+      "question": "가상 C사의 공장 주소는 어디야?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "가상 C사의 공장 주소는 어디야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unsupported_field",
+        "message": "근거 부족: 현재 스키마에서 주소 항목의 값을 제공할 수 없습니다. 실제 정보가 존재하지 않는다는 의미는 아닙니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N14",
+      "question": "실린더 라이너의 재질과 무게는?",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "실린더 라이너의 재질과 무게는?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unsupported_field",
+        "message": "근거 부족: 현재 스키마에서 재질·무게 항목의 값을 제공할 수 없습니다. 실제 정보가 존재하지 않는다는 의미는 아닙니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N15",
+      "question": "베어링의 허용 회전수는 얼마야?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "베어링의 허용 회전수는 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unsupported_field",
+        "message": "근거 부족: 현재 스키마에서 회전수 항목의 값을 제공할 수 없습니다. 실제 정보가 존재하지 않는다는 의미는 아닙니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N16",
+      "question": "연료 분사 밸브의 제조사 보증 기간은?",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "연료 분사 밸브의 제조사 보증 기간은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unsupported_field",
+        "message": "근거 부족: 현재 스키마에서 보증 항목의 값을 제공할 수 없습니다. 실제 정보가 존재하지 않는다는 의미는 아닙니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N17",
+      "question": "1101번 발주의 결제 완료일은 언제야?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "1101번 발주의 결제 완료일은 언제야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unsupported_field",
+        "message": "근거 부족: 현재 스키마에서 결제 항목의 값을 제공할 수 없습니다. 실제 정보가 존재하지 않는다는 의미는 아닙니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N18",
+      "question": "1102번 발주의 운송장 번호를 알려줘.",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "1102번 발주의 운송장 번호를 알려줘.",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unsupported_field",
+        "message": "근거 부족: 현재 스키마에서 운송장 항목의 값을 제공할 수 없습니다. 실제 정보가 존재하지 않는다는 의미는 아닙니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N19",
+      "question": "3001번 민원의 최종 해결일은 언제야?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "3001번 민원의 최종 해결일은 언제야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unsupported_field",
+        "message": "근거 부족: 현재 스키마에서 해결일 항목의 값을 제공할 수 없습니다. 실제 정보가 존재하지 않는다는 의미는 아닙니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N20",
+      "question": "3008번 민원의 담당 처리자는 누구야?",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "3008번 민원의 담당 처리자는 누구야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unsupported_field",
+        "message": "근거 부족: 현재 스키마에서 처리자 항목의 값을 제공할 수 없습니다. 실제 정보가 존재하지 않는다는 의미는 아닙니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N21",
+      "question": "9999번 발주의 납품 수량은 얼마야?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "9999번 발주의 납품 수량은 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unknown_id",
+        "message": "근거 부족: 현재 DB에 order_id=9999 기록이 없습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N22",
+      "question": "8888번 발주의 납기 예정일은 언제야?",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "8888번 발주의 납기 예정일은 언제야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unknown_id",
+        "message": "근거 부족: 현재 DB에 order_id=8888 기록이 없습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N23",
+      "question": "가상 D사의 등록된 Q 점수는 얼마야?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "가상 D사의 등록된 Q 점수는 얼마야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unknown_supplier",
+        "message": "근거 부족: 현재 DB에 가상 D사 협력사가 없습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N24",
+      "question": "가상 E사의 베어링 등록 단가를 알려줘.",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "가상 E사의 베어링 등록 단가를 알려줘.",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unknown_supplier",
+        "message": "근거 부족: 현재 DB에 가상 E사 협력사가 없습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N25",
+      "question": "2027년 1월 가상 A사의 실린더 라이너 발주 수량은?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 1,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "2027년 1월 가상 A사의 실린더 라이너 발주 수량은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 1,
+          "part_id": 1
+        },
+        "date_range": [
+          "2027-01-01",
+          "2027-01-31"
+        ],
+        "date_field": "order_date",
+        "reason": "no_matching_records",
+        "message": "근거 부족: 현재 DB에 ID·협력사·부품·날짜 조건을 모두 충족하는 기록이 없습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N26",
+      "question": "2025년 12월 가상 B사의 베어링 납품 수량은?",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 1,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "2025년 12월 가상 B사의 베어링 납품 수량은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {
+          "supplier_id": 2,
+          "part_id": 3
+        },
+        "date_range": [
+          "2025-12-01",
+          "2025-12-31"
+        ],
+        "date_field": "delivery_date",
+        "reason": "no_matching_records",
+        "message": "근거 부족: 현재 DB에 ID·협력사·부품·날짜 조건을 모두 충족하는 기록이 없습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N27",
+      "question": "9999번 민원에 적힌 불량 유형은?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "9999번 민원에 적힌 불량 유형은?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unknown_id",
+        "message": "근거 부족: 현재 DB에 complaint_id=9999 기록이 없습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N28",
+      "question": "8888번 민원의 접수 날짜는 언제야?",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "8888번 민원의 접수 날짜는 언제야?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unknown_id",
+        "message": "근거 부족: 현재 DB에 complaint_id=8888 기록이 없습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N29",
+      "question": "가상 A사가 공급하는 터보차저의 등록 단가는?",
+      "answerable": false,
+      "gold": [],
+      "split": "calibration",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "가상 A사가 공급하는 터보차저의 등록 단가는?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unknown_part",
+        "message": "근거 부족: 현재 DB에 터보차저 부품이 없습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    },
+    {
+      "id": "N30",
+      "question": "가상 B사가 공급하는 프로펠러의 단가는?",
+      "answerable": false,
+      "gold": [],
+      "split": "holdout",
+      "previous_prediction": 0,
+      "correct_gold_retained": false,
+      "response": {
+        "question": "가상 B사가 공급하는 프로펠러의 단가는?",
+        "model": "BAAI/bge-m3",
+        "filters": {},
+        "source_changed": false,
+        "min_similarity": 0.619865,
+        "calibration_matches_index": true,
+        "calibrated_top_k": 3,
+        "validated_conditions": {},
+        "date_range": null,
+        "date_field": null,
+        "reason": "unknown_part",
+        "message": "근거 부족: 현재 DB에 프로펠러 부품이 없습니다.",
+        "note": "검색 근거입니다. AI 답변 생성은 아직 연결하지 않았습니다.",
+        "retrieval_method": "rule_check",
+        "embedding_used": false,
+        "similarity_filter_applied": false,
+        "count": 0,
+        "results": [],
+        "candidate_count": 0,
+        "discarded_count": 0,
+        "evidence_status": "insufficient_evidence"
+      }
+    }
+  ],
+  "regression_cases": [
+    {
+      "question": "발주 번호: 1104의 수량 차이",
+      "filters": {},
+      "expected_status": "candidates_found",
+      "gold": "order-1104",
+      "passed": true
+    },
+    {
+      "question": "발주 110의 수량",
+      "filters": {},
+      "expected_status": "insufficient_evidence",
+      "gold": null,
+      "passed": true
+    },
+    {
+      "question": "발주 1104 수량",
+      "filters": {
+        "order_id": 1101
+      },
+      "expected_status": "clarification_required",
+      "gold": null,
+      "passed": true
+    },
+    {
+      "question": "가상 B사의 발주 1104 수량",
+      "filters": {},
+      "expected_status": "insufficient_evidence",
+      "gold": null,
+      "passed": true
+    },
+    {
+      "question": "가상 Z사의 베어링 단가",
+      "filters": {},
+      "expected_status": "insufficient_evidence",
+      "gold": null,
+      "passed": true
+    },
+    {
+      "question": "2026년 13월 발주 수량",
+      "filters": {},
+      "expected_status": "clarification_required",
+      "gold": null,
+      "passed": true
+    },
+    {
+      "question": "5월 발주 수량",
+      "filters": {},
+      "expected_status": "clarification_required",
+      "gold": null,
+      "passed": true
+    },
+    {
+      "question": "지난달 가상 A사 발주 수량",
+      "filters": {},
+      "expected_status": "clarification_required",
+      "gold": null,
+      "passed": true
+    },
+    {
+      "question": "2026년 5월 가상 A사의 연료 분사 밸브 발주 수량",
+      "filters": {},
+      "expected_status": "candidates_found",
+      "gold": "order-1004",
+      "passed": true
+    },
+    {
+      "question": "2025년 5월 가상 A사의 연료 분사 밸브 발주 수량",
+      "filters": {},
+      "expected_status": "insufficient_evidence",
+      "gold": null,
+      "passed": true
+    },
+    {
+      "question": "베어링 단가 알려줘",
+      "filters": {},
+      "expected_status": "clarification_required",
+      "gold": null,
+      "passed": true
+    },
+    {
+      "question": "가상 A사의 베어링 재고 수량",
+      "filters": {},
+      "expected_status": "insufficient_evidence",
+      "gold": null,
+      "passed": true
+    }
+  ],
+  "limits": [
+    "자연어 해석은 현재 스키마에 맞춘 규칙입니다. 임의의 표현을 모두 이해하지 않습니다.",
+    "정확 조회는 원본 DB에서 처리하므로 이번 개선은 임베딩 모델 자체의 성능 향상이 아닙니다.",
+    "집계·비교, 상대 날짜, 기간 납품량 합산은 아직 지원하지 않고 추가 질문을 요청합니다.",
+    "모르는 항목을 완벽하게 탐지하는 범용 모델이 아닙니다. 새로운 업무 질문으로 별도 검증해야 합니다."
+  ]
+}

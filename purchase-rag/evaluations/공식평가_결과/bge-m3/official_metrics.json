@@ -1,0 +1,14 @@
+{
+  "bge-m3_cosine_accuracy@1": 0.8,
+  "bge-m3_cosine_accuracy@3": 0.9333333333333333,
+  "bge-m3_cosine_accuracy@5": 0.9333333333333333,
+  "bge-m3_cosine_precision@1": 0.8,
+  "bge-m3_cosine_precision@3": 0.3111111111111111,
+  "bge-m3_cosine_precision@5": 0.1866666666666667,
+  "bge-m3_cosine_recall@1": 0.8,
+  "bge-m3_cosine_recall@3": 0.9333333333333333,
+  "bge-m3_cosine_recall@5": 0.9333333333333333,
+  "bge-m3_cosine_ndcg@10": 0.8753953169047638,
+  "bge-m3_cosine_mrr@10": 0.8555555555555555,
+  "bge-m3_cosine_map@47": 0.85906432748538
+}

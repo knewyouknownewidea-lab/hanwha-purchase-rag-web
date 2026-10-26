@@ -1,0 +1,128 @@
+[
+  {
+    "engineModel": "SAMPLE 엔진 X형",
+    "major": "기관 본체 (베드플레이트·프레임)",
+    "mid": "메인 베어링 어셈블리",
+    "minor": "메인 베어링 쉘",
+    "itemCode": "ITM-1005"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 X형",
+    "major": "실린더부 (라이너·커버·배기밸브)",
+    "mid": "실린더 라이너 어셈블리",
+    "minor": "실린더 라이너",
+    "itemCode": "ITM-1001"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 X형",
+    "major": "실린더부 (라이너·커버·배기밸브)",
+    "mid": "실린더 커버 어셈블리",
+    "minor": "실린더 커버 가스켓",
+    "itemCode": "ITM-1007"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 X형",
+    "major": "실린더부 (라이너·커버·배기밸브)",
+    "mid": "배기밸브 어셈블리",
+    "minor": "배기밸브 스핀들",
+    "itemCode": "ITM-1003"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 X형",
+    "major": "운동부 (크랭크축·커넥팅로드·피스톤)",
+    "mid": "피스톤 어셈블리",
+    "minor": "피스톤 링 세트",
+    "itemCode": "ITM-1002"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 X형",
+    "major": "운동부 (크랭크축·커넥팅로드·피스톤)",
+    "mid": "커넥팅로드 어셈블리",
+    "minor": "커넥팅로드 볼트",
+    "itemCode": "ITM-1006"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 X형",
+    "major": "연료·유압 공급부",
+    "mid": "연료분사밸브 어셈블리",
+    "minor": "연료분사밸브 노즐",
+    "itemCode": "ITM-1004"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 X형",
+    "major": "소기·과급부",
+    "mid": "과급기 (터보차저)",
+    "minor": "터보차저 노즐링",
+    "itemCode": "ITM-1010"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 X형",
+    "major": "배관·냉각부",
+    "mid": "냉각수 펌프",
+    "minor": "냉각수 펌프 임펠러",
+    "itemCode": "ITM-1008"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 Y형",
+    "major": "기관 본체 (베드플레이트·프레임)",
+    "mid": "메인 베어링 어셈블리",
+    "minor": "메인 베어링 쉘",
+    "itemCode": "ITM-1005"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 Y형",
+    "major": "실린더부 (라이너·커버·배기밸브)",
+    "mid": "실린더 라이너 어셈블리",
+    "minor": "실린더 라이너",
+    "itemCode": "ITM-1001"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 Y형",
+    "major": "실린더부 (라이너·커버·배기밸브)",
+    "mid": "실린더 커버 어셈블리",
+    "minor": "실린더 커버 가스켓",
+    "itemCode": "ITM-1007"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 Y형",
+    "major": "실린더부 (라이너·커버·배기밸브)",
+    "mid": "배기밸브 어셈블리",
+    "minor": "배기밸브 스핀들",
+    "itemCode": "ITM-1003"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 Y형",
+    "major": "운동부 (크랭크축·커넥팅로드·피스톤)",
+    "mid": "피스톤 어셈블리",
+    "minor": "피스톤 링 세트",
+    "itemCode": "ITM-1002"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 Y형",
+    "major": "운동부 (크랭크축·커넥팅로드·피스톤)",
+    "mid": "커넥팅로드 어셈블리",
+    "minor": "커넥팅로드 볼트",
+    "itemCode": "ITM-1006"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 Y형",
+    "major": "연료·유압 공급부",
+    "mid": "연료분사밸브 어셈블리",
+    "minor": "연료분사밸브 노즐",
+    "itemCode": "ITM-1004"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 Y형",
+    "major": "연료·유압 공급부",
+    "mid": "고압 연료 배관",
+    "minor": "고압 연료관",
+    "itemCode": "ITM-1009"
+  },
+  {
+    "engineModel": "SAMPLE 엔진 Y형",
+    "major": "소기·과급부",
+    "mid": "과급기 (터보차저)",
+    "minor": "터보차저 노즐링",
+    "itemCode": "ITM-1010"
+  }
+]

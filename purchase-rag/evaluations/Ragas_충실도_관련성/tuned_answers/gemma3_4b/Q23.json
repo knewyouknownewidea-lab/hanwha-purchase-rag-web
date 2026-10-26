@@ -1,0 +1,141 @@
+{
+  "model": "gemma3:4b",
+  "id": "Q23",
+  "question": "실린더 라이너 크기가 맞는지 추가 검토를 요청한 민원은?",
+  "response": "실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청한 민원 ID는 3005입니다 [E1].",
+  "retrieved_contexts": [
+    "[민원 정보]\n민원 ID: 3005\n협력사 ID: 3\n협력사명: 가상 C사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1012\n연결 납품 ID: 2016\n연결 납품일(delivery_date): 2026-07-23\n민원일(complaint_date): 2026-07-25\n불량 유형(defect_type): DIMENSION_CHECK\n민원 내용: 실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함.",
+    "[민원 정보]\n민원 ID: 3001\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1001\n연결 납품 ID: 2002\n연결 납품일(delivery_date): 2026-04-20\n민원일(complaint_date): 2026-04-22\n불량 유형(defect_type): SURFACE_DAMAGE\n민원 내용: 실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함.",
+    "[민원 정보]\n민원 ID: 3007\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 1\n부품명: 실린더 라이너(가상)\n연결 발주 ID: 1101\n연결 납품 ID: 2024\n연결 납품일(delivery_date): 2026-10-18\n민원일(complaint_date): 2026-10-20\n불량 유형(defect_type): MISSING_LABEL\n민원 내용: 분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함."
+  ],
+  "sources": [
+    {
+      "evidence_id": "E1",
+      "chunk_id": "complaint-3005:langchain:800:0",
+      "parent_document_id": "complaint-3005",
+      "source": {
+        "document_type": "complaint",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "complaint",
+          "delivery",
+          "orders",
+          "supplier",
+          "part"
+        ],
+        "source_refs": [
+          "complaint:3005",
+          "delivery:2016",
+          "orders:1012",
+          "supplier:3",
+          "part:1"
+        ],
+        "complaint_id": 3005,
+        "delivery_id": 2016,
+        "order_id": 1012,
+        "supplier_id": 3,
+        "part_id": 1,
+        "delivery_date": "2026-07-23",
+        "complaint_date": "2026-07-25",
+        "defect_type": "DIMENSION_CHECK"
+      },
+      "similarity": 0.732148
+    },
+    {
+      "evidence_id": "E2",
+      "chunk_id": "complaint-3001:langchain:800:0",
+      "parent_document_id": "complaint-3001",
+      "source": {
+        "document_type": "complaint",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "complaint",
+          "delivery",
+          "orders",
+          "supplier",
+          "part"
+        ],
+        "source_refs": [
+          "complaint:3001",
+          "delivery:2002",
+          "orders:1001",
+          "supplier:1",
+          "part:1"
+        ],
+        "complaint_id": 3001,
+        "delivery_id": 2002,
+        "order_id": 1001,
+        "supplier_id": 1,
+        "part_id": 1,
+        "delivery_date": "2026-04-20",
+        "complaint_date": "2026-04-22",
+        "defect_type": "SURFACE_DAMAGE"
+      },
+      "similarity": 0.677395
+    },
+    {
+      "evidence_id": "E3",
+      "chunk_id": "complaint-3007:langchain:800:0",
+      "parent_document_id": "complaint-3007",
+      "source": {
+        "document_type": "complaint",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "complaint",
+          "delivery",
+          "orders",
+          "supplier",
+          "part"
+        ],
+        "source_refs": [
+          "complaint:3007",
+          "delivery:2024",
+          "orders:1101",
+          "supplier:1",
+          "part:1"
+        ],
+        "complaint_id": 3007,
+        "delivery_id": 2024,
+        "order_id": 1101,
+        "supplier_id": 1,
+        "part_id": 1,
+        "delivery_date": "2026-10-18",
+        "complaint_date": "2026-10-20",
+        "defect_type": "MISSING_LABEL"
+      },
+      "similarity": 0.658059
+    }
+  ],
+  "model_digest": "68ceab7e468a31c988b44d5a4984a0e21f58c4f7158c6ce29c1804babac38df7",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 8192,
+    "num_predict": 1024,
+    "num_gpu": 0,
+    "num_thread": 4
+  },
+  "truncated": false,
+  "input_budget_warning": false,
+  "prompt_sha256": "d93bb594b518fb91f9934323b3534aaa862976fbf46f382b490b8986156dc229",
+  "raw_response": {
+    "model": "gemma3:4b",
+    "created_at": "2026-10-25T17:02:49.9913916Z",
+    "message": {
+      "role": "assistant",
+      "content": "실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청한 민원 ID는 3005입니다 [E1]."
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 14905489100,
+    "load_duration": 11349100,
+    "prompt_eval_count": 1065,
+    "prompt_eval_cached_count": 46,
+    "prompt_eval_duration": 11737327000,
+    "eval_count": 36,
+    "eval_duration": 3153270000
+  }
+}

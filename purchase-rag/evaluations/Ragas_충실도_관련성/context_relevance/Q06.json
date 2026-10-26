@@ -1,0 +1,17 @@
+{
+  "id": "Q06",
+  "input_hash": "18b6b28c3098275b7ef83a9911060e38ebbda4022a5a1e3a04a25f03df541db2",
+  "score": 1.0,
+  "error": null,
+  "ratings": [
+    {
+      "prompt_sha256": "b105b118d7de47aeed280da006d04f0bb0498f2e26d506d62cb730969bd5761e",
+      "rating": 2
+    },
+    {
+      "prompt_sha256": "79bde13d069e4108bd29e8269a1ab7ea6c00f11a1aa5a6a6abd2dd443ad83416",
+      "rating": 2
+    }
+  ],
+  "valid_judge_prompts": 2
+}

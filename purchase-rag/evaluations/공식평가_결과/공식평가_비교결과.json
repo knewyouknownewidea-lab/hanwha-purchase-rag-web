@@ -1,0 +1,171 @@
+{
+  "evaluator": "sentence_transformers.sentence_transformer.evaluation.InformationRetrievalEvaluator",
+  "conditions": {
+    "documents": 47,
+    "questions": 30,
+    "input_sha256": {
+      "청크_langchain_800.jsonl": "0108c49f82806b298fd7a1593588e8f7ea79726fdf980020bd77c214cab8ef13",
+      "검색평가_질문.json": "f44a48d62fee6360bb00d9a565f138b292c61f0e11aae25412ab670fba8feb9a",
+      "구매관리_테스트.db": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df"
+    },
+    "device": "cpu",
+    "threads": 4,
+    "batch_size": 8,
+    "similarity": "official cos_sim",
+    "score_threshold": null,
+    "metadata_filters": null,
+    "embedding_source": "공식 평가기가 각 모델로 문서와 질문을 새로 임베딩. 기존 npz 미사용.",
+    "gold": "기존 검색평가_질문.json 그대로. 신규 사용자 승인/독립 평가셋 아님.",
+    "accuracy_mapping": "공식 accuracy@k는 상위 k개에 정답 문서가 하나 이상 있는 질문 비율이며 기존 Hit@k와 동일.",
+    "prompts": "E5 입력에 query:/passage:를 한 번만 추가. 다른 모델 접두어 없음.",
+    "ko_sroberta": "이전과 동일하게 max_seq_length=512. 기본128 설정과 구분.",
+    "ties": "공식 모듈은 점수가 같으면 문서 ID 오름차순. 이전 코드는 입력 문서 순서."
+  },
+  "versions": {
+    "sentence-transformers": "6.2.0",
+    "transformers": "5.20.2",
+    "torch": "2.14.1",
+    "numpy": "2.5.4"
+  },
+  "previous_versions": {
+    "sentence-transformers": "6.2.0",
+    "transformers": "5.20.2",
+    "torch": "2.14.1",
+    "numpy": "2.5.4"
+  },
+  "models": [
+    {
+      "model": "intfloat/multilingual-e5-base",
+      "alias": "e5-base",
+      "revision": "d128750597153bb5987e10b1c3493a34e5a4502a",
+      "max_input_tokens": 270,
+      "used_max_tokens": 512,
+      "official_metrics": {
+        "e5-base_cosine_accuracy@1": 0.7666666666666667,
+        "e5-base_cosine_accuracy@3": 0.9,
+        "e5-base_cosine_accuracy@5": 0.9666666666666667,
+        "e5-base_cosine_precision@1": 0.7666666666666667,
+        "e5-base_cosine_precision@3": 0.3,
+        "e5-base_cosine_precision@5": 0.19333333333333338,
+        "e5-base_cosine_recall@1": 0.7666666666666667,
+        "e5-base_cosine_recall@3": 0.9,
+        "e5-base_cosine_recall@5": 0.9666666666666667,
+        "e5-base_cosine_ndcg@10": 0.879502404347754,
+        "e5-base_cosine_mrr@10": 0.85,
+        "e5-base_cosine_map@47": 0.853030303030303
+      },
+      "comparable_metrics": {
+        "hit_at_1": 0.7666666666666667,
+        "hit_at_3": 0.9,
+        "hit_at_5": 0.9666666666666667,
+        "mrr_at_10": 0.85
+      },
+      "previous_metrics": {
+        "questions": 30,
+        "hit_at_1": 0.7667,
+        "hit_at_3": 0.9,
+        "hit_at_5": 0.9667,
+        "mrr_at_10": 0.85
+      },
+      "delta_against_rounded_previous": {
+        "hit_at_1": -3.33333e-05,
+        "hit_at_3": 0.0,
+        "hit_at_5": -3.33333e-05,
+        "mrr_at_10": 0.0
+      },
+      "same_at_previous_4_decimal_precision": true,
+      "gold_rank_changes": [],
+      "top5_order_changes": [],
+      "evaluation_seconds_excluding_load": 8.193
+    },
+    {
+      "model": "jhgan/ko-sroberta-multitask",
+      "alias": "ko-sroberta",
+      "revision": "8fca7c9c98c26599be0e14b9916b11a756a26f19",
+      "max_input_tokens": 253,
+      "used_max_tokens": 512,
+      "official_metrics": {
+        "ko-sroberta_cosine_accuracy@1": 0.7,
+        "ko-sroberta_cosine_accuracy@3": 0.9,
+        "ko-sroberta_cosine_accuracy@5": 0.9333333333333333,
+        "ko-sroberta_cosine_precision@1": 0.7,
+        "ko-sroberta_cosine_precision@3": 0.3,
+        "ko-sroberta_cosine_precision@5": 0.1866666666666667,
+        "ko-sroberta_cosine_recall@1": 0.7,
+        "ko-sroberta_cosine_recall@3": 0.9,
+        "ko-sroberta_cosine_recall@5": 0.9333333333333333,
+        "ko-sroberta_cosine_ndcg@10": 0.8578041178683248,
+        "ko-sroberta_cosine_mrr@10": 0.8117063492063493,
+        "ko-sroberta_cosine_map@47": 0.8117063492063491
+      },
+      "comparable_metrics": {
+        "hit_at_1": 0.7,
+        "hit_at_3": 0.9,
+        "hit_at_5": 0.9333333333333333,
+        "mrr_at_10": 0.8117063492063493
+      },
+      "previous_metrics": {
+        "questions": 30,
+        "hit_at_1": 0.7,
+        "hit_at_3": 0.9,
+        "hit_at_5": 0.9333,
+        "mrr_at_10": 0.8117
+      },
+      "delta_against_rounded_previous": {
+        "hit_at_1": 0.0,
+        "hit_at_3": 0.0,
+        "hit_at_5": 3.33333e-05,
+        "mrr_at_10": 6.3492e-06
+      },
+      "same_at_previous_4_decimal_precision": true,
+      "gold_rank_changes": [],
+      "top5_order_changes": [],
+      "evaluation_seconds_excluding_load": 7.324
+    },
+    {
+      "model": "BAAI/bge-m3",
+      "alias": "bge-m3",
+      "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+      "max_input_tokens": 268,
+      "used_max_tokens": 8192,
+      "official_metrics": {
+        "bge-m3_cosine_accuracy@1": 0.8,
+        "bge-m3_cosine_accuracy@3": 0.9333333333333333,
+        "bge-m3_cosine_accuracy@5": 0.9333333333333333,
+        "bge-m3_cosine_precision@1": 0.8,
+        "bge-m3_cosine_precision@3": 0.3111111111111111,
+        "bge-m3_cosine_precision@5": 0.1866666666666667,
+        "bge-m3_cosine_recall@1": 0.8,
+        "bge-m3_cosine_recall@3": 0.9333333333333333,
+        "bge-m3_cosine_recall@5": 0.9333333333333333,
+        "bge-m3_cosine_ndcg@10": 0.8753953169047638,
+        "bge-m3_cosine_mrr@10": 0.8555555555555555,
+        "bge-m3_cosine_map@47": 0.85906432748538
+      },
+      "comparable_metrics": {
+        "hit_at_1": 0.8,
+        "hit_at_3": 0.9333333333333333,
+        "hit_at_5": 0.9333333333333333,
+        "mrr_at_10": 0.8555555555555555
+      },
+      "previous_metrics": {
+        "questions": 30,
+        "hit_at_1": 0.8,
+        "hit_at_3": 0.9333,
+        "hit_at_5": 0.9333,
+        "mrr_at_10": 0.8556
+      },
+      "delta_against_rounded_previous": {
+        "hit_at_1": 0.0,
+        "hit_at_3": 3.33333e-05,
+        "hit_at_5": 3.33333e-05,
+        "mrr_at_10": -4.44444e-05
+      },
+      "same_at_previous_4_decimal_precision": true,
+      "gold_rank_changes": [],
+      "top5_order_changes": [],
+      "evaluation_seconds_excluding_load": 27.344
+    }
+  ],
+  "previous_results_and_production_config_unchanged": true
+}

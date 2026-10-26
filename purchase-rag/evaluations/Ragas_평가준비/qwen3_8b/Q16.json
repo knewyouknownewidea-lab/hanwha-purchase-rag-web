@@ -1,0 +1,79 @@
+{
+  "stage": "generation",
+  "model": "qwen3:8b",
+  "id": "Q16",
+  "question": "1104번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?",
+  "response": "1104번 발주의 주문 수량과 지금까지 납품된 수량의 차이는 40입니다. [E1]",
+  "reference": "발주 1104의 주문 수량과 기록상 누적 납품 수량의 차이는 40개입니다.",
+  "retrieved_contexts": [
+    "[발주 정보]\n발주 ID: 1104\n협력사 ID: 1\n협력사명: 가상 A사\n부품 ID: 2\n부품명: 연료 분사 밸브(가상)\n발주 수량(quantity): 60\n발주 비용값(cost): 15000\n발주일(order_date): 2026-10-15\n등록 납기 예상일(expected_date): 2026-10-28\n[연결된 납품 기록]\n납품 ID: 2026\n연결 발주 ID: 1104\n납품일(delivery_date): 2026-10-22\n납품 수량(delivery_quantity): 20\n납품 상태(delivery_status): PARTIAL\n[저장된 기록의 수량 계산]\n기록상 누적 납품 수량: 20\n발주 수량과 기록상 납품 수량의 차이: 40\n누적 수량은 이 발주에 연결된 모든 저장 납품 행을 더한 값이다."
+  ],
+  "sources": [
+    {
+      "evidence_id": "E1",
+      "chunk_id": "order-1104:db",
+      "parent_document_id": "order-1104",
+      "source": {
+        "document_type": "order",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "orders",
+          "supplier",
+          "part",
+          "delivery"
+        ],
+        "source_refs": [
+          "orders:1104",
+          "supplier:1",
+          "part:2",
+          "delivery:2026"
+        ],
+        "order_id": 1104,
+        "supplier_id": 1,
+        "part_id": 2,
+        "order_date": "2026-10-15",
+        "expected_date": "2026-10-28",
+        "delivery_ids": [
+          2026
+        ],
+        "delivery_dates": [
+          "2026-10-22"
+        ],
+        "recorded_delivered_quantity": 20,
+        "recorded_quantity_difference": 40
+      },
+      "similarity": null
+    }
+  ],
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 8192,
+    "num_predict": 1024,
+    "num_gpu": 0,
+    "num_thread": 4
+  },
+  "prompt_sha256": "58905ac9d913a37e80433c0bd3e50dc9453cca692b59b25d2819581b4b5e290c",
+  "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "elapsed_seconds": 14.968000000000757,
+  "truncated": false,
+  "input_budget_warning": false,
+  "raw_response": {
+    "model": "qwen3:8b",
+    "created_at": "2026-10-25T13:31:24.7183974Z",
+    "message": {
+      "role": "assistant",
+      "content": "1104번 발주의 주문 수량과 지금까지 납품된 수량의 차이는 40입니다. [E1]"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 14962983200,
+    "load_duration": 14467800,
+    "prompt_eval_count": 576,
+    "prompt_eval_cached_count": 252,
+    "prompt_eval_duration": 9297464000,
+    "eval_count": 33,
+    "eval_duration": 5617440000
+  }
+}

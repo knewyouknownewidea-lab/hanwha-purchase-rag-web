@@ -1,0 +1,8 @@
+{
+  "min_similarity": 0.619865,
+  "model": "BAAI/bge-m3",
+  "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+  "metric": "cosine",
+  "calibrated_index_fingerprint": "af6bcd67441a6f861b22a400326e94a05ab5a7fc1e997ec25dc3363213e05c70",
+  "calibrated_top_k": 3
+}

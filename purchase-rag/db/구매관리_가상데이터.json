@@ -1,0 +1,611 @@
+{
+  "_meta": {
+    "description": "현재 Java 엔티티 6종을 기준으로 만든 RAG 테스트용 가상 데이터. 실제 회사 거래자료가 아니다.",
+    "schemaVersion": "1.0",
+    "asOfDate": "2026-10-23",
+    "historicalPeriod": {
+      "from": "2026-04-01",
+      "to": "2026-09-30"
+    },
+    "format": "연관 객체를 숫자 ID로 평탄화한 JSON. 각 배열에서 해당 ID를 찾아 연결한다. 기존 JPA 엔티티에 직접 역직렬화하는 형식을 보장하지 않는다.",
+    "assumptions": {
+      "money": "이 테스트 데이터의 금액은 KRW이며 수량 단위는 EA로 가정한다. 엔티티에 새 필드를 추가한 것은 아니다.",
+      "cost": "이 테스트 데이터에서만 Order.cost를 발주 당시 부품 1개당 금액으로 가정한다. 기존 백엔드의 실제 의미를 확정하는 것은 아니다.",
+      "unitPrice": "SupplierPart.unitPrice는 현재 등록 단가이다. 과거 Order.cost와 다를 수 있다.",
+      "scores": "qScore/dScore/tScore/eScore는 0~100 범위의 임의 데모값이다. 민원이나 납품 실적에서 계산한 점수가 아니다.",
+      "cScore": "업체별 모든 orders.cost의 단순 산술평균이다. 수량가중 평균이 아니며 이 데이터에서는 정수로 나누어떨어진다.",
+      "deliveryStatus": {
+        "PARTIAL": "이 입고 직후 해당 발주의 누적 납품 수량이 발주 수량보다 작음",
+        "COMPLETED": "이 입고 직후 해당 발주의 누적 납품 수량이 발주 수량과 같음"
+      },
+      "deliveryRecords": "모든 delivery 행은 실제 입고를 가정한 기록이다. 미입고 발주에는 delivery 행을 만들지 않았다. 누적 납품량 계산에는 PARTIAL과 COMPLETED를 모두 포함한다.",
+      "complaints": "민원 행은 민원 기록이며 불량 수량이나 검사 결과를 뜻하지 않는다."
+    },
+    "relationshipMapping": {
+      "SupplierPart.supplier": "supplierParts[].supplierId -> suppliers[].supplierId",
+      "SupplierPart.part": "supplierParts[].partId -> parts[].partId",
+      "Order.supplier": "orders[].supplierId -> suppliers[].supplierId",
+      "Order.part": "orders[].partId -> parts[].partId",
+      "Delivery.order": "deliveries[].orderId -> orders[].orderId",
+      "Complaint.partId": "complaints[].partId -> parts[].partId (Java에서는 Part 객체)",
+      "Complaint.deliveryId": "complaints[].deliveryId -> deliveries[].deliveryId (Java에서는 Delivery 객체)"
+    }
+  },
+  "suppliers": [
+    {
+      "supplierId": 1,
+      "name": "가상 A사",
+      "info": "RAG 테스트용 가상 협력사 A. 세 종류의 부품을 공급한다.",
+      "qScore": 88,
+      "cScore": 14375,
+      "dScore": 85,
+      "tScore": 90,
+      "eScore": 82
+    },
+    {
+      "supplierId": 2,
+      "name": "가상 B사",
+      "info": "RAG 테스트용 가상 협력사 B. 세 종류의 부품을 공급한다.",
+      "qScore": 94,
+      "cScore": 14875,
+      "dScore": 95,
+      "tScore": 92,
+      "eScore": 90
+    },
+    {
+      "supplierId": 3,
+      "name": "가상 C사",
+      "info": "RAG 테스트용 가상 협력사 C. 세 종류의 부품을 공급한다.",
+      "qScore": 78,
+      "cScore": 13875,
+      "dScore": 75,
+      "tScore": 84,
+      "eScore": 80
+    }
+  ],
+  "parts": [
+    {
+      "partId": 1,
+      "partName": "실린더 라이너(가상)"
+    },
+    {
+      "partId": 2,
+      "partName": "연료 분사 밸브(가상)"
+    },
+    {
+      "partId": 3,
+      "partName": "베어링(가상)"
+    }
+  ],
+  "supplierParts": [
+    {
+      "supplierPartId": 1,
+      "supplierId": 1,
+      "partId": 1,
+      "unitPrice": 10000
+    },
+    {
+      "supplierPartId": 2,
+      "supplierId": 1,
+      "partId": 2,
+      "unitPrice": 15000
+    },
+    {
+      "supplierPartId": 3,
+      "supplierId": 1,
+      "partId": 3,
+      "unitPrice": 20000
+    },
+    {
+      "supplierPartId": 4,
+      "supplierId": 2,
+      "partId": 1,
+      "unitPrice": 10500
+    },
+    {
+      "supplierPartId": 5,
+      "supplierId": 2,
+      "partId": 2,
+      "unitPrice": 15500
+    },
+    {
+      "supplierPartId": 6,
+      "supplierId": 2,
+      "partId": 3,
+      "unitPrice": 20500
+    },
+    {
+      "supplierPartId": 7,
+      "supplierId": 3,
+      "partId": 1,
+      "unitPrice": 9500
+    },
+    {
+      "supplierPartId": 8,
+      "supplierId": 3,
+      "partId": 2,
+      "unitPrice": 14500
+    },
+    {
+      "supplierPartId": 9,
+      "supplierId": 3,
+      "partId": 3,
+      "unitPrice": 19500
+    }
+  ],
+  "orders": [
+    {
+      "orderId": 1001,
+      "supplierId": 1,
+      "partId": 1,
+      "quantity": 100,
+      "cost": 10200,
+      "orderDate": "2026-04-05",
+      "expectedDate": "2026-04-20"
+    },
+    {
+      "orderId": 1002,
+      "supplierId": 2,
+      "partId": 1,
+      "quantity": 100,
+      "cost": 10700,
+      "orderDate": "2026-04-05",
+      "expectedDate": "2026-04-20"
+    },
+    {
+      "orderId": 1003,
+      "supplierId": 3,
+      "partId": 1,
+      "quantity": 100,
+      "cost": 9700,
+      "orderDate": "2026-04-05",
+      "expectedDate": "2026-04-20"
+    },
+    {
+      "orderId": 1004,
+      "supplierId": 1,
+      "partId": 2,
+      "quantity": 60,
+      "cost": 15100,
+      "orderDate": "2026-05-05",
+      "expectedDate": "2026-05-20"
+    },
+    {
+      "orderId": 1005,
+      "supplierId": 2,
+      "partId": 2,
+      "quantity": 60,
+      "cost": 15600,
+      "orderDate": "2026-05-05",
+      "expectedDate": "2026-05-20"
+    },
+    {
+      "orderId": 1006,
+      "supplierId": 3,
+      "partId": 2,
+      "quantity": 60,
+      "cost": 14600,
+      "orderDate": "2026-05-05",
+      "expectedDate": "2026-05-20"
+    },
+    {
+      "orderId": 1007,
+      "supplierId": 1,
+      "partId": 3,
+      "quantity": 40,
+      "cost": 20000,
+      "orderDate": "2026-06-05",
+      "expectedDate": "2026-06-20"
+    },
+    {
+      "orderId": 1008,
+      "supplierId": 2,
+      "partId": 3,
+      "quantity": 40,
+      "cost": 20500,
+      "orderDate": "2026-06-05",
+      "expectedDate": "2026-06-20"
+    },
+    {
+      "orderId": 1009,
+      "supplierId": 3,
+      "partId": 3,
+      "quantity": 40,
+      "cost": 19500,
+      "orderDate": "2026-06-05",
+      "expectedDate": "2026-06-20"
+    },
+    {
+      "orderId": 1010,
+      "supplierId": 1,
+      "partId": 1,
+      "quantity": 200,
+      "cost": 9900,
+      "orderDate": "2026-07-05",
+      "expectedDate": "2026-07-20"
+    },
+    {
+      "orderId": 1011,
+      "supplierId": 2,
+      "partId": 1,
+      "quantity": 200,
+      "cost": 10400,
+      "orderDate": "2026-07-05",
+      "expectedDate": "2026-07-20"
+    },
+    {
+      "orderId": 1012,
+      "supplierId": 3,
+      "partId": 1,
+      "quantity": 200,
+      "cost": 9400,
+      "orderDate": "2026-07-05",
+      "expectedDate": "2026-07-20"
+    },
+    {
+      "orderId": 1013,
+      "supplierId": 1,
+      "partId": 2,
+      "quantity": 120,
+      "cost": 14800,
+      "orderDate": "2026-08-05",
+      "expectedDate": "2026-08-20"
+    },
+    {
+      "orderId": 1014,
+      "supplierId": 2,
+      "partId": 2,
+      "quantity": 120,
+      "cost": 15300,
+      "orderDate": "2026-08-05",
+      "expectedDate": "2026-08-20"
+    },
+    {
+      "orderId": 1015,
+      "supplierId": 3,
+      "partId": 2,
+      "quantity": 120,
+      "cost": 14300,
+      "orderDate": "2026-08-05",
+      "expectedDate": "2026-08-20"
+    },
+    {
+      "orderId": 1016,
+      "supplierId": 1,
+      "partId": 3,
+      "quantity": 80,
+      "cost": 20000,
+      "orderDate": "2026-09-05",
+      "expectedDate": "2026-09-20"
+    },
+    {
+      "orderId": 1017,
+      "supplierId": 2,
+      "partId": 3,
+      "quantity": 80,
+      "cost": 20500,
+      "orderDate": "2026-09-05",
+      "expectedDate": "2026-09-20"
+    },
+    {
+      "orderId": 1018,
+      "supplierId": 3,
+      "partId": 3,
+      "quantity": 80,
+      "cost": 19500,
+      "orderDate": "2026-09-05",
+      "expectedDate": "2026-09-20"
+    },
+    {
+      "orderId": 1101,
+      "supplierId": 1,
+      "partId": 1,
+      "quantity": 100,
+      "cost": 10000,
+      "orderDate": "2026-10-05",
+      "expectedDate": "2026-10-20"
+    },
+    {
+      "orderId": 1102,
+      "supplierId": 2,
+      "partId": 1,
+      "quantity": 100,
+      "cost": 10500,
+      "orderDate": "2026-10-05",
+      "expectedDate": "2026-10-22"
+    },
+    {
+      "orderId": 1103,
+      "supplierId": 3,
+      "partId": 1,
+      "quantity": 100,
+      "cost": 9500,
+      "orderDate": "2026-10-05",
+      "expectedDate": "2026-10-21"
+    },
+    {
+      "orderId": 1104,
+      "supplierId": 1,
+      "partId": 2,
+      "quantity": 60,
+      "cost": 15000,
+      "orderDate": "2026-10-15",
+      "expectedDate": "2026-10-28"
+    },
+    {
+      "orderId": 1105,
+      "supplierId": 2,
+      "partId": 2,
+      "quantity": 60,
+      "cost": 15500,
+      "orderDate": "2026-10-15",
+      "expectedDate": "2026-10-29"
+    },
+    {
+      "orderId": 1106,
+      "supplierId": 3,
+      "partId": 2,
+      "quantity": 60,
+      "cost": 14500,
+      "orderDate": "2026-10-15",
+      "expectedDate": "2026-10-23"
+    }
+  ],
+  "deliveries": [
+    {
+      "deliveryId": 2001,
+      "orderId": 1001,
+      "deliveryDate": "2026-04-18",
+      "deliveryQuantity": 40,
+      "deliveryStatus": "PARTIAL"
+    },
+    {
+      "deliveryId": 2002,
+      "orderId": 1001,
+      "deliveryDate": "2026-04-20",
+      "deliveryQuantity": 60,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2003,
+      "orderId": 1002,
+      "deliveryDate": "2026-04-18",
+      "deliveryQuantity": 100,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2004,
+      "orderId": 1003,
+      "deliveryDate": "2026-04-18",
+      "deliveryQuantity": 50,
+      "deliveryStatus": "PARTIAL"
+    },
+    {
+      "deliveryId": 2005,
+      "orderId": 1003,
+      "deliveryDate": "2026-04-23",
+      "deliveryQuantity": 50,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2006,
+      "orderId": 1004,
+      "deliveryDate": "2026-05-19",
+      "deliveryQuantity": 60,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2007,
+      "orderId": 1005,
+      "deliveryDate": "2026-05-18",
+      "deliveryQuantity": 60,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2008,
+      "orderId": 1006,
+      "deliveryDate": "2026-05-22",
+      "deliveryQuantity": 60,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2009,
+      "orderId": 1007,
+      "deliveryDate": "2026-06-18",
+      "deliveryQuantity": 16,
+      "deliveryStatus": "PARTIAL"
+    },
+    {
+      "deliveryId": 2010,
+      "orderId": 1007,
+      "deliveryDate": "2026-06-20",
+      "deliveryQuantity": 24,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2011,
+      "orderId": 1008,
+      "deliveryDate": "2026-06-18",
+      "deliveryQuantity": 40,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2012,
+      "orderId": 1009,
+      "deliveryDate": "2026-06-22",
+      "deliveryQuantity": 40,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2013,
+      "orderId": 1010,
+      "deliveryDate": "2026-07-19",
+      "deliveryQuantity": 200,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2014,
+      "orderId": 1011,
+      "deliveryDate": "2026-07-18",
+      "deliveryQuantity": 200,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2015,
+      "orderId": 1012,
+      "deliveryDate": "2026-07-18",
+      "deliveryQuantity": 100,
+      "deliveryStatus": "PARTIAL"
+    },
+    {
+      "deliveryId": 2016,
+      "orderId": 1012,
+      "deliveryDate": "2026-07-23",
+      "deliveryQuantity": 100,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2017,
+      "orderId": 1013,
+      "deliveryDate": "2026-08-18",
+      "deliveryQuantity": 48,
+      "deliveryStatus": "PARTIAL"
+    },
+    {
+      "deliveryId": 2018,
+      "orderId": 1013,
+      "deliveryDate": "2026-08-20",
+      "deliveryQuantity": 72,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2019,
+      "orderId": 1014,
+      "deliveryDate": "2026-08-18",
+      "deliveryQuantity": 120,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2020,
+      "orderId": 1015,
+      "deliveryDate": "2026-08-22",
+      "deliveryQuantity": 120,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2021,
+      "orderId": 1016,
+      "deliveryDate": "2026-09-19",
+      "deliveryQuantity": 80,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2022,
+      "orderId": 1017,
+      "deliveryDate": "2026-09-18",
+      "deliveryQuantity": 80,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2023,
+      "orderId": 1018,
+      "deliveryDate": "2026-09-22",
+      "deliveryQuantity": 80,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2024,
+      "orderId": 1101,
+      "deliveryDate": "2026-10-18",
+      "deliveryQuantity": 40,
+      "deliveryStatus": "PARTIAL"
+    },
+    {
+      "deliveryId": 2025,
+      "orderId": 1102,
+      "deliveryDate": "2026-10-20",
+      "deliveryQuantity": 100,
+      "deliveryStatus": "COMPLETED"
+    },
+    {
+      "deliveryId": 2026,
+      "orderId": 1104,
+      "deliveryDate": "2026-10-22",
+      "deliveryQuantity": 20,
+      "deliveryStatus": "PARTIAL"
+    },
+    {
+      "deliveryId": 2027,
+      "orderId": 1106,
+      "deliveryDate": "2026-10-23",
+      "deliveryQuantity": 60,
+      "deliveryStatus": "COMPLETED"
+    }
+  ],
+  "complaints": [
+    {
+      "complaintId": 3001,
+      "partId": 1,
+      "deliveryId": 2002,
+      "complaintDate": "2026-04-22",
+      "defectType": "SURFACE_DAMAGE",
+      "complaintMessage": "실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함."
+    },
+    {
+      "complaintId": 3002,
+      "partId": 2,
+      "deliveryId": 2007,
+      "complaintDate": "2026-05-20",
+      "defectType": "PACKAGING_DAMAGE",
+      "complaintMessage": "연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함."
+    },
+    {
+      "complaintId": 3003,
+      "partId": 1,
+      "deliveryId": 2005,
+      "complaintDate": "2026-04-25",
+      "defectType": "MISSING_LABEL",
+      "complaintMessage": "실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청함."
+    },
+    {
+      "complaintId": 3004,
+      "partId": 3,
+      "deliveryId": 2012,
+      "complaintDate": "2026-06-24",
+      "defectType": "SURFACE_DAMAGE",
+      "complaintMessage": "베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함."
+    },
+    {
+      "complaintId": 3005,
+      "partId": 1,
+      "deliveryId": 2016,
+      "complaintDate": "2026-07-25",
+      "defectType": "DIMENSION_CHECK",
+      "complaintMessage": "실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함."
+    },
+    {
+      "complaintId": 3006,
+      "partId": 3,
+      "deliveryId": 2023,
+      "complaintDate": "2026-09-24",
+      "defectType": "PACKAGING_DAMAGE",
+      "complaintMessage": "베어링 완충 포장이 부족해 포장 보강을 요청함."
+    },
+    {
+      "complaintId": 3007,
+      "partId": 1,
+      "deliveryId": 2024,
+      "complaintDate": "2026-10-20",
+      "defectType": "MISSING_LABEL",
+      "complaintMessage": "분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함."
+    },
+    {
+      "complaintId": 3008,
+      "partId": 2,
+      "deliveryId": 2027,
+      "complaintDate": "2026-10-23",
+      "defectType": "OPERATION_CHECK",
+      "complaintMessage": "입고된 연료 분사 밸브에 대한 작동 확인 요청이 접수됨."
+    }
+  ]
+}

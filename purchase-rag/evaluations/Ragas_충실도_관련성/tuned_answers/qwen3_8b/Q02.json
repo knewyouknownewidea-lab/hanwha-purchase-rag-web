@@ -1,0 +1,77 @@
+{
+  "model": "qwen3:8b",
+  "id": "Q02",
+  "question": "가상 B사의 저장된 Q 점수는 얼마야?",
+  "response": "가상 B사의 저장된 Q 점수는 94입니다. [E1]",
+  "retrieved_contexts": [
+    "[협력사 정보]\n협력사 ID: 2\n협력사명: 가상 B사\n협력사 설명: RAG 테스트용 가상 협력사 B. 세 종류의 부품을 공급한다.\nQ 저장 점수: 94\nD 저장 점수: 95\nT 저장 점수: 92\nE 저장 점수: 90\nC 계산값: 14875.0\nC 계산식: 해당 협력사의 AVG(orders.cost). NULL cost는 평균에서 제외하고 대상 값이 없으면 0을 표시한다.\nQ/D/T/E 점수의 산출 근거와 평가기간은 현재 DB에 포함되어 있지 않다.\nC 계산에 연결된 발주별 비용값:\n발주 ID 1002: cost=10700\n발주 ID 1005: cost=15600\n발주 ID 1008: cost=20500\n발주 ID 1011: cost=10400\n발주 ID 1014: cost=15300\n발주 ID 1017: cost=20500\n발주 ID 1102: cost=10500\n발주 ID 1105: cost=15500"
+  ],
+  "sources": [
+    {
+      "evidence_id": "E1",
+      "chunk_id": "supplier-2:db",
+      "parent_document_id": "supplier-2",
+      "source": {
+        "document_type": "supplier",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "supplier",
+          "orders"
+        ],
+        "source_refs": [
+          "supplier:2",
+          "orders:1002",
+          "orders:1005",
+          "orders:1008",
+          "orders:1011",
+          "orders:1014",
+          "orders:1017",
+          "orders:1102",
+          "orders:1105"
+        ],
+        "supplier_id": 2,
+        "calculation_order_ids": [
+          1002,
+          1005,
+          1008,
+          1011,
+          1014,
+          1017,
+          1102,
+          1105
+        ]
+      },
+      "similarity": null
+    }
+  ],
+  "model_digest": "500a1f067a9f782620b40bee6f7b0c89e17ae61f686b92c24933e4ca4b2b8b41",
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 8192,
+    "num_predict": 1024,
+    "num_gpu": 0,
+    "num_thread": 4
+  },
+  "truncated": false,
+  "input_budget_warning": false,
+  "prompt_sha256": "24f0ad389bc21b190baeebc0e0aa965c6812ce91e0a5872184e405a917bad279",
+  "raw_response": {
+    "model": "qwen3:8b",
+    "created_at": "2026-10-25T16:52:00.41152Z",
+    "message": {
+      "role": "assistant",
+      "content": "가상 B사의 저장된 Q 점수는 94입니다. [E1]"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 14030204800,
+    "load_duration": 11042100,
+    "prompt_eval_count": 915,
+    "prompt_eval_cached_count": 503,
+    "prompt_eval_duration": 10549012000,
+    "eval_count": 22,
+    "eval_duration": 3465594000
+  }
+}

@@ -1,0 +1,79 @@
+[
+  {
+    "competitor": "가온중공업 엔진사업부(가상)",
+    "itemCode": "ITM-1001",
+    "supplierName": "업체 B",
+    "supplierId": "SUP-002",
+    "demand": "2026년 하반기 2행정 엔진 수주 증가로 라이너 발주 확대 예상",
+    "period": "2026년 하반기",
+    "date": "2026-09-18",
+    "source": "SAMPLE (가상 자료)",
+    "sourceUrl": null
+  },
+  {
+    "competitor": "가온중공업 엔진사업부(가상)",
+    "itemCode": "ITM-1004",
+    "supplierName": "업체 F",
+    "supplierId": "SUP-006",
+    "demand": "이중연료 엔진용 노즐 신규 승인 진행",
+    "period": "2026년 4분기",
+    "date": "2026-09-30",
+    "source": "SAMPLE (가상 자료)",
+    "sourceUrl": null
+  },
+  {
+    "competitor": "가온중공업 엔진사업부(가상)",
+    "itemCode": "ITM-1002",
+    "supplierName": "세광링텍(가상)",
+    "supplierId": null,
+    "demand": "피스톤 링 연간 단가 계약 갱신",
+    "period": "2027년",
+    "date": "2026-08-27",
+    "source": "SAMPLE (가상 자료)",
+    "sourceUrl": null
+  },
+  {
+    "competitor": "서진마린엔진(가상)",
+    "itemCode": "ITM-1010",
+    "supplierName": "한빛정밀(가상)",
+    "supplierId": null,
+    "demand": "과급기 노즐링 장기 공급 계약 체결",
+    "period": "2026~2028년",
+    "date": "2026-07-14",
+    "source": "SAMPLE (가상 자료)",
+    "sourceUrl": null
+  },
+  {
+    "competitor": "서진마린엔진(가상)",
+    "itemCode": "ITM-1003",
+    "supplierName": "업체 L",
+    "supplierId": "SUP-012",
+    "demand": "배기밸브 스핀들 물량 30% 증량 요청",
+    "period": "2026년 하반기",
+    "date": "2026-09-05",
+    "source": "SAMPLE (가상 자료)",
+    "sourceUrl": null
+  },
+  {
+    "competitor": "동해파워텍(가상)",
+    "itemCode": "ITM-1009",
+    "supplierName": "업체 J",
+    "supplierId": "SUP-010",
+    "demand": "고압 연료관 긴급 발주 (납기 단축 요청)",
+    "period": "2026년 4분기",
+    "date": "2026-10-02",
+    "source": "SAMPLE (가상 자료)",
+    "sourceUrl": null
+  },
+  {
+    "competitor": "동해파워텍(가상)",
+    "itemCode": "ITM-1005",
+    "supplierName": "대륙베어링(가상)",
+    "supplierId": null,
+    "demand": "메인 베어링 쉘 국산화 시험 발주",
+    "period": "2027년 상반기",
+    "date": "2026-08-11",
+    "source": "SAMPLE (가상 자료)",
+    "sourceUrl": null
+  }
+]

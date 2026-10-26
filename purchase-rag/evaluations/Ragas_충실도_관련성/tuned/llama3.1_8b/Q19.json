@@ -1,0 +1,10 @@
+{
+  "model": "llama3.1:8b",
+  "id": "Q19",
+  "input_hash": "a1f7ca9b022607d7311e371502aaed71d6bc41b81e45eef918dcc437e1abff65",
+  "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.6467661518910027
+  },
+  "errors": {}
+}

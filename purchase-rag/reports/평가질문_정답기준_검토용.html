@@ -1,0 +1,1107 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><title>평가 질문과 정답 기준 — 검토용 초안</title>
+<style>body{max-width:1100px;margin:36px auto;padding:0 24px;font:16px/1.75 system-ui,sans-serif;color:#203047}h1,h2,h3{line-height:1.4}table{border-collapse:collapse;width:100%;margin:16px 0}td,th{border:1px solid #cbd5df;padding:10px;text-align:left;vertical-align:top}th{background:#edf3f9}.notice{background:#fff3d7;padding:18px;border-left:5px solid #b07812}details{padding:12px 0;border-bottom:1px solid #d3dce4}summary{cursor:pointer;font-weight:650}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#f3f6f9;padding:12px;font-size:13px}.tag{font-size:13px;color:#526377}a{color:#1465ad}li{margin:7px 0}@media print{details{break-inside:avoid}body{font-size:10pt}}</style>
+<h1>평가 질문과 정답 기준</h1><p>구매관리 RAG · 사용자 검토용 초안 v0.1</p>
+<div class="notice"><b>아직 승인된 평가셋이 아닙니다.</b> 기존 60문항을 검토용으로 정리하고 복수 근거·비교·명확화 질문 4개를 추가했습니다. 모든 항목은 미검토입니다. 성능 재측정, BGE-M3 교체, 운영 임계값 변경은 하지 않았습니다.</div>
+<h2>먼저 합의할 평가 방식</h2>
+<ol><li><b>실제 업무 질문 확인:</b> 팀원이 평소 묻는 문장을 모으고, 이 데이터로 처리할 범위를 정합니다. 아래 문장을 실제 업무 표현으로 고쳐주세요.</li>
+<li><b>정답 검토:</b> 질문마다 요구한 사실, 원본 레코드, 필수 조건, 허용할 문서 조합, 거절 사유를 확인합니다. 가능하면 작성자와 별도의 업무 담당자가 교차 검토합니다.</li>
+<li><b>시험 종류 분리:</b> 의미 검색, ID/날짜 정확 조회, 근거 없음 거절, 여러 근거가 필요한 계산, 애매한 질문 처리를 따로 채점합니다. 모델만 시험하는 조건과 전체 백엔드 조건을 섞지 않습니다.</li>
+<li><b>개발/조정/최종 검증 분리:</b> 기존 60문항은 이미 결과를 본 개발 자료입니다. 새 업무 질문으로 최종 검증셋을 만들고 모델·임계값을 고정한 뒤 사용합니다. 같은 사실의 말바꾸기 질문은 같은 그룹에 둡니다. 결과를 보고 수정했다면 그 시험은 다시 개발 자료가 됩니다.</li>
+<li><b>평가 조건 고정:</b> DB 스냅샷, 문서화 코드, 청킹, 모델 버전, 검색 개수, 필터 사용 여부를 기록합니다. 숫자 ID/날짜 조회는 SQL·필터 방식도 비교 기준에 넣습니다.</li>
+<li><b>합격 기준 사전 합의:</b> 잘못된 근거를 통과시키는 비용과 정상 질문을 거절하는 비용을 정합니다. 오류 종류별 허용치를 검토 후 정하며, 이 문서에서는 임의의 합격률을 확정하지 않습니다.</li></ol>
+<h2>무엇을 측정할지</h2>
+<table><tr><th>시험</th><th>채점</th><th>주의점</th></tr>
+<tr><td>정답 근거가 하나인 의미 검색</td><td>Hit@1·3·5, MRR@10</td><td>정답 문서 ID 목록은 업무 검토 후 확정. 답변 정확도와 다름.</td></tr>
+<tr><td>근거가 여러 개인 질문</td><td>Recall@k = 필요한 근거 중 찾은 비율; 모든 필수 근거 확보율</td><td>여러 대체 근거가 가능한 경우 허용 조합을 따로 정의. 문서 하나 찾았다고 성공 처리하지 않음.</td></tr>
+<tr><td>ID·기간·협력사 조건</td><td>조건 일치율, 잘못된 대상 반환 건수, SQL 결과와 일치 여부</td><td>조건 필터를 미리 준 시험과 자연어에서 조건을 추출하는 시험을 분리.</td></tr>
+<tr><td>정답 없음</td><td>정답 없는 질문의 잘못 통과율 + 정답 있는 질문의 잘못 거절률</td><td>범위 밖 질문보다 비슷한 주제의 없는 속성/기록을 별도로 확인.</td></tr>
+<tr><td>향후 답변 생성</td><td>필수 사실 정확성, 인용 근거 일치, 근거 없는 주장 여부, 적절한 명확화</td><td>아직 구현 전이므로 이번 검색 성능으로 대신 주장하지 않음.</td></tr>
+<tr><td>운영</td><td>질문별 응답시간 중앙값·상위 95% 지점, 저장·갱신 시간</td><td>모델 최초 로딩은 분리. 소규모 결과를 대용량 성능으로 일반화하지 않음.</td></tr></table>
+<p>표본 수와 성공/실패 건수, 불확실성도 함께 보고합니다. 문항 수 하나를 만능 기준으로 정하지 않고 업무 종류와 독립적인 사례를 충분히 포함해야 합니다. 현재 협력사 3개·부품 3개의 가상 데이터만으로 운영 성능을 확정하기 어렵습니다.</p>
+<h2>검토할 때 확인할 네 가지</h2><ol><li>실제 사용자가 할 질문인가?</li><li>기대 답변의 값·조건·의미가 맞는가?</li><li>같이 인정해야 할 다른 근거가 있는가?</li><li>정보가 없을 때 거절해야 하는가, 추가 질문을 해야 하는가?</li></ol>
+<p>수정 의견은 <b>“Q13 유지 / N16 정답 수정: … / R04는 협력사를 되묻기만 허용”</b>처럼 ID로 전달할 수 있습니다. 아래 펼치기 항목은 열람용이며 승인 내용이 자동 저장되지는 않습니다.</p>
+<h2>데이터 범위</h2><pre>{
+  &quot;database_sha256&quot;: &quot;a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df&quot;,
+  &quot;table_counts&quot;: {
+    &quot;supplier&quot;: 3,
+    &quot;part&quot;: 3,
+    &quot;supplier_part&quot;: 9,
+    &quot;orders&quot;: 24,
+    &quot;delivery&quot;: 27,
+    &quot;complaint&quot;: 8
+  },
+  &quot;order_date_range&quot;: [
+    {
+      &quot;first&quot;: &quot;2026-04-05&quot;,
+      &quot;last&quot;: &quot;2026-10-15&quot;
+    }
+  ],
+  &quot;delivery_date_range&quot;: [
+    {
+      &quot;first&quot;: &quot;2026-04-18&quot;,
+      &quot;last&quot;: &quot;2026-10-23&quot;
+    }
+  ]
+}</pre><h2>검토 목록 — 64문항</h2><p>정확 조건 조회 22개 · 의미 검색 8개 · 서비스 범위 정책 10개 · 없는 속성 거절 10개 · 없는 기록 거절 10개 · 복수 근거 2개 · 비교·계산 1개 · 질문 명확화 1개</p><h3>정확 조건 조회</h3><details><summary>Q01 · 가상 A사의 저장된 Q 점수는 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 가상 A사의 저장된 Q 점수는 88입니다. 산출 근거나 평가기간은 확인할 수 없습니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier-1</p>
+<p><b>근거:</b> Q 저장 점수: 88</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select supplier_id,name,q_score from supplier where supplier_id=?
+매개변수: [1]
+조회 결과: [
+  {
+    &quot;supplier_id&quot;: 1,
+    &quot;name&quot;: &quot;가상 A사&quot;,
+    &quot;q_score&quot;: 88
+  }
+]</pre></details><details><summary>Q02 · 가상 B사의 저장된 Q 점수는 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 가상 B사의 저장된 Q 점수는 94입니다. 산출 근거나 평가기간은 확인할 수 없습니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier-2</p>
+<p><b>근거:</b> Q 저장 점수: 94</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select supplier_id,name,q_score from supplier where supplier_id=?
+매개변수: [2]
+조회 결과: [
+  {
+    &quot;supplier_id&quot;: 2,
+    &quot;name&quot;: &quot;가상 B사&quot;,
+    &quot;q_score&quot;: 94
+  }
+]</pre></details><details><summary>Q03 · 가상 C사의 저장된 Q 점수는 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 가상 C사의 저장된 Q 점수는 78입니다. 산출 근거나 평가기간은 확인할 수 없습니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier-3</p>
+<p><b>근거:</b> Q 저장 점수: 78</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select supplier_id,name,q_score from supplier where supplier_id=?
+매개변수: [3]
+조회 결과: [
+  {
+    &quot;supplier_id&quot;: 3,
+    &quot;name&quot;: &quot;가상 C사&quot;,
+    &quot;q_score&quot;: 78
+  }
+]</pre></details><details><summary>Q04 · 가상 A사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 해당 협력사·부품의 등록 단가는 10,000입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier_part-1</p>
+<p><b>근거:</b> 등록 단가(unit_price): 10000</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from supplier_part where supplier_part_id=?
+매개변수: [1]
+조회 결과: [
+  {
+    &quot;supplier_part_id&quot;: 1,
+    &quot;supplier_id&quot;: 1,
+    &quot;part_id&quot;: 1,
+    &quot;unit_price&quot;: 10000
+  }
+]</pre></details><details><summary>Q05 · 가상 A사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 해당 협력사·부품의 등록 단가는 15,000입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier_part-2</p>
+<p><b>근거:</b> 등록 단가(unit_price): 15000</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from supplier_part where supplier_part_id=?
+매개변수: [2]
+조회 결과: [
+  {
+    &quot;supplier_part_id&quot;: 2,
+    &quot;supplier_id&quot;: 1,
+    &quot;part_id&quot;: 2,
+    &quot;unit_price&quot;: 15000
+  }
+]</pre></details><details><summary>Q06 · 가상 A사에서 공급하는 베어링의 현재 등록 단가가 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 해당 협력사·부품의 등록 단가는 20,000입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier_part-3</p>
+<p><b>근거:</b> 등록 단가(unit_price): 20000</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from supplier_part where supplier_part_id=?
+매개변수: [3]
+조회 결과: [
+  {
+    &quot;supplier_part_id&quot;: 3,
+    &quot;supplier_id&quot;: 1,
+    &quot;part_id&quot;: 3,
+    &quot;unit_price&quot;: 20000
+  }
+]</pre></details><details><summary>Q07 · 가상 B사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 해당 협력사·부품의 등록 단가는 10,500입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier_part-4</p>
+<p><b>근거:</b> 등록 단가(unit_price): 10500</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from supplier_part where supplier_part_id=?
+매개변수: [4]
+조회 결과: [
+  {
+    &quot;supplier_part_id&quot;: 4,
+    &quot;supplier_id&quot;: 2,
+    &quot;part_id&quot;: 1,
+    &quot;unit_price&quot;: 10500
+  }
+]</pre></details><details><summary>Q08 · 가상 B사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 해당 협력사·부품의 등록 단가는 15,500입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier_part-5</p>
+<p><b>근거:</b> 등록 단가(unit_price): 15500</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from supplier_part where supplier_part_id=?
+매개변수: [5]
+조회 결과: [
+  {
+    &quot;supplier_part_id&quot;: 5,
+    &quot;supplier_id&quot;: 2,
+    &quot;part_id&quot;: 2,
+    &quot;unit_price&quot;: 15500
+  }
+]</pre></details><details><summary>Q09 · 가상 B사에서 공급하는 베어링의 현재 등록 단가가 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 해당 협력사·부품의 등록 단가는 20,500입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier_part-6</p>
+<p><b>근거:</b> 등록 단가(unit_price): 20500</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from supplier_part where supplier_part_id=?
+매개변수: [6]
+조회 결과: [
+  {
+    &quot;supplier_part_id&quot;: 6,
+    &quot;supplier_id&quot;: 2,
+    &quot;part_id&quot;: 3,
+    &quot;unit_price&quot;: 20500
+  }
+]</pre></details><details><summary>Q10 · 가상 C사에서 공급하는 실린더 라이너의 현재 등록 단가가 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 해당 협력사·부품의 등록 단가는 9,500입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier_part-7</p>
+<p><b>근거:</b> 등록 단가(unit_price): 9500</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from supplier_part where supplier_part_id=?
+매개변수: [7]
+조회 결과: [
+  {
+    &quot;supplier_part_id&quot;: 7,
+    &quot;supplier_id&quot;: 3,
+    &quot;part_id&quot;: 1,
+    &quot;unit_price&quot;: 9500
+  }
+]</pre></details><details><summary>Q11 · 가상 C사에서 공급하는 연료 분사 밸브의 현재 등록 단가가 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 해당 협력사·부품의 등록 단가는 14,500입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier_part-8</p>
+<p><b>근거:</b> 등록 단가(unit_price): 14500</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from supplier_part where supplier_part_id=?
+매개변수: [8]
+조회 결과: [
+  {
+    &quot;supplier_part_id&quot;: 8,
+    &quot;supplier_id&quot;: 3,
+    &quot;part_id&quot;: 2,
+    &quot;unit_price&quot;: 14500
+  }
+]</pre></details><details><summary>Q12 · 가상 C사에서 공급하는 베어링의 현재 등록 단가가 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 해당 협력사·부품의 등록 단가는 19,500입니다. 가상데이터 설정상 원/개이며 실제 운영 단위는 미확인입니다. 과거 발주의 cost를 현재 등록 단가로 대체하면 안 됩니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier_part-9</p>
+<p><b>근거:</b> 등록 단가(unit_price): 19500</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from supplier_part where supplier_part_id=?
+매개변수: [9]
+조회 결과: [
+  {
+    &quot;supplier_part_id&quot;: 9,
+    &quot;supplier_id&quot;: 3,
+    &quot;part_id&quot;: 3,
+    &quot;unit_price&quot;: 19500
+  }
+]</pre></details><details><summary>Q13 · 1101번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 발주 1101: 주문 100개, 기록상 누적 납품 40개, 차이 60개. 저장된 납품 기록 기준이며 미래 납품 여부는 판단하지 않습니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> order-1101</p>
+<p><b>근거:</b> 발주 수량과 기록상 납품 수량의 차이: 60</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?
+매개변수: [1101]
+조회 결과: [
+  {
+    &quot;order_id&quot;: 1101,
+    &quot;quantity&quot;: 100,
+    &quot;delivered_quantity&quot;: 40,
+    &quot;remaining_quantity&quot;: 60
+  }
+]</pre></details><details><summary>Q14 · 1102번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 발주 1102: 주문 100개, 기록상 누적 납품 100개, 차이 0개. 저장된 납품 기록 기준이며 미래 납품 여부는 판단하지 않습니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> order-1102</p>
+<p><b>근거:</b> 발주 수량과 기록상 납품 수량의 차이: 0</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?
+매개변수: [1102]
+조회 결과: [
+  {
+    &quot;order_id&quot;: 1102,
+    &quot;quantity&quot;: 100,
+    &quot;delivered_quantity&quot;: 100,
+    &quot;remaining_quantity&quot;: 0
+  }
+]</pre></details><details><summary>Q15 · 1103번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 발주 1103: 주문 100개, 기록상 누적 납품 0개, 차이 100개. 저장된 납품 기록 기준이며 미래 납품 여부는 판단하지 않습니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> order-1103</p>
+<p><b>근거:</b> 발주 수량과 기록상 납품 수량의 차이: 100</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?
+매개변수: [1103]
+조회 결과: [
+  {
+    &quot;order_id&quot;: 1103,
+    &quot;quantity&quot;: 100,
+    &quot;delivered_quantity&quot;: 0,
+    &quot;remaining_quantity&quot;: 100
+  }
+]</pre></details><details><summary>Q16 · 1104번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 발주 1104: 주문 60개, 기록상 누적 납품 20개, 차이 40개. 저장된 납품 기록 기준이며 미래 납품 여부는 판단하지 않습니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> order-1104</p>
+<p><b>근거:</b> 발주 수량과 기록상 납품 수량의 차이: 40</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?
+매개변수: [1104]
+조회 결과: [
+  {
+    &quot;order_id&quot;: 1104,
+    &quot;quantity&quot;: 60,
+    &quot;delivered_quantity&quot;: 20,
+    &quot;remaining_quantity&quot;: 40
+  }
+]</pre></details><details><summary>Q17 · 1105번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 발주 1105: 주문 60개, 기록상 누적 납품 0개, 차이 60개. 저장된 납품 기록 기준이며 미래 납품 여부는 판단하지 않습니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> order-1105</p>
+<p><b>근거:</b> 발주 수량과 기록상 납품 수량의 차이: 60</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?
+매개변수: [1105]
+조회 결과: [
+  {
+    &quot;order_id&quot;: 1105,
+    &quot;quantity&quot;: 60,
+    &quot;delivered_quantity&quot;: 0,
+    &quot;remaining_quantity&quot;: 60
+  }
+]</pre></details><details><summary>Q18 · 1106번 발주에서 주문 수량과 지금까지 납품된 수량의 차이는 얼마야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 발주 1106: 주문 60개, 기록상 누적 납품 60개, 차이 0개. 저장된 납품 기록 기준이며 미래 납품 여부는 판단하지 않습니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> order-1106</p>
+<p><b>근거:</b> 발주 수량과 기록상 납품 수량의 차이: 0</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select order_id,quantity,delivered_quantity,remaining_quantity from v_order_status where order_id=?
+매개변수: [1106]
+조회 결과: [
+  {
+    &quot;order_id&quot;: 1106,
+    &quot;quantity&quot;: 60,
+    &quot;delivered_quantity&quot;: 60,
+    &quot;remaining_quantity&quot;: 0
+  }
+]</pre></details><details><summary>Q27 · 2026년 5월에 가상 A사에 발주한 연료 분사 밸브의 발주 수량은?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 질문의 월·협력사·부품에 해당하는 발주 1004의 주문 수량은 60개입니다. 납품 수량과 구분합니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> order-1004</p>
+<p><b>근거:</b> 발주 수량(quantity): 60</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from orders where order_id=?
+매개변수: [1004]
+조회 결과: [
+  {
+    &quot;order_id&quot;: 1004,
+    &quot;supplier_id&quot;: 1,
+    &quot;part_id&quot;: 2,
+    &quot;quantity&quot;: 60,
+    &quot;cost&quot;: 15100,
+    &quot;order_date&quot;: &quot;2026-05-05&quot;,
+    &quot;expected_date&quot;: &quot;2026-05-20&quot;
+  }
+]</pre></details><details><summary>Q28 · 2026년 6월 가상 B사의 베어링 주문 수량을 알려줘.</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 질문의 월·협력사·부품에 해당하는 발주 1008의 주문 수량은 40개입니다. 납품 수량과 구분합니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> order-1008</p>
+<p><b>근거:</b> 발주 수량(quantity): 40</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from orders where order_id=?
+매개변수: [1008]
+조회 결과: [
+  {
+    &quot;order_id&quot;: 1008,
+    &quot;supplier_id&quot;: 2,
+    &quot;part_id&quot;: 3,
+    &quot;quantity&quot;: 40,
+    &quot;cost&quot;: 20500,
+    &quot;order_date&quot;: &quot;2026-06-05&quot;,
+    &quot;expected_date&quot;: &quot;2026-06-20&quot;
+  }
+]</pre></details><details><summary>Q29 · 2026년 7월에 가상 A사에 주문한 실린더 라이너의 수량은?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 질문의 월·협력사·부품에 해당하는 발주 1010의 주문 수량은 200개입니다. 납품 수량과 구분합니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> order-1010</p>
+<p><b>근거:</b> 발주 수량(quantity): 200</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from orders where order_id=?
+매개변수: [1010]
+조회 결과: [
+  {
+    &quot;order_id&quot;: 1010,
+    &quot;supplier_id&quot;: 1,
+    &quot;part_id&quot;: 1,
+    &quot;quantity&quot;: 200,
+    &quot;cost&quot;: 9900,
+    &quot;order_date&quot;: &quot;2026-07-05&quot;,
+    &quot;expected_date&quot;: &quot;2026-07-20&quot;
+  }
+]</pre></details><details><summary>Q30 · 2026년 8월 가상 C사에 발주한 연료 분사 밸브는 몇 개야?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 질문의 월·협력사·부품에 해당하는 발주 1015의 주문 수량은 120개입니다. 납품 수량과 구분합니다.</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> order-1015</p>
+<p><b>근거:</b> 발주 수량(quantity): 120</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from orders where order_id=?
+매개변수: [1015]
+조회 결과: [
+  {
+    &quot;order_id&quot;: 1015,
+    &quot;supplier_id&quot;: 3,
+    &quot;part_id&quot;: 2,
+    &quot;quantity&quot;: 120,
+    &quot;cost&quot;: 14300,
+    &quot;order_date&quot;: &quot;2026-08-05&quot;,
+    &quot;expected_date&quot;: &quot;2026-08-20&quot;
+  }
+]</pre></details><h3>의미 검색</h3><details><summary>Q19 · 실린더 라이너 겉면에 스크래치가 나서 원인과 조치 의견을 요청한 민원을 찾아줘.</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 민원 3001: 실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함. (접수일 2026-04-22)</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> complaint-3001</p>
+<p><b>근거:</b> 실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함.</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from complaint where complaint_id=?
+매개변수: [3001]
+조회 결과: [
+  {
+    &quot;complaint_id&quot;: 3001,
+    &quot;part_id&quot;: 1,
+    &quot;delivery_id&quot;: 2002,
+    &quot;complaint_date&quot;: &quot;2026-04-22&quot;,
+    &quot;defect_type&quot;: &quot;SURFACE_DAMAGE&quot;,
+    &quot;complaint_message&quot;: &quot;실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함.&quot;
+  }
+]</pre></details><details><summary>Q20 · 연료 분사 밸브를 싸고 있는 바깥 포장이 망가져 개선을 요구한 건은?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 민원 3002: 연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함. (접수일 2026-05-20)</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> complaint-3002</p>
+<p><b>근거:</b> 연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함.</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from complaint where complaint_id=?
+매개변수: [3002]
+조회 결과: [
+  {
+    &quot;complaint_id&quot;: 3002,
+    &quot;part_id&quot;: 2,
+    &quot;delivery_id&quot;: 2007,
+    &quot;complaint_date&quot;: &quot;2026-05-20&quot;,
+    &quot;defect_type&quot;: &quot;PACKAGING_DAMAGE&quot;,
+    &quot;complaint_message&quot;: &quot;연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함.&quot;
+  }
+]</pre></details><details><summary>Q21 · 가상 C사의 실린더 라이너 포장에 부품을 식별하는 라벨이 빠졌다는 민원은?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 민원 3003: 실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청함. (접수일 2026-04-25)</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> complaint-3003</p>
+<p><b>근거:</b> 실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청함.</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from complaint where complaint_id=?
+매개변수: [3003]
+조회 결과: [
+  {
+    &quot;complaint_id&quot;: 3003,
+    &quot;part_id&quot;: 1,
+    &quot;delivery_id&quot;: 2005,
+    &quot;complaint_date&quot;: &quot;2026-04-25&quot;,
+    &quot;defect_type&quot;: &quot;MISSING_LABEL&quot;,
+    &quot;complaint_message&quot;: &quot;실린더 라이너 포장에 부품 식별 라벨이 누락되어 식별 정보 확인을 요청함.&quot;
+  }
+]</pre></details><details><summary>Q22 · 베어링 표면이 찍혀 납품 상태를 확인해 달라는 민원을 찾아줘.</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 민원 3004: 베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함. (접수일 2026-06-24)</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> complaint-3004</p>
+<p><b>근거:</b> 베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함.</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from complaint where complaint_id=?
+매개변수: [3004]
+조회 결과: [
+  {
+    &quot;complaint_id&quot;: 3004,
+    &quot;part_id&quot;: 3,
+    &quot;delivery_id&quot;: 2012,
+    &quot;complaint_date&quot;: &quot;2026-06-24&quot;,
+    &quot;defect_type&quot;: &quot;SURFACE_DAMAGE&quot;,
+    &quot;complaint_message&quot;: &quot;베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함.&quot;
+  }
+]</pre></details><details><summary>Q23 · 실린더 라이너 크기가 맞는지 추가 검토를 요청한 민원은?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 민원 3005: 실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함. (접수일 2026-07-25)</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> complaint-3005</p>
+<p><b>근거:</b> 실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함.</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from complaint where complaint_id=?
+매개변수: [3005]
+조회 결과: [
+  {
+    &quot;complaint_id&quot;: 3005,
+    &quot;part_id&quot;: 1,
+    &quot;delivery_id&quot;: 2016,
+    &quot;complaint_date&quot;: &quot;2026-07-25&quot;,
+    &quot;defect_type&quot;: &quot;DIMENSION_CHECK&quot;,
+    &quot;complaint_message&quot;: &quot;실린더 라이너 치수에 대한 추가 확인 요청이 접수되어 검토 의견을 요청함.&quot;
+  }
+]</pre></details><details><summary>Q24 · 베어링을 보호하는 완충재가 부족해서 포장을 보강해 달라는 요청은?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 민원 3006: 베어링 완충 포장이 부족해 포장 보강을 요청함. (접수일 2026-09-24)</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> complaint-3006</p>
+<p><b>근거:</b> 베어링 완충 포장이 부족해 포장 보강을 요청함.</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from complaint where complaint_id=?
+매개변수: [3006]
+조회 결과: [
+  {
+    &quot;complaint_id&quot;: 3006,
+    &quot;part_id&quot;: 3,
+    &quot;delivery_id&quot;: 2023,
+    &quot;complaint_date&quot;: &quot;2026-09-24&quot;,
+    &quot;defect_type&quot;: &quot;PACKAGING_DAMAGE&quot;,
+    &quot;complaint_message&quot;: &quot;베어링 완충 포장이 부족해 포장 보강을 요청함.&quot;
+  }
+]</pre></details><details><summary>Q25 · 가상 A사에서 나눠 받은 실린더 라이너 일부의 식별 라벨을 확인해 달라는 민원은?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 민원 3007: 분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함. (접수일 2026-10-20)</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> complaint-3007</p>
+<p><b>근거:</b> 분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함.</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from complaint where complaint_id=?
+매개변수: [3007]
+조회 결과: [
+  {
+    &quot;complaint_id&quot;: 3007,
+    &quot;part_id&quot;: 1,
+    &quot;delivery_id&quot;: 2024,
+    &quot;complaint_date&quot;: &quot;2026-10-20&quot;,
+    &quot;defect_type&quot;: &quot;MISSING_LABEL&quot;,
+    &quot;complaint_message&quot;: &quot;분할 납품된 실린더 라이너 포장 일부의 식별 라벨 확인을 요청함.&quot;
+  }
+]</pre></details><details><summary>Q26 · 입고된 연료 분사 밸브가 제대로 작동하는지 확인해 달라는 민원은?</summary>
+<p class="tag">미검토 | 답변 가능 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 민원 3008: 입고된 연료 분사 밸브에 대한 작동 확인 요청이 접수됨. (접수일 2026-10-23)</p><p><b>성공/실패 기준:</b> 요구한 사실과 대상 ID·조건이 일치하는 근거를 반환. 다른 협력사/월/발주 또는 민원 원인·조치 결과를 지어내면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> complaint-3008</p>
+<p><b>근거:</b> 입고된 연료 분사 밸브에 대한 작동 확인 요청이 접수됨.</p><p>지정 문서는 확인된 정답 후보입니다. 같은 사실과 대상을 입증하는 다른 문서/SQL 근거도 검토 후 정답 집합에 추가할 수 있습니다.</p><pre>SQL: select * from complaint where complaint_id=?
+매개변수: [3008]
+조회 결과: [
+  {
+    &quot;complaint_id&quot;: 3008,
+    &quot;part_id&quot;: 2,
+    &quot;delivery_id&quot;: 2027,
+    &quot;complaint_date&quot;: &quot;2026-10-23&quot;,
+    &quot;defect_type&quot;: &quot;OPERATION_CHECK&quot;,
+    &quot;complaint_message&quot;: &quot;입고된 연료 분사 밸브에 대한 작동 확인 요청이 접수됨.&quot;
+  }
+]</pre></details><h3>서비스 범위 정책</h3><details><summary>N01 · 내일 서울 날씨는 어때?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p></details><details><summary>N02 · 김치찌개 만드는 방법을 알려줘.</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p></details><details><summary>N03 · 대한민국의 수도는 어디야?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p></details><details><summary>N04 · 파이썬 리스트 정렬 코드를 작성해줘.</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p></details><details><summary>N05 · 이번 주 축구 경기 결과를 알려줘.</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p></details><details><summary>N06 · 제주도 여행 숙소 추천해줘.</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p></details><details><summary>N07 · 미분과 적분의 차이는 뭐야?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p></details><details><summary>N08 · 노트북 배터리를 오래 쓰는 방법은?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p></details><details><summary>N09 · 오늘 달러 환율은 얼마야?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p></details><details><summary>N10 · 회사 휴가 신청 절차를 알려줘.</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 구매관리 데이터의 검색 범위를 벗어나 답변 근거를 제공할 수 없다고 안내합니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 6개 업무 테이블과 검색문서 47개에 해당 분야 자료가 없습니다. 외부 상식으로 답할지 여부는 제품 정책 검토가 필요합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p></details><h3>없는 속성 거절</h3><details><summary>N11 · 가상 A사 담당자의 이메일 주소를 알려줘.</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> supplier에 이메일 컬럼 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: pragma table_info(supplier)
+매개변수: []
+조회 결과: [
+  {
+    &quot;cid&quot;: 0,
+    &quot;name&quot;: &quot;supplier_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 1
+  },
+  {
+    &quot;cid&quot;: 1,
+    &quot;name&quot;: &quot;name&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 2,
+    &quot;name&quot;: &quot;info&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 3,
+    &quot;name&quot;: &quot;q_score&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 4,
+    &quot;name&quot;: &quot;d_score&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 5,
+    &quot;name&quot;: &quot;t_score&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 6,
+    &quot;name&quot;: &quot;e_score&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  }
+]</pre></details><details><summary>N12 · 가상 B사의 담당자 전화번호는?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> supplier에 전화번호 컬럼 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: pragma table_info(supplier)
+매개변수: []
+조회 결과: [
+  {
+    &quot;cid&quot;: 0,
+    &quot;name&quot;: &quot;supplier_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 1
+  },
+  {
+    &quot;cid&quot;: 1,
+    &quot;name&quot;: &quot;name&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 2,
+    &quot;name&quot;: &quot;info&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 3,
+    &quot;name&quot;: &quot;q_score&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 4,
+    &quot;name&quot;: &quot;d_score&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 5,
+    &quot;name&quot;: &quot;t_score&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 6,
+    &quot;name&quot;: &quot;e_score&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  }
+]</pre></details><details><summary>N13 · 가상 C사의 공장 주소는 어디야?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> supplier에 주소 컬럼 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: pragma table_info(supplier)
+매개변수: []
+조회 결과: [
+  {
+    &quot;cid&quot;: 0,
+    &quot;name&quot;: &quot;supplier_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 1
+  },
+  {
+    &quot;cid&quot;: 1,
+    &quot;name&quot;: &quot;name&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 2,
+    &quot;name&quot;: &quot;info&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 3,
+    &quot;name&quot;: &quot;q_score&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 4,
+    &quot;name&quot;: &quot;d_score&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 5,
+    &quot;name&quot;: &quot;t_score&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 6,
+    &quot;name&quot;: &quot;e_score&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  }
+]</pre></details><details><summary>N14 · 실린더 라이너의 재질과 무게는?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> part에 재질/무게 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: pragma table_info(part)
+매개변수: []
+조회 결과: [
+  {
+    &quot;cid&quot;: 0,
+    &quot;name&quot;: &quot;part_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 1
+  },
+  {
+    &quot;cid&quot;: 1,
+    &quot;name&quot;: &quot;part_name&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  }
+]</pre></details><details><summary>N15 · 베어링의 허용 회전수는 얼마야?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> part에 허용 회전수 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: pragma table_info(part)
+매개변수: []
+조회 결과: [
+  {
+    &quot;cid&quot;: 0,
+    &quot;name&quot;: &quot;part_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 1
+  },
+  {
+    &quot;cid&quot;: 1,
+    &quot;name&quot;: &quot;part_name&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  }
+]</pre></details><details><summary>N16 · 연료 분사 밸브의 제조사 보증 기간은?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 보증 기간 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: pragma table_info(part)
+매개변수: []
+조회 결과: [
+  {
+    &quot;cid&quot;: 0,
+    &quot;name&quot;: &quot;part_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 1
+  },
+  {
+    &quot;cid&quot;: 1,
+    &quot;name&quot;: &quot;part_name&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  }
+]</pre></details><details><summary>N17 · 1101번 발주의 결제 완료일은 언제야?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> orders에 결제 완료일 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: pragma table_info(orders)
+매개변수: []
+조회 결과: [
+  {
+    &quot;cid&quot;: 0,
+    &quot;name&quot;: &quot;order_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 1
+  },
+  {
+    &quot;cid&quot;: 1,
+    &quot;name&quot;: &quot;supplier_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 2,
+    &quot;name&quot;: &quot;part_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 3,
+    &quot;name&quot;: &quot;quantity&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 4,
+    &quot;name&quot;: &quot;cost&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 5,
+    &quot;name&quot;: &quot;order_date&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 6,
+    &quot;name&quot;: &quot;expected_date&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  }
+]</pre></details><details><summary>N18 · 1102번 발주의 운송장 번호를 알려줘.</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 운송장 번호 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: pragma table_info(delivery)
+매개변수: []
+조회 결과: [
+  {
+    &quot;cid&quot;: 0,
+    &quot;name&quot;: &quot;delivery_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 1
+  },
+  {
+    &quot;cid&quot;: 1,
+    &quot;name&quot;: &quot;order_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 2,
+    &quot;name&quot;: &quot;delivery_date&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 3,
+    &quot;name&quot;: &quot;delivery_quantity&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 4,
+    &quot;name&quot;: &quot;delivery_status&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  }
+]</pre></details><details><summary>N19 · 3001번 민원의 최종 해결일은 언제야?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> complaint에 해결일 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: pragma table_info(complaint)
+매개변수: []
+조회 결과: [
+  {
+    &quot;cid&quot;: 0,
+    &quot;name&quot;: &quot;complaint_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 1
+  },
+  {
+    &quot;cid&quot;: 1,
+    &quot;name&quot;: &quot;part_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 2,
+    &quot;name&quot;: &quot;delivery_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 3,
+    &quot;name&quot;: &quot;complaint_date&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 4,
+    &quot;name&quot;: &quot;defect_type&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 5,
+    &quot;name&quot;: &quot;complaint_message&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  }
+]</pre></details><details><summary>N20 · 3008번 민원의 담당 처리자는 누구야?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 제공된 데이터에는 요청한 정보가 없어 확인할 수 없다고 안내합니다. 실제로 그 속성이 존재하지 않는다고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> complaint에 처리자 없음; 관련 자유서술 정보(info/complaint_message)도 정답 근거가 되는지 함께 검토합니다.</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: pragma table_info(complaint)
+매개변수: []
+조회 결과: [
+  {
+    &quot;cid&quot;: 0,
+    &quot;name&quot;: &quot;complaint_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 0,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 1
+  },
+  {
+    &quot;cid&quot;: 1,
+    &quot;name&quot;: &quot;part_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 2,
+    &quot;name&quot;: &quot;delivery_id&quot;,
+    &quot;type&quot;: &quot;INTEGER&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 3,
+    &quot;name&quot;: &quot;complaint_date&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 4,
+    &quot;name&quot;: &quot;defect_type&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  },
+  {
+    &quot;cid&quot;: 5,
+    &quot;name&quot;: &quot;complaint_message&quot;,
+    &quot;type&quot;: &quot;TEXT&quot;,
+    &quot;notnull&quot;: 1,
+    &quot;dflt_value&quot;: null,
+    &quot;pk&quot;: 0
+  }
+]</pre></details><h3>없는 기록 거절</h3><details><summary>N21 · 9999번 발주의 납품 수량은 얼마야?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> orders에 order_id=9999 없음</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: select * from orders where order_id=?
+매개변수: [9999]
+조회 결과: []</pre></details><details><summary>N22 · 8888번 발주의 납기 예정일은 언제야?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> orders에 order_id=8888 없음</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: select * from orders where order_id=?
+매개변수: [8888]
+조회 결과: []</pre></details><details><summary>N23 · 가상 D사의 등록된 Q 점수는 얼마야?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> supplier에 가상 D사 없음</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: select * from supplier where name=?
+매개변수: [&quot;가상 D사&quot;]
+조회 결과: []</pre></details><details><summary>N24 · 가상 E사의 베어링 등록 단가를 알려줘.</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> supplier에 가상 E사 없음</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: select * from supplier where name=?
+매개변수: [&quot;가상 E사&quot;]
+조회 결과: []</pre></details><details><summary>N25 · 2027년 1월 가상 A사의 실린더 라이너 발주 수량은?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 2027년 발주 없음</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: select * from orders where order_date &gt;= &#x27;2027-01-01&#x27; and order_date &lt; &#x27;2027-02-01&#x27;
+매개변수: []
+조회 결과: []</pre></details><details><summary>N26 · 2025년 12월 가상 B사의 베어링 납품 수량은?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> 2025년 납품 없음</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: select * from delivery where delivery_date &gt;= &#x27;2025-12-01&#x27; and delivery_date &lt; &#x27;2026-01-01&#x27;
+매개변수: []
+조회 결과: []</pre></details><details><summary>N27 · 9999번 민원에 적힌 불량 유형은?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> complaint에 complaint_id=9999 없음</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: select * from complaint where complaint_id=?
+매개변수: [9999]
+조회 결과: []</pre></details><details><summary>N28 · 8888번 민원의 접수 날짜는 언제야?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> complaint에 complaint_id=8888 없음</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: select * from complaint where complaint_id=?
+매개변수: [8888]
+조회 결과: []</pre></details><details><summary>N29 · 가상 A사가 공급하는 터보차저의 등록 단가는?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> part에 터보차저 없음</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: select * from part where part_name like &#x27;%터보차저%&#x27;
+매개변수: []
+조회 결과: []</pre></details><details><summary>N30 · 가상 B사가 공급하는 프로펠러의 단가는?</summary>
+<p class="tag">미검토 | 현재 데이터로 답변 불가 | 기존 시험 사용 문항 — 최종 검증용 아님</p>
+<p><b>기대 답변/동작:</b> 현재 DB 범위에서 해당 기록을 찾을 수 없다고 안내합니다. 다른 ID·협력사·연도의 값을 대신 답하지 않습니다. 기록이 없다는 이유로 수량을 0이라고 단정하지 않습니다.</p><p><b>성공/실패 기준:</b> 거절/조회 불가 사유를 표시하고 요청한 값은 추측하지 않음. 엉뚱한 고유 ID나 값을 근거로 채택하면 실패.</p>
+<p><b>확인된 정답 문서 후보:</b> 없음</p>
+<p><b>근거:</b> part에 프로펠러 없음</p><p>관련 문서가 검색되는 것과 질문의 답을 포함하는 것은 다릅니다.</p><pre>SQL: select * from part where part_name like &#x27;%프로펠러%&#x27;
+매개변수: []
+조회 결과: []</pre></details><h3>복수 근거</h3><details><summary>R01 · 표면에 긁힘이나 찍힘이 있다는 민원을 모두 찾아줘.</summary>
+<p class="tag">미검토 | 답변 가능 | 신규 초안 — 아직 평가하지 않음</p>
+<p><b>기대 답변/동작:</b> 민원 3001(실린더 라이너 긁힘)과 3004(베어링 찍힘)를 모두 제시합니다.</p><p><b>성공/실패 기준:</b> 두 민원 모두 검색해야 완전 성공. 하나만 찾으면 부분 성공이며 Hit@k 하나로 만점 처리하지 않습니다.</p>
+<p><b>확인된 정답 문서 후보:</b> complaint-3001, complaint-3004</p>
+<p><b>근거:</b> 아래 SQL 조회 결과를 기준으로 검토합니다.</p><p>문서 조합 또는 동등한 SQL 근거를 허용하는 방식은 검토 후 확정합니다.</p><pre>SQL: select complaint_id,complaint_message from complaint where defect_type=&#x27;SURFACE_DAMAGE&#x27; order by complaint_id
+매개변수: []
+조회 결과: [
+  {
+    &quot;complaint_id&quot;: 3001,
+    &quot;complaint_message&quot;: &quot;실린더 라이너 표면에 긁힘이 확인되어 원인 확인과 조치 의견을 요청함.&quot;
+  },
+  {
+    &quot;complaint_id&quot;: 3004,
+    &quot;complaint_message&quot;: &quot;베어링 표면에 찍힘 흔적이 확인되어 납품 상태에 대한 확인을 요청함.&quot;
+  }
+]</pre></details><details><summary>R02 · 포장 손상이나 완충 포장 부족으로 접수된 민원은?</summary>
+<p class="tag">미검토 | 답변 가능 | 신규 초안 — 아직 평가하지 않음</p>
+<p><b>기대 답변/동작:</b> 민원 3002(밸브 외부 포장 손상)와 3006(베어링 완충 포장 부족)를 제시합니다.</p><p><b>성공/실패 기준:</b> 두 민원을 모두 포함. 라벨 누락과 포장 파손의 범위를 사용자가 확인해야 합니다.</p>
+<p><b>확인된 정답 문서 후보:</b> complaint-3002, complaint-3006</p>
+<p><b>근거:</b> 아래 SQL 조회 결과를 기준으로 검토합니다.</p><p>문서 조합 또는 동등한 SQL 근거를 허용하는 방식은 검토 후 확정합니다.</p><pre>SQL: select complaint_id,complaint_message from complaint where defect_type=&#x27;PACKAGING_DAMAGE&#x27; order by complaint_id
+매개변수: []
+조회 결과: [
+  {
+    &quot;complaint_id&quot;: 3002,
+    &quot;complaint_message&quot;: &quot;연료 분사 밸브의 외부 포장이 손상되어 포장 상태 개선을 요청함.&quot;
+  },
+  {
+    &quot;complaint_id&quot;: 3006,
+    &quot;complaint_message&quot;: &quot;베어링 완충 포장이 부족해 포장 보강을 요청함.&quot;
+  }
+]</pre></details><h3>비교·계산</h3><details><summary>R03 · 실린더 라이너의 등록 단가가 가장 낮은 협력사와 가격은?</summary>
+<p class="tag">미검토 | 답변 가능 | 신규 초안 — 아직 평가하지 않음</p>
+<p><b>기대 답변/동작:</b> 가상 C사, 9,500. 비교 대상은 A사 10,000 / B사 10,500 / C사 9,500입니다.</p><p><b>성공/실패 기준:</b> 가격 세 개를 비교하거나 전체 대상에 대한 SQL 최솟값 근거가 필요. 9,500 문서 하나만 찾은 것으로 전체 최저가를 입증했다고 판정하지 않습니다.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier_part-1, supplier_part-4, supplier_part-7</p>
+<p><b>근거:</b> 아래 SQL 조회 결과를 기준으로 검토합니다.</p><p>문서 조합 또는 동등한 SQL 근거를 허용하는 방식은 검토 후 확정합니다.</p><pre>SQL: select s.name,sp.unit_price from supplier_part sp join supplier s using(supplier_id) where sp.part_id=1 order by sp.unit_price
+매개변수: []
+조회 결과: [
+  {
+    &quot;name&quot;: &quot;가상 C사&quot;,
+    &quot;unit_price&quot;: 9500
+  },
+  {
+    &quot;name&quot;: &quot;가상 A사&quot;,
+    &quot;unit_price&quot;: 10000
+  },
+  {
+    &quot;name&quot;: &quot;가상 B사&quot;,
+    &quot;unit_price&quot;: 10500
+  }
+]</pre></details><h3>질문 명확화</h3><details><summary>R04 · 실린더 라이너 단가 알려줘.</summary>
+<p class="tag">미검토 | 질문 명확화 또는 조건부 답변 | 신규 초안 — 아직 평가하지 않음</p>
+<p><b>기대 답변/동작:</b> 협력사를 되묻거나, 현재 등록 단가 기준임을 명시하고 A사 10,000 / B사 10,500 / C사 9,500을 구분해 제시합니다.</p><p><b>성공/실패 기준:</b> 협력사를 확인하지 않고 특정 가격 하나를 전체 단가처럼 답하면 실패. 과거 거래 가격과 현재 등록 단가의 의미도 구분합니다.</p>
+<p><b>확인된 정답 문서 후보:</b> supplier_part-1, supplier_part-4, supplier_part-7</p>
+<p><b>근거:</b> 아래 SQL 조회 결과를 기준으로 검토합니다.</p><p>문서 조합 또는 동등한 SQL 근거를 허용하는 방식은 검토 후 확정합니다.</p><pre>SQL: select s.name,sp.unit_price from supplier_part sp join supplier s using(supplier_id) where sp.part_id=1 order by s.supplier_id
+매개변수: []
+조회 결과: [
+  {
+    &quot;name&quot;: &quot;가상 A사&quot;,
+    &quot;unit_price&quot;: 10000
+  },
+  {
+    &quot;name&quot;: &quot;가상 B사&quot;,
+    &quot;unit_price&quot;: 10500
+  },
+  {
+    &quot;name&quot;: &quot;가상 C사&quot;,
+    &quot;unit_price&quot;: 9500
+  }
+]</pre></details><h2>참고한 평가 방법</h2><p><a href="https://www.sbert.net/docs/package_reference/sentence_transformer/evaluation.html">Sentence Transformers 공식 검색 평가 문서</a>: 질문·문서·정답 문서 집합으로 MRR·Recall 등을 계산하는 도구. 라이브러리를 바꾸어도 부실한 정답표가 자동으로 개선되지는 않습니다.</p>
+<p><a href="https://scikit-learn.org/1.5/modules/classification_threshold.html">scikit-learn 공식 임계값 조정 문서</a>: 임계값 조정 시 평가 데이터 분리와 과적합에 대한 설명.</p></html>

@@ -1,0 +1,17 @@
+{
+  "id": "Q20",
+  "input_hash": "3612fe9270b5d38944bfb7fa1bb6ff248b36039cd50bb859e73d8e198ca655ff",
+  "score": 1.0,
+  "error": null,
+  "ratings": [
+    {
+      "prompt_sha256": "992f12e40d57214d274676dbaad28b857e10368cf367d127a11d64e705359000",
+      "rating": 2
+    },
+    {
+      "prompt_sha256": "10ff3d2b04ddce961276eff2b401ac46fef74d16eee1eb12b604612554d8308d",
+      "rating": 2
+    }
+  ],
+  "valid_judge_prompts": 2
+}

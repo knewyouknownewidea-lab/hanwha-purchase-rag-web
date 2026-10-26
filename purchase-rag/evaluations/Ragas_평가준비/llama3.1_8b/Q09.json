@@ -1,0 +1,67 @@
+{
+  "stage": "generation",
+  "model": "llama3.1:8b",
+  "id": "Q09",
+  "question": "가상 B사에서 공급하는 베어링의 현재 등록 단가가 얼마야?",
+  "response": "20500 [E1]",
+  "reference": "요청한 협력사·부품의 현재 등록 단가는 20500입니다.",
+  "retrieved_contexts": [
+    "[협력사별 공급 부품]\n공급 관계 ID: 6\n협력사 ID: 2\n협력사명: 가상 B사\n부품 ID: 3\n부품명: 베어링(가상)\n등록 단가(unit_price): 20500"
+  ],
+  "sources": [
+    {
+      "evidence_id": "E1",
+      "chunk_id": "supplier_part-6:db",
+      "parent_document_id": "supplier_part-6",
+      "source": {
+        "document_type": "supplier_part",
+        "source_db": "구매관리_테스트.db",
+        "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+        "source_tables": [
+          "supplier_part",
+          "supplier",
+          "part"
+        ],
+        "source_refs": [
+          "supplier_part:6",
+          "supplier:2",
+          "part:3"
+        ],
+        "supplier_part_id": 6,
+        "supplier_id": 2,
+        "part_id": 3
+      },
+      "similarity": null
+    }
+  ],
+  "options": {
+    "temperature": 0,
+    "seed": 42,
+    "num_ctx": 8192,
+    "num_predict": 1024,
+    "num_gpu": 0,
+    "num_thread": 4
+  },
+  "prompt_sha256": "0609731f88dc6d610db006511c4e1800a492309df013f58f7fd1d385db50d16b",
+  "model_digest": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+  "elapsed_seconds": 3.25,
+  "truncated": false,
+  "input_budget_warning": false,
+  "raw_response": {
+    "model": "llama3.1:8b",
+    "created_at": "2026-10-25T13:41:07.4794577Z",
+    "message": {
+      "role": "assistant",
+      "content": "20500 [E1]"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 3245585300,
+    "load_duration": 11272800,
+    "prompt_eval_count": 343,
+    "prompt_eval_cached_count": 246,
+    "prompt_eval_duration": 2372597000,
+    "eval_count": 7,
+    "eval_duration": 857956000
+  }
+}
