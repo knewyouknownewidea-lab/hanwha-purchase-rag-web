@@ -81,12 +81,12 @@ function buildDocs(d: Derived): Doc[] {
     docs.push({
       hit: {
         key: `ct-${c.contractId}`,
-        tab: "contracts",
-        tabLabel: "원가-계약",
-        source: "원가-계약",
+        tab: "suppliers",
+        tabLabel: "협력업체",
+        source: "계약 단가",
         title: `${c.contractId} · ${c.itemName}`,
         subtitle: `${c.supplierName} · ${fmtMoney(c.unitPrice, c.currency)} (${fmtSignedPct(c.changeRate)}) · ${c.endDate ?? ""} 종료`,
-        rowKey: c.contractId,
+        rowKey: c.supplierId,
         supplierId: c.supplierId,
         itemCode: c.itemCode,
       },

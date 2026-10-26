@@ -324,7 +324,7 @@
   },
   "contracts": {
     "key": "contracts",
-    "label": "원가-계약",
+    "label": "계약 단가",
     "primaryKey": "contractId",
     "fields": [
       {

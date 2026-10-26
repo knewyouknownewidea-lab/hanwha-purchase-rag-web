@@ -301,7 +301,7 @@ function itemCandidates(ctx: Ctx, params: AnalysisParams): AnalysisResult {
 
   const sources: SourceRef[] = [
     { table: "purchaseOrders", label: "구매조달 발주", ids: pos.map((p) => p.poNo) },
-    { table: "contracts", label: "원가-계약", ids: raw.map((r) => r.contract?.contractId).filter(Boolean) as string[] },
+    { table: "contracts", label: "계약 단가", ids: raw.map((r) => r.contract?.contractId).filter(Boolean) as string[] },
     { table: "suppliers", label: "협력업체", ids: supplierIds },
   ];
 
@@ -561,7 +561,7 @@ function priceIncrease(ctx: Ctx, params: AnalysisParams): AnalysisResult {
     ].filter(Boolean),
     basis: ["변동률 = (최근 계약 단가 ÷ 직전 계약 단가 − 1) × 100", "단가 추이 차트는 발주 단가의 분기 평균을 첫 분기=100으로 환산한 지수", `기준 ${threshold}%는 ${params.threshold ? "질문에서 지정" : `${EVAL_CONFIG.name}의 예시값`}`],
     sources: [
-      { table: "contracts", label: "원가-계약", ids: list.map((c) => c.contractId) },
+      { table: "contracts", label: "계약 단가", ids: list.map((c) => c.contractId) },
       { table: "purchaseOrders", label: "구매조달 발주", ids: pairsPos.flatMap((x) => x.pos.map((p) => p.poNo)) },
     ],
     charts: [
@@ -734,7 +734,7 @@ function supplierProfile(ctx: Ctx, params: AnalysisParams): AnalysisResult {
     sources: [
       { table: "suppliers", label: "협력업체", ids: [sid] },
       { table: "purchaseOrders", label: "구매조달 발주", ids: pos.map((p) => p.poNo) },
-      { table: "contracts", label: "원가-계약", ids: d.contractViews.filter((c) => c.supplierId === sid).map((c) => c.contractId) },
+      { table: "contracts", label: "계약 단가", ids: d.contractViews.filter((c) => c.supplierId === sid).map((c) => c.contractId) },
     ],
     charts: [
       { id: "crit", title: "평가 항목별 점수", type: "bar", unit: "점", yLabel: "점수 (0~100)", categories: rows.map((r) => r.label), series: [{ key: "s", label: "점수", values: rows.map((r) => (r.values.score === null ? null : Number(r.values.score))) }], digits: 1, caption: rows.some((r) => r.values.score === null) ? "빈 칸은 데이터 누락 항목" : undefined },

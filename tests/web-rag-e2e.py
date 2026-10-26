@@ -1,6 +1,10 @@
 """실제 업로드 UI·Node 중계와 모의 게이트웨이로 웹 데이터 RAG 수명주기를 검증한다.
 
 실제 모델 검증은 별도로 수행한다. python tests/web-rag-e2e.py [캡처 폴더]
+
+v0.6.0: 챗봇의 질문 방식 선택(#chat-answer-mode)이 사용자 요청으로 삭제되어 이 화면 테스트는 실행할 수 없다.
+웹 데이터 RAG 코드·서버 API는 남아 있고 서버·클라이언트 단위 검사(npm run test:rag)로 계속 확인한다.
+화면에서 다시 쓰게 되면 이 테스트를 새 진입점에 맞춰 고친다.
 """
 import hashlib
 import json

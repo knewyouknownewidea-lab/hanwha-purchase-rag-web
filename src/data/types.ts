@@ -176,7 +176,7 @@ export const DATASET_LABEL: Record<DatasetKey, string> = {
   suppliers: "협력업체",
   items: "품목 마스터",
   purchaseOrders: "구매조달(발주)",
-  contracts: "원가-계약",
+  contracts: "계약 단가",
   inventory: "자재-공급관리(재고)",
   bom: "부품 분류(BOM 경로)",
   materialPrices: "원자재 시세",
@@ -200,12 +200,13 @@ export const DATASET_ORDER: DatasetKey[] = [
   "industryNews",
 ];
 
-export type TabKey = "suppliers" | "purchaseOrders" | "contracts" | "inventory";
+export type TabKey = "suppliers" | "purchaseOrders" | "materials" | "wages" | "inventory";
 
 export const TAB_LABEL: Record<TabKey, string> = {
   suppliers: "협력업체",
   purchaseOrders: "구매조달",
-  contracts: "원가-계약",
+  materials: "원자재 시세",
+  wages: "인건비 동향",
   inventory: "자재-공급관리",
 };
 
@@ -216,11 +217,9 @@ export const SUB_VIEWS: Record<TabKey, { id: string; label: string; dataset: Dat
     { id: "list", label: "발주 목록", dataset: "purchaseOrders" },
     { id: "payments", label: "대금 결제 일정", dataset: "contracts" },
   ],
-  contracts: [
-    { id: "list", label: "계약 단가", dataset: "contracts" },
-    { id: "materials", label: "원자재 시세", dataset: "materialPrices" },
-    { id: "wages", label: "인건비 동향", dataset: "laborWages" },
-  ],
+  // v0.6.0: 원가-계약 탭을 없애고 계약 단가는 협력업체 표·상세페이지로, 시세·임금은 독립 탭으로 옮겼다.
+  materials: [{ id: "materials", label: "원자재 시세", dataset: "materialPrices" }],
+  wages: [{ id: "wages", label: "인건비 동향", dataset: "laborWages" }],
   inventory: [
     { id: "list", label: "재고·공급", dataset: "inventory" },
     { id: "competitors", label: "경쟁사 공급 동향", dataset: "competitorSupply" },

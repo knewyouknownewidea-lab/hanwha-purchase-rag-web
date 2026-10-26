@@ -1,15 +1,16 @@
 // AI 챗봇: 왼쪽 아래 'AI에게 질문하기' 버튼 → 떠 있는 대화창 (이동·크기 조절·투명도, 이 브라우저에 위치 기억)
-import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent as RPointerEvent, type RefObject } from "react";
+import { useCallback, useEffect, useRef, useState, type KeyboardEvent, type PointerEvent as RPointerEvent, type RefObject } from "react";
 import { LuArrowUp, LuChevronDown, LuChevronUp, LuDatabase, LuEllipsis, LuEraser, LuEye, LuPanelRight, LuRotateCcw, LuX } from "react-icons/lu";
 import { STEPS } from "../ai/agent";
-import { SUGGESTED, useStore, type ChatMessage } from "../store/store";
-import { useAgent } from "../store/agent";
+import { useStore, type ChatMessage } from "../store/store";
+import { RAG_MODE, RAG_MODEL, useAgent } from "../store/agent";
 import { KeywordSearch } from "./KeywordSearch";
 import { ConfirmDialog } from "./ConfirmDialog";
-import { Chip } from "./ui";
 import { templateLabel } from "../templates/registry";
 import { readStore, writeStore } from "../platform/storage";
-import type { ChatMode, RagModel } from "../ai/rag";
+
+/** 완성된 추천 질문 대신 넣는 주요 키워드 (누르면 입력창에 단어만 넣는다) */
+export const KEYWORDS = ["협력사", "납기", "계약단가", "원자재", "인건비"];
 
 /** 'AI와 대화'임이 바로 보이는 아이콘: 말풍선 + 반짝임 */
 export function AiChatIcon({ size = 22 }: { size?: number }) {
@@ -190,11 +191,10 @@ function Assistant({ m }: { m: Extract<ChatMessage, { role: "assistant" }> }) {
 }
 
 function ChatBody({ inputRef }: { inputRef: RefObject<HTMLTextAreaElement | null> }) {
-  const { state, derived, dispatch } = useStore();
-  const { ask, chatMode, setChatMode, ragModel, setRagModel, ragConfig, ragChecking, ragConfigError, refreshRagConfig, webRagPhase } = useAgent();
-  const isRag = chatMode !== "analysis";
-  const isWebRag = chatMode === "web-rag";
-  const canSend = !state.busy && (!isRag || (!!ragConfig?.enabled && !!ragModel && !ragChecking));
+  const { state } = useStore();
+  const { ask, chatMode, ragReady, ragConfig, ragChecking, ragConfigError, refreshRagConfig } = useAgent();
+  // RAG를 쓸 수 없어도 보낼 수 있다: 답변은 만들지 않고 오른쪽 분석 화면만 바꾼다
+  const canSend = !state.busy;
   const [text, setText] = useState("");
   const listRef = useRef<HTMLDivElement>(null);
 
@@ -207,38 +207,23 @@ function ChatBody({ inputRef }: { inputRef: RefObject<HTMLTextAreaElement | null
     if (!text.trim() || !canSend) return;
     const q = text;
     setText("");
-    ask(q, { mode: chatMode });
+    ask(q, { mode: RAG_MODE });
   };
-  const item = state.selection.itemCode ? derived.itemsByCode.get(state.selection.itemCode) : null;
-  const sup = state.selection.supplierId ? derived.suppliersById.get(state.selection.supplierId) : null;
-
-  // 추천 질문: 기본 4개 + 관심 협력사·부품을 넣은 질문
-  const suggestions = useMemo(() => {
-    if (isWebRag) {
-      const po = state.data.purchaseOrders[0];
-      const supplier = state.data.suppliers[0];
-      const inventory = state.data.inventory[0];
-      return [po ? `${po.poNo} 발주 수량은?` : "등록된 발주 정보를 찾아줘", supplier ? `${supplier.supplierId} 협력사 정보를 알려줘` : "등록된 협력사 정보를 찾아줘", inventory ? `${inventory.itemCode} 현재 재고량은?` : "등록된 재고 정보를 찾아줘"];
-    }
-    if (isRag) return ["발주 1101 수량은?", "가상 A사 Q 점수", "베어링 완충 포장 민원 찾아줘"];
-    const out: string[] = [];
-    const fs = state.favorites.suppliers.map((id) => derived.suppliersById.get(id)?.name).filter(Boolean) as string[];
-    const fi = state.favorites.items.map((c) => derived.itemsByCode.get(c)?.name).filter(Boolean) as string[];
-    if (fs[0]) out.push(`${fs[0]} 평가 근거 보여줘`);
-    if (fi[0]) out.push(`${fi[0]} 후보 업체 비교해 줘`);
-    else if (fs[1]) out.push(`${fs[0]}랑 ${fs[1]} 비교해줘`);
-    return [...out, ...SUGGESTED];
-  }, [state.favorites, state.data, derived, isRag, isWebRag]);
+  // 키워드는 바로 보내지 않고 입력창에 넣어 사용자가 이어서 쓰게 한다
+  const addKeyword = (k: string) => {
+    setText((t) => (t.trim() ? `${t.trimEnd()} ${k} ` : `${k} `));
+    setTimeout(() => inputRef.current?.focus(), 0);
+  };
 
   const step = Math.min(state.progress, STEPS.length - 1);
   return (
     <>
-      {!isRag && <div className="chat-search">
+      <div className="chat-search">
         <KeywordSearch />
-      </div>}
+      </div>
       <div className="chat-list" ref={listRef} aria-live="polite">
-        {isRag && <p className="rag-intro">{isWebRag ? `현재 웹 데이터(${state.meta.label})의 협력사·발주·계약·재고·시세·동향을 검색합니다. 병합된 SAMPLE 행도 포함됩니다.` : "별도 구매 DB의 협력사·부품·발주·납품·민원을 질문하세요. 답변과 원본 참조를 이 대화창에 표시합니다."}</p>}
-        {state.messages.filter((m) => !isRag || m.id !== "welcome").map((m) =>
+        <p className="rag-intro">구매 DB의 협력사·부품·발주·납품·민원과 원자재 시세·직종별 인건비를 질문하세요. 답변과 원본 출처는 이 대화창에, 질문 대상의 분석 화면은 오른쪽 분석 결과창에 표시합니다.</p>
+        {state.messages.filter((m) => m.id !== "welcome").map((m) =>
           m.role === "user" ? (
             <div className="msg msg-user" key={m.id}>
               <p>{m.mode && m.mode !== "analysis" && <span className="user-rag-label">{m.mode === "web-rag" ? "웹 데이터 RAG · 업로드 포함" : "구매 DB RAG"}</span>}{m.text}</p>
@@ -259,57 +244,30 @@ function ChatBody({ inputRef }: { inputRef: RefObject<HTMLTextAreaElement | null
                 <i />
               </span>
               <span className="progress-step">
-                {isWebRag ? webRagPhase === "uploading" ? "웹 데이터를 검색 서버에 등록 중" : webRagPhase === "indexing" ? "웹 데이터 검색 준비 중" : "웹 데이터 검색·답변 생성 중" : isRag ? "구매 DB 검색·답변 생성 중" : <>{STEPS[step]} <small>
+                {chatMode === "analysis" ? <>{STEPS[step]} <small>
                   ({step + 1}/{STEPS.length}단계)
-                </small></>}
+                </small></> : `구매 DB 검색·답변 생성 중 (${RAG_MODEL})`}
               </span>
             </div>
           </div>
         )}
       </div>
       <div className="composer">
-        <div className={`chat-mode-controls ${isWebRag ? "is-web-rag" : ""}`}>
-          <label htmlFor="chat-answer-mode">질문 방식
-            <select id="chat-answer-mode" value={chatMode} disabled={state.busy} onChange={(e) => setChatMode(e.target.value as ChatMode)}>
-              <option value="analysis">웹 데이터 분석</option>
-              <option value="rag">구매 DB RAG</option>
-              <option value="web-rag">웹 데이터 RAG · 업로드 포함</option>
-            </select>
-          </label>
-          {isRag && <label htmlFor="rag-model">답변 모델
-            <select id="rag-model" value={ragModel} disabled={state.busy || ragChecking || !ragConfig?.enabled} onChange={(e) => setRagModel(e.target.value as RagModel | "")}>
-              <option value="">모델 선택</option>
-              {(ragConfig?.models ?? []).map((model) => <option key={model} value={model}>{model}</option>)}
-            </select>
-          </label>}
+        <div className="rag-connection" role="status">
+          <p>
+            <span className="rag-fixed">구매 DB RAG · {RAG_MODEL}</span>{" "}
+            {ragChecking ? "RAG 연결 설정 확인 중…" : ragConfigError ? ragConfigError : !ragConfig?.enabled ? "RAG 서버 연결 설정이 필요합니다." : !ragReady ? `RAG 서버 허용 모델에 ${RAG_MODEL}이 없습니다.` : "구매 DB 기준 답변 · 화면의 선택·업로드 데이터는 RAG에 적용되지 않습니다."}
+            {!ragChecking && !ragReady && " 질문하면 오른쪽 분석 화면만 웹 데이터로 바뀝니다."}
+          </p>
+          {!ragChecking && !ragReady && <button type="button" className="link-btn" onClick={refreshRagConfig}>다시 확인</button>}
         </div>
-        {isRag && <div className="rag-connection" role="status">
-          <p>{ragChecking ? "RAG 연결 설정 확인 중…" : ragConfigError ? ragConfigError : !ragConfig?.enabled ? "RAG 서버 연결 설정이 필요합니다." : isWebRag ? "질문할 때 현재 웹 데이터를 RAG 서버에 전송해 임시 검색하며, 검색된 근거만 모델에 전달합니다." : "별도 구매 DB 기준 · 화면의 선택·업로드 데이터는 적용되지 않습니다."}</p>
-          {!ragChecking && !ragConfig?.enabled && <button type="button" className="link-btn" onClick={refreshRagConfig}>다시 확인</button>}
-        </div>}
-        {isWebRag && <p className="composer-hint">첫 질문은 검색 준비에 시간이 걸릴 수 있습니다.</p>}
-        <div className="suggest-row" role="group" aria-label="추천 질문">
-          {suggestions.map((s) => (
-            <button type="button" key={s} className="suggest-chip" onClick={() => ask(s, { mode: chatMode })} disabled={!canSend}>
-              {s}
+        <div className="keyword-row" role="group" aria-label="주요 키워드 (누르면 입력창에 넣기)">
+          {KEYWORDS.map((k) => (
+            <button type="button" key={k} className="keyword-chip" onClick={() => addKeyword(k)} disabled={state.busy}>
+              {k}
             </button>
           ))}
         </div>
-        {!isRag && <div className="ctx-chips" aria-label="질문 문맥">
-          <span className="ctx-label">질문 대상</span>
-          {item ? (
-            <Chip tone="accent" onRemove={() => dispatch({ type: "clearSelection", what: "item" })}>
-              품목 · {item.name}
-            </Chip>
-          ) : (
-            <span className="ctx-empty">선택한 품목 없음</span>
-          )}
-          {sup && (
-            <Chip onRemove={() => dispatch({ type: "clearSelection", what: "supplier" })}>
-              협력사 · {sup.name}
-            </Chip>
-          )}
-        </div>}
         <form
           className="composer-form"
           onSubmit={(e) => {
@@ -318,14 +276,14 @@ function ChatBody({ inputRef }: { inputRef: RefObject<HTMLTextAreaElement | null
           }}
         >
           <label htmlFor="chat-input" className="sr-only">
-            {isWebRag ? "웹 데이터 RAG 질문" : isRag ? "구매 DB RAG 질문" : "분석 질문"}
+            구매 DB RAG 질문
           </label>
           <textarea
             id="chat-input"
             ref={inputRef}
             rows={2}
-            placeholder={isWebRag ? "현재 웹 데이터의 발주번호·업체ID로 질문하세요" : isRag ? "구매 DB 질문 · 예: 발주 1101 수량은?" : "분석할 내용을 질문하세요 · 예: 실린더 라이너 후보 업체를 비교해 줘"}
-            maxLength={isRag ? 1000 : undefined}
+            placeholder="자유롭게 질문하세요 · 예: 국제 니켈 시세 최근 6개월"
+            maxLength={1000}
             value={text}
             onChange={(e) => setText(e.target.value)}
             onKeyDown={(e) => {
@@ -339,7 +297,7 @@ function ChatBody({ inputRef }: { inputRef: RefObject<HTMLTextAreaElement | null
             <LuArrowUp aria-hidden />
           </button>
         </form>
-        <p className="composer-hint">Enter 보내기 · Shift+Enter 줄바꿈{isRag ? " · 최대 1000자" : ""}</p>
+        <p className="composer-hint">Enter 보내기 · Shift+Enter 줄바꿈 · 최대 1000자</p>
       </div>
     </>
   );
@@ -348,7 +306,6 @@ function ChatBody({ inputRef }: { inputRef: RefObject<HTMLTextAreaElement | null
 // ── 떠 있는 창 ──
 export function ChatWidget() {
   const { state, dispatch } = useStore();
-  const { chatMode } = useAgent();
   const narrow = useNarrow();
   const [geo, setGeo] = useState<Geo>(() => (typeof window !== "undefined" ? loadGeo() : defaultGeo()));
   const [menu, setMenu] = useState(false);
@@ -538,7 +495,7 @@ export function ChatWidget() {
               </span>
               <div className="chat-title-text">
                 <strong>AI 분석 도우미</strong>
-                <span>{chatMode === "web-rag" ? "웹 데이터 RAG · SAMPLE+업로드" : chatMode === "rag" ? "구매 DB RAG · 답변과 출처" : `${state.aiMode === "llm" ? "LLM 해석 모드" : "규칙 기반 데모 모드"} · 데이터로 계산`}</span>
+                <span>구매 DB RAG · {RAG_MODEL} · 답변과 출처</span>
               </div>
             </div>
             <div className="chat-tools">

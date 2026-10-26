@@ -1,4 +1,4 @@
-// 원가-계약 › 원자재 시세: 국제·국내 시세를 원/kg로 맞춰 비교, 품목 계약 단가 변동률과 나란히
+// 원자재 시세 탭: 국제·국내 시세를 원/kg로 맞춰 비교, 품목 계약 단가 변동률과 나란히
 import { useMemo, useState } from "react";
 import { LuInfo } from "react-icons/lu";
 import { useStore } from "../../store/store";
@@ -16,18 +16,21 @@ function Delta({ v }: { v: number | null }) {
   return <span className={v > 0 ? "delta-up" : v < 0 ? "delta-down" : ""}>{fmtSignedPct(v)}</span>;
 }
 
-export function MaterialPrices() {
+/** focus: AI 질문에서 찾은 원자재·시장·기간 (오른쪽 분석 결과창에서 같은 조건으로 연다) */
+export function MaterialPrices({ focus }: { focus?: { material: string; market: "국제" | "국내" | null; months: number | null } } = {}) {
   const { state, derived } = useStore();
   const series = useMemo(() => buildMaterialSeries(state.data.materialPrices, state.data.fxRates), [state.data.materialPrices, state.data.fxRates]);
-  const [period, setPeriod] = useState(12);
-  const [pick, setPick] = useState<string | null>(null);
+  const [period, setPeriod] = useState(focus?.months ?? 12);
+  const [pick, setPick] = useState<string | null>(focus?.material ?? null);
+  const periods = [...new Set([...PERIODS, period])].sort((a, b) => a - b);
+  const market = focus && pick === focus.material ? focus.market : null;
   const cur: MaterialSeries | undefined = series.find((s) => s.material === pick) ?? series[0];
   const latest = series.map((s) => s.latestMonth).filter(Boolean).sort().pop() ?? "–";
 
   const spec: ChartSpec | null = cur
     ? {
         id: "mat",
-        title: `${cur.material} 시세 추이 (원/kg, 최근 ${Math.min(period, cur.months.length)}개월)`,
+        title: `${cur.material}${market ? ` ${market}` : ""} 시세 추이 (원/kg, 최근 ${Math.min(period, cur.months.length)}개월)`,
         type: "line",
         unit: "원/kg",
         yLabel: "원/kg",
@@ -36,7 +39,7 @@ export function MaterialPrices() {
         series: [
           { key: "dom", label: "국내 시세", values: cur.domestic.slice(-period) },
           { key: "intl", label: "국제 시세(원화 환산)", values: cur.intlKrw.slice(-period) },
-        ],
+        ].filter((s) => !market || (market === "국내") === (s.key === "dom")),
         caption: `국제 시세(${cur.intlUnit})를 그 달의 월평균 원/달러 환율로 바꾸고 1,000으로 나눠 원/kg로 맞췄습니다.`,
         digits: 0,
       }
@@ -69,7 +72,7 @@ export function MaterialPrices() {
       </SubViewHead>
       <div className="sv-toolbar">
         <div className="seg-ctl" role="radiogroup" aria-label="기간">
-          {PERIODS.map((p) => (
+          {periods.map((p) => (
             <button key={p} type="button" role="radio" aria-checked={period === p} className={period === p ? "is-on" : ""} onClick={() => setPeriod(p)}>
               {p}개월
             </button>

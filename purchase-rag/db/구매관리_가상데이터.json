@@ -19,7 +19,8 @@
         "COMPLETED": "이 입고 직후 해당 발주의 누적 납품 수량이 발주 수량과 같음"
       },
       "deliveryRecords": "모든 delivery 행은 실제 입고를 가정한 기록이다. 미입고 발주에는 delivery 행을 만들지 않았다. 누적 납품량 계산에는 PARTIAL과 COMPLETED를 모두 포함한다.",
-      "complaints": "민원 행은 민원 기록이며 불량 수량이나 검사 결과를 뜻하지 않는다."
+      "complaints": "민원 행은 민원 기록이며 불량 수량이나 검사 결과를 뜻하지 않는다.",
+      "marketData": "materialPrices·laborWages는 웹 화면 SAMPLE(src/data/sample)과 같은 가상 값이다. 실제 기관·거래소 자료가 아니다."
     },
     "relationshipMapping": {
       "SupplierPart.supplier": "supplierParts[].supplierId -> suppliers[].supplierId",
@@ -606,6 +607,5338 @@
       "complaintDate": "2026-10-23",
       "defectType": "OPERATION_CHECK",
       "complaintMessage": "입고된 연료 분사 밸브에 대한 작동 확인 요청이 접수됨."
+    }
+  ],
+  "materialPrices": [
+    {
+      "materialPriceId": 4001,
+      "month": "2024-10",
+      "material": "선철",
+      "market": "국제",
+      "price": 425,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4002,
+      "month": "2024-10",
+      "material": "선철",
+      "market": "국내",
+      "price": 622,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4003,
+      "month": "2024-11",
+      "material": "선철",
+      "market": "국제",
+      "price": 431,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4004,
+      "month": "2024-11",
+      "material": "선철",
+      "market": "국내",
+      "price": 630,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4005,
+      "month": "2024-12",
+      "material": "선철",
+      "market": "국제",
+      "price": 426,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4006,
+      "month": "2024-12",
+      "material": "선철",
+      "market": "국내",
+      "price": 622,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4007,
+      "month": "2025-01",
+      "material": "선철",
+      "market": "국제",
+      "price": 432,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4008,
+      "month": "2025-01",
+      "material": "선철",
+      "market": "국내",
+      "price": 625,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4009,
+      "month": "2025-02",
+      "material": "선철",
+      "market": "국제",
+      "price": 432,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4010,
+      "month": "2025-02",
+      "material": "선철",
+      "market": "국내",
+      "price": 641,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4011,
+      "month": "2025-03",
+      "material": "선철",
+      "market": "국제",
+      "price": 439,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4012,
+      "month": "2025-03",
+      "material": "선철",
+      "market": "국내",
+      "price": 645,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4013,
+      "month": "2025-04",
+      "material": "선철",
+      "market": "국제",
+      "price": 440,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4014,
+      "month": "2025-04",
+      "material": "선철",
+      "market": "국내",
+      "price": 653,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4015,
+      "month": "2025-05",
+      "material": "선철",
+      "market": "국제",
+      "price": 448,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4016,
+      "month": "2025-05",
+      "material": "선철",
+      "market": "국내",
+      "price": 677,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4017,
+      "month": "2025-06",
+      "material": "선철",
+      "market": "국제",
+      "price": 450,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4018,
+      "month": "2025-06",
+      "material": "선철",
+      "market": "국내",
+      "price": 672,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4019,
+      "month": "2025-07",
+      "material": "선철",
+      "market": "국제",
+      "price": 458,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4020,
+      "month": "2025-07",
+      "material": "선철",
+      "market": "국내",
+      "price": 681,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4021,
+      "month": "2025-08",
+      "material": "선철",
+      "market": "국제",
+      "price": 458,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4022,
+      "month": "2025-08",
+      "material": "선철",
+      "market": "국내",
+      "price": 675,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4023,
+      "month": "2025-09",
+      "material": "선철",
+      "market": "국제",
+      "price": 455,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4024,
+      "month": "2025-09",
+      "material": "선철",
+      "market": "국내",
+      "price": 668,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4025,
+      "month": "2025-10",
+      "material": "선철",
+      "market": "국제",
+      "price": 448,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4026,
+      "month": "2025-10",
+      "material": "선철",
+      "market": "국내",
+      "price": 685,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4027,
+      "month": "2025-11",
+      "material": "선철",
+      "market": "국제",
+      "price": 445,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4028,
+      "month": "2025-11",
+      "material": "선철",
+      "market": "국내",
+      "price": 664,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4029,
+      "month": "2025-12",
+      "material": "선철",
+      "market": "국제",
+      "price": 440,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4030,
+      "month": "2025-12",
+      "material": "선철",
+      "market": "국내",
+      "price": 662,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4031,
+      "month": "2026-01",
+      "material": "선철",
+      "market": "국제",
+      "price": 437,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4032,
+      "month": "2026-01",
+      "material": "선철",
+      "market": "국내",
+      "price": 669,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4033,
+      "month": "2026-02",
+      "material": "선철",
+      "market": "국제",
+      "price": 442,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4034,
+      "month": "2026-02",
+      "material": "선철",
+      "market": "국내",
+      "price": 673,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4035,
+      "month": "2026-03",
+      "material": "선철",
+      "market": "국제",
+      "price": 441,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4036,
+      "month": "2026-03",
+      "material": "선철",
+      "market": "국내",
+      "price": 678,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4037,
+      "month": "2026-04",
+      "material": "선철",
+      "market": "국제",
+      "price": 434,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4038,
+      "month": "2026-04",
+      "material": "선철",
+      "market": "국내",
+      "price": 658,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4039,
+      "month": "2026-05",
+      "material": "선철",
+      "market": "국제",
+      "price": 436,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4040,
+      "month": "2026-05",
+      "material": "선철",
+      "market": "국내",
+      "price": 657,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4041,
+      "month": "2026-06",
+      "material": "선철",
+      "market": "국제",
+      "price": 430,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4042,
+      "month": "2026-06",
+      "material": "선철",
+      "market": "국내",
+      "price": 647,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4043,
+      "month": "2026-07",
+      "material": "선철",
+      "market": "국제",
+      "price": 422,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4044,
+      "month": "2026-07",
+      "material": "선철",
+      "market": "국내",
+      "price": 634,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4045,
+      "month": "2026-08",
+      "material": "선철",
+      "market": "국제",
+      "price": 421,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4046,
+      "month": "2026-08",
+      "material": "선철",
+      "market": "국내",
+      "price": 633,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4047,
+      "month": "2026-09",
+      "material": "선철",
+      "market": "국제",
+      "price": 415,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4048,
+      "month": "2026-09",
+      "material": "선철",
+      "market": "국내",
+      "price": 629,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4049,
+      "month": "2024-10",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 367,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4050,
+      "month": "2024-10",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 550,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4051,
+      "month": "2024-11",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 361,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4052,
+      "month": "2024-11",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 552,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4053,
+      "month": "2024-12",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 369,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4054,
+      "month": "2024-12",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 554,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4055,
+      "month": "2025-01",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 371,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4056,
+      "month": "2025-01",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 560,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4057,
+      "month": "2025-02",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 375,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4058,
+      "month": "2025-02",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 575,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4059,
+      "month": "2025-03",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 382,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4060,
+      "month": "2025-03",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 585,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4061,
+      "month": "2025-04",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 383,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4062,
+      "month": "2025-04",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 581,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4063,
+      "month": "2025-05",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 377,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4064,
+      "month": "2025-05",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 588,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4065,
+      "month": "2025-06",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 382,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4066,
+      "month": "2025-06",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 588,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4067,
+      "month": "2025-07",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 374,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4068,
+      "month": "2025-07",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 587,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4069,
+      "month": "2025-08",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 368,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4070,
+      "month": "2025-08",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 578,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4071,
+      "month": "2025-09",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 367,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4072,
+      "month": "2025-09",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 575,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4073,
+      "month": "2025-10",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 360,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4074,
+      "month": "2025-10",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 562,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4075,
+      "month": "2025-11",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 366,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4076,
+      "month": "2025-11",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 575,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4077,
+      "month": "2025-12",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 371,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4078,
+      "month": "2025-12",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 584,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4079,
+      "month": "2026-01",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 368,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4080,
+      "month": "2026-01",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 573,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4081,
+      "month": "2026-02",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 373,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4082,
+      "month": "2026-02",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 578,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4083,
+      "month": "2026-03",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 374,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4084,
+      "month": "2026-03",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 588,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4085,
+      "month": "2026-04",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 372,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4086,
+      "month": "2026-04",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 582,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4087,
+      "month": "2026-05",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 372,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4088,
+      "month": "2026-05",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 579,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4089,
+      "month": "2026-06",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 365,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4090,
+      "month": "2026-06",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 572,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4091,
+      "month": "2026-07",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 360,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4092,
+      "month": "2026-07",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 578,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4093,
+      "month": "2026-08",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 351,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4094,
+      "month": "2026-08",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 558,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4095,
+      "month": "2026-09",
+      "material": "철스크랩",
+      "market": "국제",
+      "price": 346,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4096,
+      "month": "2026-09",
+      "material": "철스크랩",
+      "market": "국내",
+      "price": 550,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4097,
+      "month": "2024-10",
+      "material": "니켈",
+      "market": "국제",
+      "price": 16110,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4098,
+      "month": "2024-10",
+      "material": "니켈",
+      "market": "국내",
+      "price": 22650,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4099,
+      "month": "2024-11",
+      "material": "니켈",
+      "market": "국제",
+      "price": 15710,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4100,
+      "month": "2024-11",
+      "material": "니켈",
+      "market": "국내",
+      "price": 22200,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4101,
+      "month": "2024-12",
+      "material": "니켈",
+      "market": "국제",
+      "price": 15550,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4102,
+      "month": "2024-12",
+      "material": "니켈",
+      "market": "국내",
+      "price": 22400,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4103,
+      "month": "2025-01",
+      "material": "니켈",
+      "market": "국제",
+      "price": 15710,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4104,
+      "month": "2025-01",
+      "material": "니켈",
+      "market": "국내",
+      "price": 22900,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4105,
+      "month": "2025-02",
+      "material": "니켈",
+      "market": "국제",
+      "price": 15670,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4106,
+      "month": "2025-02",
+      "material": "니켈",
+      "market": "국내",
+      "price": 22450,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4107,
+      "month": "2025-03",
+      "material": "니켈",
+      "market": "국제",
+      "price": 15890,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4108,
+      "month": "2025-03",
+      "material": "니켈",
+      "market": "국내",
+      "price": 22900,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4109,
+      "month": "2025-04",
+      "material": "니켈",
+      "market": "국제",
+      "price": 16090,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4110,
+      "month": "2025-04",
+      "material": "니켈",
+      "market": "국내",
+      "price": 23600,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4111,
+      "month": "2025-05",
+      "material": "니켈",
+      "market": "국제",
+      "price": 16420,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4112,
+      "month": "2025-05",
+      "material": "니켈",
+      "market": "국내",
+      "price": 23750,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4113,
+      "month": "2025-06",
+      "material": "니켈",
+      "market": "국제",
+      "price": 15900,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4114,
+      "month": "2025-06",
+      "material": "니켈",
+      "market": "국내",
+      "price": 23200,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4115,
+      "month": "2025-07",
+      "material": "니켈",
+      "market": "국제",
+      "price": 16060,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4116,
+      "month": "2025-07",
+      "material": "니켈",
+      "market": "국내",
+      "price": 23300,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4117,
+      "month": "2025-08",
+      "material": "니켈",
+      "market": "국제",
+      "price": 16080,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4118,
+      "month": "2025-08",
+      "material": "니켈",
+      "market": "국내",
+      "price": 23850,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4119,
+      "month": "2025-09",
+      "material": "니켈",
+      "market": "국제",
+      "price": 15830,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4120,
+      "month": "2025-09",
+      "material": "니켈",
+      "market": "국내",
+      "price": 23100,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4121,
+      "month": "2025-10",
+      "material": "니켈",
+      "market": "국제",
+      "price": 16550,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4122,
+      "month": "2025-10",
+      "material": "니켈",
+      "market": "국내",
+      "price": 24200,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4123,
+      "month": "2025-11",
+      "material": "니켈",
+      "market": "국제",
+      "price": 17250,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4124,
+      "month": "2025-11",
+      "material": "니켈",
+      "market": "국내",
+      "price": 25150,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4125,
+      "month": "2025-12",
+      "material": "니켈",
+      "market": "국제",
+      "price": 17250,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4126,
+      "month": "2025-12",
+      "material": "니켈",
+      "market": "국내",
+      "price": 25100,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4127,
+      "month": "2026-01",
+      "material": "니켈",
+      "market": "국제",
+      "price": 17860,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4128,
+      "month": "2026-01",
+      "material": "니켈",
+      "market": "국내",
+      "price": 25950,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4129,
+      "month": "2026-02",
+      "material": "니켈",
+      "market": "국제",
+      "price": 17720,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4130,
+      "month": "2026-02",
+      "material": "니켈",
+      "market": "국내",
+      "price": 25650,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4131,
+      "month": "2026-03",
+      "material": "니켈",
+      "market": "국제",
+      "price": 17540,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4132,
+      "month": "2026-03",
+      "material": "니켈",
+      "market": "국내",
+      "price": 26000,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4133,
+      "month": "2026-04",
+      "material": "니켈",
+      "market": "국제",
+      "price": 17580,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4134,
+      "month": "2026-04",
+      "material": "니켈",
+      "market": "국내",
+      "price": 25800,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4135,
+      "month": "2026-05",
+      "material": "니켈",
+      "market": "국제",
+      "price": 18050,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4136,
+      "month": "2026-05",
+      "material": "니켈",
+      "market": "국내",
+      "price": 26500,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4137,
+      "month": "2026-06",
+      "material": "니켈",
+      "market": "국제",
+      "price": 18040,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4138,
+      "month": "2026-06",
+      "material": "니켈",
+      "market": "국내",
+      "price": 26850,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4139,
+      "month": "2026-07",
+      "material": "니켈",
+      "market": "국제",
+      "price": 18100,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4140,
+      "month": "2026-07",
+      "material": "니켈",
+      "market": "국내",
+      "price": 26450,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4141,
+      "month": "2026-08",
+      "material": "니켈",
+      "market": "국제",
+      "price": 18120,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4142,
+      "month": "2026-08",
+      "material": "니켈",
+      "market": "국내",
+      "price": 26650,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4143,
+      "month": "2026-09",
+      "material": "니켈",
+      "market": "국제",
+      "price": 18100,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4144,
+      "month": "2026-09",
+      "material": "니켈",
+      "market": "국내",
+      "price": 26600,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4145,
+      "month": "2024-10",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2304,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4146,
+      "month": "2024-10",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3390,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4147,
+      "month": "2024-11",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2299,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4148,
+      "month": "2024-11",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3380,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4149,
+      "month": "2024-12",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2307,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4150,
+      "month": "2024-12",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3380,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4151,
+      "month": "2025-01",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2302,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4152,
+      "month": "2025-01",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3400,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4153,
+      "month": "2025-02",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2278,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4154,
+      "month": "2025-02",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3290,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4155,
+      "month": "2025-03",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2292,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4156,
+      "month": "2025-03",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3310,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4157,
+      "month": "2025-04",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2291,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4158,
+      "month": "2025-04",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3420,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4159,
+      "month": "2025-05",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2309,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4160,
+      "month": "2025-05",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3410,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4161,
+      "month": "2025-06",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2339,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4162,
+      "month": "2025-06",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3500,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4163,
+      "month": "2025-07",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2364,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4164,
+      "month": "2025-07",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3500,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4165,
+      "month": "2025-08",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2351,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4166,
+      "month": "2025-08",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3520,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4167,
+      "month": "2025-09",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2337,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4168,
+      "month": "2025-09",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3480,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4169,
+      "month": "2025-10",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2332,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4170,
+      "month": "2025-10",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3530,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4171,
+      "month": "2025-11",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2337,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4172,
+      "month": "2025-11",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3540,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4173,
+      "month": "2025-12",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2359,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4174,
+      "month": "2025-12",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3560,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4175,
+      "month": "2026-01",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2342,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4176,
+      "month": "2026-01",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3520,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4177,
+      "month": "2026-02",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2323,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4178,
+      "month": "2026-02",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3510,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4179,
+      "month": "2026-03",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2351,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4180,
+      "month": "2026-03",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3570,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4181,
+      "month": "2026-04",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2335,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4182,
+      "month": "2026-04",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3580,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4183,
+      "month": "2026-05",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2349,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4184,
+      "month": "2026-05",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3540,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4185,
+      "month": "2026-06",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2358,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4186,
+      "month": "2026-06",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3590,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4187,
+      "month": "2026-07",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2387,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4188,
+      "month": "2026-07",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3620,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4189,
+      "month": "2026-08",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2365,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4190,
+      "month": "2026-08",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3620,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4191,
+      "month": "2026-09",
+      "material": "크롬",
+      "market": "국제",
+      "price": 2360,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4192,
+      "month": "2026-09",
+      "material": "크롬",
+      "market": "국내",
+      "price": 3550,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4193,
+      "month": "2024-10",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 45180,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4194,
+      "month": "2024-10",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 65950,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4195,
+      "month": "2024-11",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 46290,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4196,
+      "month": "2024-11",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 68050,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4197,
+      "month": "2024-12",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 47340,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4198,
+      "month": "2024-12",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 67050,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4199,
+      "month": "2025-01",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 46560,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4200,
+      "month": "2025-01",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 66400,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4201,
+      "month": "2025-02",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 47270,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4202,
+      "month": "2025-02",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 69400,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4203,
+      "month": "2025-03",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 46900,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4204,
+      "month": "2025-03",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 67400,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4205,
+      "month": "2025-04",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 48160,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4206,
+      "month": "2025-04",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 70900,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4207,
+      "month": "2025-05",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 49640,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4208,
+      "month": "2025-05",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 72300,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4209,
+      "month": "2025-06",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 50560,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4210,
+      "month": "2025-06",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 72600,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4211,
+      "month": "2025-07",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 50370,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4212,
+      "month": "2025-07",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 73050,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4213,
+      "month": "2025-08",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 51890,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4214,
+      "month": "2025-08",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 76800,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4215,
+      "month": "2025-09",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 51900,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4216,
+      "month": "2025-09",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 75450,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4217,
+      "month": "2025-10",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 51630,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4218,
+      "month": "2025-10",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 76200,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4219,
+      "month": "2025-11",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 51760,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4220,
+      "month": "2025-11",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 76950,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4221,
+      "month": "2025-12",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 53560,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4222,
+      "month": "2025-12",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 80900,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4223,
+      "month": "2026-01",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 53110,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4224,
+      "month": "2026-01",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 77900,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4225,
+      "month": "2026-02",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 55100,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4226,
+      "month": "2026-02",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 82250,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4227,
+      "month": "2026-03",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 56840,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4228,
+      "month": "2026-03",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 83450,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4229,
+      "month": "2026-04",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 55970,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4230,
+      "month": "2026-04",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 83200,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4231,
+      "month": "2026-05",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 57200,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4232,
+      "month": "2026-05",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 86550,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4233,
+      "month": "2026-06",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 58460,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4234,
+      "month": "2026-06",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 86250,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4235,
+      "month": "2026-07",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 60330,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4236,
+      "month": "2026-07",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 92000,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4237,
+      "month": "2026-08",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 60430,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4238,
+      "month": "2026-08",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 91650,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4239,
+      "month": "2026-09",
+      "material": "몰리브덴",
+      "market": "국제",
+      "price": 61510,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4240,
+      "month": "2026-09",
+      "material": "몰리브덴",
+      "market": "국내",
+      "price": 91100,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4241,
+      "month": "2024-10",
+      "material": "구리",
+      "market": "국제",
+      "price": 9560,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4242,
+      "month": "2024-10",
+      "material": "구리",
+      "market": "국내",
+      "price": 13550,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4243,
+      "month": "2024-11",
+      "material": "구리",
+      "market": "국제",
+      "price": 9424,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4244,
+      "month": "2024-11",
+      "material": "구리",
+      "market": "국내",
+      "price": 13350,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4245,
+      "month": "2024-12",
+      "material": "구리",
+      "market": "국제",
+      "price": 9446,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4246,
+      "month": "2024-12",
+      "material": "구리",
+      "market": "국내",
+      "price": 13200,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4247,
+      "month": "2025-01",
+      "material": "구리",
+      "market": "국제",
+      "price": 9399,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4248,
+      "month": "2025-01",
+      "material": "구리",
+      "market": "국내",
+      "price": 13250,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4249,
+      "month": "2025-02",
+      "material": "구리",
+      "market": "국제",
+      "price": 9589,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4250,
+      "month": "2025-02",
+      "material": "구리",
+      "market": "국내",
+      "price": 13650,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4251,
+      "month": "2025-03",
+      "material": "구리",
+      "market": "국제",
+      "price": 9755,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4252,
+      "month": "2025-03",
+      "material": "구리",
+      "market": "국내",
+      "price": 13750,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4253,
+      "month": "2025-04",
+      "material": "구리",
+      "market": "국제",
+      "price": 9824,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4254,
+      "month": "2025-04",
+      "material": "구리",
+      "market": "국내",
+      "price": 14050,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4255,
+      "month": "2025-05",
+      "material": "구리",
+      "market": "국제",
+      "price": 9832,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4256,
+      "month": "2025-05",
+      "material": "구리",
+      "market": "국내",
+      "price": 14350,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4257,
+      "month": "2025-06",
+      "material": "구리",
+      "market": "국제",
+      "price": 9710,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4258,
+      "month": "2025-06",
+      "material": "구리",
+      "market": "국내",
+      "price": 13700,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4259,
+      "month": "2025-07",
+      "material": "구리",
+      "market": "국제",
+      "price": 9627,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4260,
+      "month": "2025-07",
+      "material": "구리",
+      "market": "국내",
+      "price": 14100,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4261,
+      "month": "2025-08",
+      "material": "구리",
+      "market": "국제",
+      "price": 9569,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4262,
+      "month": "2025-08",
+      "material": "구리",
+      "market": "국내",
+      "price": 13650,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4263,
+      "month": "2025-09",
+      "material": "구리",
+      "market": "국제",
+      "price": 9545,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4264,
+      "month": "2025-09",
+      "material": "구리",
+      "market": "국내",
+      "price": 13600,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4265,
+      "month": "2025-10",
+      "material": "구리",
+      "market": "국제",
+      "price": 9484,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4266,
+      "month": "2025-10",
+      "material": "구리",
+      "market": "국내",
+      "price": 13800,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4267,
+      "month": "2025-11",
+      "material": "구리",
+      "market": "국제",
+      "price": 9776,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4268,
+      "month": "2025-11",
+      "material": "구리",
+      "market": "국내",
+      "price": 14000,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4269,
+      "month": "2025-12",
+      "material": "구리",
+      "market": "국제",
+      "price": 9946,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4270,
+      "month": "2025-12",
+      "material": "구리",
+      "market": "국내",
+      "price": 14500,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4271,
+      "month": "2026-01",
+      "material": "구리",
+      "market": "국제",
+      "price": 9919,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4272,
+      "month": "2026-01",
+      "material": "구리",
+      "market": "국내",
+      "price": 14200,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4273,
+      "month": "2026-02",
+      "material": "구리",
+      "market": "국제",
+      "price": 9986,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4274,
+      "month": "2026-02",
+      "material": "구리",
+      "market": "국내",
+      "price": 14550,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4275,
+      "month": "2026-03",
+      "material": "구리",
+      "market": "국제",
+      "price": 9908,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4276,
+      "month": "2026-03",
+      "material": "구리",
+      "market": "국내",
+      "price": 14300,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4277,
+      "month": "2026-04",
+      "material": "구리",
+      "market": "국제",
+      "price": 9936,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4278,
+      "month": "2026-04",
+      "material": "구리",
+      "market": "국내",
+      "price": 14750,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4279,
+      "month": "2026-05",
+      "material": "구리",
+      "market": "국제",
+      "price": 10130,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4280,
+      "month": "2026-05",
+      "material": "구리",
+      "market": "국내",
+      "price": 15000,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4281,
+      "month": "2026-06",
+      "material": "구리",
+      "market": "국제",
+      "price": 10350,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4282,
+      "month": "2026-06",
+      "material": "구리",
+      "market": "국내",
+      "price": 15150,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4283,
+      "month": "2026-07",
+      "material": "구리",
+      "market": "국제",
+      "price": 10320,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4284,
+      "month": "2026-07",
+      "material": "구리",
+      "market": "국내",
+      "price": 15450,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4285,
+      "month": "2026-08",
+      "material": "구리",
+      "market": "국제",
+      "price": 10390,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4286,
+      "month": "2026-08",
+      "material": "구리",
+      "market": "국내",
+      "price": 15350,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4287,
+      "month": "2026-09",
+      "material": "구리",
+      "market": "국제",
+      "price": 10700,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4288,
+      "month": "2026-09",
+      "material": "구리",
+      "market": "국내",
+      "price": 15950,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4289,
+      "month": "2024-10",
+      "material": "주석",
+      "market": "국제",
+      "price": 30850,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4290,
+      "month": "2024-10",
+      "material": "주석",
+      "market": "국내",
+      "price": 43550,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4291,
+      "month": "2024-11",
+      "material": "주석",
+      "market": "국제",
+      "price": 31230,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4292,
+      "month": "2024-11",
+      "material": "주석",
+      "market": "국내",
+      "price": 44000,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4293,
+      "month": "2024-12",
+      "material": "주석",
+      "market": "국제",
+      "price": 31180,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4294,
+      "month": "2024-12",
+      "material": "주석",
+      "market": "국내",
+      "price": 45250,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4295,
+      "month": "2025-01",
+      "material": "주석",
+      "market": "국제",
+      "price": 31250,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4296,
+      "month": "2025-01",
+      "material": "주석",
+      "market": "국내",
+      "price": 45400,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4297,
+      "month": "2025-02",
+      "material": "주석",
+      "market": "국제",
+      "price": 30960,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4298,
+      "month": "2025-02",
+      "material": "주석",
+      "market": "국내",
+      "price": 44250,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4299,
+      "month": "2025-03",
+      "material": "주석",
+      "market": "국제",
+      "price": 31980,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4300,
+      "month": "2025-03",
+      "material": "주석",
+      "market": "국내",
+      "price": 45250,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4301,
+      "month": "2025-04",
+      "material": "주석",
+      "market": "국제",
+      "price": 32550,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4302,
+      "month": "2025-04",
+      "material": "주석",
+      "market": "국내",
+      "price": 46900,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4303,
+      "month": "2025-05",
+      "material": "주석",
+      "market": "국제",
+      "price": 31680,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4304,
+      "month": "2025-05",
+      "material": "주석",
+      "market": "국내",
+      "price": 45150,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4305,
+      "month": "2025-06",
+      "material": "주석",
+      "market": "국제",
+      "price": 32620,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4306,
+      "month": "2025-06",
+      "material": "주석",
+      "market": "국내",
+      "price": 46600,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4307,
+      "month": "2025-07",
+      "material": "주석",
+      "market": "국제",
+      "price": 32000,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4308,
+      "month": "2025-07",
+      "material": "주석",
+      "market": "국내",
+      "price": 46050,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4309,
+      "month": "2025-08",
+      "material": "주석",
+      "market": "국제",
+      "price": 31550,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4310,
+      "month": "2025-08",
+      "material": "주석",
+      "market": "국내",
+      "price": 46850,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4311,
+      "month": "2025-09",
+      "material": "주석",
+      "market": "국제",
+      "price": 32090,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4312,
+      "month": "2025-09",
+      "material": "주석",
+      "market": "국내",
+      "price": 46650,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4313,
+      "month": "2025-10",
+      "material": "주석",
+      "market": "국제",
+      "price": 32710,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4314,
+      "month": "2025-10",
+      "material": "주석",
+      "market": "국내",
+      "price": 47750,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4315,
+      "month": "2025-11",
+      "material": "주석",
+      "market": "국제",
+      "price": 33290,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4316,
+      "month": "2025-11",
+      "material": "주석",
+      "market": "국내",
+      "price": 49400,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4317,
+      "month": "2025-12",
+      "material": "주석",
+      "market": "국제",
+      "price": 33100,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4318,
+      "month": "2025-12",
+      "material": "주석",
+      "market": "국내",
+      "price": 48550,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4319,
+      "month": "2026-01",
+      "material": "주석",
+      "market": "국제",
+      "price": 33320,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4320,
+      "month": "2026-01",
+      "material": "주석",
+      "market": "국내",
+      "price": 49700,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4321,
+      "month": "2026-02",
+      "material": "주석",
+      "market": "국제",
+      "price": 34290,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4322,
+      "month": "2026-02",
+      "material": "주석",
+      "market": "국내",
+      "price": 49700,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4323,
+      "month": "2026-03",
+      "material": "주석",
+      "market": "국제",
+      "price": 34030,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4324,
+      "month": "2026-03",
+      "material": "주석",
+      "market": "국내",
+      "price": 49400,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4325,
+      "month": "2026-04",
+      "material": "주석",
+      "market": "국제",
+      "price": 33650,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4326,
+      "month": "2026-04",
+      "material": "주석",
+      "market": "국내",
+      "price": 49400,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4327,
+      "month": "2026-05",
+      "material": "주석",
+      "market": "국제",
+      "price": 33140,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4328,
+      "month": "2026-05",
+      "material": "주석",
+      "market": "국내",
+      "price": 50000,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4329,
+      "month": "2026-06",
+      "material": "주석",
+      "market": "국제",
+      "price": 33720,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4330,
+      "month": "2026-06",
+      "material": "주석",
+      "market": "국내",
+      "price": 50150,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4331,
+      "month": "2026-07",
+      "material": "주석",
+      "market": "국제",
+      "price": 33550,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4332,
+      "month": "2026-07",
+      "material": "주석",
+      "market": "국내",
+      "price": 49250,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4333,
+      "month": "2026-08",
+      "material": "주석",
+      "market": "국제",
+      "price": 34230,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4334,
+      "month": "2026-08",
+      "material": "주석",
+      "market": "국내",
+      "price": 50700,
+      "unit": "kg",
+      "currency": "KRW"
+    },
+    {
+      "materialPriceId": 4335,
+      "month": "2026-09",
+      "material": "주석",
+      "market": "국제",
+      "price": 34320,
+      "unit": "톤",
+      "currency": "USD"
+    },
+    {
+      "materialPriceId": 4336,
+      "month": "2026-09",
+      "material": "주석",
+      "market": "국내",
+      "price": 51300,
+      "unit": "kg",
+      "currency": "KRW"
+    }
+  ],
+  "laborWages": [
+    {
+      "laborWageId": 5001,
+      "month": "2024-10",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3699000
+    },
+    {
+      "laborWageId": 5002,
+      "month": "2024-11",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3688000
+    },
+    {
+      "laborWageId": 5003,
+      "month": "2024-12",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3768000
+    },
+    {
+      "laborWageId": 5004,
+      "month": "2025-01",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3952000
+    },
+    {
+      "laborWageId": 5005,
+      "month": "2025-02",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3927000
+    },
+    {
+      "laborWageId": 5006,
+      "month": "2025-03",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3942000
+    },
+    {
+      "laborWageId": 5007,
+      "month": "2025-04",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3927000
+    },
+    {
+      "laborWageId": 5008,
+      "month": "2025-05",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3932000
+    },
+    {
+      "laborWageId": 5009,
+      "month": "2025-06",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3954000
+    },
+    {
+      "laborWageId": 5010,
+      "month": "2025-07",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3943000
+    },
+    {
+      "laborWageId": 5011,
+      "month": "2025-08",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3949000
+    },
+    {
+      "laborWageId": 5012,
+      "month": "2025-09",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3952000
+    },
+    {
+      "laborWageId": 5013,
+      "month": "2025-10",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3939000
+    },
+    {
+      "laborWageId": 5014,
+      "month": "2025-11",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 3924000
+    },
+    {
+      "laborWageId": 5015,
+      "month": "2025-12",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 4010000
+    },
+    {
+      "laborWageId": 5016,
+      "month": "2026-01",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 4178000
+    },
+    {
+      "laborWageId": 5017,
+      "month": "2026-02",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 4153000
+    },
+    {
+      "laborWageId": 5018,
+      "month": "2026-03",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 4166000
+    },
+    {
+      "laborWageId": 5019,
+      "month": "2026-04",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 4158000
+    },
+    {
+      "laborWageId": 5020,
+      "month": "2026-05",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 4154000
+    },
+    {
+      "laborWageId": 5021,
+      "month": "2026-06",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 4153000
+    },
+    {
+      "laborWageId": 5022,
+      "month": "2026-07",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 4152000
+    },
+    {
+      "laborWageId": 5023,
+      "month": "2026-08",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 4148000
+    },
+    {
+      "laborWageId": 5024,
+      "month": "2026-09",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "주조원",
+      "wage": 4149000
+    },
+    {
+      "laborWageId": 5025,
+      "month": "2024-10",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 3815000
+    },
+    {
+      "laborWageId": 5026,
+      "month": "2024-11",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 3824000
+    },
+    {
+      "laborWageId": 5027,
+      "month": "2024-12",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 3909000
+    },
+    {
+      "laborWageId": 5028,
+      "month": "2025-01",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4002000
+    },
+    {
+      "laborWageId": 5029,
+      "month": "2025-02",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4004000
+    },
+    {
+      "laborWageId": 5030,
+      "month": "2025-03",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4002000
+    },
+    {
+      "laborWageId": 5031,
+      "month": "2025-04",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 3981000
+    },
+    {
+      "laborWageId": 5032,
+      "month": "2025-05",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 3988000
+    },
+    {
+      "laborWageId": 5033,
+      "month": "2025-06",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 3985000
+    },
+    {
+      "laborWageId": 5034,
+      "month": "2025-07",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 3997000
+    },
+    {
+      "laborWageId": 5035,
+      "month": "2025-08",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4010000
+    },
+    {
+      "laborWageId": 5036,
+      "month": "2025-09",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 3981000
+    },
+    {
+      "laborWageId": 5037,
+      "month": "2025-10",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 3991000
+    },
+    {
+      "laborWageId": 5038,
+      "month": "2025-11",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 3980000
+    },
+    {
+      "laborWageId": 5039,
+      "month": "2025-12",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4079000
+    },
+    {
+      "laborWageId": 5040,
+      "month": "2026-01",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4206000
+    },
+    {
+      "laborWageId": 5041,
+      "month": "2026-02",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4201000
+    },
+    {
+      "laborWageId": 5042,
+      "month": "2026-03",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4205000
+    },
+    {
+      "laborWageId": 5043,
+      "month": "2026-04",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4199000
+    },
+    {
+      "laborWageId": 5044,
+      "month": "2026-05",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4176000
+    },
+    {
+      "laborWageId": 5045,
+      "month": "2026-06",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4174000
+    },
+    {
+      "laborWageId": 5046,
+      "month": "2026-07",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4182000
+    },
+    {
+      "laborWageId": 5047,
+      "month": "2026-08",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4177000
+    },
+    {
+      "laborWageId": 5048,
+      "month": "2026-09",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "단조원",
+      "wage": 4180000
+    },
+    {
+      "laborWageId": 5049,
+      "month": "2024-10",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 3974000
+    },
+    {
+      "laborWageId": 5050,
+      "month": "2024-11",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 3987000
+    },
+    {
+      "laborWageId": 5051,
+      "month": "2024-12",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4044000
+    },
+    {
+      "laborWageId": 5052,
+      "month": "2025-01",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4170000
+    },
+    {
+      "laborWageId": 5053,
+      "month": "2025-02",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4161000
+    },
+    {
+      "laborWageId": 5054,
+      "month": "2025-03",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4153000
+    },
+    {
+      "laborWageId": 5055,
+      "month": "2025-04",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4157000
+    },
+    {
+      "laborWageId": 5056,
+      "month": "2025-05",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4171000
+    },
+    {
+      "laborWageId": 5057,
+      "month": "2025-06",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4148000
+    },
+    {
+      "laborWageId": 5058,
+      "month": "2025-07",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4151000
+    },
+    {
+      "laborWageId": 5059,
+      "month": "2025-08",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4158000
+    },
+    {
+      "laborWageId": 5060,
+      "month": "2025-09",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4171000
+    },
+    {
+      "laborWageId": 5061,
+      "month": "2025-10",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4166000
+    },
+    {
+      "laborWageId": 5062,
+      "month": "2025-11",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4151000
+    },
+    {
+      "laborWageId": 5063,
+      "month": "2025-12",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4247000
+    },
+    {
+      "laborWageId": 5064,
+      "month": "2026-01",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4360000
+    },
+    {
+      "laborWageId": 5065,
+      "month": "2026-02",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4379000
+    },
+    {
+      "laborWageId": 5066,
+      "month": "2026-03",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4348000
+    },
+    {
+      "laborWageId": 5067,
+      "month": "2026-04",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4365000
+    },
+    {
+      "laborWageId": 5068,
+      "month": "2026-05",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4373000
+    },
+    {
+      "laborWageId": 5069,
+      "month": "2026-06",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4361000
+    },
+    {
+      "laborWageId": 5070,
+      "month": "2026-07",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4362000
+    },
+    {
+      "laborWageId": 5071,
+      "month": "2026-08",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4363000
+    },
+    {
+      "laborWageId": 5072,
+      "month": "2026-09",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "금속 성형 기능직",
+      "minor": "용접원",
+      "wage": 4348000
+    },
+    {
+      "laborWageId": 5073,
+      "month": "2024-10",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3712000
+    },
+    {
+      "laborWageId": 5074,
+      "month": "2024-11",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3715000
+    },
+    {
+      "laborWageId": 5075,
+      "month": "2024-12",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3781000
+    },
+    {
+      "laborWageId": 5076,
+      "month": "2025-01",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3847000
+    },
+    {
+      "laborWageId": 5077,
+      "month": "2025-02",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3830000
+    },
+    {
+      "laborWageId": 5078,
+      "month": "2025-03",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3825000
+    },
+    {
+      "laborWageId": 5079,
+      "month": "2025-04",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3833000
+    },
+    {
+      "laborWageId": 5080,
+      "month": "2025-05",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3848000
+    },
+    {
+      "laborWageId": 5081,
+      "month": "2025-06",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3829000
+    },
+    {
+      "laborWageId": 5082,
+      "month": "2025-07",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3841000
+    },
+    {
+      "laborWageId": 5083,
+      "month": "2025-08",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3851000
+    },
+    {
+      "laborWageId": 5084,
+      "month": "2025-09",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3833000
+    },
+    {
+      "laborWageId": 5085,
+      "month": "2025-10",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3841000
+    },
+    {
+      "laborWageId": 5086,
+      "month": "2025-11",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3852000
+    },
+    {
+      "laborWageId": 5087,
+      "month": "2025-12",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3897000
+    },
+    {
+      "laborWageId": 5088,
+      "month": "2026-01",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 4014000
+    },
+    {
+      "laborWageId": 5089,
+      "month": "2026-02",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 4004000
+    },
+    {
+      "laborWageId": 5090,
+      "month": "2026-03",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 4000000
+    },
+    {
+      "laborWageId": 5091,
+      "month": "2026-04",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3997000
+    },
+    {
+      "laborWageId": 5092,
+      "month": "2026-05",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3999000
+    },
+    {
+      "laborWageId": 5093,
+      "month": "2026-06",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 3994000
+    },
+    {
+      "laborWageId": 5094,
+      "month": "2026-07",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 4011000
+    },
+    {
+      "laborWageId": 5095,
+      "month": "2026-08",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 4000000
+    },
+    {
+      "laborWageId": 5096,
+      "month": "2026-09",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "엔진·기계 조립원",
+      "wage": 4004000
+    },
+    {
+      "laborWageId": 5097,
+      "month": "2024-10",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3811000
+    },
+    {
+      "laborWageId": 5098,
+      "month": "2024-11",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3815000
+    },
+    {
+      "laborWageId": 5099,
+      "month": "2024-12",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3870000
+    },
+    {
+      "laborWageId": 5100,
+      "month": "2025-01",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3956000
+    },
+    {
+      "laborWageId": 5101,
+      "month": "2025-02",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3943000
+    },
+    {
+      "laborWageId": 5102,
+      "month": "2025-03",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3949000
+    },
+    {
+      "laborWageId": 5103,
+      "month": "2025-04",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3955000
+    },
+    {
+      "laborWageId": 5104,
+      "month": "2025-05",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3949000
+    },
+    {
+      "laborWageId": 5105,
+      "month": "2025-06",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3951000
+    },
+    {
+      "laborWageId": 5106,
+      "month": "2025-07",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3933000
+    },
+    {
+      "laborWageId": 5107,
+      "month": "2025-08",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3950000
+    },
+    {
+      "laborWageId": 5108,
+      "month": "2025-09",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3957000
+    },
+    {
+      "laborWageId": 5109,
+      "month": "2025-10",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3938000
+    },
+    {
+      "laborWageId": 5110,
+      "month": "2025-11",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 3947000
+    },
+    {
+      "laborWageId": 5111,
+      "month": "2025-12",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 4025000
+    },
+    {
+      "laborWageId": 5112,
+      "month": "2026-01",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 4094000
+    },
+    {
+      "laborWageId": 5113,
+      "month": "2026-02",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 4115000
+    },
+    {
+      "laborWageId": 5114,
+      "month": "2026-03",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 4098000
+    },
+    {
+      "laborWageId": 5115,
+      "month": "2026-04",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 4087000
+    },
+    {
+      "laborWageId": 5116,
+      "month": "2026-05",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 4101000
+    },
+    {
+      "laborWageId": 5117,
+      "month": "2026-06",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 4108000
+    },
+    {
+      "laborWageId": 5118,
+      "month": "2026-07",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 4106000
+    },
+    {
+      "laborWageId": 5119,
+      "month": "2026-08",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 4088000
+    },
+    {
+      "laborWageId": 5120,
+      "month": "2026-09",
+      "major": "기능원 및 관련 기능 종사자",
+      "mid": "기계 조립·정비 기능직",
+      "minor": "배관원",
+      "wage": 4091000
+    },
+    {
+      "laborWageId": 5121,
+      "month": "2024-10",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3731000
+    },
+    {
+      "laborWageId": 5122,
+      "month": "2024-11",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3728000
+    },
+    {
+      "laborWageId": 5123,
+      "month": "2024-12",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3778000
+    },
+    {
+      "laborWageId": 5124,
+      "month": "2025-01",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3860000
+    },
+    {
+      "laborWageId": 5125,
+      "month": "2025-02",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3871000
+    },
+    {
+      "laborWageId": 5126,
+      "month": "2025-03",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3871000
+    },
+    {
+      "laborWageId": 5127,
+      "month": "2025-04",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3869000
+    },
+    {
+      "laborWageId": 5128,
+      "month": "2025-05",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3866000
+    },
+    {
+      "laborWageId": 5129,
+      "month": "2025-06",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3850000
+    },
+    {
+      "laborWageId": 5130,
+      "month": "2025-07",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3869000
+    },
+    {
+      "laborWageId": 5131,
+      "month": "2025-08",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3857000
+    },
+    {
+      "laborWageId": 5132,
+      "month": "2025-09",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3859000
+    },
+    {
+      "laborWageId": 5133,
+      "month": "2025-10",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3861000
+    },
+    {
+      "laborWageId": 5134,
+      "month": "2025-11",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3856000
+    },
+    {
+      "laborWageId": 5135,
+      "month": "2025-12",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3939000
+    },
+    {
+      "laborWageId": 5136,
+      "month": "2026-01",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 4007000
+    },
+    {
+      "laborWageId": 5137,
+      "month": "2026-02",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 4006000
+    },
+    {
+      "laborWageId": 5138,
+      "month": "2026-03",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3996000
+    },
+    {
+      "laborWageId": 5139,
+      "month": "2026-04",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 4001000
+    },
+    {
+      "laborWageId": 5140,
+      "month": "2026-05",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 4015000
+    },
+    {
+      "laborWageId": 5141,
+      "month": "2026-06",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 4008000
+    },
+    {
+      "laborWageId": 5142,
+      "month": "2026-07",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 3999000
+    },
+    {
+      "laborWageId": 5143,
+      "month": "2026-08",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 4015000
+    },
+    {
+      "laborWageId": 5144,
+      "month": "2026-09",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "CNC 공작기계 조작원",
+      "wage": 4018000
+    },
+    {
+      "laborWageId": 5145,
+      "month": "2024-10",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3671000
+    },
+    {
+      "laborWageId": 5146,
+      "month": "2024-11",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3648000
+    },
+    {
+      "laborWageId": 5147,
+      "month": "2024-12",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3740000
+    },
+    {
+      "laborWageId": 5148,
+      "month": "2025-01",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3787000
+    },
+    {
+      "laborWageId": 5149,
+      "month": "2025-02",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3786000
+    },
+    {
+      "laborWageId": 5150,
+      "month": "2025-03",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3763000
+    },
+    {
+      "laborWageId": 5151,
+      "month": "2025-04",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3785000
+    },
+    {
+      "laborWageId": 5152,
+      "month": "2025-05",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3785000
+    },
+    {
+      "laborWageId": 5153,
+      "month": "2025-06",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3771000
+    },
+    {
+      "laborWageId": 5154,
+      "month": "2025-07",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3782000
+    },
+    {
+      "laborWageId": 5155,
+      "month": "2025-08",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3759000
+    },
+    {
+      "laborWageId": 5156,
+      "month": "2025-09",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3767000
+    },
+    {
+      "laborWageId": 5157,
+      "month": "2025-10",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3784000
+    },
+    {
+      "laborWageId": 5158,
+      "month": "2025-11",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3782000
+    },
+    {
+      "laborWageId": 5159,
+      "month": "2025-12",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3845000
+    },
+    {
+      "laborWageId": 5160,
+      "month": "2026-01",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3893000
+    },
+    {
+      "laborWageId": 5161,
+      "month": "2026-02",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3884000
+    },
+    {
+      "laborWageId": 5162,
+      "month": "2026-03",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3892000
+    },
+    {
+      "laborWageId": 5163,
+      "month": "2026-04",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3900000
+    },
+    {
+      "laborWageId": 5164,
+      "month": "2026-05",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3902000
+    },
+    {
+      "laborWageId": 5165,
+      "month": "2026-06",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3902000
+    },
+    {
+      "laborWageId": 5166,
+      "month": "2026-07",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3892000
+    },
+    {
+      "laborWageId": 5167,
+      "month": "2026-08",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3899000
+    },
+    {
+      "laborWageId": 5168,
+      "month": "2026-09",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "연삭·정밀가공 조작원",
+      "wage": 3886000
+    },
+    {
+      "laborWageId": 5169,
+      "month": "2024-10",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3548000
+    },
+    {
+      "laborWageId": 5170,
+      "month": "2024-11",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3540000
+    },
+    {
+      "laborWageId": 5171,
+      "month": "2024-12",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3611000
+    },
+    {
+      "laborWageId": 5172,
+      "month": "2025-01",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3739000
+    },
+    {
+      "laborWageId": 5173,
+      "month": "2025-02",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3728000
+    },
+    {
+      "laborWageId": 5174,
+      "month": "2025-03",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3737000
+    },
+    {
+      "laborWageId": 5175,
+      "month": "2025-04",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3740000
+    },
+    {
+      "laborWageId": 5176,
+      "month": "2025-05",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3731000
+    },
+    {
+      "laborWageId": 5177,
+      "month": "2025-06",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3719000
+    },
+    {
+      "laborWageId": 5178,
+      "month": "2025-07",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3737000
+    },
+    {
+      "laborWageId": 5179,
+      "month": "2025-08",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3722000
+    },
+    {
+      "laborWageId": 5180,
+      "month": "2025-09",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3723000
+    },
+    {
+      "laborWageId": 5181,
+      "month": "2025-10",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3731000
+    },
+    {
+      "laborWageId": 5182,
+      "month": "2025-11",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3724000
+    },
+    {
+      "laborWageId": 5183,
+      "month": "2025-12",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3788000
+    },
+    {
+      "laborWageId": 5184,
+      "month": "2026-01",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3890000
+    },
+    {
+      "laborWageId": 5185,
+      "month": "2026-02",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3881000
+    },
+    {
+      "laborWageId": 5186,
+      "month": "2026-03",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3891000
+    },
+    {
+      "laborWageId": 5187,
+      "month": "2026-04",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3882000
+    },
+    {
+      "laborWageId": 5188,
+      "month": "2026-05",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3887000
+    },
+    {
+      "laborWageId": 5189,
+      "month": "2026-06",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3872000
+    },
+    {
+      "laborWageId": 5190,
+      "month": "2026-07",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3867000
+    },
+    {
+      "laborWageId": 5191,
+      "month": "2026-08",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3895000
+    },
+    {
+      "laborWageId": 5192,
+      "month": "2026-09",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "열처리 조작원",
+      "wage": 3880000
+    },
+    {
+      "laborWageId": 5193,
+      "month": "2024-10",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3423000
+    },
+    {
+      "laborWageId": 5194,
+      "month": "2024-11",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3417000
+    },
+    {
+      "laborWageId": 5195,
+      "month": "2024-12",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3473000
+    },
+    {
+      "laborWageId": 5196,
+      "month": "2025-01",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3523000
+    },
+    {
+      "laborWageId": 5197,
+      "month": "2025-02",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3509000
+    },
+    {
+      "laborWageId": 5198,
+      "month": "2025-03",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3529000
+    },
+    {
+      "laborWageId": 5199,
+      "month": "2025-04",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3524000
+    },
+    {
+      "laborWageId": 5200,
+      "month": "2025-05",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3514000
+    },
+    {
+      "laborWageId": 5201,
+      "month": "2025-06",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3521000
+    },
+    {
+      "laborWageId": 5202,
+      "month": "2025-07",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3523000
+    },
+    {
+      "laborWageId": 5203,
+      "month": "2025-08",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3530000
+    },
+    {
+      "laborWageId": 5204,
+      "month": "2025-09",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3515000
+    },
+    {
+      "laborWageId": 5205,
+      "month": "2025-10",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3511000
+    },
+    {
+      "laborWageId": 5206,
+      "month": "2025-11",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3534000
+    },
+    {
+      "laborWageId": 5207,
+      "month": "2025-12",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3574000
+    },
+    {
+      "laborWageId": 5208,
+      "month": "2026-01",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3645000
+    },
+    {
+      "laborWageId": 5209,
+      "month": "2026-02",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3662000
+    },
+    {
+      "laborWageId": 5210,
+      "month": "2026-03",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3663000
+    },
+    {
+      "laborWageId": 5211,
+      "month": "2026-04",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3651000
+    },
+    {
+      "laborWageId": 5212,
+      "month": "2026-05",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3639000
+    },
+    {
+      "laborWageId": 5213,
+      "month": "2026-06",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3658000
+    },
+    {
+      "laborWageId": 5214,
+      "month": "2026-07",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3647000
+    },
+    {
+      "laborWageId": 5215,
+      "month": "2026-08",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3662000
+    },
+    {
+      "laborWageId": 5216,
+      "month": "2026-09",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "금속 가공 기계 조작직",
+      "minor": "프레스·판금 조작원",
+      "wage": 3639000
+    },
+    {
+      "laborWageId": 5217,
+      "month": "2024-10",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3508000
+    },
+    {
+      "laborWageId": 5218,
+      "month": "2024-11",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3483000
+    },
+    {
+      "laborWageId": 5219,
+      "month": "2024-12",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3544000
+    },
+    {
+      "laborWageId": 5220,
+      "month": "2025-01",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3593000
+    },
+    {
+      "laborWageId": 5221,
+      "month": "2025-02",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3605000
+    },
+    {
+      "laborWageId": 5222,
+      "month": "2025-03",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3601000
+    },
+    {
+      "laborWageId": 5223,
+      "month": "2025-04",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3600000
+    },
+    {
+      "laborWageId": 5224,
+      "month": "2025-05",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3606000
+    },
+    {
+      "laborWageId": 5225,
+      "month": "2025-06",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3590000
+    },
+    {
+      "laborWageId": 5226,
+      "month": "2025-07",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3613000
+    },
+    {
+      "laborWageId": 5227,
+      "month": "2025-08",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3589000
+    },
+    {
+      "laborWageId": 5228,
+      "month": "2025-09",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3592000
+    },
+    {
+      "laborWageId": 5229,
+      "month": "2025-10",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3601000
+    },
+    {
+      "laborWageId": 5230,
+      "month": "2025-11",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3607000
+    },
+    {
+      "laborWageId": 5231,
+      "month": "2025-12",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3663000
+    },
+    {
+      "laborWageId": 5232,
+      "month": "2026-01",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3736000
+    },
+    {
+      "laborWageId": 5233,
+      "month": "2026-02",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3725000
+    },
+    {
+      "laborWageId": 5234,
+      "month": "2026-03",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3727000
+    },
+    {
+      "laborWageId": 5235,
+      "month": "2026-04",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3736000
+    },
+    {
+      "laborWageId": 5236,
+      "month": "2026-05",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3731000
+    },
+    {
+      "laborWageId": 5237,
+      "month": "2026-06",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3712000
+    },
+    {
+      "laborWageId": 5238,
+      "month": "2026-07",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3717000
+    },
+    {
+      "laborWageId": 5239,
+      "month": "2026-08",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3714000
+    },
+    {
+      "laborWageId": 5240,
+      "month": "2026-09",
+      "major": "장치·기계 조작 및 조립 종사자",
+      "mid": "표면처리 조작직",
+      "minor": "도장기 조작원",
+      "wage": 3727000
+    },
+    {
+      "laborWageId": 5241,
+      "month": "2024-10",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4114000
+    },
+    {
+      "laborWageId": 5242,
+      "month": "2024-11",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4114000
+    },
+    {
+      "laborWageId": 5243,
+      "month": "2024-12",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4218000
+    },
+    {
+      "laborWageId": 5244,
+      "month": "2025-01",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4302000
+    },
+    {
+      "laborWageId": 5245,
+      "month": "2025-02",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4325000
+    },
+    {
+      "laborWageId": 5246,
+      "month": "2025-03",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4322000
+    },
+    {
+      "laborWageId": 5247,
+      "month": "2025-04",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4310000
+    },
+    {
+      "laborWageId": 5248,
+      "month": "2025-05",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4297000
+    },
+    {
+      "laborWageId": 5249,
+      "month": "2025-06",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4326000
+    },
+    {
+      "laborWageId": 5250,
+      "month": "2025-07",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4321000
+    },
+    {
+      "laborWageId": 5251,
+      "month": "2025-08",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4300000
+    },
+    {
+      "laborWageId": 5252,
+      "month": "2025-09",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4301000
+    },
+    {
+      "laborWageId": 5253,
+      "month": "2025-10",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4319000
+    },
+    {
+      "laborWageId": 5254,
+      "month": "2025-11",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4301000
+    },
+    {
+      "laborWageId": 5255,
+      "month": "2025-12",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4407000
+    },
+    {
+      "laborWageId": 5256,
+      "month": "2026-01",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4513000
+    },
+    {
+      "laborWageId": 5257,
+      "month": "2026-02",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4493000
+    },
+    {
+      "laborWageId": 5258,
+      "month": "2026-03",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4518000
+    },
+    {
+      "laborWageId": 5259,
+      "month": "2026-04",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4508000
+    },
+    {
+      "laborWageId": 5260,
+      "month": "2026-05",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4503000
+    },
+    {
+      "laborWageId": 5261,
+      "month": "2026-06",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4512000
+    },
+    {
+      "laborWageId": 5262,
+      "month": "2026-07",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4495000
+    },
+    {
+      "laborWageId": 5263,
+      "month": "2026-08",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4486000
+    },
+    {
+      "laborWageId": 5264,
+      "month": "2026-09",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "비파괴검사원",
+      "wage": 4501000
+    },
+    {
+      "laborWageId": 5265,
+      "month": "2024-10",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3604000
+    },
+    {
+      "laborWageId": 5266,
+      "month": "2024-11",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3598000
+    },
+    {
+      "laborWageId": 5267,
+      "month": "2024-12",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3665000
+    },
+    {
+      "laborWageId": 5268,
+      "month": "2025-01",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3749000
+    },
+    {
+      "laborWageId": 5269,
+      "month": "2025-02",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3746000
+    },
+    {
+      "laborWageId": 5270,
+      "month": "2025-03",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3751000
+    },
+    {
+      "laborWageId": 5271,
+      "month": "2025-04",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3730000
+    },
+    {
+      "laborWageId": 5272,
+      "month": "2025-05",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3741000
+    },
+    {
+      "laborWageId": 5273,
+      "month": "2025-06",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3725000
+    },
+    {
+      "laborWageId": 5274,
+      "month": "2025-07",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3752000
+    },
+    {
+      "laborWageId": 5275,
+      "month": "2025-08",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3743000
+    },
+    {
+      "laborWageId": 5276,
+      "month": "2025-09",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3730000
+    },
+    {
+      "laborWageId": 5277,
+      "month": "2025-10",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3750000
+    },
+    {
+      "laborWageId": 5278,
+      "month": "2025-11",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3745000
+    },
+    {
+      "laborWageId": 5279,
+      "month": "2025-12",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3801000
+    },
+    {
+      "laborWageId": 5280,
+      "month": "2026-01",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3853000
+    },
+    {
+      "laborWageId": 5281,
+      "month": "2026-02",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3844000
+    },
+    {
+      "laborWageId": 5282,
+      "month": "2026-03",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3861000
+    },
+    {
+      "laborWageId": 5283,
+      "month": "2026-04",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3841000
+    },
+    {
+      "laborWageId": 5284,
+      "month": "2026-05",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3862000
+    },
+    {
+      "laborWageId": 5285,
+      "month": "2026-06",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3848000
+    },
+    {
+      "laborWageId": 5286,
+      "month": "2026-07",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3864000
+    },
+    {
+      "laborWageId": 5287,
+      "month": "2026-08",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3844000
+    },
+    {
+      "laborWageId": 5288,
+      "month": "2026-09",
+      "major": "전문가 및 관련 종사자",
+      "mid": "품질·검사 기술직",
+      "minor": "품질 검사원",
+      "wage": 3842000
     }
   ]
 }

@@ -56,3 +56,25 @@ CREATE INDEX idx_orders_expected_date ON orders(expected_date);
 CREATE INDEX idx_delivery_order ON delivery(order_id);
 CREATE INDEX idx_complaint_delivery ON complaint(delivery_id);
 CREATE INDEX idx_complaint_part ON complaint(part_id);
+
+-- 웹 화면 SAMPLE과 같은 가상 시세·임금 (실제 기관 자료 아님)
+CREATE TABLE material_price (
+    material_price_id INTEGER PRIMARY KEY,
+    month TEXT NOT NULL,
+    material TEXT NOT NULL,
+    market TEXT NOT NULL,
+    price REAL NOT NULL CHECK (price >= 0),
+    unit TEXT NOT NULL,
+    currency TEXT NOT NULL,
+    UNIQUE (material, market, month)
+);
+
+CREATE TABLE labor_wage (
+    labor_wage_id INTEGER PRIMARY KEY,
+    month TEXT NOT NULL,
+    major TEXT NOT NULL,
+    mid TEXT NOT NULL,
+    minor TEXT NOT NULL,
+    wage INTEGER NOT NULL CHECK (wage >= 0),
+    UNIQUE (minor, month)
+);

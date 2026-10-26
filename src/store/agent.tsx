@@ -1,23 +1,31 @@
 // 질문 → 답변 → 템플릿 선택 흐름을 화면 어디서든 쓸 수 있게 묶는다
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
-import { answer } from "../ai/agent";
+import { answer, type PendingClarify } from "../ai/agent";
 import { detectProvider, type LLMProvider } from "../ai/llm";
 import { runAnalysis } from "../lib/analysis";
 import type { AnalysisResult, TemplateId } from "../lib/analysisTypes";
 import { uid, useStore } from "./store";
 import { askRag, getRagConfig, RagHttpError, type ChatMode, type RagConfig, type RagModel } from "../ai/rag";
 import { createRagSession, WebRagSession, type WebRagPhase } from "../ai/webRag";
+import { detectMarketTopic } from "../ai/topic";
+
+/** v0.6.0: 챗봇 질문은 구매 DB RAG + qwen3:8b로 고정한다 (선택 UI 없음) */
+export const RAG_MODE: ChatMode = "rag";
+export const RAG_MODEL: RagModel = "qwen3:8b";
+
+/** 질문으로 바꾼 오른쪽 분석 화면 — 채팅 답변에 '이 결과 다시 보기'·안내로 연결한다 */
+interface PanelInfo { resultId?: string; shownAs?: TemplateId; followup?: boolean; note: string }
 
 interface AgentApi {
   ask: (question: string, opts?: { answeringId?: string; mode?: ChatMode }) => Promise<void>;
+  /** 질문에서 찾은 대상으로 오른쪽 분석 결과창만 바꾼다 (웹 화면 데이터 기준) */
+  explore: (question: string, pending?: PendingClarify | null) => Promise<PanelInfo>;
   choose: (resultId: string, template: TemplateId) => void;
   rerun: (result: AnalysisResult) => void;
   provider: LLMProvider | null;
   providerChecked: boolean;
   chatMode: ChatMode;
-  setChatMode: (mode: ChatMode) => void;
-  ragModel: RagModel | "";
-  setRagModel: (model: RagModel | "") => void;
+  ragReady: boolean;
   ragConfig: RagConfig | null;
   ragChecking: boolean;
   ragConfigError: string | null;
@@ -35,8 +43,7 @@ export function AgentProvider({ children }: { children: ReactNode }) {
   ref.current = store;
   const [provider, setProvider] = useState<LLMProvider | null>(null);
   const [checked, setChecked] = useState(false);
-  const [chatMode, setChatMode] = useState<ChatMode>("analysis");
-  const [ragModel, setRagModel] = useState<RagModel | "">("");
+  const [chatMode, setChatMode] = useState<ChatMode>(RAG_MODE);
   const [ragConfig, setRagConfig] = useState<RagConfig | null>(null);
   const [ragChecking, setRagChecking] = useState(false);
   const [ragConfigError, setRagConfigError] = useState<string | null>(null);
@@ -62,7 +69,6 @@ export function AgentProvider({ children }: { children: ReactNode }) {
     getRagConfig(controller.signal).then((config) => {
       if (!alive.current || configRequest.current !== controller) return;
       setRagConfig(config);
-      setRagModel((current) => current && !config.models.includes(current) ? "" : current);
     }).catch(() => {
       if (!alive.current || configRequest.current !== controller) return;
       setRagConfig(null);
@@ -137,6 +143,38 @@ export function AgentProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
+  const ragReady = !!ragConfig?.enabled && ragConfig.models.includes(RAG_MODEL) && !ragChecking;
+
+  const explore = useCallback(async (question: string, pending?: PendingClarify | null): Promise<PanelInfo> => {
+    const { state, dispatch, derived } = ref.current;
+    const q = question.trim();
+    const topic = pending ? null : detectMarketTopic(q, state.data, state.meta.asOf);
+    let info: PanelInfo;
+    if (topic) {
+      dispatch({ type: "topic", topic });
+      info = { note: topic.kind === "material" ? `오른쪽 분석 결과창: ${topic.material} 시세 추이 (웹 화면 데이터)` : topic.kind === "wage" ? `오른쪽 분석 결과창: ${topic.path.at(-1)} 임금 추이 (웹 화면 데이터)` : "오른쪽 분석 결과창: 추가 선택 필요" };
+    } else {
+      // 시세·임금이 아니면 기존 웹 데이터 분석 규칙으로 대상을 찾는다. 질문에 적은 대상만 쓰도록 왼쪽 행 선택은 넘기지 않는다.
+      const reply = await answer(q, { data: state.data, derived, meta: state.meta, selection: {}, lastResult: state.lastResultId ? state.results[state.lastResultId] : null, pending: pending ?? null }, null);
+      if (reply.type === "analysis") {
+        const r = reply.result;
+        const cur = ref.current.state.view.template;
+        const shownAs = reply.followup && cur && r.templates.includes(cur) ? cur : r.recommended;
+        dispatch({ type: "addResult", result: r });
+        dispatch({ type: "show", resultId: r.id, template: shownAs });
+        info = { resultId: r.id, shownAs, followup: reply.followup, note: "오른쪽 분석 결과: 웹 화면 데이터로 계산" };
+      } else {
+        dispatch({
+          type: "topic",
+          topic: { kind: "unclear", question: q, message: reply.text.join(" "), options: reply.type === "clarify" ? reply.options.map((o) => ({ label: o.label })) : [], pending: reply.type === "clarify" ? reply.pending : undefined },
+        });
+        info = { note: reply.type === "clarify" ? "오른쪽 분석 결과창: 추가 선택 필요" : "오른쪽 분석 결과창: 표시할 분석 없음" };
+      }
+    }
+    if (isNarrow()) dispatch({ type: "panel", panel: "C" });
+    return info;
+  }, []);
+
   const ask = useCallback(
     async (question: string, opts?: { answeringId?: string; mode?: ChatMode }) => {
       const { state, dispatch, derived } = ref.current;
@@ -144,8 +182,8 @@ export function AgentProvider({ children }: { children: ReactNode }) {
       // 기존 평가 카드·선택 정보의 분석 버튼은 계속 웹 데이터 분석을 사용한다.
       const mode = opts?.mode ?? "analysis";
       if (!q || state.busy || activeRequest.current) return;
-      if (mode !== "analysis" && (!ragConfig?.enabled || !ragModel || ragChecking)) {
-        dispatch({ type: "toast", text: !ragConfig?.enabled ? "RAG 서버 연결 설정을 확인해 주세요." : "사용할 RAG 모델을 선택해 주세요.", tone: "warn" });
+      if (mode === "web-rag" && !ragConfig?.enabled) {
+        dispatch({ type: "toast", text: "RAG 서버 연결 설정을 확인해 주세요.", tone: "warn" });
         return;
       }
       const request = { controller: new AbortController(), mode, revision: state.meta.dataId, version: state.meta.version };
@@ -156,19 +194,36 @@ export function AgentProvider({ children }: { children: ReactNode }) {
       dispatch({ type: "addMessage", message: { id: uid(), role: "user", text: q, at: new Date().toISOString(), mode } });
       dispatch({ type: "busy", busy: true, progress: 0 });
       try {
+        // 질문 → 오른쪽 분석 화면을 먼저 바꾸고(웹 화면 데이터), 그다음 구매 DB RAG 답변을 기다린다
+        const panel = mode === "rag"
+          ? await explore(q).catch((): PanelInfo => {
+              dispatch({ type: "topic", topic: { kind: "unclear", question: q, message: "질문에서 분석 대상을 찾지 못했습니다.", options: [] } });
+              return { note: "오른쪽 분석 결과창: 추가 선택 필요" };
+            })
+          : null;
+        const panelLink = panel?.resultId ? { resultId: panel.resultId, shownAs: panel.shownAs, followup: panel.followup } : {};
+        if (mode === "rag" && !ragReady) {
+          // RAG를 쓸 수 없어도 답변을 지어내지 않고, 오른쪽 분석 화면만 보여 준다 (RAG 연결 없는 공개 페이지 포함)
+          dispatch({ type: "addMessage", message: {
+            id: uid(), role: "assistant", at: new Date().toISOString(), engine: "system", ...panelLink,
+            text: [`RAG 서버에 연결되지 않아 구매 DB 답변을 만들지 않았습니다 (${ragChecking ? "연결 확인 중" : !ragConfig?.enabled ? "연결 설정 필요" : `${RAG_MODEL} 사용 불가`}). 오른쪽 분석 결과창은 웹 화면 데이터로 표시합니다.`],
+            engineNote: panel?.note,
+          } });
+          return;
+        }
         if (mode !== "analysis") {
           const dataset = mode === "web-rag"
             ? await webSession.ensure({ data: state.data, meta: state.meta }, request.controller.signal, (phase) => { if (current()) setWebRagPhase(phase); })
             : undefined;
           if (!current()) return;
           // 웹 화면의 SUP-/ITM-/PO- 샘플 ID와 선택 문맥은 별도 구매 DB에 전달하지 않는다.
-          const reply = await askRag({ question: q, model: ragModel as RagModel, ...(dataset ? { dataset } : {}) }, { signal: request.controller.signal, session: webSession.session });
+          const reply = await askRag({ question: q, model: RAG_MODEL, ...(dataset ? { dataset } : {}) }, { signal: request.controller.signal, session: webSession.session });
           if (!current()) return;
           dispatch({ type: "addMessage", message: {
-            id: uid(), role: "assistant", at: new Date().toISOString(), engine: mode, text: [reply.answer],
+            id: uid(), role: "assistant", at: new Date().toISOString(), engine: mode, text: [reply.answer], ...panelLink,
             ragSources: reply.sources, ragModel: reply.model, ragStatus: reply.status,
             ...(dataset ? { ragDataset: dataset, ragClientRevision: request.revision } : {}),
-            engineNote: [mode === "web-rag" ? `웹 데이터 기준 · ${state.meta.label} · 최종 판단은 담당자` : "별도 구매 DB 기준 · 최종 판단은 담당자", reply.note].filter(Boolean).join(" · "),
+            engineNote: [mode === "web-rag" ? `웹 데이터 기준 · ${state.meta.label} · 최종 판단은 담당자` : "구매 DB 기준 · 최종 판단은 담당자", reply.note, panel?.note].filter(Boolean).join(" · "),
           } });
           if (!ref.current.state.chatOpen) dispatch({ type: "chat", open: true });
           return;
@@ -221,7 +276,7 @@ export function AgentProvider({ children }: { children: ReactNode }) {
         }
       }
     },
-    [provider, ragConfig, ragModel, ragChecking, webSession],
+    [provider, ragConfig, ragReady, ragChecking, webSession, explore],
   );
 
   const choose = useCallback((resultId: string, template: TemplateId) => {
@@ -242,7 +297,7 @@ export function AgentProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const value = useMemo(() => ({ ask, choose, rerun, provider, providerChecked: checked, chatMode, setChatMode, ragModel, setRagModel, ragConfig, ragChecking, ragConfigError, refreshRagConfig, webRagPhase }), [ask, choose, rerun, provider, checked, chatMode, ragModel, ragConfig, ragChecking, ragConfigError, refreshRagConfig, webRagPhase]);
+  const value = useMemo(() => ({ ask, explore, choose, rerun, provider, providerChecked: checked, chatMode, ragReady, ragConfig, ragChecking, ragConfigError, refreshRagConfig, webRagPhase }), [ask, explore, choose, rerun, provider, checked, chatMode, ragReady, ragConfig, ragChecking, ragConfigError, refreshRagConfig, webRagPhase]);
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
 

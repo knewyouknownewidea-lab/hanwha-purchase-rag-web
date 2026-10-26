@@ -60,8 +60,8 @@ export const KPIS: KpiDef[] = [
   {
     id: "priceUp",
     label: "단가 상승 계약",
-    tab: "contracts",
-    filterKey: "up",
+    tab: "suppliers", // 원가-계약 탭 삭제 → 협력업체 탭의 '단가 상승 계약' 필터
+    filterKey: "priceUp",
     unit: "건",
     totalUnit: "건",
     hint: () => `최근 단가가 직전 단가보다 ${EVAL_CONFIG.priceIncreaseThreshold}% 이상 오른 계약`,

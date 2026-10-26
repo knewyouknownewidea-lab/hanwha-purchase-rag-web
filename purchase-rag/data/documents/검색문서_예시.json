@@ -4,7 +4,7 @@
   "metadata": {
     "document_type": "order",
     "source_db": "구매관리_테스트.db",
-    "source_db_sha256": "a33d4b7d6f2302ca7065d6c8a1f8bd8ab190f401b696050424679d80424839df",
+    "source_db_sha256": "67b70b1c3d23e5b16f4efdc933f5e133587e709ff1f581ec50132616bc86a14e",
     "source_tables": [
       "orders",
       "supplier",

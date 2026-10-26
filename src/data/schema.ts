@@ -92,7 +92,7 @@ export const SCHEMAS: Record<DatasetKey, DatasetSchema> = {
   },
   contracts: {
     key: "contracts",
-    label: "원가-계약",
+    label: "계약 단가",
     primaryKey: "contractId",
     fields: [
       { key: "contractId", label: "계약번호", type: "string", required: true, aliases: ["계약id", "계약no"] },

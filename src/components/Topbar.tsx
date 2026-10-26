@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { LuBell, LuBookOpen, LuChevronDown, LuDatabase, LuFileUp, LuLogOut, LuRotateCcw, LuStar, LuTrash2, LuX } from "react-icons/lu";
 import { useStore } from "../store/store";
+import { SUB_VIEWS } from "../data/types";
 import { useAgent } from "../store/agent";
 import { alertCount } from "../lib/payments";
 import { BrandBlock } from "./Brand";
@@ -223,7 +224,7 @@ function UserMenu({ onLogout, onDeleteUpload }: { onLogout: (wipe: boolean) => v
 export function Topbar({ onLogout }: { onLogout: (wipe: boolean) => void }) {
   const { state, dispatch } = useStore();
   const [confirmReset, setConfirmReset] = useState(false);
-  const datasetFor = state.subView[state.tab] === "list" ? state.tab : state.tab;
+  const datasetFor = (SUB_VIEWS[state.tab].find((v) => v.id === state.subView[state.tab]) ?? SUB_VIEWS[state.tab][0]).dataset;
   return (
     <header className="topbar">
       <BrandBlock />

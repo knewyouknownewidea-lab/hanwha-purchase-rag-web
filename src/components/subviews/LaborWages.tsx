@@ -1,4 +1,4 @@
-// 원가-계약 › 인건비 동향: 직종 대·중·소 분류 트리 + 월평균 임금 추이·전년 대비 상승률·상위 분류 비교
+// 인건비 동향 탭: 직종 대·중·소 분류 트리 + 월평균 임금 추이·전년 대비 상승률·상위 분류 비교
 import { useMemo, useState } from "react";
 import { LuChevronDown, LuChevronRight, LuInfo } from "react-icons/lu";
 import { useStore } from "../../store/store";
@@ -15,12 +15,14 @@ function Delta({ v }: { v: number | null }) {
   return <span className={v > 0 ? "delta-up" : v < 0 ? "delta-down" : ""}>{fmtSignedPct(v)}</span>;
 }
 
-export function LaborWages() {
+/** focus: AI 질문에서 찾은 직종(대·중·소 분류 경로)·기간 (오른쪽 분석 결과창에서 같은 조건으로 연다) */
+export function LaborWages({ focus }: { focus?: { path: string[]; months: number | null } } = {}) {
   const { state, derived } = useStore();
   const { roots, months } = useMemo(() => buildWageTree(state.data.laborWages), [state.data.laborWages]);
-  const [path, setPath] = useState<string[] | null>(null);
-  const [open, setOpen] = useState<Set<string>>(() => new Set(roots.map((r) => r.name)));
-  const [span, setSpan] = useState(24);
+  const [path, setPath] = useState<string[] | null>(focus?.path ?? null);
+  const [open, setOpen] = useState<Set<string>>(() => new Set([...roots.map((r) => r.name), ...(focus ? [focus.path.slice(0, 2).join("›")] : [])]));
+  const [span, setSpan] = useState(focus?.months ?? 24);
+  const spans = [...new Set([12, 24, span])].sort((a, b) => a - b);
   const sel = (path && findNode(roots, path)) || roots[0] || null;
   const parent = sel && sel.path.length > 1 ? findNode(roots, sel.path.slice(0, -1)) : null;
   const allAvg = useMemo(() => {
@@ -143,7 +145,7 @@ export function LaborWages() {
             </div>
           )}
           <div className="seg-ctl" role="radiogroup" aria-label="기간">
-            {[12, 24].map((p) => (
+            {spans.map((p) => (
               <button key={p} type="button" role="radio" aria-checked={span === p} className={span === p ? "is-on" : ""} onClick={() => setSpan(p)}>
                 {p}개월
               </button>
