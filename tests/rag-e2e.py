@@ -102,7 +102,7 @@ def login(page, url):
         page.locator("#ob-skip").click()
     page.locator(".chat-launcher").click()
     # v0.6.0: 질문 방식(구매 DB RAG)·모델(qwen3:8b) 고정, 선택 UI 없음
-    expect(page.locator(".rag-connection")).to_contain_text("구매 DB 기준 답변")
+    expect(page.locator(".rag-connection")).to_contain_text("가격 비교는 현재 화면 기준 · 일반 구매 DB 질문은 별도 DB 기준입니다.")
 
 
 def ask(page, question):

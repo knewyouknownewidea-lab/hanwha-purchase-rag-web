@@ -1,6 +1,13 @@
 """검색 결과를 생성 모델에 전달할 입력으로 구성합니다. 모델 호출은 하지 않습니다."""
+import re
 
 NO_EVIDENCE = '제공된 문서에서 관련 정보를 찾을 수 없습니다.'
+
+
+def hide_condition_numbers(text):
+    """가격 정성 설명 전용 표시 변환. 검색 원문·공개 출처 metadata는 바꾸지 않습니다."""
+    return re.sub(r'(\[E\d+\])|\d+(?:[.,]\d+)*',
+                  lambda match: match.group(1) or '[조건값]', text)
 
 PROMPT_TEMPLATE = """당신은 선박엔진 부품 및 구매관리 전문 AI 어시스턴트입니다.
 아래 제공된 [참고 문서]만을 바탕으로 사용자의 [질문]에 정확하고 간결하게 답변하세요.
@@ -43,6 +50,7 @@ def build_prompt(search_result):
         return result
 
     blocks = []
+    hide_numbers = search_result.get('hide_condition_numbers') is True
     for i, item in enumerate(search_result['results'], start=1):
         source = item.get('source', {})
         text = item.get('text', '')
@@ -52,7 +60,9 @@ def build_prompt(search_result):
             result.update(status='insufficient_evidence', message=NO_EVIDENCE, sources=[])
             return result
         label = f'E{i}'
-        blocks.append(f"[{label}]\n{text}\n출처: {', '.join(refs)}")
+        prompt_text = hide_condition_numbers(text) if hide_numbers else text
+        prompt_refs = [hide_condition_numbers(ref) for ref in refs] if hide_numbers else refs
+        blocks.append(f"[{label}]\n{prompt_text}\n출처: {', '.join(prompt_refs)}")
         result['sources'].append({
             'evidence_id': label,
             'chunk_id': item['chunk_id'],
@@ -64,5 +74,5 @@ def build_prompt(search_result):
     result.update(status='prompt_ready', ready_for_generation=True,
                   message='질문과 검색 근거를 통합했습니다. 답변 생성 모델은 호출하지 않았습니다.',
                   context=context,
-                  prompt=PROMPT_TEMPLATE.format(context=context, question=result['question']))
+                  prompt=PROMPT_TEMPLATE.format(context=context, question=hide_condition_numbers(result['question']) if hide_numbers else result['question']))
     return result

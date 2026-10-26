@@ -23,7 +23,7 @@ import { EmptyState } from "./ui";
 import { SelectionDetail, useSelectionTitle } from "./SelectionDetail";
 import { TopicPanel } from "./TopicPanel";
 
-const RENDERERS: Record<Exclude<TemplateId, "report">, ComponentType<{ result: AnalysisResult; settings: ViewSettings }>> = {
+const RENDERERS: Record<Exclude<TemplateId, "report">, ComponentType<{ result: AnalysisResult; settings: ViewSettings; onExternalQuoteChange?: (quoteId: string, unitPrice: number) => void }>> = {
   table: ComparisonTable,
   chart: AnalyticsCharts,
   cards: SupplierScoreCard,
@@ -113,7 +113,10 @@ export function ResultPanel() {
   // 질문 주제 화면(시세·임금·추가 선택)을 보일 때는 이전 분석 결과를 함께 띄우지 않는다
   const result = !topic && state.view.resultId ? state.results[state.view.resultId] : null;
   const tpl = result ? state.view.template ?? result.recommended : null;
-  const stale = result && result.dataId !== state.meta.dataId;
+  const stale = result && (result.dataId !== state.meta.dataId || !!result.priceAnalysis && result.priceAnalysis.revision !== state.priceInputs.revision);
+  const onExternalQuoteChange = result?.priceAnalysis && !stale && result.priceAnalysis.revision === state.priceInputs.revision
+    ? (quoteId: string, price: number) => dispatch({ type: "externalQuotePrice", quoteId, price, dataId: result.dataId, revision: result.priceAnalysis!.revision })
+    : undefined;
   const name = result ? resultName(state, result) : "";
   const fileBase = result ? `${name.replace(/[\\/:*?"<>|\s]+/g, "_")}_${result.asOf}` : "";
   const allPresets = [...BUILT_IN_PRESETS, ...state.userPresets];
@@ -275,7 +278,7 @@ export function ResultPanel() {
                 <SourceRecords result={result} />
               </div>
             )}
-            {tpl === "report" ? <AnalysisReport result={result} settings={state.settings} ref={reportRef} /> : Renderer ? <Renderer result={result} settings={state.settings} /> : null}
+            {tpl === "report" ? <AnalysisReport result={result} settings={state.settings} ref={reportRef} onExternalQuoteChange={onExternalQuoteChange} /> : Renderer ? <Renderer result={result} settings={state.settings} onExternalQuoteChange={onExternalQuoteChange} /> : null}
             <p className="result-foot">최종 선정과 조치는 자동 확정되지 않습니다. 이 결과는 담당자 검토를 돕는 의사결정 지원 자료입니다.</p>
           </div>
         )}

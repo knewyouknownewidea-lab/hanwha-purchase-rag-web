@@ -11,9 +11,9 @@ GitHub: https://github.com/knewyouknownewidea-lab/hanwha-purchase-rag-web
 ## 접속과 질문
 
 1. 공개 링크에서 **시연 계정으로 바로 시작**을 누릅니다. 별도 ChatGPT 로그인은 필요하지 않습니다.
-2. **AI에게 질문하기**에서 **웹 데이터 RAG · 업로드 포함**을 고릅니다.
-3. 답변 모델 **qwen3:8b**를 선택합니다. 현재 연결된 PC에는 이 모델이 설치되어 있습니다.
-4. CSV·JSON 자료를 불러오고 질문하면 현재 화면의 11종 표를 검색합니다. 첫 질문은 BGE-M3 인덱스 준비 때문에 수분 걸릴 수 있습니다.
+2. **AI에게 질문하기**에서 자유롭게 질문합니다. 방식과 모델은 구매 DB RAG·**qwen3:8b**로 고정되어 있습니다.
+3. v0.7.0 가격 비교 질문은 현재 화면의 품목·견적·조건과 동일한 계산값을 전달하고 관련 조건 문서를 검색합니다. 일반 구매 DB 질문은 별도 구매 DB를 사용합니다.
+4. CSV·JSON 업로드는 기존 11종 표를 갱신합니다. 별도 외부 견적·계약 조건이 없는 자료는 가격 계산 불가/확인 필요로 표시합니다. 가격 조건 문서는 현재 SAMPLE이며 업로드 자료에 자동 대응하지 않습니다. [가격 비교 범위](PRICE_COMPARISON.md)를 참고하세요.
 
 기본 데이터와 공개 검증 자료는 모두 SAMPLE 가상 자료입니다. 이름만 받는 간이 로그인은 보안 인증이 아닙니다. 영구 저장은 브라우저에 하고, RAG에 보낸 검색 스냅샷은 세션별 임시 메모리에서 처리합니다. 스냅샷 변경·삭제·로그아웃·만료 시 이전 검색 결과를 폐기합니다. 자세한 API·크기·만료 한도는 [RAG.md](RAG.md)를 참고하세요.
 
@@ -68,6 +68,7 @@ npm run build:hosting
 npm run test:logic
 npm run test:rag
 npm run test:hosting
+npm run test:price
 ```
 
 `hosting/build.mjs`는 웹앱을 빌드하고 기존 esbuild로 단일 Worker ESM을 만듭니다. 새 npm 패키지는 없습니다. 별도 Sites 소스 체크아웃의 `worker/index.js`를 갱신할 때는 `--site-source <절대경로>`를 사용합니다. Sites 소스 helper로 정확한 소스를 푸시·패키징한 뒤 저장된 버전을 공개 배포합니다. GitHub에만 푸시하면 Sites 배포가 자동으로 바뀌지는 않습니다.

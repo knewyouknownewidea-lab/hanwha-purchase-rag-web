@@ -1,0 +1,206 @@
+[
+  {
+    "id": "PRICE-INT-A",
+    "itemCode": "ITM-1001",
+    "supplierIds": [
+      "SUP-001"
+    ],
+    "recordIds": [
+      "INT-LINER-A"
+    ],
+    "title": "가상 신규 협력사 견적 A 조건서",
+    "date": "2026-10-15",
+    "page": "1",
+    "isSample": true,
+    "conditions": {
+      "itemCode": "ITM-1001",
+      "drawing": "CL-500-R1",
+      "specification": "Ø500 × 2,100mm, 특수주철",
+      "material": "특수주철",
+      "processing": "완성가공·호닝",
+      "inspection": "전수 치수검사·진원도 0.02mm 이하",
+      "quantity": 10,
+      "unit": "EA",
+      "currency": "KRW",
+      "priceDate": "2026-10-15",
+      "taxTerms": "부가세 별도",
+      "transportTerms": "운송비 포함",
+      "deliveryTerms": "창원 공장 도착도"
+    },
+    "text": "SAMPLE · 실제 자료 아님. 실린더 라이너 ITM-1001, 도면 CL-500-R1, Ø500 × 2,100mm 특수주철, 완성가공·호닝, 수량 10 EA, KRW, 부가세 별도, 운송비 포함, 창원 공장 도착도. 검사: 전수 치수검사·진원도 0.02mm 이하. 기존 계약과 다른 신규 가상 견적이다. 금액은 연결된 현재 가상 견적 레코드에서 확인하며, 가격 차이의 원가 사유는 이 문서에 기재되어 있지 않다."
+  },
+  {
+    "id": "PRICE-INT-B",
+    "itemCode": "ITM-1001",
+    "supplierIds": [
+      "SUP-002"
+    ],
+    "recordIds": [
+      "INT-LINER-B"
+    ],
+    "title": "가상 신규 협력사 견적 B 조건서",
+    "date": "2026-10-15",
+    "page": "1",
+    "isSample": true,
+    "conditions": {
+      "itemCode": "ITM-1001",
+      "drawing": "CL-500-R1",
+      "specification": "Ø500 × 2,100mm, 특수주철",
+      "material": "특수주철",
+      "processing": "완성가공·호닝",
+      "inspection": "전수 치수검사·진원도 0.02mm 이하",
+      "quantity": 10,
+      "unit": "EA",
+      "currency": "KRW",
+      "priceDate": "2026-10-15",
+      "taxTerms": "부가세 별도",
+      "transportTerms": "운송비 포함",
+      "deliveryTerms": "창원 공장 도착도"
+    },
+    "text": "SAMPLE · 실제 자료 아님. 실린더 라이너 ITM-1001, 도면 CL-500-R1, Ø500 × 2,100mm 특수주철, 완성가공·호닝, 수량 10 EA, KRW, 부가세 별도, 운송비 포함, 창원 공장 도착도. 검사: 전수 치수검사·진원도 0.02mm 이하. 기존 계약과 다른 신규 가상 견적이다. 금액은 연결된 현재 가상 견적 레코드에서 확인하며, 가격 차이의 원가 사유는 이 문서에 기재되어 있지 않다."
+  },
+  {
+    "id": "PRICE-INT-C",
+    "itemCode": "ITM-1001",
+    "supplierIds": [
+      "SUP-003"
+    ],
+    "recordIds": [
+      "INT-LINER-C"
+    ],
+    "title": "가상 신규 협력사 견적 C 조건서",
+    "date": "2026-10-15",
+    "page": "1",
+    "isSample": true,
+    "conditions": {
+      "itemCode": "ITM-1001",
+      "drawing": "CL-500-R1",
+      "specification": "Ø500 × 2,100mm, 특수주철",
+      "material": "특수주철",
+      "processing": "완성가공·호닝",
+      "inspection": "전수 치수검사·진원도 0.02mm 이하",
+      "quantity": 10,
+      "unit": "EA",
+      "currency": "KRW",
+      "priceDate": "2026-10-15",
+      "taxTerms": "부가세 별도",
+      "transportTerms": "운송비 포함",
+      "deliveryTerms": "창원 공장 도착도"
+    },
+    "text": "SAMPLE · 실제 자료 아님. 실린더 라이너 ITM-1001, 도면 CL-500-R1, Ø500 × 2,100mm 특수주철, 완성가공·호닝, 수량 10 EA, KRW, 부가세 별도, 운송비 포함, 창원 공장 도착도. 검사: 전수 치수검사·진원도 0.02mm 이하. 기존 계약과 다른 신규 가상 견적이다. 금액은 연결된 현재 가상 견적 레코드에서 확인하며, 가격 차이의 원가 사유는 이 문서에 기재되어 있지 않다."
+  },
+  {
+    "id": "PRICE-INT-D",
+    "itemCode": "ITM-1001",
+    "supplierIds": [
+      "SUP-004"
+    ],
+    "recordIds": [
+      "INT-LINER-D"
+    ],
+    "title": "가상 신규 협력사 견적 D 조건서",
+    "date": "2026-10-15",
+    "page": "1",
+    "isSample": true,
+    "conditions": {
+      "itemCode": "ITM-1001",
+      "drawing": "CL-500-R1",
+      "specification": "Ø500 × 2,100mm, 특수주철",
+      "material": "특수주철",
+      "processing": "완성가공·호닝",
+      "inspection": "전수 치수검사만(진원도 검사 미포함)",
+      "quantity": 10,
+      "unit": "EA",
+      "currency": "KRW",
+      "priceDate": "2026-10-15",
+      "taxTerms": "부가세 별도",
+      "transportTerms": "운송비 포함",
+      "deliveryTerms": "창원 공장 도착도"
+    },
+    "text": "SAMPLE · 실제 자료 아님. 실린더 라이너 ITM-1001, 도면 CL-500-R1, Ø500 × 2,100mm 특수주철, 완성가공·호닝, 수량 10 EA, KRW, 부가세 별도, 운송비 포함, 창원 공장 도착도. 검사: 전수 치수검사만(진원도 검사 미포함). 기존 계약과 다른 신규 가상 견적이다. 금액은 연결된 현재 가상 견적 레코드에서 확인하며, 가격 차이의 원가 사유는 이 문서에 기재되어 있지 않다."
+  },
+  {
+    "id": "PRICE-EXT-001",
+    "itemCode": "ITM-1001",
+    "supplierIds": [],
+    "recordIds": [
+      "EXT-LINER-001"
+    ],
+    "title": "가상 외부 완성부품 견적 1 조건서",
+    "date": "2026-10-15",
+    "page": "1",
+    "isSample": true,
+    "conditions": {
+      "itemCode": "ITM-1001",
+      "drawing": "CL-500-R1",
+      "specification": "Ø500 × 2,100mm, 특수주철",
+      "material": "특수주철",
+      "processing": "완성가공·호닝",
+      "inspection": "전수 치수검사·진원도 0.02mm 이하",
+      "quantity": 10,
+      "unit": "EA",
+      "currency": "KRW",
+      "priceDate": "2026-10-15",
+      "taxTerms": "부가세 별도",
+      "transportTerms": "운송비 포함",
+      "deliveryTerms": "창원 공장 도착도"
+    },
+    "text": "SAMPLE · 실제 자료 아님. 외부 완성부품 실린더 라이너 ITM-1001, 도면 CL-500-R1, Ø500 × 2,100mm 특수주철, 완성가공·호닝, 전수 치수검사·진원도 0.02mm 이하, 수량 10 EA, KRW, 부가세 별도, 운송비 포함, 창원 공장 도착도. 금액은 편집 가능한 연결 가상 견적 레코드에서 확인한다. 실제 기관·거래소 자료가 아니다."
+  },
+  {
+    "id": "PRICE-EXT-002",
+    "itemCode": "ITM-1001",
+    "supplierIds": [],
+    "recordIds": [
+      "EXT-LINER-002"
+    ],
+    "title": "가상 외부 완성부품 견적 2 조건서",
+    "date": "2026-10-15",
+    "page": "1",
+    "isSample": true,
+    "conditions": {
+      "itemCode": "ITM-1001",
+      "drawing": "CL-500-R1",
+      "specification": "Ø500 × 2,100mm, 특수주철",
+      "material": "특수주철",
+      "processing": "완성가공·호닝",
+      "inspection": "전수 치수검사·진원도 0.02mm 이하",
+      "quantity": 10,
+      "unit": "EA",
+      "currency": "KRW",
+      "priceDate": "2026-10-15",
+      "taxTerms": "부가세 별도",
+      "transportTerms": "운송비 포함",
+      "deliveryTerms": "창원 공장 도착도"
+    },
+    "text": "SAMPLE · 실제 자료 아님. 외부 완성부품 실린더 라이너 ITM-1001, 도면 CL-500-R1, Ø500 × 2,100mm 특수주철, 완성가공·호닝, 전수 치수검사·진원도 0.02mm 이하, 수량 10 EA, KRW, 부가세 별도, 운송비 포함, 창원 공장 도착도. 금액은 편집 가능한 연결 가상 견적 레코드에서 확인한다. 실제 기관·거래소 자료가 아니다."
+  },
+  {
+    "id": "PRICE-EXT-003",
+    "itemCode": "ITM-1001",
+    "supplierIds": [],
+    "recordIds": [
+      "EXT-LINER-003"
+    ],
+    "title": "가상 외부 완성부품 견적 3 조건서",
+    "date": "2026-10-15",
+    "page": "1",
+    "isSample": true,
+    "conditions": {
+      "itemCode": "ITM-1001",
+      "drawing": "CL-500-R1",
+      "specification": "Ø500 × 2,100mm, 특수주철",
+      "material": "특수주철",
+      "processing": "완성가공·호닝",
+      "inspection": "전수 치수검사·진원도 0.02mm 이하",
+      "quantity": 10,
+      "unit": "EA",
+      "currency": "KRW",
+      "priceDate": "2026-10-15",
+      "taxTerms": "부가세 별도",
+      "transportTerms": "운송비 포함",
+      "deliveryTerms": "창원 공장 도착도"
+    },
+    "text": "SAMPLE · 실제 자료 아님. 외부 완성부품 실린더 라이너 ITM-1001, 도면 CL-500-R1, Ø500 × 2,100mm 특수주철, 완성가공·호닝, 전수 치수검사·진원도 0.02mm 이하, 수량 10 EA, KRW, 부가세 별도, 운송비 포함, 창원 공장 도착도. 금액은 편집 가능한 연결 가상 견적 레코드에서 확인한다. 실제 기관·거래소 자료가 아니다."
+  }
+]

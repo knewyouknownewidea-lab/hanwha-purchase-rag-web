@@ -1,6 +1,6 @@
 // 화면 상태 — 선택 대상, 대화, 분석 결과·이력, 표시 템플릿, 보기 설정, 필터, 관심 목록, 데이터 버전
 // 사용자별로 이 브라우저에 저장한다: 대화·분석 이력·보기 설정·관심 목록(localStorage), 업로드 데이터(IndexedDB)
-import { createContext, useContext, useEffect, useMemo, useReducer, useRef, type Dispatch, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef, type Dispatch, type ReactNode } from "react";
 import type { DataMeta, DataSet, DatasetKey, TabKey } from "../data/types";
 import { SCHEMAS, pkOf } from "../data/schema";
 import { loadSample } from "../data/sampleData";
@@ -14,6 +14,8 @@ import { idbDel, idbGet, idbSet } from "../platform/idb";
 import type { User } from "../platform/users";
 import type { ChatMode, RagDataset, RagSource } from "../ai/rag";
 import type { Topic } from "../ai/topic";
+import { createPriceSample } from "../data/priceSample";
+import { buildPriceAnalysis, normalizePriceInputs, priceAnalysisResult, updateExternalQuote, type MarketIndicator, type PriceInputs } from "../lib/priceComparison";
 
 export type ChatMessage =
   | { id: string; role: "user"; text: string; at: string; mode?: ChatMode }
@@ -36,6 +38,8 @@ export type ChatMessage =
       ragStatus?: string;
       ragDataset?: RagDataset;
       ragClientRevision?: string;
+      priceRevision?: string;
+      priceDataId?: string;
     };
 
 /** 좁은 화면에서 보이는 영역: A = 데이터 관리, C = 분석 결과 */
@@ -51,6 +55,7 @@ export interface State {
   data: DataSet;
   meta: DataMeta;
   dataReady: boolean;
+  priceInputs: PriceInputs;
   savedAt: string | null; // 업로드 데이터를 이 브라우저에 저장한 시각
   saveError: string | null;
   tab: TabKey;
@@ -84,6 +89,8 @@ export interface State {
 }
 
 export type Action =
+  | { type: "externalQuotePrice"; quoteId: string; price: number | null; dataId: string; revision: string }
+  | { type: "priceIndicators"; indicators: MarketIndicator[] }
   | { type: "tab"; tab: TabKey }
   | { type: "subView"; tab: TabKey; view: string }
   | { type: "filters"; tab: TabKey; values: FilterValues }
@@ -146,9 +153,11 @@ const SESSION = "session.v3";
 const SETTINGS = "view-settings.v2";
 const PREFS = "prefs.v1";
 export const UPLOADS = "uploads";
+const UPLOAD_RESET = "uploads-reset-at.v1";
 export const ONBOARDED = "onboarded.v1";
 
 interface SavedSession {
+  priceInputs?: PriceInputs;
   messages: ChatMessage[];
   results: Record<string, AnalysisResult>;
   resultMeta?: Record<string, ResultMeta>;
@@ -205,6 +214,7 @@ function compactSession(s: State, maxResults = MAX_RESULTS, maxMessages = MAX_ME
     view: s.view.resultId && results[s.view.resultId] ? s.view : { resultId: null, template: null },
     lastResultId: s.lastResultId && results[s.lastResultId] ? s.lastResultId : null,
     pending: s.pending,
+    priceInputs: s.priceInputs,
   };
 }
 
@@ -220,6 +230,7 @@ function initial(user: User): State {
     data,
     meta,
     dataReady: false,
+    priceInputs: normalizePriceInputs(saved?.priceInputs) ?? createPriceSample(data, meta),
     savedAt: null,
     saveError: null,
     tab: "suppliers",
@@ -259,6 +270,23 @@ const toast = (text: string, tone: "ok" | "warn" = "ok") => ({ id: ++toastSeq, t
 
 function reducer(s: State, a: Action): State {
   switch (a.type) {
+    case "externalQuotePrice": {
+      if (a.dataId !== s.meta.dataId || a.revision !== s.priceInputs.revision || !s.priceInputs.externalQuotes.some(quote => quote.id === a.quoteId)) return { ...s, toast: toast("가격 자료가 변경되어 이전 견적은 수정할 수 없습니다. 현재 데이터로 다시 분석해 주세요.", "warn") };
+      const priceInputs = updateExternalQuote(s.priceInputs, a.quoteId, a.price);
+      if (priceInputs.revision === s.priceInputs.revision) return s;
+      const derived = derive(s.data, s.meta.asOf);
+      const results = Object.fromEntries(Object.entries(s.results).map(([id, r]) => {
+        if (!r.priceAnalysis || r.dataId !== s.meta.dataId) return [id, r];
+        const context = buildPriceAnalysis(s.data, s.meta, priceInputs, { itemCode: r.priceAnalysis.item.itemCode, supplierIds: r.priceAnalysis.supplierIds, asOf: r.priceAnalysis.asOf });
+        return [id, { ...priceAnalysisResult(context, derived, r.question), id, createdAt: r.createdAt }];
+      }));
+      return { ...s, priceInputs, results };
+    }
+    case "priceIndicators": {
+      const priceInputs = { ...s.priceInputs, indicators: a.indicators };
+      const results = Object.fromEntries(Object.entries(s.results).map(([id, r]) => [id, r.priceAnalysis && r.dataId === s.meta.dataId ? { ...r, priceAnalysis: { ...r.priceAnalysis, inputs: { ...r.priceAnalysis.inputs, indicators: a.indicators }, indicators: a.indicators } } : r]));
+      return { ...s, priceInputs, results };
+    }
     case "tab":
       return { ...s, tab: a.tab };
     case "subView":
@@ -389,7 +417,7 @@ function reducer(s: State, a: Action): State {
       };
       const supplierId = data.suppliers.some((x) => x.supplierId === s.selection.supplierId) ? s.selection.supplierId : data.suppliers[0]?.supplierId ?? null;
       const itemCode = data.items.some((x) => x.itemCode === s.selection.itemCode) ? s.selection.itemCode : null;
-      return { ...s, data, meta, selection: { supplierId, itemCode, rowKey: null, rowTab: null } };
+      return { ...s, data, meta, priceInputs: createPriceSample(data, meta), selection: { supplierId, itemCode, rowKey: null, rowTab: null } };
     }
     case "loadSaved": {
       const sample = loadSample().data;
@@ -399,12 +427,13 @@ function reducer(s: State, a: Action): State {
         ...s,
         data,
         meta: { ...a.meta, version: s.meta.version + 1 },
+        priceInputs: s.priceInputs.dataId === a.meta.dataId ? s.priceInputs : createPriceSample(data, a.meta),
         savedAt: a.savedAt,
         selection: { supplierId: data.suppliers[0]?.supplierId ?? null, itemCode: null, rowKey: null, rowTab: null },
       };
     }
     case "dataReady":
-      return { ...s, dataReady: true };
+      return { ...s, dataReady: true, priceInputs: s.priceInputs.dataId === s.meta.dataId ? s.priceInputs : createPriceSample(s.data, s.meta) };
     case "saved":
       return { ...s, savedAt: a.at, saveError: a.error ?? null };
     case "resetSample": {
@@ -413,6 +442,7 @@ function reducer(s: State, a: Action): State {
         ...s,
         data,
         meta: { ...meta, version: s.meta.version + 1 },
+        priceInputs: createPriceSample(data, meta),
         savedAt: null,
         saveError: null,
         selection: { supplierId: data.suppliers[0]?.supplierId ?? null, itemCode: null, rowKey: null, rowTab: null },
@@ -438,7 +468,12 @@ const Ctx = createContext<Store | null>(null);
 
 /** readOnly: 협력사 상세 새 창용. 저장하지 않아 원래 창의 대화·설정·업로드 저장본을 덮어쓰지 않는다. */
 export function StoreProvider({ user, children, readOnly = false }: { user: User; children: ReactNode; readOnly?: boolean }) {
-  const [state, dispatch] = useReducer(reducer, user, initial);
+  const [state, rawDispatch] = useReducer(reducer, user, initial);
+  // 삭제 transaction 도중 페이지를 떠나도 이전 업로드를 복원하지 않는다.
+  const dispatch: Dispatch<Action> = useCallback(action => {
+    if (action.type === "resetSample" && !readOnly) writeStore(userKey(user.id, UPLOAD_RESET), Date.now());
+    rawDispatch(action);
+  }, [user.id, readOnly]);
   const derived = useMemo(() => derive(state.data, state.meta.asOf), [state.data, state.meta.asOf]);
   const value = useMemo(() => ({ state, dispatch, derived }), [state, derived]);
   const uid = user.id;
@@ -449,7 +484,8 @@ export function StoreProvider({ user, children, readOnly = false }: { user: User
     let alive = true;
     idbGet<SavedUpload>(userKey(uid, UPLOADS)).then((saved) => {
       if (!alive) return;
-      if (saved && saved.data && saved.meta && saved.meta.dataId) {
+      const resetAt = readStore<number>(userKey(uid, UPLOAD_RESET));
+      if (saved && saved.data && saved.meta && saved.meta.dataId && !(typeof resetAt === "number" && (!saved.savedAt || Date.parse(saved.savedAt) <= resetAt))) {
         lastSavedId.current = saved.meta.dataId;
         dispatch({ type: "loadSaved", data: saved.data, meta: saved.meta, savedAt: saved.savedAt });
       }
@@ -498,7 +534,7 @@ export function StoreProvider({ user, children, readOnly = false }: { user: User
     if (!state.dataReady || readOnly) return;
     const t = setTimeout(() => saveSession(state), 150);
     return () => clearTimeout(t);
-  }, [state.messages, state.results, state.resultMeta, state.view, state.lastResultId, state.pending]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [state.messages, state.results, state.resultMeta, state.view, state.lastResultId, state.pending, state.priceInputs]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => {
     const flush = () => !readOnly && latest.current.dataReady && saveSession(latest.current);
     window.addEventListener("pagehide", flush);

@@ -2,10 +2,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { SortIcon as SortArrows } from "../DataTable";
 import type { AnalysisResult, ResultColumn, ResultRow } from "../../lib/analysisTypes";
-import { resolveColumns, type ViewSettings } from "../../templates/presets";
+import { resolveColumns } from "../../templates/presets";
 import { formatCell, isNumericKind } from "../ui";
 import { Findings, Highlights } from "./shared";
 import { ScrollX } from "../ScrollX";
+import { formatPriceDifference, PriceComparisonInfo, type PriceTemplateProps } from "./PriceComparisonInfo";
 
 function bestIds(result: AnalysisResult, col: ResultColumn) {
   if (col.higherIsBetter === undefined) return new Set<string>();
@@ -32,8 +33,9 @@ export function sortRows(rows: ResultRow[], sort: Sort): ResultRow[] {
   });
 }
 
-export function ComparisonTable({ result, settings }: { result: AnalysisResult; settings: ViewSettings }) {
+export function ComparisonTable({ result, settings, onExternalQuoteChange }: PriceTemplateProps) {
   const t = settings.table;
+  const showBest = t.showBest && !result.priceAnalysis;
   const cols = resolveColumns(result, t.columns);
   const hasRank = result.rows.some((r) => r.rank);
   const baseSort: Sort = t.sort && (t.sort.key === "__rank" ? hasRank : t.sort.key === "__label" || result.columns.some((c) => c.key === t.sort!.key)) ? t.sort : hasRank ? { key: "__rank", dir: "asc" } : null;
@@ -62,9 +64,10 @@ export function ComparisonTable({ result, settings }: { result: AnalysisResult; 
   return (
     <div className="tpl tpl-table">
       <Highlights result={result} />
+      {result.priceAnalysis && <PriceComparisonInfo analysis={result.priceAnalysis} onExternalQuoteChange={onExternalQuoteChange} />}
       <p className="tpl-note">
-        {rows.length}개 대상{hidden ? ` (순위 제외 ${hidden}개 숨김)` : ""} · 열 제목을 누르면 정렬 · 열 선택과 행 간격은 ‘보기 설정’
-        {t.showBest && (
+        {rows.length}개 대상{hidden ? ` (${result.priceAnalysis ? "제외·확인 필요" : "순위 제외"} ${hidden}개 숨김)` : ""} · 열 제목을 누르면 정렬 · 열 선택과 행 간격은 ‘보기 설정’
+        {showBest && (
           <>
             {" "}
             · <span className="best-mark">최고</span> 비교 가능한 대상 중 가장 좋은 값
@@ -85,7 +88,7 @@ export function ComparisonTable({ result, settings }: { result: AnalysisResult; 
               )}
               <th className="sticky-col" aria-sort={ariaSort("__label")}>
                 <button type="button" className={`th-sort ${sort?.key === "__label" ? "is-active" : ""}`} onClick={() => toggle("__label", false)} title={sortHint("__label", false)}>
-                  대상
+                  {result.priceAnalysis ? "협력사" : "대상"}
                   <SortIcon k="__label" />
                 </button>
               </th>
@@ -106,14 +109,14 @@ export function ComparisonTable({ result, settings }: { result: AnalysisResult; 
                 <td className="sticky-col">
                   <span className="name-cell">
                     <span className="name">{r.label}</span>
-                    {r.excludedReason ? <span className="cond-flag">조건 상이 · 순위 제외</span> : r.sub ? <span className="code">{r.sub}</span> : null}
+                    {r.excludedReason ? <span className="cond-flag">{result.priceAnalysis ? String(r.values.status ?? "비교 제외") : "조건 상이 · 순위 제외"}</span> : r.sub ? <span className="code">{r.sub}</span> : null}
                   </span>
                 </td>
                 {cols.map((c) => {
-                  const isBest = t.showBest && best.get(c.key)?.has(r.id);
+                  const isBest = showBest && best.get(c.key)?.has(r.id);
                   return (
                     <td key={c.key} className={`${isNumericKind(c) ? "num" : ""} ${isBest ? "is-best" : ""}`}>
-                      {formatCell(c.kind, r.values[c.key], r.currency, c.digits)}
+                      {result.priceAnalysis && c.key === "delta" ? formatPriceDifference(typeof r.values[c.key] === "number" ? r.values[c.key] as number : null, r.currency) : formatCell(c.kind, r.values[c.key], r.currency, c.digits)}
                       {isBest && <span className="best-mark">최고</span>}
                     </td>
                   );
@@ -125,7 +128,7 @@ export function ComparisonTable({ result, settings }: { result: AnalysisResult; 
       </ScrollX>
       {result.rows.some((r) => r.excludedReason) && (
         <p className="tpl-note">
-          조건 상이: {result.rows.filter((r) => r.excludedReason).map((r) => `${r.label}(${r.excludedReason})`).join(", ")} — 단순 가격 순위에 넣지 않았습니다.
+          {result.priceAnalysis ? "비교 제외·조건 확인 필요" : "조건 상이"}: {result.rows.filter((r) => r.excludedReason).map((r) => `${r.label}(${r.excludedReason})`).join(", ")} — {result.priceAnalysis ? "차액과 차이율을 계산하지 않았습니다." : "단순 가격 순위에 넣지 않았습니다."}
         </p>
       )}
       <Findings result={result} />

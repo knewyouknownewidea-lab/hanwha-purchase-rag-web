@@ -11,6 +11,7 @@ from .prompting import build_prompt
 from .generation import OllamaGenerator, GenerationError
 from .web_corpus import (WebCorpusRegistry, WebCorpusError, MAX_UPLOAD_BYTES,
                          dataset_handle, owner_value, invalid)
+from .price_evidence import PriceEvidenceService, PriceInputError, MAX_PRICE_BYTES, validate_price_request
 
 app = FastAPI(title='구매관리 RAG 백엔드', version='1.3.0',
               description='로컬 테스트용. 정확 조회는 원본 DB, 민원 내용은 BGE-M3/Chroma로 검색합니다. /answer에서 생성 모델을 선택하면 Ollama로 답변과 출처를 반환합니다. 근거 부족·모호한 질문은 모델 호출 전에 처리합니다.')
@@ -23,6 +24,15 @@ def service():
 @lru_cache
 def generator():
     return OllamaGenerator()
+
+
+@lru_cache
+def price_evidence():
+    def encode(texts):
+        shared = service()
+        with shared.lock:
+            return shared.encode(texts)
+    return PriceEvidenceService(encode)
 
 
 @lru_cache
@@ -97,6 +107,18 @@ async def web_answer(request: Request):
     from starlette.concurrency import run_in_threadpool
     return await run_in_threadpool(lambda: execute(lambda: web_corpora().answer(
         owner, handle, value['question'], value['model'], value.get('top_k', 3), generator())))
+
+
+@app.post('/price/answer', summary='현재 웹 가격 계산 검증 및 별도 조건 문서 설명')
+async def price_answer(request: Request):
+    value = await web_body(request, MAX_PRICE_BYTES + 256)
+    owner_value(value.pop('owner', None))
+    try:
+        validate_price_request(value)
+    except (PriceInputError, TypeError, KeyError):
+        raise WebCorpusError(422, '가격 비교 질문·조건·계산 결과를 확인해 주세요.') from None
+    from starlette.concurrency import run_in_threadpool
+    return await run_in_threadpool(lambda: execute(lambda: price_evidence().answer(value, generator())))
 
 class SearchRequest(BaseModel):
     question: str = Field(min_length=1, max_length=1000, examples=['베어링 완충 포장이 부족하다는 민원을 찾아줘'])

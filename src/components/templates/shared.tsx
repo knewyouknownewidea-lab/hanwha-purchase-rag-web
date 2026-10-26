@@ -6,6 +6,7 @@ import { useStore } from "../../store/store";
 import { fmtMoney, fmtSignedPct } from "../../lib/format";
 import { StatusPill } from "../ui";
 import { ScrollX } from "../ScrollX";
+import { PriceComparisonInfo } from "./PriceComparisonInfo";
 
 export function Highlights({ result }: { result: AnalysisResult }) {
   if (!result.highlights.length) return null;
@@ -94,6 +95,9 @@ function SourceTable({ src }: { src: SourceRef }) {
       .map((id) => derived.supplierViews.find((s) => s.supplierId === id))
       .filter(Boolean)
       .map((s) => [s!.supplierId, s!.name, s!.evalGrade ?? "–", String(s!.qualityScore ?? "–"), s!.onTimeRate === null ? "–" : `${s!.onTimeRate}%`]);
+  } else if (src.table === "items") {
+    head = ["품목코드", "자재명", "규격", "단위"];
+    rows = ids.map((id) => derived.itemsByCode.get(id)).filter(Boolean).map((item) => [item!.itemCode, item!.name, item!.spec ?? "–", item!.unit ?? "–"]);
   } else if (src.table === "inventory") {
     head = ["품목코드", "자재명", "재고/안전재고", "상태"];
     rows = ids
@@ -138,6 +142,8 @@ export function SourceRecords({ result }: { result: AnalysisResult }) {
         .map((s) => (
           <SourceTable key={s.table} src={s} />
         ))}
+      {result.priceAnalysis && <PriceComparisonInfo analysis={result.priceAnalysis} section="benchmark" />}
+      {result.priceAnalysis && <PriceComparisonInfo analysis={result.priceAnalysis} section="documents" />}
     </div>
   );
 }

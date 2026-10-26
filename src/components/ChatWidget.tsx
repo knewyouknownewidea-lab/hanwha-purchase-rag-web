@@ -109,6 +109,7 @@ function Assistant({ m }: { m: Extract<ChatMessage, { role: "assistant" }> }) {
       <div className={`msg-body ${m.engine === "rag" || m.engine === "web-rag" ? "msg-body-rag" : ""}`}>
         <EngineBadge engine={m.engine} />
         {m.ragModel && <span className="rag-model-name">모델 · {m.ragModel}</span>}
+        {m.priceRevision && (m.priceRevision !== state.priceInputs.revision || m.priceDataId !== state.meta.dataId) && <p className="msg-note">이전 가격 비교 조건으로 만든 답변입니다. 외부 견적 또는 데이터가 변경되어 현재 표와 다를 수 있습니다. 다시 질문하면 현재 계산값으로 설명합니다.</p>}
         {m.ragClientRevision && m.ragClientRevision !== state.meta.dataId && <p className="msg-note">이전 웹 데이터로 만든 답변입니다. 현재 데이터로 다시 질문해 주세요.</p>}
         {m.text.map((t, i) => (
           <p key={i}>{t}</p>
@@ -122,6 +123,10 @@ function Assistant({ m }: { m: Extract<ChatMessage, { role: "assistant" }> }) {
                   <strong>[{source.evidence_id}]</strong>
                   <span>{source.source.source_refs.join(" · ")}</span>
                   <small>{[
+                    typeof source.source.document_title === "string" ? `문서: ${source.source.document_title}` : "",
+                    typeof source.source.document_date === "string" ? `문서일: ${source.source.document_date}` : "",
+                    typeof source.source.page === "string" ? `페이지: ${source.source.page}` : "",
+                    typeof source.source.item_code === "string" ? `품목: ${source.source.item_code}` : "",
                     typeof source.source.source_db === "string" ? `DB: ${source.source.source_db}` : "",
                     typeof source.source.dataset_key === "string" ? `표: ${source.source.dataset_key}` : "",
                     typeof source.source.record_key === "string" || Array.isArray(source.source.record_key) ? `레코드 키: ${typeof source.source.record_key === "string" ? source.source.record_key : JSON.stringify(source.source.record_key)}` : "",
@@ -222,7 +227,7 @@ function ChatBody({ inputRef }: { inputRef: RefObject<HTMLTextAreaElement | null
         <KeywordSearch />
       </div>
       <div className="chat-list" ref={listRef} aria-live="polite">
-        <p className="rag-intro">구매 DB의 협력사·부품·발주·납품·민원과 원자재 시세·직종별 인건비를 질문하세요. 답변과 원본 출처는 이 대화창에, 질문 대상의 분석 화면은 오른쪽 분석 결과창에 표시합니다.</p>
+        <p className="rag-intro">선택한 품목의 협력사 단가를 외부 시장 참고가격과 비교해 보세요. 가격 질문은 현재 화면의 견적·조건·계산값을 사용하며, 설명과 문서 출처는 이 대화창에 표시합니다.</p>
         {state.messages.filter((m) => m.id !== "welcome").map((m) =>
           m.role === "user" ? (
             <div className="msg msg-user" key={m.id}>
@@ -256,7 +261,7 @@ function ChatBody({ inputRef }: { inputRef: RefObject<HTMLTextAreaElement | null
         <div className="rag-connection" role="status">
           <p>
             <span className="rag-fixed">구매 DB RAG · {RAG_MODEL}</span>{" "}
-            {ragChecking ? "RAG 연결 설정 확인 중…" : ragConfigError ? ragConfigError : !ragConfig?.enabled ? "RAG 서버 연결 설정이 필요합니다." : !ragReady ? `RAG 서버 허용 모델에 ${RAG_MODEL}이 없습니다.` : "구매 DB 기준 답변 · 화면의 선택·업로드 데이터는 RAG에 적용되지 않습니다."}
+            {ragChecking ? "RAG 연결 설정 확인 중…" : ragConfigError ? ragConfigError : !ragConfig?.enabled ? "RAG 서버 연결 설정이 필요합니다." : !ragReady ? `RAG 서버 허용 모델에 ${RAG_MODEL}이 없습니다.` : "가격 비교는 현재 화면 기준 · 일반 구매 DB 질문은 별도 DB 기준입니다."}
             {!ragChecking && !ragReady && " 질문하면 오른쪽 분석 화면만 웹 데이터로 바뀝니다."}
           </p>
           {!ragChecking && !ragReady && <button type="button" className="link-btn" onClick={refreshRagConfig}>다시 확인</button>}

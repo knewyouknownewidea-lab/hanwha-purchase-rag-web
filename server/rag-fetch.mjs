@@ -12,6 +12,7 @@ const VISITOR = /^[A-Za-z0-9_-]{43}$/;
 const REVISION = /^[0-9a-f]{64}$/;
 const MAX_BODY_BYTES = 8192;
 const MAX_DATASET_BYTES = 2 * 1024 * 1024;
+const MAX_PRICE_BYTES = 256 * 1024;
 const MAX_RESPONSE_BYTES = 256 * 1024;
 const OFFLINE = "RAG 연결 설정이 필요합니다. 관리자에게 문의해 주세요.";
 const BAD_INPUT = "질문·모델·조회 조건의 형식이나 범위를 확인해 주세요.";
@@ -131,6 +132,41 @@ function validDatasetRef(value) {
 
 function sameDataset(a, b) { return a.id === b.id && a.revision === b.revision; }
 
+function validPriceRef(value) {
+  return record(value) && Object.keys(value).length === 2 && typeof value.analysis_id === "string" && /^price-[A-Za-z0-9_.:-]{1,122}$/.test(value.analysis_id) && typeof value.revision === "string" && !!value.revision.trim() && value.revision.length <= 128;
+}
+
+function samePrice(a, b) { return a.analysis_id === b.analysis_id && a.revision === b.revision; }
+
+function validIndicator(value) {
+  const keys = new Set(["id", "kind", "label", "status", "value", "unit", "currency", "source", "sourceUrl", "observedAt", "fetchedAt", "message", "isSample"]);
+  if (!exactFields(value, keys) || Object.keys(value).length !== keys.size || typeof value.id !== "string" || !/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$/.test(value.id) || !["fx", "material", "index"].includes(value.kind) || !["connected", "unavailable", "not_configured", "example", "loading"].includes(value.status) || typeof value.isSample !== "boolean") return false;
+  for (const [key, max] of [["label", 200], ["unit", 80], ["source", 300], ["message", 1000]]) if (typeof value[key] !== "string" || value[key].length > max || (key !== "unit" && !value[key].trim())) return false;
+  if (value.currency !== null && (typeof value.currency !== "string" || !/^[A-Z]{3}$/.test(value.currency))) return false;
+  if (value.value !== null && (typeof value.value !== "number" || !Number.isFinite(value.value) || Math.abs(value.value) > Number.MAX_SAFE_INTEGER)) return false;
+  if (["unavailable", "not_configured", "loading"].includes(value.status) && value.value !== null) return false;
+  if (["connected", "example"].includes(value.status) && !(value.value > 0)) return false;
+  if (value.status === "example" && !value.isSample) return false;
+  for (const key of ["observedAt", "fetchedAt"]) if (value[key] !== null && (typeof value[key] !== "string" || value[key].length > 64 || !/^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|[+-]\d{2}:\d{2}))?$/.test(value[key]) || !Number.isFinite(Date.parse(value[key])))) return false;
+  if (value.sourceUrl !== null) {
+    if (typeof value.sourceUrl !== "string" || value.sourceUrl.length > 2048 || /\s/.test(value.sourceUrl)) return false;
+    try { const url = new URL(value.sourceUrl); if (url.protocol !== "https:" || url.username || url.password || url.hash) return false; } catch { return false; }
+  }
+  return value.status !== "connected" || !!(value.sourceUrl && value.observedAt && value.fetchedAt);
+}
+
+function validatePriceInput(value) {
+  const bad = () => { throw new RagError(422, "가격 비교 질문·조건·계산 결과의 형식을 확인해 주세요."); };
+  if (!exactFields(value, new Set(["question", "model", "context"])) || Object.keys(value).length !== 3 || typeof value.question !== "string" || !value.question.trim() || value.question.length > 1000 || value.model !== "qwen3:8b") bad();
+  const c = value.context;
+  const keys = new Set(["analysis_id", "revision", "data_id", "as_of", "item", "supplier_ids", "conditions", "supplier_quotes", "external_quotes", "computed", "evidence_ids", "indicators"]);
+  if (!exactFields(c, keys) || Object.keys(c).length !== keys.size || !validPriceRef({ analysis_id: c.analysis_id, revision: c.revision }) || typeof c.data_id !== "string" || !c.data_id.trim() || c.data_id.length > 128 || typeof c.as_of !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(c.as_of)) bad();
+  if (!record(c.item) || !record(c.conditions) || !record(c.computed) || !record(c.computed.benchmark) || !Array.isArray(c.computed.rows) || !Array.isArray(c.supplier_ids) || c.supplier_ids.length < 1 || c.supplier_ids.length > 32 || c.supplier_ids.some((id) => typeof id !== "string" || !id || id.length > 128) || new Set(c.supplier_ids).size !== c.supplier_ids.length || !Array.isArray(c.supplier_quotes) || c.supplier_quotes.length > 32 || !Array.isArray(c.external_quotes) || c.external_quotes.length > 100 || !Array.isArray(c.evidence_ids) || c.evidence_ids.length > 200 || c.evidence_ids.some((id) => typeof id !== "string" || !id || id.length > 128)) bad();
+  if (!Array.isArray(c.indicators) || c.indicators.length > 20 || c.indicators.some((item) => !validIndicator(item)) || new Set(c.indicators.map((item) => item.id)).size !== c.indicators.length) bad();
+  // 깊은 조건 비교와 계산 검증은 고정 로컬 백엔드가 동일 원시 레코드로 재수행합니다.
+  return { question: value.question.trim(), model: "qwen3:8b", context: c };
+}
+
 function validateSnapshot(value) {
   if (!exactFields(value, SNAPSHOT_FIELDS) || value.schema_version !== 1 || typeof value.client_revision !== "string" || !value.client_revision.trim() || value.client_revision.length > 128) throw new RagError(422, BAD_SNAPSHOT);
   const meta = value.meta;
@@ -199,13 +235,17 @@ async function readResponse(response, maxBytes) {
   } catch { throw new RagError(502, UNAVAILABLE); }
 }
 
-function publicJob(data, jobId, submit, expectedDataset, hasSession) {
+function publicJob(data, jobId, submit, expectedDataset, hasSession, expectedPrice) {
   if (!UUID.test(data.job_id || "") || (jobId && data.job_id !== jobId) || !["running", "succeeded", "failed"].includes(data.status) || (submit && data.status !== "running")) throw new RagError(502, UNAVAILABLE);
   const job = { job_id: data.job_id, status: data.status };
   if (data.dataset !== undefined) {
     if (!hasSession || (submit && !expectedDataset) || !validDatasetRef(data.dataset) || (expectedDataset && !sameDataset(data.dataset, expectedDataset))) throw new RagError(502, UNAVAILABLE);
     job.dataset = { id: data.dataset.id, revision: data.dataset.revision };
   } else if (expectedDataset) throw new RagError(502, UNAVAILABLE);
+  if (data.price_context !== undefined) {
+    if (job.dataset || !hasSession || (submit && !expectedPrice) || !validPriceRef(data.price_context) || (expectedPrice && !samePrice(data.price_context, expectedPrice))) throw new RagError(502, UNAVAILABLE);
+    job.price_context = { ...data.price_context };
+  } else if (expectedPrice) throw new RagError(502, UNAVAILABLE);
   if (data.status === "failed") {
     job.error_status = [400, 404, 409, 422, 429, 502, 503, 504].includes(data.error_status) ? data.error_status : 502;
     job.message = errorMessage(job.error_status);
@@ -222,6 +262,12 @@ function publicJob(data, jobId, submit, expectedDataset, hasSession) {
       if (!validDatasetRef(result.dataset) || !sameDataset(result.dataset, job.dataset)) throw new RagError(502, UNAVAILABLE);
       job.result.dataset = { ...job.dataset };
     } else if (result.dataset !== undefined) throw new RagError(502, UNAVAILABLE);
+    if (job.price_context) {
+      if (!validPriceRef(result.price_context) || !samePrice(result.price_context, job.price_context) || typeof result.calculation_text !== "string" || typeof result.explanation !== "string" || result.calculation_text.length > 32000 || result.explanation.length > 16000) throw new RagError(502, UNAVAILABLE);
+      job.result.price_context = { ...job.price_context };
+      job.result.calculation_text = result.calculation_text;
+      job.result.explanation = result.explanation;
+    } else if (result.price_context !== undefined) throw new RagError(502, UNAVAILABLE);
   }
   return job;
 }
@@ -251,19 +297,20 @@ export function createRagFetchHandler(env = {}, { fetchImpl = fetch, cryptoImpl 
         return reply(200, { enabled: !!config, models: RAG_MODELS, ...(!config ? { message: OFFLINE } : {}) });
       }
       const submit = url.pathname === "/api/rag/jobs";
+      const price = url.pathname === "/api/rag/price-explanations";
       const poll = /^\/api\/rag\/jobs\/([^/]+)$/.exec(url.pathname);
       const upload = url.pathname === "/api/rag/datasets";
       const datasetPath = /^\/api\/rag\/datasets\/([^/]+)$/.exec(url.pathname);
       const datasetRoute = upload || !!datasetPath;
-      if (!submit && !poll && !datasetRoute) throw new RagError(404, "지원하지 않는 RAG 요청입니다.");
-      const methods = submit || upload ? ["POST"] : datasetPath ? ["GET", "DELETE"] : ["GET"];
+      if (!submit && !price && !poll && !datasetRoute) throw new RagError(404, "지원하지 않는 RAG 요청입니다.");
+      const methods = submit || price || upload ? ["POST"] : datasetPath ? ["GET", "DELETE"] : ["GET"];
       if (!methods.includes(request.method)) return reply(405, { error: "지원하지 않는 요청 방식입니다." }, { allow: methods.join(", ") });
       const method = request.method;
       const pathId = datasetPath?.[1] || poll?.[1];
       if (url.search || (pathId && !UUID.test(pathId))) throw new RagError(400, BAD_INPUT);
       if (!config) throw new RagError(503, OFFLINE);
-      const session = sessionScope(request, datasetRoute);
-      const payload = upload ? validateSnapshot(await readBody(request, MAX_DATASET_BYTES)) : submit ? validateInput(await readBody(request)) : undefined;
+      const session = sessionScope(request, datasetRoute || price);
+      const payload = price ? validatePriceInput(await readBody(request, MAX_PRICE_BYTES)) : upload ? validateSnapshot(await readBody(request, MAX_DATASET_BYTES)) : submit ? validateInput(await readBody(request)) : undefined;
       if (payload?.dataset && !session) sessionScope(request, true);
       const visitor = await scopedVisitor(await identify(request, responseHeaders, signer, cryptoImpl), session, signer);
       const controller = new AbortController();
@@ -273,7 +320,7 @@ export function createRagFetchHandler(env = {}, { fetchImpl = fetch, cryptoImpl 
       const timer = setTimeout(() => controller.abort(), timeoutMs);
       try {
         if (controller.signal.aborted) throw new RagError(504, errorMessage(504));
-        const upstreamPath = datasetRoute ? "/datasets" + (datasetPath ? "/" + datasetPath[1] : "") : "/jobs" + (poll ? "/" + poll[1] : "");
+        const upstreamPath = price ? "/price-explanations" : datasetRoute ? "/datasets" + (datasetPath ? "/" + datasetPath[1] : "") : "/jobs" + (poll ? "/" + poll[1] : "");
         const response = await fetchImpl(config.origin + upstreamPath, {
           method,
           headers: { "content-type": "application/json", authorization: "Bearer " + config.token, "x-rag-visitor": visitor },
@@ -289,7 +336,7 @@ export function createRagFetchHandler(env = {}, { fetchImpl = fetch, cryptoImpl 
           void response.body?.cancel().catch(() => {});
           return reply(status, { error: errorMessage(status) }, headers);
         }
-        const expectedStatus = submit || upload ? 202 : 200;
+        const expectedStatus = submit || price || upload ? 202 : 200;
         if (response.status !== expectedStatus) { void response.body?.cancel().catch(() => {}); throw new RagError(502, UNAVAILABLE); }
         const raw = await readResponse(response, maxResponseBytes);
         let data;
@@ -297,8 +344,8 @@ export function createRagFetchHandler(env = {}, { fetchImpl = fetch, cryptoImpl 
           if (raw.deleted !== true) throw new RagError(502, UNAVAILABLE);
           data = { deleted: true };
         } else if (datasetRoute) data = publicDataset(raw, datasetPath?.[1]);
-        else data = publicJob(raw, poll?.[1], submit, payload?.dataset, !!session);
-        const location = upload ? "/api/rag/datasets/" + data.dataset_id : submit ? "/api/rag/jobs/" + data.job_id : null;
+        else data = publicJob(raw, poll?.[1], submit || price, payload?.dataset, !!session, price ? { analysis_id: payload.context.analysis_id, revision: payload.context.revision } : undefined);
+        const location = upload ? "/api/rag/datasets/" + data.dataset_id : submit || price ? "/api/rag/jobs/" + data.job_id : null;
         return reply(expectedStatus, data, location ? { location } : {});
       } catch (error) {
         if (controller.signal.aborted) throw new RagError(504, errorMessage(504));

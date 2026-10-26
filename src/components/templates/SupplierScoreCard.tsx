@@ -1,13 +1,13 @@
 // 템플릿 ③ 종합 평가 카드 — 대상별 점수, 강점, 위험 요소, 근거 (한 줄 개수·지표·정렬·펼침은 보기 설정)
 import { LuCircleAlert, LuCircleCheck } from "react-icons/lu";
-import type { AnalysisResult } from "../../lib/analysisTypes";
-import { resolveMetrics, type ViewSettings } from "../../templates/presets";
+import { resolveMetrics } from "../../templates/presets";
 import { formatCell, GradeBadge } from "../ui";
 import { fmtNum } from "../../lib/format";
 import { Highlights } from "./shared";
 import { sortRows } from "./ComparisonTable";
+import { formatPriceDifference, PriceComparisonInfo, type PriceTemplateProps } from "./PriceComparisonInfo";
 
-export function SupplierScoreCard({ result, settings }: { result: AnalysisResult; settings: ViewSettings }) {
+export function SupplierScoreCard({ result, settings, onExternalQuoteChange }: PriceTemplateProps) {
   const cs = settings.cards;
   const colOf = (k: string) => result.columns.find((c) => c.key === k);
   const metrics = resolveMetrics(result, cs.metrics);
@@ -27,6 +27,7 @@ export function SupplierScoreCard({ result, settings }: { result: AnalysisResult
   return (
     <div className="tpl tpl-cards">
       <Highlights result={result} />
+      {result.priceAnalysis && <p className="tpl-note">기존 평가 기간: {result.scope.find((scope) => scope.label === "기존 평가 기간")?.value ?? "기간·적용 범위 확인 필요"} · 등록 심사값을 포함한 기존 평가입니다. 점수는 100점 만점의 점수이며 납기 준수율 같은 비율과 구분합니다. 점수·등급은 시장가격 보정계수가 아니며 높은 단가의 정당성을 입증하지 않습니다.</p>}
       <div className={`score-cards per-${cs.perRow}`}>
         {rows.map((r) => {
           const grade = r.values.grade as string | null | undefined;
@@ -41,7 +42,7 @@ export function SupplierScoreCard({ result, settings }: { result: AnalysisResult
                   {r.sub && <span className="code">{r.sub}</span>}
                 </div>
                 <div className="score-card-badges">
-                  {r.rank ? <span className="rank-badge">{result.rankLabel ?? "순서"} {r.rank}</span> : r.excludedReason ? <span className="cond-flag">순위 제외</span> : null}
+                  {r.rank ? <span className="rank-badge">{result.rankLabel ?? "순서"} {r.rank}</span> : r.excludedReason ? <span className="cond-flag">{result.priceAnalysis ? String(r.values.status ?? "비교 제외") : "순위 제외"}</span> : null}
                   {grade !== undefined && <GradeBadge grade={grade} size="md" />}
                 </div>
               </header>
@@ -58,7 +59,7 @@ export function SupplierScoreCard({ result, settings }: { result: AnalysisResult
                   return (
                     <div key={k}>
                       <dt>{c.label}</dt>
-                      <dd>{formatCell(c.kind, r.values[k], r.currency, c.digits)}</dd>
+                      <dd>{result.priceAnalysis && k === "delta" ? formatPriceDifference(typeof r.values[k] === "number" ? r.values[k] as number : null, r.currency) : formatCell(c.kind, r.values[k], r.currency, c.digits)}</dd>
                     </div>
                   );
                 })}
@@ -97,6 +98,7 @@ export function SupplierScoreCard({ result, settings }: { result: AnalysisResult
           );
         })}
       </div>
+      {result.priceAnalysis && <PriceComparisonInfo analysis={result.priceAnalysis} onExternalQuoteChange={onExternalQuoteChange} />}
       <p className="tpl-note">카드 순서와 점수는 검토용 참고값입니다. 강점·위험 요소를 모두 보려면 보기 설정에서 ‘모두 펼침’을 고르세요. 최종 선정과 판단은 담당자가 검토 후 확정합니다.</p>
     </div>
   );

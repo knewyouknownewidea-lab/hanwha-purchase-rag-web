@@ -1,5 +1,6 @@
 // 표준 Fetch API만 사용하는 Sites Worker 라우터. 비밀값은 런타임 env로만 받는다.
 import { createRagFetchHandler } from "../server/rag-fetch.mjs";
+import { createMarketHandler } from "../server/market.mjs";
 
 const MAX_PROMPT_CHARS = 60_000;
 const MAX_PROMPT_BYTES = MAX_PROMPT_CHARS * 4;
@@ -53,11 +54,14 @@ async function boundedJson(message, limit) {
 
 export function createHostingHandler(env = {}, { html = "", fetchImpl = fetch, cryptoImpl = globalThis.crypto, aiTimeoutMs = 30_000, ragOptions = {}, ragFactory = createRagFetchHandler } = {}) {
   const rag = ragFactory(env, { fetchImpl, cryptoImpl, ...ragOptions });
+  const market = createMarketHandler({ fetchImpl });
   const enabled = present(env.ANTHROPIC_API_KEY);
   const model = present(env.LLM_MODEL) ? env.LLM_MODEL.trim() : DEFAULT_MODEL;
   return async function handle(request) {
     const url = new URL(request.url);
     try {
+      const indicator = await market(request);
+      if (indicator) return secure(indicator);
       const ragResponse = await rag(request);
       if (ragResponse) return secure(ragResponse);
       if (url.pathname === "/api/ai/status") {

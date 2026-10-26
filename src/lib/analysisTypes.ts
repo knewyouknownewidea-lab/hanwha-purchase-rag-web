@@ -1,5 +1,6 @@
 // 분석 결과 공통 구조 — 템플릿(표·차트·카드·보고서)은 모두 이 구조만 읽는다
 import type { DatasetKey, Grade } from "../data/types";
+import type { PriceAnalysis } from "./priceComparison";
 
 export type TemplateId = "table" | "chart" | "cards" | "report";
 
@@ -81,6 +82,7 @@ export interface SourceRef {
 }
 
 export interface AnalysisResult {
+  priceAnalysis?: PriceAnalysis;
   id: string;
   params: AnalysisParams;
   kind: IntentKind;

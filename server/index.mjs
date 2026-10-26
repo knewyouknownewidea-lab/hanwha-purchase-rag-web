@@ -6,6 +6,7 @@ import { readFile } from "node:fs/promises";
 import { extname, join, normalize, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { createRagHandler } from "./rag.mjs";
+import { createMarketHandler } from "./market.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const dist = join(root, "dist");
@@ -50,9 +51,16 @@ async function interpret(prompt) {
 
 export function createAppServer({ env = process.env, ragOptions } = {}) {
   const handleRag = createRagHandler(env, ragOptions);
+  const market = createMarketHandler();
   return createServer(async (req, res) => {
     const url = new URL(req.url || "/", `http://${req.headers.host}`);
     try {
+      const indicator = await market(new Request(url, { method: req.method }));
+      if (indicator) {
+        req.resume();
+        res.writeHead(indicator.status, Object.fromEntries(indicator.headers));
+        return res.end(new Uint8Array(await indicator.arrayBuffer()));
+      }
       if (await handleRag(req, res, url)) return;
       if (url.pathname === "/api/ai/status") return send(res, 200, { enabled: !!API_KEY, model: API_KEY ? MODEL : null });
       if (url.pathname === "/api/ai/interpret" && req.method === "POST") {

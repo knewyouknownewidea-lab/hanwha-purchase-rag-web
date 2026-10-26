@@ -1,7 +1,7 @@
 {
   "name": "procure-ai-platform",
   "private": true,
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "구매·협력사 AI 분석 DX 플랫폼 (시연용, SAMPLE 데이터)",
   "type": "module",
   "engines": {
@@ -15,6 +15,7 @@
     "sample": "node scripts/generate-sample.mjs",
     "typecheck": "tsc -p tsconfig.json",
     "test:logic": "tsx tests/logic-smoke.ts && tsx tests/logic-v3.ts",
+    "test:price": "tsx --test tests/price-comparison.test.ts tests/price-client.test.ts tests/price-export.test.ts && node --test tests/price-rag-server.test.mjs tests/market-server.test.mjs",
     "test:rag": "node scripts/check-rag-schema.mjs && node --test tests/rag-server.test.mjs && tsx tests/rag-client.test.ts",
     "test:hosting": "node --test hosting/handler.test.mjs hosting/artifact.test.mjs",
     "test:e2e:rag": "python tests/rag-e2e.py",

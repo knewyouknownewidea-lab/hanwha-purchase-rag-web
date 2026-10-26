@@ -250,7 +250,7 @@ export function Topbar({ onLogout }: { onLogout: (wipe: boolean) => void }) {
           onCancel={() => setConfirmReset(false)}
           onConfirm={() => {
             dispatch({ type: "resetSample" });
-            dispatch({ type: "toast", text: "샘플 데이터로 되돌렸습니다. 이 브라우저에 저장된 업로드 데이터도 지웠습니다." });
+            dispatch({ type: "toast", text: "샘플 데이터로 되돌렸습니다. 이전 업로드 저장본은 다시 불러오지 않으며 브라우저에서 정리합니다." });
             setConfirmReset(false);
           }}
         >

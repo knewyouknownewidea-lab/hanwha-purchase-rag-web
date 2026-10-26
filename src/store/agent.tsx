@@ -8,13 +8,18 @@ import { uid, useStore } from "./store";
 import { askRag, getRagConfig, RagHttpError, type ChatMode, type RagConfig, type RagModel } from "../ai/rag";
 import { createRagSession, WebRagSession, type WebRagPhase } from "../ai/webRag";
 import { detectMarketTopic } from "../ai/topic";
+import { priceQuestion } from "../ai/priceIntent";
+import { buildPriceAnalysis, priceAnalysisResult, type PriceAnalysis } from "../lib/priceComparison";
+import { askPriceExplanation } from "../ai/priceRag";
+import { getMarketIndicators } from "../ai/marketIndicators";
 
 /** v0.6.0: 챗봇 질문은 구매 DB RAG + qwen3:8b로 고정한다 (선택 UI 없음) */
 export const RAG_MODE: ChatMode = "rag";
 export const RAG_MODEL: RagModel = "qwen3:8b";
 
 /** 질문으로 바꾼 오른쪽 분석 화면 — 채팅 답변에 '이 결과 다시 보기'·안내로 연결한다 */
-interface PanelInfo { resultId?: string; shownAs?: TemplateId; followup?: boolean; note: string }
+interface PanelInfo { resultId?: string; shownAs?: TemplateId; followup?: boolean; note: string; priceAnalysis?: PriceAnalysis }
+interface ActiveRequest { controller: AbortController; mode: ChatMode; revision: string; version: number; priceRevision?: string; priceItemCode?: string }
 
 interface AgentApi {
   ask: (question: string, opts?: { answeringId?: string; mode?: ChatMode }) => Promise<void>;
@@ -50,10 +55,32 @@ export function AgentProvider({ children }: { children: ReactNode }) {
   const [webRagPhase, setWebRagPhase] = useState<WebRagPhase>("idle");
   const [webSession] = useState(() => new WebRagSession(createRagSession()));
   const alive = useRef(true);
-  const activeRequest = useRef<{ controller: AbortController; mode: ChatMode; revision: string; version: number } | null>(null);
+  const activeRequest = useRef<ActiveRequest | null>(null);
   const configRequest = useRef<AbortController | null>(null);
   const lastRevision = useRef(store.state.meta.dataId);
   const lastVersion = useRef(store.state.meta.version);
+  const hasPriceAnalysis = Object.values(store.state.results).some(result => !!result.priceAnalysis);
+
+  useEffect(() => {
+    const s = store.state;
+    if (!hasPriceAnalysis) return;
+    const controller = new AbortController();
+    getMarketIndicators(controller.signal).then(indicators => {
+      if (!controller.signal.aborted && alive.current && ref.current.state.meta.dataId === s.meta.dataId) ref.current.dispatch({ type: "priceIndicators", indicators });
+    });
+    return () => controller.abort();
+  }, [hasPriceAnalysis, store.state.meta.dataId]);
+
+  useEffect(() => {
+    const request = activeRequest.current;
+    if (!request?.priceRevision) return;
+    const s = store.state;
+    if (request.priceRevision === s.priceInputs.revision && request.revision === s.meta.dataId && (!s.selection.itemCode || s.selection.itemCode === request.priceItemCode)) return;
+    activeRequest.current = null;
+    request.controller.abort();
+    store.dispatch({ type: "busy", busy: false });
+    store.dispatch({ type: "toast", text: "가격 비교 조건이 변경되어 이전 설명 요청을 중단했습니다. 현재 표를 기준으로 다시 질문해 주세요.", tone: "warn" });
+  }, [store.state.priceInputs.revision, store.state.meta.dataId, store.state.selection.itemCode]);
 
   const refreshRagConfig = useCallback(() => {
     configRequest.current?.abort();
@@ -148,6 +175,23 @@ export function AgentProvider({ children }: { children: ReactNode }) {
   const explore = useCallback(async (question: string, pending?: PendingClarify | null): Promise<PanelInfo> => {
     const { state, dispatch, derived } = ref.current;
     const q = question.trim();
+    const activePrice = !state.topic && state.view.resultId ? state.results[state.view.resultId]?.priceAnalysis : undefined;
+    const selection = pending ? null : priceQuestion(q, state.data, state.selection, activePrice?.dataId === state.meta.dataId ? activePrice : undefined);
+    if (selection) {
+      if (!selection.itemCode) {
+        dispatch({ type: "topic", topic: { kind: "unclear", question: q, message: selection.reason ?? "가격 비교 품목을 선택해 주세요.", options: state.data.items.map(item => ({ label: `${item.name} (${item.itemCode})`, ask: `${item.name} 업체별 단가를 시장 참고가격과 비교해줘` })) } });
+        if (isNarrow()) dispatch({ type: "panel", panel: "C" });
+        return { note: "오른쪽 분석 결과창: 가격 비교 품목 선택 필요" };
+      }
+      const context = buildPriceAnalysis(state.data, state.meta, state.priceInputs, { itemCode: selection.itemCode, supplierIds: selection.supplierIds });
+      const result = priceAnalysisResult(context, derived, q);
+      const shownAs: TemplateId = /보고서/.test(q) ? "report" : /그래프|시각화/.test(q) ? "chart" : activePrice && state.view.template ? state.view.template : "table";
+      dispatch({ type: "addResult", result });
+      dispatch({ type: "pending", pending: null });
+      dispatch({ type: "show", resultId: result.id, template: shownAs });
+      if (isNarrow()) dispatch({ type: "panel", panel: "C" });
+      return { resultId: result.id, shownAs, followup: !!activePrice, priceAnalysis: context, note: "화면·채팅·보고서는 동일한 외부 견적 중앙값과 비교 조건을 사용합니다." };
+    }
     const topic = pending ? null : detectMarketTopic(q, state.data, state.meta.asOf);
     let info: PanelInfo;
     if (topic) {
@@ -186,9 +230,9 @@ export function AgentProvider({ children }: { children: ReactNode }) {
         dispatch({ type: "toast", text: "RAG 서버 연결 설정을 확인해 주세요.", tone: "warn" });
         return;
       }
-      const request = { controller: new AbortController(), mode, revision: state.meta.dataId, version: state.meta.version };
+      const request: ActiveRequest = { controller: new AbortController(), mode, revision: state.meta.dataId, version: state.meta.version };
       activeRequest.current = request;
-      const current = () => alive.current && activeRequest.current === request && !request.controller.signal.aborted && (mode !== "web-rag" || (ref.current.state.meta.dataId === request.revision && ref.current.state.meta.version === request.version));
+      const current = () => alive.current && activeRequest.current === request && !request.controller.signal.aborted && (mode !== "web-rag" || (ref.current.state.meta.dataId === request.revision && ref.current.state.meta.version === request.version)) && (!request.priceRevision || (ref.current.state.meta.dataId === request.revision && ref.current.state.priceInputs.revision === request.priceRevision));
       setChatMode(mode);
       if (opts?.answeringId) dispatch({ type: "patchMessage", id: opts.answeringId, patch: { answered: q } });
       dispatch({ type: "addMessage", message: { id: uid(), role: "user", text: q, at: new Date().toISOString(), mode } });
@@ -202,6 +246,19 @@ export function AgentProvider({ children }: { children: ReactNode }) {
             })
           : null;
         const panelLink = panel?.resultId ? { resultId: panel.resultId, shownAs: panel.shownAs, followup: panel.followup } : {};
+        if (panel?.priceAnalysis) {
+          const context = panel.priceAnalysis;
+          request.priceRevision = ref.current.state.priceInputs.revision;
+          request.priceItemCode = context.item.itemCode;
+          if (!ragReady) {
+            dispatch({ type: "addMessage", message: { id: uid(), role: "assistant", at: new Date().toISOString(), engine: "system", ...panelLink, priceRevision: request.priceRevision, priceDataId: request.revision, text: ["현재 화면의 가격·차액·차이율은 코드로 계산했습니다. RAG 서버에 연결되지 않아 문서 검색과 LLM 설명을 수행하지 못했습니다. 오른쪽의 비교 조건과 계산 결과를 확인해 주세요."], engineNote: panel.note } });
+            return;
+          }
+          const reply = await askPriceExplanation(q, context, { signal: request.controller.signal, session: webSession.session });
+          if (!current()) return;
+          dispatch({ type: "addMessage", message: { id: uid(), role: "assistant", at: new Date().toISOString(), engine: "rag", ...panelLink, priceRevision: request.priceRevision, priceDataId: request.revision, text: [reply.answer], ragSources: reply.sources, ragModel: reply.model, ragStatus: reply.status, engineNote: [panel.note, reply.note, "단가·중앙값·차액·차이율은 코드 계산값이며 평가점수로 가격을 보정하지 않았습니다."].filter(Boolean).join(" · ") } });
+          return;
+        }
         if (mode === "rag" && !ragReady) {
           // RAG를 쓸 수 없어도 답변을 지어내지 않고, 오른쪽 분석 화면만 보여 준다 (RAG 연결 없는 공개 페이지 포함)
           dispatch({ type: "addMessage", message: {
@@ -288,7 +345,9 @@ export function AgentProvider({ children }: { children: ReactNode }) {
   const rerun = useCallback((result: AnalysisResult) => {
     const { state, dispatch, derived } = ref.current;
     try {
-      const next = runAnalysis(result.params, state.data, derived, state.meta, result.question);
+      const next = result.priceAnalysis
+        ? priceAnalysisResult(buildPriceAnalysis(state.data, state.meta, state.priceInputs, { itemCode: result.priceAnalysis.item.itemCode, supplierIds: result.priceAnalysis.supplierIds }), derived, result.question)
+        : runAnalysis(result.params, state.data, derived, state.meta, result.question);
       dispatch({ type: "addResult", result: next, asLast: state.lastResultId === result.id });
       dispatch({ type: "show", resultId: next.id, template: state.view.template ?? next.recommended });
       dispatch({ type: "toast", text: next.empty ? `다시 분석했지만 결과가 없습니다: ${next.empty}` : "현재 데이터로 다시 분석했습니다", tone: next.empty ? "warn" : "ok" });

@@ -22,6 +22,7 @@ from pydantic import BaseModel, ConfigDict, Field, StrictInt, StrictStr, Validat
 BACKEND_URL = 'http://127.0.0.1:8000'
 MAX_BODY_BYTES = 8192
 MAX_DATASET_BYTES = 2 * 1024 * 1024
+MAX_PRICE_BYTES = 256 * 1024
 JOB_TTL_SECONDS = 15 * 60
 MAX_JOBS = 100
 QUOTA_WINDOW_SECONDS = 600
@@ -82,12 +83,12 @@ class LocalBackend:
     def request(self, method, path, payload=None):
         allowed = {('GET', '/health'), ('GET', '/models'), ('POST', '/answer'),
                    ('POST', '/web/datasets'), ('POST', '/web/datasets/status'),
-                   ('POST', '/web/datasets/delete'), ('POST', '/web/answer')}
+                   ('POST', '/web/datasets/delete'), ('POST', '/web/answer'), ('POST', '/price/answer')}
         if (method, path) not in allowed:
             raise BackendUnavailable(502, '지원하지 않는 작업입니다.')
         try:
             with httpx.Client(base_url=BACKEND_URL, trust_env=False, follow_redirects=False,
-                              timeout=httpx.Timeout(630 if path in ('/answer', '/web/answer') else 10, connect=3)) as client:
+                              timeout=httpx.Timeout(630 if path in ('/answer', '/web/answer', '/price/answer') else 10, connect=3)) as client:
                 response = client.request(method, path, json=payload)
             if not 200 <= response.status_code < 300:
                 if path.startswith('/web/'):
@@ -126,6 +127,7 @@ class Job:
     error_status: int | None = None
     finished_at: float | None = None
     dataset: dict | None = None
+    price_context: dict | None = None
     invalidated: bool = False
 
 
@@ -193,6 +195,8 @@ class Jobs:
         value = {'job_id': job.id, 'status': job.state}
         if job.dataset is not None:
             value['dataset'] = dict(job.dataset)
+        if job.price_context is not None:
+            value['price_context'] = dict(job.price_context)
         if job.state == 'succeeded':
             value['result'] = job.result
         elif job.state == 'failed':
@@ -206,7 +210,9 @@ class Jobs:
                 raise Busy()
             self._check_quota(owner)
             copied = json.loads(json.dumps(payload, ensure_ascii=False))
-            job = Job(id=str(uuid.uuid4()), owner_hash=owner, dataset=copied.get('dataset'))
+            context = copied.get('context')
+            price_context = {key: context[key] for key in ('analysis_id', 'revision')} if context else None
+            job = Job(id=str(uuid.uuid4()), owner_hash=owner, dataset=copied.get('dataset'), price_context=price_context)
             self.items[job.id] = job
             self.active = job.id
             accepted_at = self.clock()
@@ -230,10 +236,13 @@ class Jobs:
         try:
             with self.lock:
                 owner = self.items[job_id].owner_hash
-            result = self.backend.request('POST', '/web/answer' if payload.get('dataset') else '/answer',
-                                          {**payload, 'owner': owner} if payload.get('dataset') else payload)
+            path = '/price/answer' if payload.get('context') else '/web/answer' if payload.get('dataset') else '/answer'
+            result = self.backend.request('POST', path,
+                                          {**payload, 'owner': owner} if payload.get('dataset') or payload.get('context') else payload)
             if payload.get('dataset') and result.get('dataset') != payload['dataset']:
                 raise BackendUnavailable(502, '웹 데이터 답변의 버전 확인에 실패했습니다.')
+            if payload.get('context') and result.get('price_context') != {key: payload['context'][key] for key in ('analysis_id', 'revision')}:
+                raise BackendUnavailable(502, '가격 비교 답변의 분석 버전 확인에 실패했습니다.')
             state, message, status = 'succeeded', None, None
         except BackendUnavailable as error:
             result, state, message, status = None, 'failed', error.message, error.status_code
@@ -293,7 +302,8 @@ class BoundaryMiddleware:
             await self.app(scope, receive, send)
             return
         headers = scope.get('headers', [])
-        limit = MAX_DATASET_BYTES if scope.get('method') == 'POST' and scope.get('path') == '/datasets' else MAX_BODY_BYTES
+        limit = (MAX_DATASET_BYTES if scope.get('method') == 'POST' and scope.get('path') == '/datasets'
+                 else MAX_PRICE_BYTES if scope.get('method') == 'POST' and scope.get('path') == '/price-explanations' else MAX_BODY_BYTES)
         auth = [value for key, value in headers if key.lower() == b'authorization']
         if len(auth) != 1 or not hmac.compare_digest(auth[0], self.expected):
             await JSONResponse({'message': '인증이 필요합니다.'}, 401,
@@ -462,6 +472,25 @@ def create_app(token=None, backend=None, jobs=None):
         except QuotaExceeded as error:
             return JSONResponse({'message': error.message}, 429,
                                 headers={'Retry-After': str(error.retry_after)})
+        return JSONResponse(result, 202, headers={'Location': '/jobs/' + result['job_id']})
+
+    @app.post('/price-explanations', status_code=202)
+    async def submit_price(request: Request):
+        owner = checked_owner(request)
+        if request.headers.get('content-type', '').split(';', 1)[0].strip().lower() != 'application/json':
+            raise BackendUnavailable(415, 'JSON 형식으로 요청해 주세요.')
+        try:
+            from backend.price_evidence import validate_price_request
+            value = await request.json()
+            validate_price_request(value)
+        except (ValueError, TypeError, KeyError):
+            raise BackendUnavailable(422, '가격 비교 질문·조건·계산 결과를 확인해 주세요.') from None
+        try:
+            result = jobs.submit(value, owner)
+        except Busy:
+            return JSONResponse({'message': '다른 질문을 처리 중입니다. 잠시 후 다시 시도해 주세요.'}, 429, headers={'Retry-After': '5'})
+        except QuotaExceeded as error:
+            return JSONResponse({'message': error.message}, 429, headers={'Retry-After': str(error.retry_after)})
         return JSONResponse(result, 202, headers={'Location': '/jobs/' + result['job_id']})
 
     @app.get('/jobs/{job_id}')

@@ -64,7 +64,7 @@ export async function getRagConfig(signal?: AbortSignal, fetcher: Fetcher = fetc
   return { enabled: body.enabled, models: [...new Set(body.models)] };
 }
 
-function parseAnswer(raw: unknown, model: RagModel, dataset?: RagDataset): RagAnswer {
+export function parseAnswer(raw: unknown, model: RagModel, dataset?: RagDataset): RagAnswer {
   if (!record(raw) || typeof raw.status !== "string" || !Array.isArray(raw.sources) || raw.generation_model !== model || typeof raw.model_called !== "boolean") throw invalid();
   const statuses = ["answered", "clarification_required", "insufficient_evidence", "context_limit_exceeded", "invalid_generation"];
   if (!statuses.includes(raw.status)) throw invalid();

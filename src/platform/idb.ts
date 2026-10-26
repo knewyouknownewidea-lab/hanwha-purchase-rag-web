@@ -35,17 +35,20 @@ function openDb(): Promise<IDBDatabase | null> {
   return dbPromise;
 }
 
-function run<T>(mode: IDBTransactionMode, fn: (s: IDBObjectStore) => IDBRequest): Promise<T | null> {
+function run<T>(mode: IDBTransactionMode, fn: (s: IDBObjectStore) => IDBRequest): Promise<{ value: T } | null> {
   return openDb().then(
     (db) =>
-      new Promise<T | null>((resolve) => {
+      new Promise<{ value: T } | null>((resolve) => {
         if (!db) return resolve(null);
         try {
           const tx = db.transaction(STORE, mode);
           const req = fn(tx.objectStore(STORE));
-          req.onsuccess = () => resolve((req.result as T) ?? null);
+          let value: T;
+          req.onsuccess = () => { value = req.result as T; };
+          tx.oncomplete = () => resolve({ value });
           req.onerror = () => resolve(null);
           tx.onabort = () => resolve(null);
+          tx.onerror = () => resolve(null);
         } catch {
           resolve(null);
         }
@@ -53,6 +56,6 @@ function run<T>(mode: IDBTransactionMode, fn: (s: IDBObjectStore) => IDBRequest)
   );
 }
 
-export const idbGet = <T,>(key: string) => run<T>("readonly", (s) => s.get(key));
+export const idbGet = <T,>(key: string) => run<T>("readonly", (s) => s.get(key)).then(result => result?.value ?? null);
 export const idbSet = (key: string, value: unknown) => run<IDBValidKey>("readwrite", (s) => s.put(value, key)).then((r) => r !== null);
-export const idbDel = (key: string) => run<undefined>("readwrite", (s) => s.delete(key)).then(() => true);
+export const idbDel = (key: string) => run<undefined>("readwrite", (s) => s.delete(key)).then(result => result !== null);
